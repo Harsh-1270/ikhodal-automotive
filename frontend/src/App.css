@@ -1,0 +1,422 @@
+/* ============================================
+   APP.CSS - MAIN APPLICATION STYLES
+   ============================================ */
+
+/* App Container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding: var(--spacing-xl) 0;
+  min-height: calc(100vh - 200px);
+  /* Subtract navbar + footer height */
+}
+
+/* ============================================
+   PAGE WRAPPER
+   ============================================ */
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Page Title */
+.page-title {
+  font-size: var(--font-size-3xl);
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.page-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+/* ============================================
+   AUTHENTICATION PAGES LAYOUT
+   ============================================ */
+
+.auth-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.auth-card {
+  background-color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--gray-900);
+}
+
+.auth-card p {
+  text-align: center;
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ============================================
+   FORM GROUPS
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+}
+
+.form-error {
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+.form-success {
+  color: var(--success-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+/* ============================================
+   GRID LAYOUTS
+   ============================================ */
+
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ============================================
+   SERVICE CARDS GRID
+   ============================================ */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+/* ============================================
+   BOOKINGS LIST
+   ============================================ */
+
+.bookings-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+.bookings-empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--gray-500);
+}
+
+.bookings-empty h3 {
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   ADMIN DASHBOARD LAYOUT
+   ============================================ */
+
+.admin-container {
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.stat-card {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: var(--white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card h3 {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.9;
+}
+
+.stat-card p {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+
+.table-container {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.table-header h3 {
+  color: var(--gray-900);
+  font-size: var(--font-size-xl);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: var(--gray-100);
+}
+
+table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-800);
+}
+
+table tbody tr:hover {
+  background-color: var(--gray-50);
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   ALERT / NOTIFICATION
+   ============================================ */
+
+.alert {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  border-left: 4px solid;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  border-color: var(--success-color);
+  color: #065f46;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  border-color: var(--error-color);
+  color: #991b1b;
+}
+
+.alert-warning {
+  background-color: #fef3c7;
+  border-color: var(--warning-color);
+  color: #92400e;
+}
+
+.alert-info {
+  background-color: #cffafe;
+  border-color: var(--info-color);
+  color: #164e63;
+}
+
+/* ============================================
+   MODAL OVERLAY
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--shadow-xl);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* ============================================
+   BUTTON GROUPS
+   ============================================ */
+
+.button-group {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.button-group .btn {
+  flex: 1;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card {
+    padding: var(--spacing-lg);
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    padding: var(--spacing-md);
+  }
+
+  table {
+    font-size: var(--font-size-sm);
+  }
+
+  table th,
+  table td {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .stat-card p {
+    font-size: var(--font-size-2xl);
+  }
+}
