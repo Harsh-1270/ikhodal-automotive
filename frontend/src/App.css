@@ -1,6 +1,5 @@
 /* ============================================
-   APP.CSS - MAIN APPLICATION STYLES
-   Dark Blue & White Theme
+   APP.CSS - WHITE THEME
    ============================================ */
 
 /* App Container */
@@ -16,7 +15,7 @@
   flex: 1;
   padding: var(--spacing-xl) 0;
   min-height: calc(100vh - 200px);
-  /* Subtract navbar + footer height */
+  background-color: var(--white);
 }
 
 /* ============================================
@@ -27,6 +26,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
+  background-color: var(--white);
 }
 
 /* Page Title */
@@ -55,7 +55,7 @@
   justify-content: center;
   align-items: center;
   padding: var(--spacing-xl) var(--spacing-lg);
-  background-color: var(--gray-50);
+  background-color: var(--white);
 }
 
 .auth-card {
@@ -159,6 +159,7 @@
   max-width: 900px;
   margin: 0 auto;
   padding: var(--spacing-lg);
+  background-color: var(--white);
 }
 
 .bookings-empty {
@@ -181,7 +182,7 @@
 
 .admin-container {
   padding: var(--spacing-xl) var(--spacing-lg);
-  background-color: var(--gray-50);
+  background-color: var(--white);
   min-height: 100vh;
 }
 
