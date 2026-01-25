@@ -6,7 +6,8 @@ backend/**/.idea/
 frontend/node_modules/
 frontend/build/
 frontend/.env
-ikhodal-automotive\.pre-commit-config.yaml
+ikhodal-automotive/.pre-commit-config.yaml
 
 # OS
 .DS_Store
+.pre-commit-config.yaml

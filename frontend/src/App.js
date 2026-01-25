@@ -1,11 +1,12 @@
 /* ============================================
-   APP.JS - MAIN APPLICATION COMPONENT
-   Updated with new folder structure
+   APP.JS - CORRECTED ROUTING
+   Landing page is public, services after login
    ============================================ */
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import ForgotPassword from './pages/auth/ForgotPassword';
 import './App.css';
 
 // Import Pages - Auth
@@ -61,9 +62,9 @@ const AdminRoute = ({ children }) => {
 const PublicRoute = ({ children }) => {
   const { user, isAdmin } = React.useContext(AuthContext);
 
-  // If already logged in as user, redirect to home
+  // If already logged in as user, redirect to my-bookings
   if (user && !isAdmin) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/my-bookings" replace />;
   }
 
   // If already logged in as admin, redirect to admin dashboard
@@ -84,6 +85,9 @@ function App() {
         <div className="app">
           <main className="main-content">
             <Routes>
+              {/* ========== PUBLIC LANDING PAGE ========== */}
+              <Route path="/" element={<Home />} />
+
               {/* ========== AUTH ROUTES ========== */}
 
               {/* User Auth */}
@@ -105,6 +109,15 @@ function App() {
                 }
               />
 
+              <Route
+                path="/forgot-password"
+                element={
+                  <PublicRoute>
+                    <ForgotPassword />
+                  </PublicRoute>
+                }
+              />
+
               {/* Admin Auth */}
               <Route
                 path="/admin/login"
@@ -115,16 +128,7 @@ function App() {
                 }
               />
 
-              {/* ========== USER ROUTES ========== */}
-
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
+              {/* ========== USER ROUTES (PROTECTED) ========== */}
 
               <Route
                 path="/my-bookings"
@@ -165,7 +169,7 @@ function App() {
               />
 
               {/* ========== FALLBACK ROUTE ========== */}
-              <Route path="*" element={<Navigate to="/login" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
         </div>

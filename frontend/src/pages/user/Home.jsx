@@ -10,18 +10,7 @@ import './Home.css';
 
 const Home = () => {
     const navigate = useNavigate();
-    const { isAuthenticated } = useAuth();
     const [scrolled, setScrolled] = useState(false);
-
-    /* ==========================================
-       CHECK IF USER IS LOGGED IN
-       ========================================== */
-    useEffect(() => {
-        // If already logged in, redirect to dashboard/services
-        if (isAuthenticated()) {
-            navigate('/services');
-        }
-    }, [isAuthenticated, navigate]);
 
     /* ==========================================
        HANDLE SCROLL EFFECT FOR NAVBAR
