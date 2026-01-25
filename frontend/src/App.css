@@ -13,8 +13,6 @@
 /* Main Content Area */
 .main-content {
   flex: 1;
-  padding: var(--spacing-xl) 0;
-  min-height: calc(100vh - 200px);
   background-color: var(--white);
 }
 
