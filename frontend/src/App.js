@@ -18,6 +18,7 @@ import AdminLogin from './pages/auth/AdminLogin';
 import Home from './pages/user/Home';
 import MyBookings from './pages/user/MyBookings';
 import Payment from './pages/user/Payment';
+import Dashboard from './pages/user/Dashboard';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -30,7 +31,7 @@ const ProtectedRoute = ({ children }) => {
   const { user, isAdmin } = React.useContext(AuthContext);
 
   // If not logged in, redirect to login
-  if (!user) {
+  if (!user && !isDev) {
     return <Navigate to="/login" replace />;
   }
 
@@ -41,6 +42,8 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
+
+const isDev = process.env.NODE_ENV === "development";
 
 /* ==========================================
    ADMIN ROUTE - For admin only
@@ -135,6 +138,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <MyBookings />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
                   </ProtectedRoute>
                 }
               />
