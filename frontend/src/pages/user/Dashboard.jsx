@@ -4,6 +4,8 @@ import './Dashboard.css';
 const Dashboard = () => {
     const [activeFilter, setActiveFilter] = useState('all');
     const [visibleSections, setVisibleSections] = useState(new Set());
+    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+    const hasScrolledDown = useRef(false);
 
     // Refs for sections
     const sectionRefs = {
@@ -16,19 +18,41 @@ const Dashboard = () => {
     };
 
     /* ==========================================
+       DELAYED INITIAL LOAD
+       ========================================== */
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setInitialLoadComplete(true);
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    /* ==========================================
        INTERSECTION OBSERVER - SMOOTH SCROLL ANIMATIONS
        ========================================== */
     useEffect(() => {
+        if (!initialLoadComplete) return;
+
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+            rootMargin: '-50px 0px -100px 0px',
+            threshold: [0, 0.05, 0.1]
         };
 
         const observerCallback = (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setVisibleSections(prev => new Set([...prev, entry.target.dataset.section]));
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
+                    const sectionName = entry.target.dataset.section;
+
+                    // Only animate if scrolling down or first time
+                    if (!hasScrolledDown.current || entry.boundingClientRect.top > 0) {
+                        hasScrolledDown.current = true;
+
+                        setTimeout(() => {
+                            setVisibleSections(prev => new Set([...prev, sectionName]));
+                        }, 100);
+                    }
                 }
             });
         };
@@ -48,7 +72,7 @@ const Dashboard = () => {
                 }
             });
         };
-    }, []);
+    }, [initialLoadComplete]);
 
     // Mock user data
     const user = {
@@ -279,7 +303,7 @@ const Dashboard = () => {
                                     Book Service
                                 </button>
                                 <button className="quick-btn secondary">
-                                    <span className="btn-icon">📍</span>
+                                    <span className="btn-icon">🔍</span>
                                     Track Order
                                 </button>
                             </div>
@@ -373,7 +397,7 @@ const Dashboard = () => {
                             <div
                                 key={service.id}
                                 className="service-card-new"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                style={{ animationDelay: `${index * 0.12}s` }}
                             >
                                 <div className="service-header-badges">
                                     {service.popular && (

@@ -170,21 +170,6 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
-
-    /* Content appears smoothly as you scroll */
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* ============================================
@@ -198,21 +183,14 @@
     margin-bottom: 3rem;
     position: relative;
     overflow: hidden;
-
-    /* Smooth entrance */
-    animation: slideInDown 0.8s ease-out;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.welcome-banner.section-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .welcome-banner::before {
@@ -392,23 +370,39 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* ============================================
-   SECTION ANIMATIONS (STAGGERED)
-   ============================================ */
+/*
+============================================
+INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
+============================================ */
+.popular-services-section,
+.category-section,
+.services-section,
+.why-choose-section,
+.testimonials-section {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.popular-services-section.section-visible,
+.category-section.section-visible,
+.services-section.section-visible,
+.why-choose-section.section-visible,
+.testimonials-section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 .popular-services-section {
     margin-bottom: 3rem;
-    animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .category-section {
     margin-bottom: 3rem;
-    animation: fadeInUp 0.8s ease-out 0.3s both;
 }
 
 .services-section {
     margin-bottom: 4rem;
-    animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
 .why-choose-section {
@@ -416,18 +410,15 @@
     border-radius: 24px;
     padding: 3rem;
     margin-bottom: 3rem;
-    animation: fadeInUp 0.8s ease-out 0.5s both;
 }
 
 .testimonials-section {
     margin-bottom: 4rem;
-    animation: fadeInUp 0.8s ease-out 0.6s both;
 }
 
 /* ============================================
-   SECTION TITLES
-   ============================================ */
-
+SECTION TITLES
+============================================ */
 .section-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -444,9 +435,8 @@
 }
 
 /* ============================================
-   POPULAR SERVICES GRID
-   ============================================ */
-
+POPULAR SERVICES GRID
+============================================ */
 .popular-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -488,9 +478,8 @@
 }
 
 /* ============================================
-   CATEGORY PILLS
-   ============================================ */
-
+CATEGORY PILLS
+============================================ */
 .category-pills {
     display: flex;
     gap: 1rem;
@@ -539,9 +528,8 @@
 }
 
 /* ============================================
-   SERVICES GRID
-   ============================================ */
-
+SERVICES GRID
+============================================ */
 .section-header-row {
     display: flex;
     justify-content: space-between;
@@ -587,6 +575,24 @@
     border: 2px solid #f3f4f6;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+}
+
+.section-visible .service-card-new {
+    animation: serviceCardFadeIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes serviceCardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .service-card-new:hover {
@@ -717,9 +723,8 @@
 }
 
 /* ============================================
-   WHY CHOOSE - BENEFITS
-   ============================================ */
-
+WHY CHOOSE - BENEFITS
+============================================ */
 .benefits-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -749,9 +754,8 @@
 }
 
 /* ============================================
-   TESTIMONIALS
-   ============================================ */
-
+TESTIMONIALS
+============================================ */
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -815,9 +819,8 @@
 }
 
 /* ============================================
-   FOOTER
-   ============================================ */
-
+FOOTER
+============================================ */
 .dashboard-footer {
     background: #0f172a;
     color: #ffffff;
@@ -875,9 +878,8 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-
+RESPONSIVE DESIGN
+============================================ */
 @media (max-width: 1024px) {
     .banner-content {
         flex-direction: column;
@@ -948,53 +950,4 @@
     .services-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* ============================================
-   SCROLL ANIMATION CLASSES
-   ============================================ */
-
-.section-visible {
-  animation: sectionFadeIn 0.8s ease-out forwards !important;
-}
-
-@keyframes sectionFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Initially hide sections */
-.popular-services-section,
-.category-section,
-.services-section,
-.why-choose-section,
-.testimonials-section {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* Service cards stagger animation */
-.services-grid .service-card-new {
-  animation: none;
-}
-
-.section-visible .service-card-new {
-  animation: cardFadeIn 0.6s ease-out forwards;
-}
-
-@keyframes cardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
