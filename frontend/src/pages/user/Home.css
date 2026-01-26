@@ -438,7 +438,7 @@
    ============================================ */
 
 .about-section {
-    padding: 6rem 2rem;
+    padding: 2rem 2rem;
     background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
 }
 
@@ -528,7 +528,7 @@
 SERVICES SECTION
 ============================================ */
 .services-section {
-    padding: 6rem 2rem;
+    padding: 2rem 2rem;
     background: white;
 }
 
@@ -628,7 +628,7 @@ SERVICES SECTION
 HOW IT WORKS SECTION
 ============================================ */
 .how-it-works-section {
-    padding: 6rem 2rem;
+    padding: 0.5rem 2rem;
     background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
 }
 
@@ -747,7 +747,7 @@ HOW IT WORKS SECTION
 CONTACT SECTION
 ============================================ */
 .contact-section {
-    padding: 6rem 2rem;
+    padding: 2rem 2rem;
     background: white;
 }
 
@@ -1020,4 +1020,18 @@ RESPONSIVE DESIGN
     .section-title {
         font-size: 1.875rem;
     }
+}
+
+/* ============================================
+   SCROLL OFFSET FIX
+   ============================================ */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
+.about-section,
+.services-section,
+.how-it-works-section,
+.contact-section {
+    scroll-margin-top: 80px;
 }

@@ -378,7 +378,7 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
 .category-section,
 .services-section,
 .why-choose-section,
-.testimonials-section {
+.stats-section {
     opacity: 0;
     transform: translateY(80px);
     transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -388,7 +388,7 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
 .category-section.section-visible,
 .services-section.section-visible,
 .why-choose-section.section-visible,
-.testimonials-section.section-visible {
+.stats-section.section-visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -412,7 +412,7 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
     margin-bottom: 3rem;
 }
 
-.testimonials-section {
+.stats-section {
     margin-bottom: 4rem;
 }
 
@@ -461,6 +461,7 @@ POPULAR SERVICES GRID
 
 .popular-icon {
     font-size: 3rem;
+    ;
     margin-bottom: 1rem;
 }
 
@@ -754,127 +755,47 @@ WHY CHOOSE - BENEFITS
 }
 
 /* ============================================
-TESTIMONIALS
+STATISTICS SECTION
 ============================================ */
-.testimonials-grid {
+.stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
-.testimonial-card {
+.stat-card {
     background: #ffffff;
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     border-radius: 20px;
-    border: 2px solid #f3f4f6;
-    transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 12px 35px rgba(59, 130, 246, 0.12);
-    transform: translateY(-5px);
-}
-
-.testimonial-stars {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-}
-
-.testimonial-text {
-    font-size: 1rem;
-    color: #4b5563;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.author-avatar {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1.125rem;
-}
-
-.author-name {
-    font-weight: 700;
-    color: #0f172a;
-    font-size: 0.9375rem;
-}
-
-.author-title {
-    font-size: 0.8125rem;
-    color: #64748b;
-}
-
-/* ============================================
-FOOTER
-============================================ */
-.dashboard-footer {
-    background: #0f172a;
-    color: #ffffff;
-    padding: 3rem 2rem 1.5rem;
-    border-radius: 24px 24px 0 0;
-    margin-top: 4rem;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-}
-
-.footer-brand .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-.footer-tagline {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.footer-links {
-    display: flex;
-    gap: 4rem;
-}
-
-.footer-col h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.footer-col a {
-    display: block;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.2s ease;
-}
-
-.footer-col a:hover {
-    color: #ffffff;
-}
-
-.footer-bottom {
     text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.875rem;
+    border: 2px solid #f3f4f6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
+}
+
+.stat-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
 }
 
 /* ============================================
@@ -898,8 +819,8 @@ RESPONSIVE DESIGN
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .testimonials-grid {
-        grid-template-columns: 1fr;
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -928,6 +849,10 @@ RESPONSIVE DESIGN
         grid-template-columns: 1fr;
     }
 
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
     .quick-actions {
         flex-direction: column;
     }
@@ -937,17 +862,8 @@ RESPONSIVE DESIGN
         justify-content: center;
     }
 
-    .footer-content {
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
     .services-grid {
         grid-template-columns: 1fr;
     }
+
 }

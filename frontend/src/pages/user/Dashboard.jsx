@@ -14,7 +14,7 @@ const Dashboard = () => {
         category: useRef(null),
         services: useRef(null),
         whyChoose: useRef(null),
-        testimonials: useRef(null)
+        stats: useRef(null)
     };
 
     /* ==========================================
@@ -45,7 +45,6 @@ const Dashboard = () => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
                     const sectionName = entry.target.dataset.section;
 
-                    // Only animate if scrolling down or first time
                     if (!hasScrolledDown.current || entry.boundingClientRect.top > 0) {
                         hasScrolledDown.current = true;
 
@@ -303,7 +302,7 @@ const Dashboard = () => {
                                     Book Service
                                 </button>
                                 <button className="quick-btn secondary">
-                                    <span className="btn-icon">🔍</span>
+                                    <span className="btn-icon">📍</span>
                                     Track Order
                                 </button>
                             </div>
@@ -473,94 +472,36 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Testimonials */}
+                {/* Statistics Section */}
                 <div
-                    ref={sectionRefs.testimonials}
-                    data-section="testimonials"
-                    className={`testimonials-section ${visibleSections.has('testimonials') ? 'section-visible' : ''}`}
+                    ref={sectionRefs.stats}
+                    data-section="stats"
+                    className={`stats-section ${visibleSections.has('stats') ? 'section-visible' : ''}`}
                 >
-                    <h2 className="section-title-center">What Our Customers Say</h2>
-                    <div className="testimonials-grid">
-                        <div className="testimonial-card">
-                            <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                            <p className="testimonial-text">
-                                "Excellent service! My car feels brand new after the full service. Highly recommended!"
-                            </p>
-                            <div className="testimonial-author">
-                                <div className="author-avatar">RS</div>
-                                <div>
-                                    <div className="author-name">Rajesh Sharma</div>
-                                    <div className="author-title">BMW Owner</div>
-                                </div>
-                            </div>
+                    <h2 className="section-title-center">Our Track Record</h2>
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-icon">🏆</div>
+                            <div className="stat-value">15K+</div>
+                            <div className="stat-label">Happy Customers</div>
                         </div>
-                        <div className="testimonial-card">
-                            <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                            <p className="testimonial-text">
-                                "Professional team, great pricing, and super quick service. Will definitely come back!"
-                            </p>
-                            <div className="testimonial-author">
-                                <div className="author-avatar">PK</div>
-                                <div>
-                                    <div className="author-name">Priya Kumar</div>
-                                    <div className="author-title">Honda City Owner</div>
-                                </div>
-                            </div>
+                        <div className="stat-card">
+                            <div className="stat-icon">🔧</div>
+                            <div className="stat-value">25K+</div>
+                            <div className="stat-label">Services Completed</div>
                         </div>
-                        <div className="testimonial-card">
-                            <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                            <p className="testimonial-text">
-                                "Best car service experience ever. Transparent pricing and excellent customer support!"
-                            </p>
-                            <div className="testimonial-author">
-                                <div className="author-avatar">AM</div>
-                                <div>
-                                    <div className="author-name">Amit Mehta</div>
-                                    <div className="author-title">Maruti Owner</div>
-                                </div>
-                            </div>
+                        <div className="stat-card">
+                            <div className="stat-icon">⭐</div>
+                            <div className="stat-value">4.9/5</div>
+                            <div className="stat-label">Average Rating</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-icon">📍</div>
+                            <div className="stat-value">50+</div>
+                            <div className="stat-label">Service Centers</div>
                         </div>
                     </div>
                 </div>
-
-                {/* Footer */}
-                <footer className="dashboard-footer">
-                    <div className="footer-content">
-                        <div className="footer-brand">
-                            <div className="footer-logo">
-                                <span className="logo-icon">🚗</span>
-                                <span className="logo-text">AutoCare</span>
-                            </div>
-                            <p className="footer-tagline">Your trusted car service partner</p>
-                        </div>
-                        <div className="footer-links">
-                            <div className="footer-col">
-                                <h4>Services</h4>
-                                <a href="#">General Service</a>
-                                <a href="#">AC Repair</a>
-                                <a href="#">Car Wash</a>
-                                <a href="#">Detailing</a>
-                            </div>
-                            <div className="footer-col">
-                                <h4>Company</h4>
-                                <a href="#">About Us</a>
-                                <a href="#">Contact</a>
-                                <a href="#">Careers</a>
-                                <a href="#">Blog</a>
-                            </div>
-                            <div className="footer-col">
-                                <h4>Support</h4>
-                                <a href="#">Help Center</a>
-                                <a href="#">Terms</a>
-                                <a href="#">Privacy</a>
-                                <a href="#">FAQ</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="footer-bottom">
-                        <p>© 2024 AutoCare. All rights reserved.</p>
-                    </div>
-                </footer>
             </div>
         </div>
     );
