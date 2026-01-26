@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MyBookings.css';
 
 const MyBookings = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('all');
     const [visibleBookings, setVisibleBookings] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
@@ -351,7 +353,10 @@ const MyBookings = () => {
                                         <span className="address-text">{booking.address}</span>
                                     </div>
                                     <div className="booking-actions">
-                                        <button className="action-btn secondary">
+                                        <button
+                                            className="action-btn secondary"
+                                            onClick={() => navigate(`/booking-details/${booking.id}`)}
+                                        >
                                             <span>📄</span>
                                             View Details
                                         </button>

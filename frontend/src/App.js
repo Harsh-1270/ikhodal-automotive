@@ -7,6 +7,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import ForgotPassword from './pages/auth/ForgotPassword';
+import BookingDetails from './pages/user/BookingDetails';
 import './App.css';
 
 // Import Pages - Auth
@@ -138,6 +139,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <MyBookings />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/booking-details/:bookingId"
+                element={
+                  <ProtectedRoute>
+                    <BookingDetails />
                   </ProtectedRoute>
                 }
               />
