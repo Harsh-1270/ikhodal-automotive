@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState('all');
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const hasScrolledDown = useRef(false);
+
+
 
     // Refs for sections
     const sectionRefs = {
@@ -243,7 +247,7 @@ const Dashboard = () => {
                     <div className="navbar-left">
                         <div className="logo">
                             <span className="logo-icon">🚗</span>
-                            <span className="logo-text">AutoCare</span>
+                            <span className="logo-text">I Khodal Automotive</span>
                         </div>
                     </div>
 
@@ -254,13 +258,13 @@ const Dashboard = () => {
                             <span className="nav-label">My Cart</span>
                         </button>
 
-                        <button className="nav-icon-btn">
+                        <button className="nav-icon-btn" onClick={() => navigate('/my-bookings')}>
                             <span className="icon">📅</span>
                             <span className="badge">5</span>
                             <span className="nav-label">My Bookings</span>
                         </button>
 
-                        <button className="nav-icon-btn">
+                        <button className="nav-icon-btn" onClick={() => navigate('/payments')}>
                             <span className="icon">💳</span>
                             <span className="nav-label">Payments</span>
                         </button>
