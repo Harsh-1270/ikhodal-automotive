@@ -1,9 +1,4 @@
-/* ============================================
-   HOME PAGE - LANDING PAGE (BEFORE LOGIN)
-   Professional, scrollable, eye-catching design
-   ============================================ */
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Home.css';
@@ -11,6 +6,29 @@ import './Home.css';
 const Home = () => {
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
+    const [visibleSections, setVisibleSections] = useState(new Set());
+    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+    const hasScrolledDown = useRef(false);
+
+    // Refs for sections
+    const sectionRefs = {
+        hero: useRef(null),
+        about: useRef(null),
+        services: useRef(null),
+        howItWorks: useRef(null),
+        contact: useRef(null)
+    };
+
+    /* ==========================================
+       DELAYED INITIAL LOAD
+       ========================================== */
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setInitialLoadComplete(true);
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     /* ==========================================
        HANDLE SCROLL EFFECT FOR NAVBAR
@@ -23,6 +41,51 @@ const Home = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    /* ==========================================
+       INTERSECTION OBSERVER - SMOOTH SCROLL ANIMATIONS
+       ========================================== */
+    useEffect(() => {
+        if (!initialLoadComplete) return;
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px 0px -100px 0px',
+            threshold: [0, 0.05, 0.1]
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
+                    const sectionName = entry.target.dataset.section;
+
+                    if (!hasScrolledDown.current || entry.boundingClientRect.top > 0) {
+                        hasScrolledDown.current = true;
+
+                        setTimeout(() => {
+                            setVisibleSections(prev => new Set([...prev, sectionName]));
+                        }, 100);
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        Object.values(sectionRefs).forEach(ref => {
+            if (ref.current) {
+                observer.observe(ref.current);
+            }
+        });
+
+        return () => {
+            Object.values(sectionRefs).forEach(ref => {
+                if (ref.current) {
+                    observer.unobserve(ref.current);
+                }
+            });
+        };
+    }, [initialLoadComplete]);
 
     /* ==========================================
        NAVIGATION HANDLERS
@@ -72,7 +135,11 @@ const Home = () => {
             </nav>
 
             {/* ========== HERO SECTION ========== */}
-            <section className="hero-section">
+            <section
+                ref={sectionRefs.hero}
+                data-section="hero"
+                className={`hero-section ${visibleSections.has('hero') ? 'section-visible' : ''}`}
+            >
                 <div className="hero-background">
                     <div className="gradient-orb orb-1"></div>
                     <div className="gradient-orb orb-2"></div>
@@ -128,7 +195,12 @@ const Home = () => {
             </section>
 
             {/* ========== ABOUT SECTION ========== */}
-            <section id="about" className="about-section">
+            <section
+                id="about"
+                ref={sectionRefs.about}
+                data-section="about"
+                className={`about-section ${visibleSections.has('about') ? 'section-visible' : ''}`}
+            >
                 <div className="section-container">
                     <div className="section-header">
                         <span className="section-badge">Why Choose Us</span>
@@ -167,7 +239,12 @@ const Home = () => {
             </section>
 
             {/* ========== SERVICES SECTION ========== */}
-            <section id="services" className="services-section">
+            <section
+                id="services"
+                ref={sectionRefs.services}
+                data-section="services"
+                className={`services-section ${visibleSections.has('services') ? 'section-visible' : ''}`}
+            >
                 <div className="section-container">
                     <div className="section-header">
                         <span className="section-badge">Our Services</span>
@@ -175,54 +252,39 @@ const Home = () => {
                     </div>
 
                     <div className="services-grid">
-                        <div className="service-card">
-                            <div className="service-icon">🛠️</div>
-                            <h3>Regular Maintenance</h3>
-                            <p>Oil changes, filter replacements, and routine checkups</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
-
-                        <div className="service-card featured">
-                            <div className="featured-badge">Popular</div>
-                            <div className="service-icon">🔍</div>
-                            <h3>Complete Inspection</h3>
-                            <p>Thorough diagnostic and inspection services</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
-
-                        <div className="service-card">
-                            <div className="service-icon">⚙️</div>
-                            <h3>Engine Repair</h3>
-                            <p>Expert engine diagnostics and repair services</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
-
-                        <div className="service-card">
-                            <div className="service-icon">🎨</div>
-                            <h3>Body Work</h3>
-                            <p>Professional painting and body repair services</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
-
-                        <div className="service-card">
-                            <div className="service-icon">🚘</div>
-                            <h3>AC Service</h3>
-                            <p>Air conditioning repair and maintenance</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
-
-                        <div className="service-card">
-                            <div className="service-icon">🔋</div>
-                            <h3>Battery Service</h3>
-                            <p>Battery testing, replacement, and maintenance</p>
-                            <button className="service-link">Learn More →</button>
-                        </div>
+                        {[
+                            { icon: '🛠️', title: 'Regular Maintenance', desc: 'Oil changes, filter replacements, and routine checkups', featured: false },
+                            { icon: '🔍', title: 'Complete Inspection', desc: 'Thorough diagnostic and inspection services', featured: true },
+                            { icon: '⚙️', title: 'Engine Repair', desc: 'Expert engine diagnostics and repair services', featured: false },
+                            { icon: '🎨', title: 'Body Work', desc: 'Professional painting and body repair services', featured: false },
+                            { icon: '🚘', title: 'AC Service', desc: 'Air conditioning repair and maintenance', featured: false },
+                            { icon: '🔋', title: 'Battery Service', desc: 'Battery testing, replacement, and maintenance', featured: false }
+                        ].map((service, index) => (
+                            <div
+                                key={index}
+                                className={`service-card ${service.featured ? 'featured' : ''}`}
+                                style={{
+                                    animationDelay: visibleSections.has('services') ? `${index * 0.15}s` : '0s'
+                                }}
+                            >
+                                {service.featured && <div className="featured-badge">Popular</div>}
+                                <div className="service-icon">{service.icon}</div>
+                                <h3>{service.title}</h3>
+                                <p>{service.desc}</p>
+                                <button className="service-link">Learn More →</button>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* ========== HOW IT WORKS SECTION ========== */}
-            <section id="how-it-works" className="how-it-works-section">
+            <section
+                id="how-it-works"
+                ref={sectionRefs.howItWorks}
+                data-section="howItWorks"
+                className={`how-it-works-section ${visibleSections.has('howItWorks') ? 'section-visible' : ''}`}
+            >
                 <div className="section-container">
                     <div className="section-header">
                         <span className="section-badge">Simple Process</span>
@@ -269,7 +331,12 @@ const Home = () => {
             </section>
 
             {/* ========== CONTACT SECTION ========== */}
-            <section id="contact" className="contact-section">
+            <section
+                id="contact"
+                ref={sectionRefs.contact}
+                data-section="contact"
+                className={`contact-section ${visibleSections.has('contact') ? 'section-visible' : ''}`}
+            >
                 <div className="section-container">
                     <div className="section-header">
                         <span className="section-badge">Get In Touch</span>

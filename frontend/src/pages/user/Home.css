@@ -171,6 +171,14 @@
     justify-content: center;
     padding: 6rem 2rem 4rem;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-background {
@@ -238,19 +246,6 @@
     z-index: 1;
     text-align: center;
     max-width: 900px;
-    animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .hero-badge {
@@ -265,7 +260,6 @@
     font-weight: 600;
     margin-bottom: 2rem;
     border: 1px solid rgba(30, 58, 138, 0.2);
-    animation: fadeInUp 1s ease-out 0.2s both;
 }
 
 .badge-icon {
@@ -298,11 +292,6 @@
 
 .title-line {
     display: block;
-    animation: fadeInUp 1s ease-out 0.4s both;
-}
-
-.title-line:last-child {
-    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 .gradient-text {
@@ -317,7 +306,6 @@
     color: #475569;
     line-height: 1.8;
     margin-bottom: 3rem;
-    animation: fadeInUp 1s ease-out 0.8s both;
 }
 
 .hero-buttons {
@@ -325,7 +313,6 @@
     gap: 1.5rem;
     justify-content: center;
     margin-bottom: 4rem;
-    animation: fadeInUp 1s ease-out 1s both;
 }
 
 .btn-primary-large {
@@ -380,7 +367,6 @@
     display: flex;
     gap: 3rem;
     justify-content: center;
-    animation: fadeInUp 1s ease-out 1.2s both;
 }
 
 .feature-item {
@@ -407,7 +393,6 @@
     gap: 0.5rem;
     color: #94a3b8;
     font-size: 0.875rem;
-    animation: fadeInUp 1s ease-out 1.4s both;
 }
 
 .scroll-arrow {
@@ -425,6 +410,27 @@
     50% {
         transform: translateY(10px);
     }
+}
+
+/* ============================================
+   INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
+   ============================================ */
+
+.about-section,
+.services-section,
+.how-it-works-section,
+.contact-section {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-section.section-visible,
+.services-section.section-visible,
+.how-it-works-section.section-visible,
+.contact-section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ============================================
@@ -519,9 +525,8 @@
 }
 
 /* ============================================
-   SERVICES SECTION
-   ============================================ */
-
+SERVICES SECTION
+============================================ */
 .services-section {
     padding: 6rem 2rem;
     background: white;
@@ -538,8 +543,26 @@
     padding: 2rem;
     border-radius: 16px;
     border: 2px solid #e5e7eb;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    opacity: 0;
+    transform: translateY(50px) scale(0.92);
+}
+
+.section-visible .service-card {
+    animation: serviceCardFadeIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes serviceCardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .service-card:hover {
@@ -602,9 +625,8 @@
 }
 
 /* ============================================
-   HOW IT WORKS SECTION
-   ============================================ */
-
+HOW IT WORKS SECTION
+============================================ */
 .how-it-works-section {
     padding: 6rem 2rem;
     background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
@@ -722,9 +744,8 @@
 }
 
 /* ============================================
-   CONTACT SECTION
-   ============================================ */
-
+CONTACT SECTION
+============================================ */
 .contact-section {
     padding: 6rem 2rem;
     background: white;
@@ -837,9 +858,8 @@
 }
 
 /* ============================================
-   FOOTER
-   ============================================ */
-
+FOOTER
+============================================ */
 .landing-footer {
     background: #0f172a;
     color: white;
@@ -916,9 +936,8 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-
+RESPONSIVE DESIGN
+============================================ */
 @media (max-width: 1024px) {
     .hero-title {
         font-size: 4rem;
