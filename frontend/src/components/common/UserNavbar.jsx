@@ -8,8 +8,8 @@ const UserNavbar = () => {
 
     // Mock user data (in real app, get from AuthContext)
     const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Alis Desai',
+        email: 'alis.desai@example.com',
         avatar: '👤'
     };
 
@@ -22,11 +22,19 @@ const UserNavbar = () => {
                 <div className="navbar-left">
                     <div className="logo" onClick={() => navigate('/dashboard')}>
                         <span className="logo-icon">🚗</span>
-                        <span className="logo-text">AutoCare</span>
+                        <span className="logo-text">I Khodal Automotive</span>
                     </div>
                 </div>
 
                 <div className="navbar-right">
+                    <button
+                        className={`nav-icon-btn ${isActive('/dashboard') ? 'active' : ''}`}
+                        onClick={() => !isActive('/dashboard') && navigate('/dashboard')}
+                    >
+                        <span className="icon">🏠</span>
+                        <span className="nav-label">Home</span>
+                    </button>
+
                     <button className="nav-icon-btn">
                         <span className="icon">🛒</span>
                         <span className="badge">3</span>
@@ -56,7 +64,6 @@ const UserNavbar = () => {
                             <div className="user-name">{user.name}</div>
                             <div className="user-email">{user.email}</div>
                         </div>
-                        <span className="dropdown-arrow">▼</span>
                     </div>
                 </div>
             </div>

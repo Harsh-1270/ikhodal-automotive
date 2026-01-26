@@ -26,11 +26,7 @@ const Dashboard = () => {
        DELAYED INITIAL LOAD
        ========================================== */
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setInitialLoadComplete(true);
-        }, 100);
-
-        return () => clearTimeout(timer);
+        setInitialLoadComplete(true);
     }, []);
 
     /* ==========================================
@@ -80,8 +76,8 @@ const Dashboard = () => {
 
     // Mock user data
     const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Alis Desai',
+        email: 'alis.desai@example.com',
         avatar: '👤'
     };
 
@@ -415,7 +411,7 @@ const Dashboard = () => {
                     data-section="whyChoose"
                     className={`why-choose-section ${visibleSections.has('whyChoose') ? 'section-visible' : ''}`}
                 >
-                    <h2 className="section-title-center">Why Choose AutoCare?</h2>
+                    <h2 className="section-title-center">Why Choose I Khodal Automotive?</h2>
                     <div className="benefits-grid">
                         <div className="benefit-item">
                             <div className="benefit-icon">🎯</div>

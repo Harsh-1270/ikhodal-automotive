@@ -10,8 +10,8 @@ const BookingDetails = () => {
 
     // Mock user data
     const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Alis Desai',
+        email: 'alis.desai@example.com',
         avatar: '👤'
     };
 
@@ -36,11 +36,11 @@ const BookingDetails = () => {
             address: '123 Main Street, Surat',
             landmark: 'Near City Mall',
             pincode: '395007',
-            customerName: 'John Doe',
-            customerEmail: 'john.doe@example.com',
+            customerName: 'Alis Desai',
+            customerEmail: 'alis.desai@example.com',
             customerPhone: '+91 98765 43210',
             specialInstructions: 'Please check the AC cooling and brake pads thoroughly.',
-            serviceCenter: 'AutoCare Service Center - Surat Branch',
+            serviceCenter: 'I Khodal Automotive Service Center - Surat Branch',
             serviceCenterAddress: '456 Ring Road, Surat - 395001',
             serviceCenterPhone: '+91 98765 00000',
             technician: 'Ramesh Kumar',
@@ -81,11 +81,11 @@ const BookingDetails = () => {
             address: '123 Main Street, Surat',
             landmark: 'Near City Mall',
             pincode: '395007',
-            customerName: 'John Doe',
-            customerEmail: 'john.doe@example.com',
+            customerName: 'Alis Desai',
+            customerEmail: 'alis.desai@example.com',
             customerPhone: '+91 98765 43210',
             specialInstructions: 'AC is not cooling properly. Need gas refill.',
-            serviceCenter: 'AutoCare Service Center - Surat Branch',
+            serviceCenter: 'I Khodal Automotive Service Center - Surat Branch',
             serviceCenterAddress: '456 Ring Road, Surat - 395001',
             serviceCenterPhone: '+91 98765 00000',
             technician: 'To be assigned',

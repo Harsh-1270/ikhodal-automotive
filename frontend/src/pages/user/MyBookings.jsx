@@ -12,8 +12,8 @@ const MyBookings = () => {
 
     // Mock user data
     const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Alis Desai',
+        email: 'alis.desai@example.com',
         avatar: '👤'
     };
 
