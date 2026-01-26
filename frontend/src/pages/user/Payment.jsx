@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserNavbar from '../../components/common/UserNavbar';
 import './Payment.css';
 
 const Payments = () => {
@@ -201,44 +202,7 @@ const Payments = () => {
     return (
         <div className="payments-container">
             {/* Top Navigation Bar */}
-            <nav className="dashboard-navbar">
-                <div className="navbar-content">
-                    <div className="navbar-left">
-                        <div className="logo">
-                            <span className="logo-icon">🚗</span>
-                            <span className="logo-text">AutoCare</span>
-                        </div>
-                    </div>
-
-                    <div className="navbar-right">
-                        <button className="nav-icon-btn">
-                            <span className="icon">🛒</span>
-                            <span className="badge">3</span>
-                            <span className="nav-label">My Cart</span>
-                        </button>
-
-                        <button className="nav-icon-btn" onClick={() => navigate('/my-bookings')}>
-                            <span className="icon">📅</span>
-                            <span className="badge">5</span>
-                            <span className="nav-label">My Bookings</span>
-                        </button>
-
-                        <button className="nav-icon-btn">
-                            <span className="icon">💳</span>
-                            <span className="nav-label">Payments</span>
-                        </button>
-
-                        <div className="user-profile">
-                            <div className="user-avatar">{user.avatar}</div>
-                            <div className="user-info">
-                                <div className="user-name">{user.name}</div>
-                                <div className="user-email">{user.email}</div>
-                            </div>
-                            <span className="dropdown-arrow">▼</span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <UserNavbar />
 
             {/* Main Content */}
             <div className="payments-main">
