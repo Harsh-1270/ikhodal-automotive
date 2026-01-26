@@ -381,7 +381,7 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
 .testimonials-section {
     opacity: 0;
     transform: translateY(80px);
-    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .popular-services-section.section-visible,

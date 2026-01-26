@@ -397,7 +397,9 @@ const Dashboard = () => {
                             <div
                                 key={service.id}
                                 className="service-card-new"
-                                style={{ animationDelay: `${index * 0.12}s` }}
+                                style={{
+                                    animationDelay: visibleSections.has('services') ? `${index * 0.15}s` : '0s'
+                                }}
                             >
                                 <div className="service-header-badges">
                                     {service.popular && (
