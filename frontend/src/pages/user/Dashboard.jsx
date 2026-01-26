@@ -1,8 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Dashboard.css';
 
 const Dashboard = () => {
     const [activeFilter, setActiveFilter] = useState('all');
+    const [visibleSections, setVisibleSections] = useState(new Set());
+
+    // Refs for sections
+    const sectionRefs = {
+        welcome: useRef(null),
+        popular: useRef(null),
+        category: useRef(null),
+        services: useRef(null),
+        whyChoose: useRef(null),
+        testimonials: useRef(null)
+    };
+
+    /* ==========================================
+       INTERSECTION OBSERVER - SMOOTH SCROLL ANIMATIONS
+       ========================================== */
+    useEffect(() => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setVisibleSections(prev => new Set([...prev, entry.target.dataset.section]));
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        Object.values(sectionRefs).forEach(ref => {
+            if (ref.current) {
+                observer.observe(ref.current);
+            }
+        });
+
+        return () => {
+            Object.values(sectionRefs).forEach(ref => {
+                if (ref.current) {
+                    observer.unobserve(ref.current);
+                }
+            });
+        };
+    }, []);
 
     // Mock user data
     const user = {
@@ -211,7 +257,11 @@ const Dashboard = () => {
             {/* Main Scrollable Content */}
             <div className="dashboard-main">
                 {/* Welcome Banner */}
-                <div className="welcome-banner">
+                <div
+                    ref={sectionRefs.welcome}
+                    data-section="welcome"
+                    className={`welcome-banner ${visibleSections.has('welcome') ? 'section-visible' : ''}`}
+                >
                     <div className="banner-content">
                         <div className="banner-left">
                             <div className="greeting">
@@ -229,7 +279,7 @@ const Dashboard = () => {
                                     Book Service
                                 </button>
                                 <button className="quick-btn secondary">
-                                    <span className="btn-icon">🔍</span>
+                                    <span className="btn-icon">📍</span>
                                     Track Order
                                 </button>
                             </div>
@@ -261,7 +311,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Popular Services Quick Access */}
-                <div className="popular-services-section">
+                <div
+                    ref={sectionRefs.popular}
+                    data-section="popular"
+                    className={`popular-services-section ${visibleSections.has('popular') ? 'section-visible' : ''}`}
+                >
                     <h2 className="section-title">⚡ Most Popular Services</h2>
                     <div className="popular-grid">
                         {services.filter(s => s.popular).slice(0, 4).map(service => (
@@ -275,7 +329,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Category Filter Pills */}
-                <div className="category-section">
+                <div
+                    ref={sectionRefs.category}
+                    data-section="category"
+                    className={`category-section ${visibleSections.has('category') ? 'section-visible' : ''}`}
+                >
                     <h2 className="section-title">Browse by Category</h2>
                     <div className="category-pills">
                         {categories.map(category => (
@@ -293,7 +351,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Services Grid */}
-                <div className="services-section">
+                <div
+                    ref={sectionRefs.services}
+                    data-section="services"
+                    className={`services-section ${visibleSections.has('services') ? 'section-visible' : ''}`}
+                >
                     <div className="section-header-row">
                         <h2 className="section-title">All Services</h2>
                         <div className="view-toggle">
@@ -307,8 +369,12 @@ const Dashboard = () => {
                     </div>
 
                     <div className="services-grid">
-                        {filteredServices.map(service => (
-                            <div key={service.id} className="service-card-new">
+                        {filteredServices.map((service, index) => (
+                            <div
+                                key={service.id}
+                                className="service-card-new"
+                                style={{ animationDelay: `${index * 0.1}s` }}
+                            >
                                 <div className="service-header-badges">
                                     {service.popular && (
                                         <span className="badge-popular">🔥 Popular</span>
@@ -351,7 +417,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Why Choose Section */}
-                <div className="why-choose-section">
+                <div
+                    ref={sectionRefs.whyChoose}
+                    data-section="whyChoose"
+                    className={`why-choose-section ${visibleSections.has('whyChoose') ? 'section-visible' : ''}`}
+                >
                     <h2 className="section-title-center">Why Choose AutoCare?</h2>
                     <div className="benefits-grid">
                         <div className="benefit-item">
@@ -378,7 +448,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Testimonials */}
-                <div className="testimonials-section">
+                <div
+                    ref={sectionRefs.testimonials}
+                    data-section="testimonials"
+                    className={`testimonials-section ${visibleSections.has('testimonials') ? 'section-visible' : ''}`}
+                >
                     <h2 className="section-title-center">What Our Customers Say</h2>
                     <div className="testimonials-grid">
                         <div className="testimonial-card">
