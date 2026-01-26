@@ -345,7 +345,7 @@ const Dashboard = () => {
                             <div key={service.id} className="popular-card">
                                 <div className="popular-icon">{service.icon}</div>
                                 <div className="popular-name">{service.name}</div>
-                                <div className="popular-price">₹{service.price.toLocaleString()}</div>
+                                <div className="popular-price">${service.price.toLocaleString()}</div>
                             </div>
                         ))}
                     </div>
@@ -423,7 +423,7 @@ const Dashboard = () => {
                                     <div className="info-item">
                                         <span className="info-icon">💰</span>
                                         <span className="info-text">
-                                            {service.price === 0 ? 'Free' : `₹${service.price.toLocaleString()}`}
+                                            {service.price === 0 ? 'Free' : `$${service.price.toLocaleString()}`}
                                         </span>
                                     </div>
                                     <div className="info-item">
