@@ -9,8 +9,42 @@ const Dashboard = () => {
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const hasScrolledDown = useRef(false);
+    const [cart, setCart] = useState([]);
+    const [showCartNotification, setShowCartNotification] = useState(false);
 
+    // Cart functions
+    const addToCart = (service) => {
+        const existingItem = cart.find(item => item.id === service.id);
+        if (existingItem) {
+            setCart(cart.map(item =>
+                item.id === service.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            ));
+        } else {
+            setCart([...cart, { ...service, quantity: 1 }]);
+        }
 
+        // Show notification
+        setShowCartNotification(true);
+        setTimeout(() => setShowCartNotification(false), 3000);
+    };
+
+    const removeFromCart = (serviceId) => {
+        setCart(cart.filter(item => item.id !== serviceId));
+    };
+
+    const isInCart = (serviceId) => {
+        return cart.some(item => item.id === serviceId);
+    };
+
+    const getTotalItems = () => {
+        return cart.reduce((sum, item) => sum + item.quantity, 0);
+    };
+
+    const getTotalPrice = () => {
+        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    };
 
     // Refs for sections
     const sectionRefs = {
@@ -239,7 +273,15 @@ const Dashboard = () => {
     return (
         <div className="dashboard-container">
             {/* Top Navigation Bar */}
-            <UserNavbar />
+            <UserNavbar cartCount={getTotalItems()} />
+
+            {/* Cart Notification */}
+            {showCartNotification && (
+                <div className="cart-notification">
+                    <span className="notification-icon">✓</span>
+                    <span className="notification-text">Item added to cart!</span>
+                </div>
+            )}
 
             {/* Main Scrollable Content */}
             <div className="dashboard-main">
@@ -267,7 +309,7 @@ const Dashboard = () => {
                                 </button>
                                 <button className="quick-btn secondary">
                                     <span className="btn-icon">📍</span>
-                                    Track Order
+                                    Track Bookings
                                 </button>
                             </div>
                         </div>
@@ -396,10 +438,19 @@ const Dashboard = () => {
                                     </div>
                                 </div>
 
-                                <button className="service-book-btn">
-                                    Book Now
-                                    <span className="btn-arrow">→</span>
-                                </button>
+                                <div className="service-actions">
+                                    <button
+                                        className={`add-cart-btn ${isInCart(service.id) ? 'in-cart' : ''}`}
+                                        onClick={() => addToCart(service)}
+                                    >
+                                        <span className="cart-icon">🛒</span>
+                                        {isInCart(service.id) ? 'Added' : 'Add'}
+                                    </button>
+                                    <button className="service-book-btn">
+                                        Book Now
+                                        <span className="btn-arrow">→</span>
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

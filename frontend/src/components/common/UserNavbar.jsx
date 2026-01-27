@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './UserNavbar.css';
 
-const UserNavbar = () => {
+const UserNavbar = ({ cartCount = 0 }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -35,9 +35,12 @@ const UserNavbar = () => {
                         <span className="nav-label">Home</span>
                     </button>
 
-                    <button className="nav-icon-btn">
+                    <button
+                        className={`nav-icon-btn ${isActive('/cart') ? 'active' : ''}`}
+                        onClick={() => !isActive('/cart') && navigate('/cart')}
+                    >
                         <span className="icon">🛒</span>
-                        <span className="badge">3</span>
+                        {cartCount > 0 && <span className="badge">{cartCount}</span>}
                         <span className="nav-label">My Cart</span>
                     </button>
 

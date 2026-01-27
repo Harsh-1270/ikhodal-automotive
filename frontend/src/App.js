@@ -20,6 +20,7 @@ import Home from './pages/user/Home';
 import MyBookings from './pages/user/MyBookings';
 import Payment from './pages/user/Payment';
 import Dashboard from './pages/user/Dashboard';
+import Cart from './pages/user/Cart';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -162,7 +163,16 @@ function App() {
               />
 
               <Route
-                path="/payments"
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/payment"
                 element={
                   <ProtectedRoute>
                     <Payment />
