@@ -157,7 +157,7 @@ const Register = () => {
                         {/* Form Header */}
                         <div className="form-header">
                             <h2 className="form-title">Create Account</h2>
-                            <p className="form-subtitle">Join us for premium car service</p>
+                            <p className="form-subtitle">Welcome! Register to start booking premium car services</p>
                         </div>
 
                         {/* Registration Form */}
