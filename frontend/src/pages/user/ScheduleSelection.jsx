@@ -264,8 +264,9 @@ const ScheduleSelection = () => {
                                         {timeSlots.map(slot => (
                                             <div
                                                 key={slot.id}
-                                                className={`time-slot ${!slot.available ? 'booked' : ''} ${selectedTime?.id === slot.id ? 'selected' : ''
-                                                    }`}
+                                                className={`time-slot ${!slot.available ? 'booked' : ''} ${
+                                                    selectedTime?.id === slot.id ? 'selected' : ''
+                                                }`}
                                                 onClick={() => handleTimeClick(slot)}
                                             >
                                                 <div className="time-main">{slot.time}</div>

@@ -22,6 +22,7 @@ import Payment from './pages/user/Payment';
 import Dashboard from './pages/user/Dashboard';
 import Cart from './pages/user/Cart';
 import ScheduleSelection from './pages/user/ScheduleSelection';
+import TermsConditions from './pages/user/TermsConditions';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -187,6 +188,13 @@ function App() {
                   <ProtectedRoute>
                     <ScheduleSelection />
                   </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/terms"
+                element={
+                  <TermsConditions />
                 }
               />
 
