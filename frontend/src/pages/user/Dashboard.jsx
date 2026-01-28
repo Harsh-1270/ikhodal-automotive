@@ -384,7 +384,10 @@ const Dashboard = () => {
                                 Book premium car services in minutes. Professional mobile mechanic care for your vehicle.
                             </p>
                             <div className="quick-actions">
-                                <button className="quick-btn primary">
+                                <button
+                                    className="quick-btn primary"
+                                    onClick={() => sectionRefs.services.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                >
                                     <span className="btn-icon">📅</span>
                                     Book Service
                                 </button>
