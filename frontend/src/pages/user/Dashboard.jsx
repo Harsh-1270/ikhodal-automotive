@@ -319,6 +319,24 @@ const Dashboard = () => {
         ? services
         : services.filter(service => service.category === activeFilter);
 
+    // Handle browser back button - redirect to home page
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/', { replace: true });
+        };
+
+        // Add a history entry
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
     return (
         <div className="dashboard-container">
             {/* Top Navigation Bar */}
