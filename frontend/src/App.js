@@ -21,6 +21,7 @@ import MyBookings from './pages/user/MyBookings';
 import Payment from './pages/user/Payment';
 import Dashboard from './pages/user/Dashboard';
 import Cart from './pages/user/Cart';
+import ScheduleSelection from './pages/user/ScheduleSelection';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -176,6 +177,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Payment />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/schedule"
+                element={
+                  <ProtectedRoute>
+                    <ScheduleSelection />
                   </ProtectedRoute>
                 }
               />
