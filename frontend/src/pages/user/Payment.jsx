@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
 import './Payment.css';
 
 const Payments = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [sortBy, setSortBy] = useState('newest');
+
+    // Track if we came from a specific page
+    const cameFromPage = location.state?.from;
+
     const [visibleTransactions, setVisibleTransactions] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const transactionRefs = useRef([]);
@@ -199,6 +204,24 @@ const Payments = () => {
         }, transactions[0])
     };
 
+    // Handle browser back button - always redirect to dashboard
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/dashboard', { replace: true });
+        };
+
+        // Add a history entry
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
     return (
         <div className="payments-container">
             {/* Top Navigation Bar */}
@@ -348,7 +371,7 @@ const Payments = () => {
                                 </div>
                                 <button
                                     className="view-booking-btn"
-                                    onClick={() => navigate(`/booking-details/${transaction.bookingId}`)}
+                                    onClick={() => navigate(`/booking-details/${transaction.bookingId}`, { state: { from: '/payment' } })}
                                 >
                                     View Booking
                                     <span className="btn-arrow">→</span>

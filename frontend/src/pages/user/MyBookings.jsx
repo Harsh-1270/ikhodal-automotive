@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
 import './MyBookings.css';
 
 const MyBookings = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Track if we came from a specific page
+    const cameFromPage = location.state?.from;
     const [activeTab, setActiveTab] = useState('all');
     const [visibleBookings, setVisibleBookings] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
@@ -163,6 +167,24 @@ const MyBookings = () => {
         totalSpent: bookings.reduce((sum, b) => sum + b.price, 0)
     };
 
+    // Handle browser back button - always redirect to dashboard
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/dashboard', { replace: true });
+        };
+
+        // Add a history entry
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
     return (
         <div className="mybookings-container">
             <UserNavbar />
@@ -318,7 +340,7 @@ const MyBookings = () => {
                                     <div className="booking-actions">
                                         <button
                                             className="action-btn secondary"
-                                            onClick={() => navigate(`/booking-details/${booking.id}`)}
+                                            onClick={() => navigate(`/booking-details/${booking.id}`, { state: { from: '/my-bookings' } })}
                                         >
                                             <span>📄</span>
                                             View Details

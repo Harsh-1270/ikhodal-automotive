@@ -1,3 +1,5 @@
+// UserNavbar.jsx
+
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './UserNavbar.css';
@@ -6,14 +8,12 @@ const UserNavbar = ({ cartCount = 0 }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Mock user data (in real app, get from AuthContext)
     const user = {
         name: 'Alis Desai',
         email: 'alis.desai@example.com',
         avatar: '👤'
     };
 
-    // Check if current page is active
     const isActive = (path) => location.pathname === path;
 
     return (
@@ -54,8 +54,8 @@ const UserNavbar = ({ cartCount = 0 }) => {
                     </button>
 
                     <button
-                        className={`nav-icon-btn ${isActive('/payments') ? 'active' : ''}`}
-                        onClick={() => !isActive('/payments') && navigate('/payments')}
+                        className={`nav-icon-btn ${isActive('/payment') ? 'active' : ''}`}
+                        onClick={() => !isActive('/payment') && navigate('/payment')}
                     >
                         <span className="icon">💳</span>
                         <span className="nav-label">Payments</span>
