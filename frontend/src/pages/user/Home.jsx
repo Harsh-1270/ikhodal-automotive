@@ -109,7 +109,7 @@ const Home = () => {
        RENDER COMPONENT
        ========================================== */
     return (
-        <div className="landing-page">
+        <div className="landing-page no-select">
             {/* ========== NAVIGATION BAR ========== */}
             <nav className={`landing-nav ${scrolled ? 'scrolled' : ''}`}>
                 <div className="nav-container">

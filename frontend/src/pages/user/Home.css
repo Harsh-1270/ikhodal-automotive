@@ -978,3 +978,64 @@ section[id] {
 .contact-section {
     scroll-margin-top: 80px;
 }
+
+/* ==========================================
+   DISABLE TEXT SELECTION - PROFESSIONAL LOOK
+   ========================================== */
+
+.landing-page {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+/Edge */
+    user-select: none;
+    /* Standard */
+}
+
+/* Allow selection in form inputs */
+.landing-page input,
+.landing-page textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Prevent text selection highlight on double-click/drag */
+.landing-page *::selection {
+    background: transparent;
+    color: inherit;
+}
+
+.landing-page *::-moz-selection {
+    background: transparent;
+    color: inherit;
+}
+
+/* Cursor style for better UX */
+.landing-page button,
+.landing-page .nav-link,
+.landing-page .service-link,
+.landing-page .btn-primary-large,
+.landing-page .btn-secondary-large,
+.landing-page .btn-cta,
+.landing-page .btn-submit {
+    cursor: pointer;
+}
+
+/* Prevent dragging of images/icons */
+.landing-page img,
+.landing-page .logo-icon,
+.landing-page .feature-icon,
+.landing-page .service-icon,
+.landing-page .step-icon,
+.landing-page .info-icon {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+}
