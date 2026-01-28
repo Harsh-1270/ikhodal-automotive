@@ -1,5 +1,5 @@
 /* ============================================
-   REGISTER PAGE - PROFESSIONAL & ATTRACTIVE
+   REGISTER PAGE - MODERN & ATTRACTIVE REDESIGN
    ============================================ */
 
 import React, { useState } from 'react';
@@ -116,45 +116,53 @@ const Register = () => {
     return (
         <div className="register-page">
             <div className="register-container">
-                {/* Left Side - Branding */}
+                {/* ========== LEFT SIDE - BRANDING ========== */}
                 <div className="register-left">
                     <div className="brand-content">
+                        {/* Brand Icon with Modern SVG */}
                         <div className="brand-icon">
                             <div className="icon-circle">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1" />
+                                    <polygon points="12 15 17 21 7 21 12 15" />
                                 </svg>
                             </div>
                         </div>
+
+                        {/* Brand Title & Subtitle */}
                         <h1 className="brand-title">I Khodal Automotive</h1>
-                        <p className="brand-subtitle">Your Trusted Car Service Partner</p>
+                        <p className="brand-subtitle">Premium Car Service Excellence</p>
+
+                        {/* Feature List */}
                         <div className="brand-features">
                             <div className="feature-item">
-                                <span className="feature-icon">✓</span>
+                                <span className="feature-icon">⚡</span>
                                 <span>Expert Technicians</span>
                             </div>
                             <div className="feature-item">
-                                <span className="feature-icon">✓</span>
-                                <span>Quality Service</span>
+                                <span className="feature-icon">💎</span>
+                                <span>Quality Guaranteed</span>
                             </div>
                             <div className="feature-item">
-                                <span className="feature-icon">✓</span>
-                                <span>Easy Booking</span>
+                                <span className="feature-icon">🚀</span>
+                                <span>Quick & Easy Booking</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Side - Registration Form */}
+                {/* ========== RIGHT SIDE - REGISTRATION FORM ========== */}
                 <div className="register-right">
                     <div className="form-wrapper">
+                        {/* Form Header */}
                         <div className="form-header">
-                            <h2 className="form-title">Welcome Aboard!</h2>
-                            <p className="form-subtitle">Create your account to get started</p>
+                            <h2 className="form-title">Create Account</h2>
+                            <p className="form-subtitle">Join us for premium car service</p>
                         </div>
 
+                        {/* Registration Form */}
                         <form onSubmit={handleSubmit} className="register-form">
-                            {/* API Error */}
+                            {/* API Error Banner */}
                             {apiError && (
                                 <div className="error-banner">
                                     <span className="error-icon">⚠</span>
@@ -175,6 +183,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         disabled={loading}
                                         className={`input-field ${errors.name ? 'error' : ''}`}
+                                        autoComplete="name"
                                     />
                                     <span className="input-icon">👤</span>
                                 </div>
@@ -196,6 +205,7 @@ const Register = () => {
                                         onChange={handleChange}
                                         disabled={loading}
                                         className={`input-field ${errors.email ? 'error' : ''}`}
+                                        autoComplete="email"
                                     />
                                     <span className="input-icon">✉</span>
                                 </div>
@@ -212,11 +222,12 @@ const Register = () => {
                                         type="password"
                                         id="password"
                                         name="password"
-                                        placeholder="Create a password (min 6 characters)"
+                                        placeholder="Create a strong password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         disabled={loading}
                                         className={`input-field ${errors.password ? 'error' : ''}`}
+                                        autoComplete="new-password"
                                     />
                                     <span className="input-icon">🔒</span>
                                 </div>
@@ -237,7 +248,10 @@ const Register = () => {
                                         Creating Account...
                                     </>
                                 ) : (
-                                    'Create Account'
+                                    <>
+                                        Create Account
+                                        <span>→</span>
+                                    </>
                                 )}
                             </button>
                         </form>
@@ -247,7 +261,7 @@ const Register = () => {
                             <p className="footer-text">
                                 Already have an account?{' '}
                                 <Link to="/login" className="footer-link">
-                                    Login here
+                                    Sign In
                                 </Link>
                             </p>
                         </div>
