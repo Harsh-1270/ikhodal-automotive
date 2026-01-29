@@ -1,5 +1,6 @@
 package com.ikhodalautomotive.appointment.security;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -20,47 +21,59 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
+
     // ================= GENERATE TOKEN =================
     public String generateToken(String email, String role) {
 
-        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        System.out.println("[JwtUtil] Generating token");
+        System.out.println("[JwtUtil] Email : " + email);
+        System.out.println("[JwtUtil] Role  : " + role);
 
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .setSubject(email)
-                .claim("role", role)
+                .claim("role", role) // MUST be ROLE_ADMIN / ROLE_USER
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
+
+        System.out.println("[JwtUtil] Token generated successfully");
+        return token;
     }
 
     // ================= EXTRACT EMAIL =================
     public String extractEmail(String token) {
-        return extractAllClaims(token).getSubject();
+        String email = extractAllClaims(token).getSubject();
+        System.out.println("[JwtUtil] Extracted Email: " + email);
+        return email;
     }
 
     // ================= EXTRACT ROLE =================
     public String extractRole(String token) {
-        return extractAllClaims(token).get("role", String.class);
+        String role = extractAllClaims(token).get("role", String.class);
+        System.out.println("[JwtUtil] Extracted Role: " + role);
+        return role;
     }
 
     // ================= VALIDATE TOKEN =================
     public boolean validateToken(String token) {
         try {
             extractAllClaims(token);
+            System.out.println("[JwtUtil] Token VALID (signature + expiration)");
             return true;
         } catch (Exception e) {
+            System.out.println("[JwtUtil] Token INVALID: " + e.getMessage());
             return false;
         }
     }
 
     // ================= INTERNAL =================
     private Claims extractAllClaims(String token) {
-
-        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-
         return Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

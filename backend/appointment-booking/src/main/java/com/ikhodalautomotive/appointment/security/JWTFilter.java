@@ -1,9 +1,11 @@
 package com.ikhodalautomotive.appointment.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -43,12 +45,18 @@ public class JWTFilter extends OncePerRequestFilter {
             if (jwtUtil.validateToken(token)) {
 
                 String email = jwtUtil.extractEmail(token);
-                String role = jwtUtil.extractRole(token);
+                String role = jwtUtil.extractRole(token); // MUST be ROLE_ADMIN / ROLE_USER
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        email,
-                        null,
-                        JwtAuthorityUtil.getAuthorities(role));
+                // 🔴 THIS IS THE MOST IMPORTANT LINE
+                SimpleGrantedAuthority authority =
+                        new SimpleGrantedAuthority(role);
+
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                email,
+                                null,
+                                List.of(authority)
+                        );
 
                 authentication.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request));

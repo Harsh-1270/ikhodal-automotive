@@ -129,7 +129,7 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException("Invalid email or password");
         }
 
-        return jwtUtil.generateToken(user.getEmail(), user.getRole().getName());
+        return jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
     }
 
     // ================= UTIL =================

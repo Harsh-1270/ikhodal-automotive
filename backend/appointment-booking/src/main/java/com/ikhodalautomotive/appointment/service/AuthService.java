@@ -13,4 +13,5 @@ public interface AuthService {
     String login(LoginRequestDTO request);
 
     void verifyOtp(VerifyOtpRequestDTO request);
+
 }
