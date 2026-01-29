@@ -46,6 +46,11 @@ const Dashboard = () => {
         return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     };
 
+    // Navigate to cart
+    const goToCart = () => {
+        navigate('/cart');
+    };
+
     // Refs for sections
     const sectionRefs = {
         welcome: useRef(null),
@@ -115,160 +120,222 @@ const Dashboard = () => {
         avatar: '👤'
     };
 
-    // Mock services data
+    // Real services data based on I Khodal Automotive
     const services = [
+        // Mobile Call-Out Service
         {
             id: 1,
-            name: 'General Service',
-            icon: '🔧',
-            description: 'Complete car checkup & maintenance',
-            price: 2499,
-            duration: '2-3 hours',
-            category: 'maintenance',
+            name: 'Mobile Mechanic Call-Out',
+            icon: '🚗',
+            description: 'Fast mobile mechanic to your location',
+            price: 89,
+            duration: '30 mins',
+            category: 'mobile',
             popular: true,
-            rating: 4.8,
-            reviews: 234
+            rating: 4.9,
+            reviews: 523
         },
+        // Service Packages
         {
             id: 2,
-            name: 'AC Service',
-            icon: '❄️',
-            description: 'AC repair, gas refill & cleaning',
-            price: 1799,
+            name: 'Essential Care Service',
+            icon: '🟢',
+            description: 'Basic car service for everyday driving',
+            price: 149,
             duration: '1-2 hours',
-            category: 'repair',
+            category: 'service-packages',
             popular: true,
-            rating: 4.7,
-            reviews: 189
+            rating: 4.8,
+            reviews: 412
         },
         {
             id: 3,
-            name: 'Battery Service',
-            icon: '🔋',
-            description: 'Battery replacement & charging',
-            price: 3499,
-            duration: '30 mins',
-            category: 'replacement',
-            rating: 4.6,
-            reviews: 156
+            name: 'Complete Care Service',
+            icon: '🔵',
+            description: 'Comprehensive logbook-style service',
+            price: 249,
+            duration: '2-3 hours',
+            category: 'service-packages',
+            popular: true,
+            rating: 4.9,
+            reviews: 687
         },
         {
             id: 4,
-            name: 'Tyres & Wheels',
-            icon: '⚙️',
-            description: 'Alignment, balancing & rotation',
-            price: 1199,
-            duration: '1 hour',
-            category: 'maintenance',
-            popular: true,
+            name: 'Premium Care Service',
+            icon: '🔴',
+            description: 'Detailed full vehicle health check',
+            price: 349,
+            duration: '3-4 hours',
+            category: 'service-packages',
             rating: 4.9,
-            reviews: 312
+            reviews: 298
         },
+        // Mechanical Repairs
         {
             id: 5,
-            name: 'Denting & Painting',
-            icon: '🎨',
-            description: 'Body repair & premium painting',
-            price: 4999,
-            duration: '1-2 days',
-            category: 'repair',
-            rating: 4.5,
-            reviews: 98
+            name: 'Mechanical Repairs',
+            icon: '🛠️',
+            description: 'Professional mobile mechanical repairs',
+            price: 120,
+            duration: '1-2 hours',
+            category: 'repairs',
+            rating: 4.7,
+            reviews: 356
         },
         {
             id: 6,
-            name: 'Car Detailing',
-            icon: '✨',
-            description: 'Interior & exterior deep cleaning',
-            price: 1999,
-            duration: '2-3 hours',
-            category: 'cleaning',
+            name: 'Brake Repairs & Replacement',
+            icon: '🚘',
+            description: 'Complete brake inspection & replacement',
+            price: 180,
+            duration: '1-2 hours',
+            category: 'repairs',
+            popular: true,
             rating: 4.8,
-            reviews: 267
+            reviews: 445
         },
+        // Diagnostics & Testing
         {
             id: 7,
-            name: 'Car Spa',
-            icon: '🧼',
-            description: 'Premium wash, polish & waxing',
-            price: 799,
-            duration: '1 hour',
-            category: 'cleaning',
-            popular: true,
-            rating: 4.7,
-            reviews: 445
+            name: 'Vehicle Diagnostics',
+            icon: '🔍',
+            description: 'Advanced diagnostic scan & fault codes',
+            price: 79,
+            duration: '30-45 mins',
+            category: 'diagnostics',
+            new: true,
+            rating: 4.9,
+            reviews: 234
         },
         {
             id: 8,
-            name: 'Full Inspection',
-            icon: '📋',
-            description: 'Complete vehicle health checkup',
-            price: 1499,
-            duration: '1 hour',
-            category: 'inspection',
-            new: true,
-            rating: 4.9,
-            reviews: 178
+            name: 'Battery Testing & Replacement',
+            icon: '🔋',
+            description: 'Battery test, supply & installation',
+            price: 150,
+            duration: '30 mins',
+            category: 'diagnostics',
+            rating: 4.8,
+            reviews: 389
         },
+        // Electrical Services
         {
             id: 9,
-            name: 'Windshield Repair',
+            name: 'Auto Electrical Services',
             icon: '💡',
-            description: 'Glass replacement & restoration',
-            price: 2199,
-            duration: '1-2 hours',
-            category: 'repair',
-            rating: 4.6,
-            reviews: 134
+            description: 'Lighting, wiring & electrical repairs',
+            price: 95,
+            duration: '1 hour',
+            category: 'electrical',
+            rating: 4.7,
+            reviews: 267
         },
         {
             id: 10,
-            name: 'Suspension',
-            icon: '🛠️',
-            description: 'Shock absorber replacement',
-            price: 3999,
-            duration: '2-3 hours',
-            category: 'repair',
-            rating: 4.7,
-            reviews: 201
+            name: 'Dash Cam Installation',
+            icon: '🎥',
+            description: 'Professional dash cam setup',
+            price: 120,
+            duration: '1-2 hours',
+            category: 'electrical',
+            popular: true,
+            rating: 4.9,
+            reviews: 512
         },
         {
             id: 11,
-            name: 'Clutch Service',
-            icon: '⚡',
-            description: 'Clutch plate replacement',
-            price: 5999,
-            duration: '3-4 hours',
-            category: 'replacement',
-            new: true,
+            name: 'Car Audio & Sound Upgrades',
+            icon: '🔊',
+            description: 'Speaker & audio system installation',
+            price: 180,
+            duration: '2-3 hours',
+            category: 'electrical',
             rating: 4.8,
-            reviews: 89
+            reviews: 198
         },
+        // Air Conditioning
         {
             id: 12,
-            name: 'Insurance Help',
-            icon: '🛡️',
-            description: 'Claim assistance & support',
-            price: 0,
-            duration: 'Free',
-            category: 'support',
+            name: 'Air Conditioning Inspection',
+            icon: '❄️',
+            description: 'AC system check & pressure testing',
+            price: 89,
+            duration: '45 mins',
+            category: 'inspection',
+            rating: 4.7,
+            reviews: 312
+        },
+        // Inspections
+        {
+            id: 13,
+            name: 'Pre-Purchase Inspection',
+            icon: '🚙',
+            description: 'Detailed inspection before buying',
+            price: 199,
+            duration: '1-2 hours',
+            category: 'inspection',
+            new: true,
             rating: 4.9,
-            reviews: 412
+            reviews: 423
+        },
+        {
+            id: 14,
+            name: 'Vehicle Safety Inspection',
+            icon: '🧰',
+            description: 'Overall safety & condition check',
+            price: 129,
+            duration: '1 hour',
+            category: 'inspection',
+            rating: 4.8,
+            reviews: 378
+        },
+        // Accessories
+        {
+            id: 15,
+            name: 'Accessory Fitment',
+            icon: '⚡',
+            description: 'Reverse cameras, USB ports & more',
+            price: 99,
+            duration: '1-2 hours',
+            category: 'accessories',
+            rating: 4.7,
+            reviews: 256
         }
     ];
 
     const categories = [
-        { id: 'all', name: 'All Services', icon: '🔧', count: 12 },
-        { id: 'maintenance', name: 'Maintenance', icon: '🔨', count: 3 },
-        { id: 'repair', name: 'Repair', icon: '⚙️', count: 4 },
-        { id: 'cleaning', name: 'Cleaning', icon: '✨', count: 2 },
-        { id: 'replacement', name: 'Replacement', icon: '🔄', count: 2 },
-        { id: 'inspection', name: 'Inspection', icon: '📋', count: 1 }
+        { id: 'all', name: 'All Services', icon: '🔧', count: 15 },
+        { id: 'mobile', name: 'Mobile Call-Out', icon: '🚗', count: 1 },
+        { id: 'service-packages', name: 'Service Packages', icon: '📦', count: 3 },
+        { id: 'repairs', name: 'Repairs', icon: '🛠️', count: 2 },
+        { id: 'diagnostics', name: 'Diagnostics', icon: '🔍', count: 2 },
+        { id: 'electrical', name: 'Electrical', icon: '💡', count: 3 },
+        { id: 'inspection', name: 'Inspection', icon: '🧰', count: 3 },
+        { id: 'accessories', name: 'Accessories', icon: '⚡', count: 1 }
     ];
 
     const filteredServices = activeFilter === 'all'
         ? services
         : services.filter(service => service.category === activeFilter);
+
+    // Handle browser back button - redirect to home page
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/', { replace: true });
+        };
+
+        // Add a history entry
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
 
     return (
         <div className="dashboard-container">
@@ -280,7 +347,21 @@ const Dashboard = () => {
                 <div className="cart-notification">
                     <span className="notification-icon">✓</span>
                     <span className="notification-text">Item added to cart!</span>
+                    <button className="view-cart-btn" onClick={goToCart}>
+                        View Cart
+                    </button>
                 </div>
+            )}
+
+            {/* Floating Cart Button */}
+            {cart.length > 0 && (
+                <button className="floating-cart-btn" onClick={goToCart}>
+                    <span className="cart-icon">🛒</span>
+                    <span className="cart-badge">{getTotalItems()}</span>
+                    <span className="cart-text">
+                        ₹{getTotalPrice().toLocaleString()}
+                    </span>
+                </button>
             )}
 
             {/* Main Scrollable Content */}
@@ -300,14 +381,17 @@ const Dashboard = () => {
                                 </h1>
                             </div>
                             <p className="welcome-text">
-                                Book premium car services in minutes. Professional care for your vehicle.
+                                Book premium car services in minutes. Professional mobile mechanic care for your vehicle.
                             </p>
                             <div className="quick-actions">
-                                <button className="quick-btn primary">
+                                <button
+                                    className="quick-btn primary"
+                                    onClick={() => sectionRefs.services.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                >
                                     <span className="btn-icon">📅</span>
                                     Book Service
                                 </button>
-                                <button className="quick-btn secondary">
+                                <button className="quick-btn secondary" onClick={() => navigate('/my-bookings')}>
                                     <span className="btn-icon">📍</span>
                                     Track Bookings
                                 </button>
@@ -317,22 +401,22 @@ const Dashboard = () => {
                             <div className="floating-card card-1">
                                 <div className="card-icon">⭐</div>
                                 <div className="card-text">
-                                    <div className="card-value">4.8/5</div>
+                                    <div className="card-value">4.9/5</div>
                                     <div className="card-label">Rating</div>
                                 </div>
                             </div>
                             <div className="floating-card card-2">
                                 <div className="card-icon">🚀</div>
                                 <div className="card-text">
-                                    <div className="card-value">2K+</div>
+                                    <div className="card-value">5K+</div>
                                     <div className="card-label">Customers</div>
                                 </div>
                             </div>
                             <div className="floating-card card-3">
                                 <div className="card-icon">⚡</div>
                                 <div className="card-text">
-                                    <div className="card-value">24/7</div>
-                                    <div className="card-label">Support</div>
+                                    <div className="card-value">Mobile</div>
+                                    <div className="card-label">Service</div>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +435,7 @@ const Dashboard = () => {
                             <div key={service.id} className="popular-card">
                                 <div className="popular-icon">{service.icon}</div>
                                 <div className="popular-name">{service.name}</div>
-                                <div className="popular-price">${service.price.toLocaleString()}</div>
+                                <div className="popular-price">₹{service.price.toLocaleString()}</div>
                             </div>
                         ))}
                     </div>
@@ -429,7 +513,7 @@ const Dashboard = () => {
                                     <div className="info-item">
                                         <span className="info-icon">💰</span>
                                         <span className="info-text">
-                                            {service.price === 0 ? 'Free' : `$${service.price.toLocaleString()}`}
+                                            {service.price === 0 ? 'Free' : `₹${service.price.toLocaleString()}`}
                                         </span>
                                     </div>
                                     <div className="info-item">
@@ -476,8 +560,8 @@ const Dashboard = () => {
                         </div>
                         <div className="benefit-item">
                             <div className="benefit-icon">⚡</div>
-                            <h3>Quick Service</h3>
-                            <p>Fast turnaround without compromising quality</p>
+                            <h3>Mobile Service</h3>
+                            <p>We come to you - home, work or roadside</p>
                         </div>
                         <div className="benefit-item">
                             <div className="benefit-icon">💯</div>
@@ -512,8 +596,8 @@ const Dashboard = () => {
                         </div>
                         <div className="stat-card">
                             <div className="stat-icon">📍</div>
-                            <div className="stat-value">50+</div>
-                            <div className="stat-label">Service Centers</div>
+                            <div className="stat-value">Victoria</div>
+                            <div className="stat-label">All Suburbs</div>
                         </div>
                     </div>
                 </div>
