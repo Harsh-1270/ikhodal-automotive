@@ -23,6 +23,7 @@ import Dashboard from './pages/user/Dashboard';
 import Cart from './pages/user/Cart';
 import ScheduleSelection from './pages/user/ScheduleSelection';
 import TermsConditions from './pages/user/TermsConditions';
+import BookingForm from './pages/user/BookingForm';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -195,6 +196,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ScheduleSelection />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/booking-form"
+                element={
+                  <ProtectedRoute>
+                    <BookingForm />
                   </ProtectedRoute>
                 }
               />
