@@ -23,10 +23,12 @@ import Dashboard from './pages/user/Dashboard';
 import Cart from './pages/user/Cart';
 import ScheduleSelection from './pages/user/ScheduleSelection';
 import TermsConditions from './pages/user/TermsConditions';
+import BookingForm from './pages/user/BookingForm';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUsers from './pages/admin/AdminUsers';
+import AdminSchedule from './pages/admin/AdminSchedule';
 
 /* ==========================================
    PROTECTED ROUTE - For authenticated users only
@@ -55,7 +57,14 @@ const isDev = process.env.NODE_ENV === "development";
 const AdminRoute = ({ children }) => {
   const { user, isAdmin } = React.useContext(AuthContext);
 
-  // If not logged in, redirect to admin login
+  // DEVELOPMENT MODE: Skip authentication check
+  const isDev = process.env.NODE_ENV === "development";
+
+  if (isDev) {
+    return children; // Allow access without login in development
+  }
+
+  // PRODUCTION MODE: Check authentication
   if (!user || !isAdmin) {
     return <Navigate to="/admin/login" replace />;
   }
@@ -192,6 +201,15 @@ function App() {
               />
 
               <Route
+                path="/booking-form"
+                element={
+                  <ProtectedRoute>
+                    <BookingForm />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
                 path="/terms"
                 element={
                   <TermsConditions />
@@ -214,6 +232,15 @@ function App() {
                 element={
                   <AdminRoute>
                     <AdminUsers />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="/admin/schedule"
+                element={
+                  <AdminRoute>
+                    <AdminSchedule />
                   </AdminRoute>
                 }
               />

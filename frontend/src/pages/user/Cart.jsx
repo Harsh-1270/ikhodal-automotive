@@ -209,9 +209,9 @@ const Cart = () => {
                                         <span className="total-value">₹{Math.round(total).toLocaleString()}</span>
                                     </div>
 
-                                    <button className="checkout-btn" onClick={() => navigate('/payment')}>
-                                        <span className="checkout-icon">💳</span>
-                                        Proceed to Checkout
+                                    <button className="checkout-btn" onClick={() => navigate('/schedule')}>
+                                        <span className="checkout-icon">📅</span>
+                                        Schedule Appointment
                                     </button>
 
                                     <div className="summary-info">
