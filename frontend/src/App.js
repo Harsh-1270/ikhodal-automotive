@@ -55,7 +55,14 @@ const isDev = process.env.NODE_ENV === "development";
 const AdminRoute = ({ children }) => {
   const { user, isAdmin } = React.useContext(AuthContext);
 
-  // If not logged in, redirect to admin login
+  // DEVELOPMENT MODE: Skip authentication check
+  const isDev = process.env.NODE_ENV === "development";
+
+  if (isDev) {
+    return children; // Allow access without login in development
+  }
+
+  // PRODUCTION MODE: Check authentication
   if (!user || !isAdmin) {
     return <Navigate to="/admin/login" replace />;
   }
