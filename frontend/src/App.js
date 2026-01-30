@@ -27,6 +27,7 @@ import TermsConditions from './pages/user/TermsConditions';
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUsers from './pages/admin/AdminUsers';
+import AdminSchedule from './pages/admin/AdminSchedule';
 
 /* ==========================================
    PROTECTED ROUTE - For authenticated users only
@@ -221,6 +222,15 @@ function App() {
                 element={
                   <AdminRoute>
                     <AdminUsers />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="/admin/schedule"
+                element={
+                  <AdminRoute>
+                    <AdminSchedule />
                   </AdminRoute>
                 }
               />
