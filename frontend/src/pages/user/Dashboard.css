@@ -569,6 +569,10 @@ SERVICES GRID
     gap: 2rem;
 }
 
+.services-grid .service-content {
+    display: contents;
+}
+
 .service-card-new {
     background: #ffffff;
     border-radius: 20px;
@@ -990,6 +994,97 @@ RESPONSIVE DESIGN
 
 .service-book-btn:hover .btn-arrow {
     transform: translateX(5px);
+}
+
+/* ============================================
+   LIST VIEW STYLES
+   ============================================ */
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.services-list .service-card-new {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.75rem;
+    max-width: 100%;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.services-list .service-card-new:hover {
+    transform: translateX(8px);
+}
+
+.services-list .service-header-badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.services-list .service-icon-large {
+    font-size: 3.5rem;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    grid-column: 1;
+}
+
+.services-list .service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    grid-column: 2;
+}
+
+.services-list .service-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.services-list .service-desc {
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+}
+
+.services-list .service-info-row {
+    display: flex;
+    gap: 2rem;
+    margin: 0.5rem 0;
+}
+
+.services-list .service-rating {
+    margin: 0;
+}
+
+.services-list .service-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    grid-column: 3;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.services-list .service-actions button {
+    white-space: nowrap;
+}
+
+.services-list .add-cart-btn {
+    padding: 0.875rem 1.5rem;
+}
+
+.services-list .service-book-btn {
+    padding: 0.875rem 2rem;
+    min-width: 180px;
 }
 
 /* Disable text selection for professional look */

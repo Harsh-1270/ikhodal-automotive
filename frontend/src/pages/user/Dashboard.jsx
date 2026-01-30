@@ -6,6 +6,7 @@ import './Dashboard.css';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState('all');
+    const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const hasScrolledDown = useRef(false);
@@ -472,16 +473,22 @@ const Dashboard = () => {
                     <div className="section-header-row">
                         <h2 className="section-title">All Services</h2>
                         <div className="view-toggle">
-                            <button className="toggle-btn active">
+                            <button
+                                className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                onClick={() => setViewMode('grid')}
+                            >
                                 <span>▦</span>
                             </button>
-                            <button className="toggle-btn">
+                            <button
+                                className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                onClick={() => setViewMode('list')}
+                            >
                                 <span>☰</span>
                             </button>
                         </div>
                     </div>
 
-                    <div className="services-grid">
+                    <div className={`services-${viewMode}`}>
                         {filteredServices.map((service, index) => (
                             <div
                                 key={service.id}
@@ -501,24 +508,26 @@ const Dashboard = () => {
 
                                 <div className="service-icon-large">{service.icon}</div>
 
-                                <h3 className="service-title">{service.name}</h3>
-                                <p className="service-desc">{service.description}</p>
+                                <div className="service-content">
+                                    <h3 className="service-title">{service.name}</h3>
+                                    <p className="service-desc">{service.description}</p>
 
-                                <div className="service-rating">
-                                    <div className="stars">⭐ {service.rating}</div>
-                                    <span className="reviews">({service.reviews} reviews)</span>
-                                </div>
-
-                                <div className="service-info-row">
-                                    <div className="info-item">
-                                        <span className="info-icon">💰</span>
-                                        <span className="info-text">
-                                            {service.price === 0 ? 'Free' : `₹${service.price.toLocaleString()}`}
-                                        </span>
+                                    <div className="service-rating">
+                                        <div className="stars">⭐ {service.rating}</div>
+                                        <span className="reviews">({service.reviews} reviews)</span>
                                     </div>
-                                    <div className="info-item">
-                                        <span className="info-icon">⏱️</span>
-                                        <span className="info-text">{service.duration}</span>
+
+                                    <div className="service-info-row">
+                                        <div className="info-item">
+                                            <span className="info-icon">💰</span>
+                                            <span className="info-text">
+                                                {service.price === 0 ? 'Free' : `₹${service.price.toLocaleString()}`}
+                                            </span>
+                                        </div>
+                                        <div className="info-item">
+                                            <span className="info-icon">⏱️</span>
+                                            <span className="info-text">{service.duration}</span>
+                                        </div>
                                     </div>
                                 </div>
 
