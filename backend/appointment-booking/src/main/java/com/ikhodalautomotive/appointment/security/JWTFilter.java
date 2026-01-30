@@ -47,7 +47,7 @@ public class JWTFilter extends OncePerRequestFilter {
                 String email = jwtUtil.extractEmail(token);
                 String role = jwtUtil.extractRole(token); // MUST be ROLE_ADMIN / ROLE_USER
 
-                // 🔴 THIS IS THE MOST IMPORTANT LINE
+                // THIS IS THE MOST IMPORTANT LINE
                 SimpleGrantedAuthority authority =
                         new SimpleGrantedAuthority(role);
 
