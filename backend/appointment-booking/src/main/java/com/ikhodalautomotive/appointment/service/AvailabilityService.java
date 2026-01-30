@@ -2,6 +2,7 @@ package com.ikhodalautomotive.appointment.service;
 
 import com.ikhodalautomotive.appointment.dto.request.AvailabilityRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.AvailabilityResponseDTO;
+import com.ikhodalautomotive.appointment.dto.response.TimeSlotResponseDTO;
 
 import java.time.LocalDate;
 
@@ -16,4 +17,7 @@ public interface AvailabilityService {
             java.time.LocalTime start,
             java.time.LocalTime end
     );
+
+    TimeSlotResponseDTO getTimeSlotsForDate(LocalDate date);
+
 }
