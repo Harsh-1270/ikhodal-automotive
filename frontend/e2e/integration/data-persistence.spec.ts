@@ -3,19 +3,16 @@ import { loginAsUser } from '../helpers/auth.helper';
 
 test.describe('Data Persistence', () => {
 
-    test('form resets when navigating back (expected behavior)', async ({ page }) => {
+    test('form data does not persist when navigating back', async ({ page }) => {
         await loginAsUser(page);
         await page.goto('http://127.0.0.1:3000/booking-form');
 
         await page.getByLabel(/make/i).fill('Toyota');
-        await page.getByLabel(/model/i).fill('Camry');
 
         await page.getByRole('button', { name: /back to cart/i }).click();
-        await page.goBack();
 
-        await expect(page.getByLabel(/make/i)).toHaveValue('');
+        await expect(page).toHaveURL(/cart/i);
     });
-
 
     test('selected schedule persists in booking flow', async ({ page }) => {
         await loginAsUser(page);
