@@ -8,7 +8,7 @@ test.describe('Payment Flow', () => {
         await page.goto('http://127.0.0.1:3000/payment');
 
         await expect(
-            page.getByRole('heading', { name: /payment/i })
+            page.getByRole('heading', { name: /Payment History/i })
         ).toBeVisible();
     });
 
@@ -16,35 +16,47 @@ test.describe('Payment Flow', () => {
         await loginAsUser(page);
         await page.goto('http://127.0.0.1:3000/payment');
 
-        // Generic & safe: checks presence of amount/total UI section
+        // Stats row contains Total Spent with a $ amount
         await expect(
-            page.locator('[class*="amount"], [class*="total"]').first()
+            page.locator('.stat-box').first()
+        ).toBeVisible();
+        await expect(
+            page.getByText(/Total Spent/i)
         ).toBeVisible();
     });
 
-    test('pay now button is visible', async ({ page }) => {
+    test('transaction list is visible', async ({ page }) => {
         await loginAsUser(page);
         await page.goto('http://127.0.0.1:3000/payment');
 
+        // Wait for IntersectionObserver animation (100ms delay in component)
+        await page.waitForTimeout(300);
+
         await expect(
-            page.getByRole('button', { name: /pay/i })
+            page.locator('.transaction-card').first()
         ).toBeVisible();
     });
 
-    test('payment page does not crash on pay button click', async ({ page }) => {
+    test('sort filter changes transaction order', async ({ page }) => {
         await loginAsUser(page);
         await page.goto('http://127.0.0.1:3000/payment');
 
-        await page.getByRole('button', { name: /pay/i }).click();
+        await page.waitForTimeout(300);
 
-        // No redirect expected yet (mock frontend)
-        await expect(page).toHaveURL(/payment/i);
+        // Click Price: High to Low
+        await page.getByRole('button', { name: /Price: High to Low/i }).click();
+
+        await page.waitForTimeout(300);
+
+        // Denting & Painting = $4,999 — highest, should be first card
+        const firstCardService = page.locator('.transaction-card').first().locator('.transaction-service');
+        await expect(firstCardService).toHaveText(/Denting & Painting/i);
     });
 
     test('user cannot access payment without login', async ({ page }) => {
         await page.goto('http://127.0.0.1:3000/payment');
 
-        // Either stays on payment (mock) or redirects to login
+        // Either redirects to login or stays (mock frontend)
         await expect(page).toHaveURL(/login|payment/i);
     });
 
