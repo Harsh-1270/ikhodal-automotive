@@ -77,7 +77,7 @@ public class EmailServiceImpl implements EmailService {
                             Please use the OTP below to verify your email address.
                         </p>
 
-                        <div class="otp">""" + otp + """ 
+                        <div class="otp">""" + otp + """
                         </div>
 
                         <p class="text">

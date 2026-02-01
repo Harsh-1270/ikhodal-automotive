@@ -14,5 +14,5 @@ public interface AuthService {
 
     void verifyOtp(VerifyOtpRequestDTO request);
 
-    
+
 }

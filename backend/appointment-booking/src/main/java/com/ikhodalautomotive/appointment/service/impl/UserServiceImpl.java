@@ -11,7 +11,7 @@ import com.ikhodalautomotive.appointment.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
+
     @Autowired
     public UserRepository userRepository;
 

@@ -28,7 +28,7 @@ public class UserController {
     private ServiceService serviceService;
 
     private final AvailabilityService availabilityService;
-    
+
     // GET : localhost:8082/api/getAllServices
     @GetMapping("/getAllServices")
     public ResponseEntity<List<ServiceResponseDTO>> getAllServices() {

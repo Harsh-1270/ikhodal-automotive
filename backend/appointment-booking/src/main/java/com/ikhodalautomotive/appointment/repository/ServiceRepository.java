@@ -9,4 +9,3 @@ public interface ServiceRepository extends JpaRepository<Services, Long> {
 
     List<Services> findByIsActiveTrue();
 }
-
