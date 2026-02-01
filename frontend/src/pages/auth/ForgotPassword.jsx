@@ -410,7 +410,7 @@ const ForgotPassword = () => {
                                 </p>
                             </div>
 
-                            <div className="form-wrapper">
+                            <div className="form-wrapper success-wrapper">
                                 <a href="/login" className="primary-button">
                                     Go to Login
                                     <span className="button-arrow">→</span>
