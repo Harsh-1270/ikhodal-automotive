@@ -167,9 +167,9 @@ const Home = () => {
                             Book Service Now
                             <span className="btn-arrow">→</span>
                         </button>
-                        <button onClick={() => scrollToSection('how-it-works')} className="btn-secondary-large">
+                        {/* <button onClick={() => scrollToSection('how-it-works')} className="btn-secondary-large">
                             Learn More
-                        </button>
+                        </button> */}
                     </div>
 
                     <div className="hero-features">
@@ -271,7 +271,7 @@ const Home = () => {
                                 <div className="service-icon">{service.icon}</div>
                                 <h3>{service.title}</h3>
                                 <p>{service.desc}</p>
-                                <button className="service-link">Learn More →</button>
+                                {/* <button className="service-link">Learn More →</button> */}
                             </div>
                         ))}
                     </div>
