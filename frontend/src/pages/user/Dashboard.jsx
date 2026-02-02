@@ -134,7 +134,7 @@ const Dashboard = () => {
             category: 'mobile',
             popular: true,
             rating: 4.9,
-            reviews: 523
+            // reviews: 523
         },
         // Service Packages
         {
@@ -512,10 +512,7 @@ const Dashboard = () => {
                                     <h3 className="service-title">{service.name}</h3>
                                     <p className="service-desc">{service.description}</p>
 
-                                    <div className="service-rating">
-                                        <div className="stars">⭐ {service.rating}</div>
-                                        <span className="reviews">({service.reviews} reviews)</span>
-                                    </div>
+
 
                                     <div className="service-info-row">
                                         <div className="info-item">
