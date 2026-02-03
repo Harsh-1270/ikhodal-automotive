@@ -464,6 +464,7 @@
 .about-section {
     padding: 2rem 2rem;
     background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    text-align: center;
 }
 
 .section-container {
@@ -474,6 +475,9 @@
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-badge {
@@ -482,6 +486,12 @@
     color: #1e3a8a;
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: auto;
+    margin-right: auto;
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -494,6 +504,7 @@
     color: #0f172a;
     margin-bottom: 1rem;
     letter-spacing: -1px;
+    text-align: center;
 }
 
 .section-subtitle {
@@ -540,6 +551,7 @@
     color: #0f172a;
     margin-bottom: 1rem;
     font-weight: 700;
+    text-align: center;
 }
 
 .about-card p {
@@ -554,6 +566,7 @@ SERVICES SECTION
 .services-section {
     padding: 2rem 2rem;
     background: white;
+    text-align: center;
 }
 
 .services-grid {
@@ -654,6 +667,7 @@ HOW IT WORKS SECTION
 .how-it-works-section {
     padding: 0.5rem 2rem;
     background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+    text-align: center;
 }
 
 .steps-container {
@@ -773,6 +787,7 @@ CONTACT SECTION
 .contact-section {
     padding: 2rem 2rem;
     background: white;
+    text-align: center;
 }
 
 .contact-grid {
