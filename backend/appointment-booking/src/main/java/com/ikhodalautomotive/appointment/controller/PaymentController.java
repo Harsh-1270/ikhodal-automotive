@@ -1,0 +1,32 @@
+package com.ikhodalautomotive.appointment.controller;
+
+import com.ikhodalautomotive.appointment.dto.request.CreatePaymentIntentRequest;
+import com.ikhodalautomotive.appointment.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/payments")
+@RequiredArgsConstructor
+public class PaymentController {
+
+    private final PaymentService paymentService;
+
+    // POST : localhost:8082/api/payments/create-intent
+    @PostMapping("/create-intent")
+    public Map<String, String> createPaymentIntent(
+            @RequestBody CreatePaymentIntentRequest request) {
+
+        log.info("Received create payment intent request for appointmentId={}",
+                request.getAppointmentId());
+
+        String clientSecret =
+                paymentService.createPaymentIntent(request.getAppointmentId());
+
+        return Map.of("clientSecret", clientSecret);
+    }
+}

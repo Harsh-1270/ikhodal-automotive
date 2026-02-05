@@ -1,8 +1,9 @@
 package com.ikhodalautomotive.appointment.service.impl;
 
-
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,9 @@ import com.ikhodalautomotive.appointment.repository.UserRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 import com.ikhodalautomotive.appointment.service.BookingService;
 import com.ikhodalautomotive.appointment.dto.request.CreateBookingRequestDTO;
+import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
+import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -35,8 +38,7 @@ public class BookingServiceImpl implements BookingService {
             AppointmentServiceRepository appointmentServiceRepository,
             ServiceRepository serviceRepository,
             UserRepository userRepository,
-            AvailabilityService availabilityService
-    ) {
+            AvailabilityService availabilityService) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentServiceRepository = appointmentServiceRepository;
         this.serviceRepository = serviceRepository;
@@ -52,8 +54,7 @@ public class BookingServiceImpl implements BookingService {
         boolean available = availabilityService.isSlotAvailable(
                 request.getDate(),
                 request.getStartTime(),
-                request.getEndTime()
-        );
+                request.getEndTime());
 
         if (!available) {
             throw new ApiException("Selected time slot is no longer available");
@@ -75,8 +76,7 @@ public class BookingServiceImpl implements BookingService {
         appointmentRepository.save(appointment);
 
         // 4️⃣ Attach services
-        List<Services> services =
-                serviceRepository.findAllById(request.getServiceIds());
+        List<Services> services = serviceRepository.findAllById(request.getServiceIds());
 
         if (services.size() != request.getServiceIds().size()) {
             throw new ApiException("One or more services are invalid");
@@ -95,7 +95,59 @@ public class BookingServiceImpl implements BookingService {
         return new BookingResponseDTO(
                 appointment.getId(),
                 appointment.getStatus(),
-                "Booking created successfully"
-        );
+                "Booking created successfully");
     }
+
+    @Override
+    public List<MyBookingResponseDTO> getMyBookings(String userEmail) {
+
+        List<Appointment> appointments = appointmentRepository.findByUserEmailOrderByCreatedAtDesc(userEmail);
+
+        return appointments.stream()
+                .map(a -> new MyBookingResponseDTO(
+                        a.getId(),
+                        a.getAppointmentDate(),
+                        a.getStartTime(),
+                        a.getEndTime(),
+                        a.getStatus()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public BookingDetailsResponseDTO getBookingById(
+            Long bookingId,
+            String userEmail,
+            boolean isAdmin) {
+
+        Appointment appointment = appointmentRepository.findById(bookingId)
+                .orElseThrow(() -> new ApiException("Booking not found"));
+
+        // 🔐 Ownership check (CRITICAL)
+        if (!isAdmin && !appointment.getUser().getEmail().equals(userEmail)) {
+            throw new ApiException("You are not allowed to access this booking");
+        }
+
+        List<AppointmentService> appointmentServices = appointmentServiceRepository.findByAppointment_Id(bookingId);
+
+        List<BookingDetailsResponseDTO.ServiceItemDTO> services = appointmentServices.stream()
+                .map(as -> new BookingDetailsResponseDTO.ServiceItemDTO(
+                        as.getService().getId(),
+                        as.getService().getName(),
+                        as.getServicePrice()))
+                .collect(Collectors.toList());
+
+        BigDecimal total = appointmentServices.stream()
+                .map(AppointmentService::getServicePrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return new BookingDetailsResponseDTO(
+                appointment.getId(),
+                appointment.getAppointmentDate(),
+                appointment.getStartTime(),
+                appointment.getEndTime(),
+                appointment.getStatus(),
+                total,
+                services);
+    }
+
 }
