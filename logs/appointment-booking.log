@@ -1,0 +1,62 @@
+2026-02-05T11:13:01.448+05:30  INFO 9976 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 9976 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-05T11:13:01.475+05:30  INFO 9976 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-05T11:13:04.990+05:30  INFO 9976 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-05T11:13:05.418+05:30  INFO 9976 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 371 ms. Found 10 JPA repository interfaces.
+2026-02-05T11:13:07.444+05:30  INFO 9976 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-05T11:13:07.494+05:30  INFO 9976 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-05T11:13:07.530+05:30  INFO 9976 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-05T11:13:07.783+05:30  INFO 9976 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-05T11:13:07.800+05:30  INFO 9976 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6107 ms
+2026-02-05T11:13:10.030+05:30  INFO 9976 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-05T11:13:10.241+05:30  INFO 9976 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-05T11:13:10.349+05:30  INFO 9976 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-05T11:13:11.270+05:30  INFO 9976 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-05T11:13:11.383+05:30  INFO 9976 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-05T11:13:12.017+05:30  INFO 9976 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@277bc3a5
+2026-02-05T11:13:12.023+05:30  INFO 9976 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-05T11:13:12.154+05:30  WARN 9976 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-05T11:13:12.160+05:30  WARN 9976 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-05T11:13:12.220+05:30  INFO 9976 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-05T11:13:15.448+05:30  INFO 9976 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-05T11:13:15.782+05:30  INFO 9976 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-05T11:13:15.813+05:30  INFO 9976 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-05T11:13:16.629+05:30  INFO 9976 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-05T11:13:19.256+05:30  WARN 9976 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-05T11:13:19.367+05:30 DEBUG 9976 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-05T11:13:20.366+05:30 DEBUG 9976 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-05T11:13:21.330+05:30  INFO 9976 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-05T11:13:21.433+05:30  INFO 9976 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 22.315 seconds (process running for 24.426)
+2026-02-05T11:13:45.195+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-05T11:13:45.198+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-05T11:13:45.202+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-02-05T11:13:45.264+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/webhook
+2026-02-05T11:13:45.264+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/webhook
+2026-02-05T11:13:45.264+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/webhook
+2026-02-05T11:13:45.299+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-05T11:13:45.299+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-05T11:13:45.304+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-05T11:13:45.312+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/webhook
+2026-02-05T11:13:45.313+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/webhook
+2026-02-05T11:13:45.313+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/webhook
+2026-02-05T11:13:45.451+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.c.PaymentWebhookController         : Received Stripe webhook
+2026-02-05T11:13:45.451+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.c.PaymentWebhookController         : Received Stripe webhook
+2026-02-05T11:13:45.451+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.c.PaymentWebhookController         : Received Stripe webhook
+2026-02-05T11:13:45.623+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.s.impl.PaymentWebhookServiceImpl   : Processing Stripe event type=payment_intent.succeeded
+2026-02-05T11:13:45.632+05:30  WARN 9976 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.s.impl.PaymentWebhookServiceImpl   : Unhandled Stripe object type
+2026-02-05T11:13:45.623+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.s.impl.PaymentWebhookServiceImpl   : Processing Stripe event type=payment_intent.created
+2026-02-05T11:13:45.624+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.s.impl.PaymentWebhookServiceImpl   : Processing Stripe event type=charge.succeeded
+2026-02-05T11:13:45.648+05:30  WARN 9976 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.s.impl.PaymentWebhookServiceImpl   : Unhandled Stripe object type
+2026-02-05T11:13:45.649+05:30  WARN 9976 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.s.impl.PaymentWebhookServiceImpl   : Unhandled Stripe object type
+2026-02-05T11:13:47.639+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/webhook
+2026-02-05T11:13:47.759+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-05T11:13:47.787+05:30 DEBUG 9976 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/webhook
+2026-02-05T11:13:47.816+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.c.PaymentWebhookController         : Received Stripe webhook
+2026-02-05T11:13:47.850+05:30  INFO 9976 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.s.impl.PaymentWebhookServiceImpl   : Processing Stripe event type=charge.updated
+2026-02-05T11:13:47.857+05:30  WARN 9976 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.s.impl.PaymentWebhookServiceImpl   : Unhandled Stripe object type
