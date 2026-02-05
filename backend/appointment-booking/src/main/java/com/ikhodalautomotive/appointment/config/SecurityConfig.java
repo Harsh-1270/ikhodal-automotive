@@ -29,12 +29,8 @@ public class SecurityConfig {
                 .requestMatchers(
                         "/api/auth/**"
                 ).permitAll()
-<<<<<<< HEAD
-                .requestMatchers("/error").permitAll()
-=======
                 .requestMatchers("/api/payments/webhook").permitAll()
-                .requestMatchers("/error").permitAll() 
->>>>>>> 90ee734 (feat(User/Admin): Add payment integration and booking enhancements)
+                .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
