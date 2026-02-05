@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import './Home.css';
 
 const Home = () => {
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const hasScrolledDown = useRef(false);
@@ -103,6 +103,11 @@ const Home = () => {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
+        setMobileMenuOpen(false); // Close menu after clicking
+    };
+
+    const toggleMobileMenu = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
     };
 
     /* ==========================================
@@ -130,8 +135,23 @@ const Home = () => {
                     <div className="nav-actions">
                         <button onClick={handleSignIn} className="btn-signin">Sign In</button>
                         <button onClick={handleGetStarted} className="btn-get-started">Get Started</button>
+                        <button onClick={toggleMobileMenu} className="mobile-menu-btn">
+                            {mobileMenuOpen ? '✕' : '☰'}
+                        </button>
                     </div>
                 </div>
+
+                {/* Mobile Menu Dropdown */}
+                {mobileMenuOpen && (
+                    <div className="mobile-menu">
+                        <button onClick={() => scrollToSection('about')} className="mobile-menu-link">About</button>
+                        <button onClick={() => scrollToSection('services')} className="mobile-menu-link">Services</button>
+                        <button onClick={() => scrollToSection('how-it-works')} className="mobile-menu-link">How It Works</button>
+                        <button onClick={() => scrollToSection('contact')} className="mobile-menu-link">Contact</button>
+                        <button onClick={() => { handleSignIn(); setMobileMenuOpen(false); }} className="mobile-menu-link-primary">Sign In</button>
+                        <button onClick={() => { handleGetStarted(); setMobileMenuOpen(false); }} className="mobile-menu-link-primary">Get Started</button>
+                    </div>
+                )}
             </nav>
 
             {/* ========== HERO SECTION ========== */}
@@ -167,9 +187,6 @@ const Home = () => {
                             Book Service Now
                             <span className="btn-arrow">→</span>
                         </button>
-                        {/* <button onClick={() => scrollToSection('how-it-works')} className="btn-secondary-large">
-                            Learn More
-                        </button> */}
                     </div>
 
                     <div className="hero-features">
@@ -271,7 +288,6 @@ const Home = () => {
                                 <div className="service-icon">{service.icon}</div>
                                 <h3>{service.title}</h3>
                                 <p>{service.desc}</p>
-                                {/* <button className="service-link">Learn More →</button> */}
                             </div>
                         ))}
                     </div>
@@ -416,8 +432,9 @@ const Home = () => {
                             <h4>Support</h4>
                             <button onClick={() => scrollToSection('contact')}>Contact</button>
                             <a href="#">FAQs</a>
-                            <a href="#">Privacy Policy</a>
-                        </div>
+                            <button onClick={() => navigate('/terms')}>
+                                Terms & Conditions
+                            </button>                        </div>
                     </div>
                 </div>
 

@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
 import './TermsConditions.css';
 
+
 const TermsConditions = () => {
     const navigate = useNavigate();
     const [expandedSections, setExpandedSections] = useState(new Set());
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const sectionRefs = useRef([]);
-
+    useEffect(() => {
+        setInitialLoadComplete(true);
+    }, []);
     const termsData = [
         {
             id: 1,
@@ -246,13 +249,6 @@ const TermsConditions = () => {
             ]
         }
     ];
-
-    /* ==========================================
-       DELAYED INITIAL LOAD
-       ========================================== */
-    useEffect(() => {
-        setInitialLoadComplete(true);
-    }, []);
 
     /* ==========================================
        INTERSECTION OBSERVER
