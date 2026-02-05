@@ -1,6 +1,7 @@
 /* ============================================
    REGISTER PAGE - THEME COLORS ONLY
    ICONS ABSOLUTELY FIXED - RIGHT SIDE, OUTSIDE TEXT
+   FIXED: Mobile responsiveness matching login page
    ============================================ */
 
 * {
@@ -14,25 +15,27 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* ============================================
    MAIN CONTAINER - CLEAN WHITE BACKGROUND
+   FIXED: Removed overflow hidden, enabled scrolling
    ============================================ */
 .register-page {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #ffffff;
-    padding: 0;
+    padding: 20px 0;
     margin: 0;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
 }
 
 /* Subtle pattern overlay */
@@ -47,6 +50,7 @@ body {
         radial-gradient(circle at 10% 20%, rgba(30, 58, 138, 0.02) 0%, transparent 50%),
         radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 50%);
     animation: subtleMove 20s ease-in-out infinite;
+    pointer-events: none;
 }
 
 @keyframes subtleMove {
@@ -63,14 +67,15 @@ body {
 
 /* ============================================
    REGISTER CONTAINER - ELEVATED CARD
+   FIXED: Auto height on mobile, matching login page
    ============================================ */
 .register-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 1100px;
     height: auto;
-    min-height: 680px;
-    max-height: 85vh;
+    min-height: unset;
+    max-height: unset;
     background: #ffffff;
     border-radius: 40px;
     overflow: hidden;
@@ -438,6 +443,7 @@ body {
 
 /* ============================================
    RIGHT SIDE - FORM
+   FIXED: Proper scrolling behavior
    ============================================ */
 .register-right {
     padding: 3rem 2.5rem;
@@ -874,6 +880,7 @@ body {
 
 /* ============================================
    RESPONSIVE DESIGN
+   FIXED: Proper mobile behavior matching login page
    ============================================ */
 @media (max-width: 1100px) {
     .register-container {
@@ -882,18 +889,19 @@ body {
     }
 }
 
+/* CRITICAL FIX: Match login page behavior */
 @media (max-width: 968px) {
     .register-container {
         grid-template-columns: 1fr;
         width: 90%;
-        max-width: 480px;
+        max-width: 420px;
         height: auto;
         max-height: 90vh;
     }
 
     .register-left {
-        padding: 2rem;
-        min-height: 220px;
+        padding: 1.5rem;
+        min-height: 180px;
     }
 
     .brand-title {
@@ -901,13 +909,13 @@ body {
     }
 
     .icon-circle {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
 
     .icon-circle svg {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 
     .brand-features {
@@ -918,19 +926,43 @@ body {
     .feature-item {
         flex: 1;
         min-width: 120px;
+        font-size: 0.85rem;
+        padding: 0.55rem;
+    }
+
+    .feature-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .register-right {
+        padding: 1.5rem;
     }
 }
 
+/* CRITICAL FIX: Full mobile behavior matching login page */
 @media (max-width: 640px) {
+    .register-page {
+        padding: 0;
+    }
+
     .register-container {
         width: 100%;
         height: 100vh;
         max-height: 100vh;
         border-radius: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .register-left {
+        padding: 1.25rem 1.25rem;
+        min-height: unset;
     }
 
     .register-right {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1.2rem 2rem;
+        overflow-y: auto;
     }
 
     .form-wrapper {
@@ -941,13 +973,43 @@ body {
         font-size: 1.5rem;
     }
 
+    .form-subtitle {
+        font-size: 0.85rem;
+    }
+
     .brand-features {
         flex-direction: column;
+        gap: 0.6rem;
+        margin-top: 1rem;
     }
 
     .feature-item {
-        font-size: 0.875rem;
-        padding: 0.875rem 1rem;
+        width: 100%;
+        transform: none !important;
+        font-size: 0.85rem;
+        padding: 0.55rem;
+    }
+
+    .brand-content {
+        animation: none;
+    }
+
+    .form-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .register-form {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .input-field {
+        padding-right: 2.5rem;
+    }
+
+    .input-icon {
+        right: 0.75rem;
     }
 }
 
