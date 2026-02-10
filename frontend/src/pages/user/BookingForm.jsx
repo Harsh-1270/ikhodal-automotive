@@ -368,21 +368,6 @@ const BookingForm = () => {
                                 <span className="total-label">Total Amount</span>
                                 <span className="total-value">₹{cartSummary.total.toLocaleString()}</span>
                             </div>
-
-                            <div className="summary-info">
-                                <div className="info-item">
-                                    <span className="info-icon">✓</span>
-                                    <span>Secure Payment</span>
-                                </div>
-                                <div className="info-item">
-                                    <span className="info-icon">✓</span>
-                                    <span>Professional Service</span>
-                                </div>
-                                <div className="info-item">
-                                    <span className="info-icon">✓</span>
-                                    <span>Quality Guaranteed</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

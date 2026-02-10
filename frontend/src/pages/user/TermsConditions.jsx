@@ -10,9 +10,13 @@ const TermsConditions = () => {
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const sectionRefs = useRef([]);
+    const footerRef = useRef(null);
+
     useEffect(() => {
+        // Remove delay - immediate load
         setInitialLoadComplete(true);
     }, []);
+
     const termsData = [
         {
             id: 1,
@@ -251,24 +255,23 @@ const TermsConditions = () => {
     ];
 
     /* ==========================================
-       INTERSECTION OBSERVER
+       INTERSECTION OBSERVER - OPTIMIZED
        ========================================== */
     useEffect(() => {
         if (!initialLoadComplete) return;
 
         const observerOptions = {
             root: null,
-            rootMargin: '-50px 0px -100px 0px',
-            threshold: [0, 0.05, 0.1]
+            rootMargin: '0px 0px -20% 0px', // Trigger earlier - when 80% visible
+            threshold: 0.1 // Lower threshold for faster trigger
         };
 
         const observerCallback = (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
+                if (entry.isIntersecting) {
                     const sectionId = entry.target.dataset.sectionId;
-                    setTimeout(() => {
-                        setVisibleSections(prev => new Set([...prev, sectionId]));
-                    }, 100);
+                    // Immediate - show all sections when they enter viewport
+                    setVisibleSections(prev => new Set([...prev, sectionId]));
                 }
             });
         };
@@ -279,10 +282,18 @@ const TermsConditions = () => {
             if (ref) observer.observe(ref);
         });
 
+        // Add footer to observer
+        if (footerRef.current) {
+            observer.observe(footerRef.current);
+        }
+
         return () => {
             sectionRefs.current.forEach(ref => {
                 if (ref) observer.unobserve(ref);
             });
+            if (footerRef.current) {
+                observer.unobserve(footerRef.current);
+            }
         };
     }, [initialLoadComplete]);
 
@@ -340,7 +351,7 @@ const TermsConditions = () => {
                             data-section-id={term.id}
                             className={`term-card ${visibleSections.has(term.id.toString()) ? 'visible' : ''}`}
                             style={{
-                                animationDelay: visibleSections.has(term.id.toString()) ? `${index * 0.08}s` : '0s'
+                                animationDelay: visibleSections.has(term.id.toString()) ? `${index * 0.03}s` : '0s'
                             }}
                         >
                             <div className="term-header">
@@ -389,7 +400,11 @@ const TermsConditions = () => {
 
                 {/* Footer Note */}
                 <div className="terms-footer">
-                    <div className="footer-card">
+                    <div
+                        ref={footerRef}
+                        data-section-id="footer"
+                        className={`footer-card ${visibleSections.has('footer') ? 'visible' : ''}`}
+                    >
                         <div className="footer-icon">📞</div>
                         <h3>Questions about our Terms?</h3>
                         <p>If you have any questions or concerns about these terms and conditions, please contact us.</p>
