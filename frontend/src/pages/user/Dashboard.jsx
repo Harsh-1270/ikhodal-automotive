@@ -9,7 +9,6 @@ const Dashboard = () => {
     const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-    const hasScrolledDown = useRef(false);
     const [cart, setCart] = useState([]);
     const [showCartNotification, setShowCartNotification] = useState(false);
 
@@ -70,29 +69,22 @@ const Dashboard = () => {
     }, []);
 
     /* ==========================================
-       INTERSECTION OBSERVER - SMOOTH SCROLL ANIMATIONS
+       INTERSECTION OBSERVER - IMMEDIATE SERVICE LOADING
        ========================================== */
     useEffect(() => {
         if (!initialLoadComplete) return;
 
         const observerOptions = {
             root: null,
-            rootMargin: '-50px 0px -100px 0px',
-            threshold: [0, 0.05, 0.1]
+            rootMargin: '0px 0px 300px 0px',  // Load 300px BEFORE element is visible
+            threshold: 0  // Trigger immediately when element starts to appear
         };
 
         const observerCallback = (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
+                if (entry.isIntersecting) {
                     const sectionName = entry.target.dataset.section;
-
-                    if (!hasScrolledDown.current || entry.boundingClientRect.top > 0) {
-                        hasScrolledDown.current = true;
-
-                        setTimeout(() => {
-                            setVisibleSections(prev => new Set([...prev, sectionName]));
-                        }, 100);
-                    }
+                    setVisibleSections(prev => new Set([...prev, sectionName]));
                 }
             });
         };

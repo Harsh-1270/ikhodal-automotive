@@ -51,7 +51,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                         onClick={() => handleNavigation('/cart')}
                     >
                         <span className="icon">🛒</span>
-                        {cartCount > 0 && <span className="badge">{cartCount}</span>}
                         <span className="nav-label">My Cart</span>
                     </button>
 
@@ -60,7 +59,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                         onClick={() => handleNavigation('/my-bookings')}
                     >
                         <span className="icon">📅</span>
-                        <span className="badge">5</span>
                         <span className="nav-label">My Bookings</span>
                     </button>
 
@@ -122,7 +120,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                             <span className="mobile-menu-icon">🛒</span>
                             <span>My Cart</span>
                         </div>
-                        {cartCount > 0 && <span className="mobile-menu-badge">{cartCount}</span>}
                     </button>
 
                     <button
@@ -133,7 +130,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                             <span className="mobile-menu-icon">📅</span>
                             <span>My Bookings</span>
                         </div>
-                        <span className="mobile-menu-badge">5</span>
                     </button>
 
                     <button
