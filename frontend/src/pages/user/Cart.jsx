@@ -213,21 +213,6 @@ const Cart = () => {
                                         <span className="checkout-icon">📅</span>
                                         Schedule Appointment
                                     </button>
-
-                                    <div className="summary-info">
-                                        <div className="info-item">
-                                            <span className="info-icon">✓</span>
-                                            <span className="info-text">Secure Payment</span>
-                                        </div>
-                                        <div className="info-item">
-                                            <span className="info-icon">✓</span>
-                                            <span className="info-text">Professional Service</span>
-                                        </div>
-                                        <div className="info-item">
-                                            <span className="info-icon">✓</span>
-                                            <span className="info-text">Quality Guaranteed</span>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 {/* Continue Shopping */}

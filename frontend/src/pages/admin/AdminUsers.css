@@ -1,5 +1,6 @@
 /* ============================================
    ADMIN USERS - USER MANAGEMENT PAGE
+   FULLY RESPONSIVE VERSION WITH COMPACT MOBILE CARDS
    ============================================ */
 
 * {
@@ -467,7 +468,7 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN - TABLET (1024px)
    ============================================ */
 
 @media (max-width: 1024px) {
@@ -480,33 +481,438 @@
     }
 }
 
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE (768px)
+   COMPACT CARDS WITH REDUCED SPACING
+   ============================================ */
+
 @media (max-width: 768px) {
     .admin-users-main {
         padding: 1rem;
     }
 
+    /* Page Header */
+    .page-header {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.25rem;
+    }
+
     .page-title {
         font-size: 1.5rem;
+        gap: 0.625rem;
     }
 
     .title-icon {
         font-size: 1.5rem;
     }
 
+    /* Stats Row */
     .stats-row {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
     }
 
+    .stat-box {
+        padding: 1.5rem;
+    }
+
+    .stat-icon-circle {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+    }
+
+    /* Search Section */
+    .search-section {
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .search-wrapper {
+        margin-bottom: 0.875rem;
+    }
+
+    .search-icon {
+        left: 1rem;
+        font-size: 1.125rem;
+    }
+
+    .search-input {
+        padding: 0.875rem 3rem 0.875rem 3rem;
+        font-size: 0.9375rem;
+    }
+
+    .clear-search {
+        right: 0.875rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.9375rem;
+    }
+
+    .search-results-count {
+        font-size: 0.875rem;
+    }
+
+    /* Users Grid - COMPACT SPACING */
     .users-grid {
         grid-template-columns: 1fr;
+        gap: 0.625rem;
+    }
+
+    /* User Card - MUCH MORE COMPACT */
+    .user-card {
+        border-radius: 16px;
+    }
+
+    .user-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .user-card-header {
+        padding: 0.75rem;
+        gap: 0.375rem;
+    }
+
+    .user-avatar-large {
+        width: 52px;
+        height: 52px;
+        font-size: 1.625rem;
+        border-width: 3px;
+    }
+
+    .user-status-badge {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.6875rem;
+        gap: 0.25rem;
+    }
+
+    .user-card-body {
+        padding: 0.75rem;
+    }
+
+    .user-card-name {
+        font-size: 0.9375rem;
+        margin-bottom: 0.125rem;
+    }
+
+    .user-card-id {
+        font-size: 0.6875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .user-card-details {
+        gap: 0.375rem;
+    }
+
+    .detail-item {
+        padding: 0.4375rem 0.5rem;
+    }
+
+    .detail-icon {
+        font-size: 0.875rem;
+    }
+
+    .detail-text {
+        font-size: 0.6875rem;
     }
 
     .user-card-footer {
+        padding: 0.5rem 0.75rem;
         flex-direction: column;
+        gap: 0.375rem;
     }
 
     .user-action-btn {
         width: 100%;
+        padding: 0.5rem;
+        font-size: 0.6875rem;
+        gap: 0.25rem;
+    }
+
+    .user-action-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 4rem 1.5rem;
+    }
+
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+    }
+
+    .empty-state p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .clear-filters-btn {
+        padding: 0.875rem 1.75rem;
+        font-size: 0.9375rem;
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - SMALL MOBILE (480px)
+   ============================================ */
+
+@media (max-width: 480px) {
+    .admin-users-main {
+        padding: 0.75rem;
+    }
+
+    /* Page Header */
+    .page-header {
+        padding: 1.25rem 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+        gap: 0.5rem;
+    }
+
+    .title-icon {
+        font-size: 1.25rem;
+    }
+
+    /* Stats Row */
+    .stats-row {
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .stat-box {
+        padding: 1.25rem;
+    }
+
+    .stat-icon-circle {
+        width: 52px;
+        height: 52px;
+        font-size: 1.375rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.8125rem;
+    }
+
+    /* Search Section */
+    .search-section {
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .search-wrapper {
+        margin-bottom: 0.75rem;
+    }
+
+    .search-icon {
+        left: 0.875rem;
+        font-size: 1rem;
+    }
+
+    .search-input {
+        padding: 0.75rem 2.75rem 0.75rem 2.75rem;
+        font-size: 0.875rem;
+        border-width: 2px;
+    }
+
+    .clear-search {
+        right: 0.75rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.875rem;
+    }
+
+    .search-results-count {
+        font-size: 0.8125rem;
+    }
+
+    /* Users Grid - EVEN MORE COMPACT */
+    .users-grid {
+        gap: 0.5rem;
+    }
+
+    /* User Card - ULTRA COMPACT */
+    .user-card {
+        border-radius: 14px;
+    }
+
+    .user-card-header {
+        padding: 0.625rem;
+        gap: 0.3125rem;
+    }
+
+    .user-avatar-large {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+        border-width: 2.5px;
+    }
+
+    .user-status-badge {
+        padding: 0.1875rem 0.4375rem;
+        font-size: 0.625rem;
+    }
+
+    .user-card-body {
+        padding: 0.625rem;
+    }
+
+    .user-card-name {
+        font-size: 0.875rem;
+        margin-bottom: 0.0625rem;
+    }
+
+    .user-card-id {
+        font-size: 0.625rem;
+        margin-bottom: 0.4375rem;
+    }
+
+    .user-card-details {
+        gap: 0.3125rem;
+    }
+
+    .detail-item {
+        padding: 0.375rem 0.4375rem;
+    }
+
+    .detail-icon {
+        font-size: 0.8125rem;
+    }
+
+    .detail-text {
+        font-size: 0.625rem;
+    }
+
+    .user-card-footer {
+        padding: 0.4375rem 0.625rem;
+        gap: 0.3125rem;
+    }
+
+    .user-action-btn {
+        padding: 0.4375rem;
+        font-size: 0.625rem;
+        gap: 0.1875rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 3rem 1rem;
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.875rem;
+    }
+
+    .empty-state p {
+        font-size: 0.9375rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .clear-filters-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* ============================================
+   EXTRA SMALL MOBILE (360px and below)
+   ============================================ */
+
+@media (max-width: 360px) {
+    .admin-users-main {
+        padding: 0.625rem;
+    }
+
+    .page-header {
+        padding: 1rem 0.75rem;
+    }
+
+    .page-title {
+        font-size: 1.125rem;
+    }
+
+    .title-icon {
+        font-size: 1.125rem;
+    }
+
+    .stat-box {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .stat-icon-circle {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .stat-value {
+        font-size: 1.375rem;
+    }
+
+    .search-section {
+        padding: 0.875rem;
+    }
+
+    .search-input {
+        padding: 0.625rem 2.5rem 0.625rem 2.5rem;
+        font-size: 0.8125rem;
+    }
+
+    .users-grid {
+        gap: 0.4375rem;
+    }
+
+    .user-card-header {
+        padding: 0.5rem;
+    }
+
+    .user-avatar-large {
+        width: 44px;
+        height: 44px;
+        font-size: 1.375rem;
+    }
+
+    .user-card-body {
+        padding: 0.5rem;
+    }
+
+    .user-card-footer {
+        padding: 0.375rem 0.5rem;
+    }
+
+    .clear-filters-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.8125rem;
     }
 }
 

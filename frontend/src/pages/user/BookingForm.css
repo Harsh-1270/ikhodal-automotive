@@ -350,6 +350,7 @@
 .summary-section {
     display: flex;
     flex-direction: column;
+    height: fit-content;
 }
 
 .summary-card {
@@ -359,9 +360,17 @@
     border: 2px solid #f3f4f6;
 }
 
+
 .sticky-card {
+    position: -webkit-sticky;
+    /* ← Safari support */
     position: sticky;
-    top: 90px;
+    top: 100px;
+    /* ← Better spacing */
+    max-height: calc(100vh - 120px);
+    /* ← Prevents overflow */
+    overflow-y: auto;
+    /* ← Scrollable if content is tall */
 }
 
 

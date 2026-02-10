@@ -209,6 +209,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .meta-badge {
@@ -316,6 +317,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    align-self: flex-start;
+    /* Required: prevents stretching to grid height, which breaks sticky */
+    position: sticky;
+    top: 100px;
 }
 
 .summary-card {
@@ -325,9 +330,9 @@
     border: 2px solid #f3f4f6;
 }
 
+/* STICKY SUMMARY - handled by .order-summary-section on desktop */
 .sticky-summary {
-    position: sticky;
-    top: 90px;
+    /* sticky positioning managed by parent .order-summary-section */
 }
 
 .summary-title {
@@ -486,8 +491,16 @@
         grid-template-columns: 1fr;
     }
 
+    /* Disable sticky on tablet/mobile */
+    .order-summary-section {
+        align-self: auto;
+        position: static;
+    }
+
     .sticky-summary {
         position: static;
+        max-height: none;
+        overflow-y: visible;
     }
 }
 
@@ -497,11 +510,15 @@
     }
 
     .page-title {
-        font-size: 1.75rem;
+        font-size: 1.875rem;
     }
 
     .title-icon {
-        font-size: 1.75rem;
+        font-size: 1.875rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
     }
 
     .page-header {
@@ -517,6 +534,34 @@
 
     .cart-item {
         flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .item-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2.25rem;
+    }
+
+    .item-name {
+        font-size: 1.25rem;
+    }
+
+    .item-description {
+        font-size: 0.875rem;
+    }
+
+    .item-meta {
+        gap: 0.75rem;
+    }
+
+    .meta-badge {
+        font-size: 0.8125rem;
+        padding: 0.375rem 0.75rem;
+    }
+
+    .price-per-item {
+        font-size: 0.8125rem;
     }
 
     .item-actions {
@@ -528,6 +573,153 @@
 
     .item-price {
         order: -1;
+        font-size: 1.5rem;
+    }
+
+    .quantity-controls {
+        padding: 0.375rem;
+    }
+
+    .qty-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+
+    .qty-value {
+        font-size: 1rem;
+        min-width: 35px;
+    }
+
+    .remove-btn {
+        font-size: 0.8125rem;
+        padding: 0.5rem 0.875rem;
+    }
+
+    .summary-card {
+        padding: 1.5rem;
+    }
+
+    .summary-title {
+        font-size: 1.25rem;
+    }
+
+    .summary-row {
+        font-size: 0.875rem;
+    }
+
+    .row-label {
+        font-size: 0.875rem;
+    }
+
+    .row-value {
+        font-size: 0.9375rem;
+    }
+
+    .total-label {
+        font-size: 1rem;
+    }
+
+    .total-value {
+        font-size: 1.75rem;
+    }
+
+    .checkout-btn {
+        padding: 1rem;
+        font-size: 0.9375rem;
+    }
+
+    .info-item {
+        font-size: 0.8125rem;
+    }
+
+    .continue-shopping-btn {
+        font-size: 0.875rem;
+    }
+
+    .empty-icon {
+        font-size: 4.5rem;
+    }
+
+    .empty-cart h2 {
+        font-size: 1.5rem;
+    }
+
+    .empty-cart p {
+        font-size: 1rem;
+    }
+
+    /* Reduce gap between Schedule Appointment and Continue Shopping on mobile */
+    .order-summary-section {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-main {
+        padding: 0.75rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .title-icon {
+        font-size: 1.5rem;
+    }
+
+    .cart-item {
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+
+    .item-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .item-name {
+        font-size: 1.125rem;
+    }
+
+    .item-price {
+        font-size: 1.375rem;
+    }
+
+    .qty-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .summary-card {
+        padding: 1.25rem;
+    }
+
+    .total-value {
+        font-size: 1.5rem;
+    }
+
+    .empty-icon {
+        font-size: 3.5rem;
+    }
+
+    .empty-cart h2 {
+        font-size: 1.25rem;
+    }
+
+    .empty-cart p {
+        font-size: 0.9375rem;
+    }
+
+    .browse-btn {
+        font-size: 0.9375rem;
+        padding: 0.875rem 1.5rem;
+    }
+
+    /* Further reduce gap on smaller mobile screens */
+    .order-summary-section {
+        gap: 0.5rem;
     }
 }
 
