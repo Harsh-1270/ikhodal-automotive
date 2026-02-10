@@ -1,5 +1,5 @@
 /* ============================================
-   DASHBOARD - SMOOTH SCROLLABLE & BEAUTIFUL
+   DASHBOARD - SMOOTH SCROLLABLE & BEAUTIFUL & RESPONSIVE
    ============================================ */
 
 * {
@@ -803,75 +803,6 @@ STATISTICS SECTION
 }
 
 /* ============================================
-RESPONSIVE DESIGN
-============================================ */
-@media (max-width: 1024px) {
-    .banner-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .banner-right {
-        display: none;
-    }
-
-    .popular-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .benefits-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .dashboard-main {
-        padding: 1rem;
-    }
-
-    .navbar-content {
-        padding: 1rem;
-    }
-
-    .nav-label {
-        display: none;
-    }
-
-    .user-info {
-        display: none;
-    }
-
-    .popular-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .benefits-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .quick-actions {
-        flex-direction: column;
-    }
-
-    .quick-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ============================================
    CART NOTIFICATION
    ============================================ */
 .cart-notification {
@@ -1118,4 +1049,275 @@ textarea,
 *::-moz-selection {
     background: transparent;
     color: inherit;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner-right {
+        display: none;
+    }
+
+    .popular-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-main {
+        padding: 1rem;
+    }
+
+    .navbar-content {
+        padding: 1rem;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .welcome-banner {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .welcome-title {
+        font-size: 1.75rem;
+    }
+
+    .welcome-text {
+        font-size: 1rem;
+    }
+
+    .wave-emoji {
+        font-size: 2rem;
+    }
+
+    .popular-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    .quick-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title-center {
+        font-size: 1.75rem;
+    }
+
+    .why-choose-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .view-toggle {
+        display: none;
+    }
+
+    /* List view adaptations for mobile */
+    .services-list .service-card-new {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .services-list .service-icon-large {
+        grid-column: 1;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .services-list .service-content {
+        grid-column: 1;
+        text-align: center;
+    }
+
+    .services-list .service-title {
+        font-size: 1.25rem;
+    }
+
+    .services-list .service-info-row {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .services-list .service-actions {
+        grid-column: 1;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .services-list .add-cart-btn,
+    .services-list .service-book-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .service-info-row {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .cart-notification {
+        right: 1rem;
+        left: 1rem;
+        top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-banner {
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
+    }
+
+    .welcome-title {
+        font-size: 1.5rem;
+    }
+
+    .welcome-text {
+        font-size: 0.9375rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .wave-emoji {
+        font-size: 1.75rem;
+    }
+
+    .quick-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9375rem;
+    }
+
+    .section-title {
+        font-size: 1.375rem;
+    }
+
+    .section-title-center {
+        font-size: 1.5rem;
+    }
+
+    .popular-card {
+        padding: 1.25rem;
+    }
+
+    .popular-icon {
+        font-size: 2.5rem;
+    }
+
+    .service-card-new {
+        padding: 1.25rem;
+    }
+
+    .service-icon-large {
+        font-size: 3rem;
+    }
+
+    .service-title {
+        font-size: 1.125rem;
+    }
+
+    .service-desc {
+        font-size: 0.875rem;
+    }
+
+    .service-actions {
+        flex-direction: column;
+    }
+
+    .add-cart-btn,
+    .service-book-btn {
+        width: 100%;
+    }
+
+    .stat-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .stat-icon {
+        font-size: 3rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .benefit-icon {
+        font-size: 3rem;
+    }
+
+    .pill {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9375rem;
+    }
+
+    .category-pills {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .dashboard-main {
+        padding: 0.75rem;
+    }
+
+    .welcome-banner {
+        padding: 1.25rem 0.875rem;
+    }
+
+    .welcome-title {
+        font-size: 1.375rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .section-title-center {
+        font-size: 1.375rem;
+    }
 }
