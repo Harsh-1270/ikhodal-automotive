@@ -1250,3 +1250,194 @@ section[id] {
         padding: 0.875rem 2rem;
     }
 }
+
+
+/* ============================================
+   ADD THESE STYLES TO YOUR EXISTING Home.css
+   ============================================ */
+
+/* ==========================================
+   STACKED LOGO STYLING
+   ========================================== */
+.logo-text-stacked {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    gap: 2px;
+}
+
+.logo-line-top,
+.logo-line-bottom {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* Nav Logo Stacked */
+.nav-logo .logo-text-stacked .logo-line-top {
+    font-size: 0.95rem;
+}
+
+.nav-logo .logo-text-stacked .logo-line-bottom {
+    font-size: 0.95rem;
+}
+
+/* Footer Logo Stacked */
+.footer-logo .logo-text-stacked {
+    gap: 1px;
+}
+
+.footer-logo .logo-text-stacked .logo-line-top {
+    font-size: 1.1rem;
+}
+
+.footer-logo .logo-text-stacked .logo-line-bottom {
+    font-size: 1.1rem;
+}
+
+/* ==========================================
+   SVG ICON STYLING - MATCHING COLOR SCHEME
+   ========================================== */
+
+/* Nav Logo Icon */
+.nav-logo .logo-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #1e3a8a;
+}
+
+.landing-nav.scrolled .nav-logo .logo-icon svg {
+    color: #1e3a8a;
+}
+
+/* Hero Badge Icon */
+.hero-badge .badge-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #3b82f6;
+}
+
+/* Hero Features Icons */
+.hero-features .feature-icon svg {
+    width: 22px;
+    height: 22px;
+    color: #3b82f6;
+}
+
+/* Scroll Arrow Icon */
+.scroll-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: currentColor;
+}
+
+/* About Card Icons */
+.about-card .card-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6;
+}
+
+/* Service Card Icons */
+.service-card .service-icon svg {
+    width: 48px;
+    height: 48px;
+    color: #3b82f6;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card.featured .service-icon svg {
+    color: #1e3a8a;
+}
+
+/* Step Icons */
+.step-card .step-icon svg {
+    width: 56px;
+    height: 56px;
+    color: #3b82f6;
+}
+
+/* Step Connector Icons */
+.step-connector svg {
+    width: 28px;
+    height: 28px;
+    color: #3b82f6;
+}
+
+/* CTA Button Icon */
+.btn-cta span svg {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+/* Contact Info Icons */
+.contact-info .info-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #3b82f6;
+}
+
+/* Footer Logo Icon */
+.footer-logo .logo-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #3b82f6;
+}
+
+/* Button Arrow Icons */
+.btn-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+.btn-primary-large .btn-arrow svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary-large:hover .btn-arrow svg {
+    transform: translateX(5px);
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS FOR STACKED LOGO
+   ========================================== */
+@media (max-width: 768px) {
+    .nav-logo .logo-text-stacked .logo-line-top,
+    .nav-logo .logo-text-stacked .logo-line-bottom {
+        font-size: 0.85rem;
+    }
+
+    .nav-logo .logo-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .footer-logo .logo-text-stacked .logo-line-top,
+    .footer-logo .logo-text-stacked .logo-line-bottom {
+        font-size: 1rem;
+    }
+
+    .footer-logo .logo-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-logo .logo-text-stacked .logo-line-top,
+    .nav-logo .logo-text-stacked .logo-line-bottom {
+        font-size: 0.8rem;
+    }
+
+    .nav-logo .logo-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+}

@@ -76,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
         provider.setProvider("LOCAL");
         provider.setCreatedAt(LocalDateTime.now());
         authProviderRepository.save(provider);
-
+                                                                                                                        
         String otp = generateOtp();
 
         EmailOtpVerification otpEntity = new EmailOtpVerification();
@@ -123,6 +123,10 @@ public class AuthServiceImpl implements AuthService {
 
         if (!user.isEmailVerified()) {
             throw new ApiException("Email not verified");
+        }
+
+        if(!user.isEmailVerified() || !user.isActive()) {
+            throw new ApiException("Account not active. Please verify your email.");
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

@@ -1463,3 +1463,376 @@ textarea,
         font-size: 1.375rem;
     }
 }
+
+
+
+/* ============================================
+   ADD THESE STYLES TO YOUR Dashboard.css
+   ============================================ */
+
+/* ==========================================
+   SVG ICON STYLING - MATCHING COLOR SCHEME
+   ========================================== */
+
+/* Wave emoji icon */
+.wave-emoji svg {
+    width: 32px;
+    height: 32px;
+    color: #3b82f6;
+}
+
+/* Quick action button icons */
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+/* Floating card icons */
+.floating-card .card-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #3b82f6;
+}
+
+/* Section title icons */
+.section-title-icon {
+    width: 24px;
+    height: 24px;
+    color: #3b82f6;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Popular card icons */
+.popular-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6;
+}
+
+/* Category pill icons */
+.pill-icon svg {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+/* View toggle icons */
+.toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    color: currentColor;
+}
+
+/* Badge icons */
+.badge-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Service icon large */
+.service-icon-large svg {
+    width: 56px;
+    height: 56px;
+    color: #3b82f6;
+}
+
+/* Info item icons */
+.info-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #64748b;
+}
+
+/* Cart icons */
+.cart-icon svg {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+/* Button arrow icons */
+.btn-arrow svg {
+    width: 18px;
+    height: 18px;
+    color: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.service-book-btn:hover .btn-arrow svg {
+    transform: translateX(4px);
+}
+
+/* Notification icon */
+.notification-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #10b981;
+}
+
+/* Floating cart button icon */
+.floating-cart-btn .cart-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+/* Benefit icons */
+.benefit-icon svg {
+    width: 48px;
+    height: 48px;
+    color: #3b82f6;
+}
+
+/* Stat icons */
+.stat-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6;
+}
+
+/* Footer logo icon */
+.dashboard-footer .logo-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #3b82f6;
+}
+
+/* ==========================================
+   FOOTER STYLING (Same as Home.jsx)
+   ========================================== */
+
+.dashboard-footer {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    color: white;
+    padding: 3rem 2rem 1.5rem;
+    margin-top: 4rem;
+}
+
+.dashboard-footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-footer .footer-brand p {
+    margin-top: 1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.dashboard-footer .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.dashboard-footer .logo-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Stacked Logo Styling */
+.logo-text-stacked {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    gap: 2px;
+}
+
+.logo-line-top,
+.logo-line-bottom {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.dashboard-footer .logo-text-stacked .logo-line-top {
+    font-size: 1.1rem;
+}
+
+.dashboard-footer .logo-text-stacked .logo-line-bottom {
+    font-size: 1.1rem;
+}
+
+.dashboard-footer .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.dashboard-footer .footer-column h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.dashboard-footer .footer-column button,
+.dashboard-footer .footer-column a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+
+.dashboard-footer .footer-column button:hover,
+.dashboard-footer .footer-column a:hover {
+    color: white;
+    transform: translateX(4px);
+}
+
+.dashboard-footer .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.dashboard-footer .footer-bottom p {
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   FOOTER RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 968px) {
+    .dashboard-footer .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .dashboard-footer .footer-links {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-footer {
+        padding: 2rem 1.5rem 1rem;
+        margin-top: 3rem;
+    }
+
+    .dashboard-footer .footer-content {
+        gap: 1.5rem;
+    }
+
+    .dashboard-footer .footer-links {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .dashboard-footer .logo-text-stacked .logo-line-top,
+    .dashboard-footer .logo-text-stacked .logo-line-bottom {
+        font-size: 1rem;
+    }
+
+    .dashboard-footer .footer-column h4 {
+        font-size: 1rem;
+    }
+
+    .dashboard-footer .footer-column button,
+    .dashboard-footer .footer-column a {
+        font-size: 0.9rem;
+    }
+}
+
+/* ==========================================
+   ENSURE SVG ICONS ARE INLINE
+   ========================================== */
+
+svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Smooth transitions for all SVG icons */
+.benefit-icon svg,
+.stat-icon svg,
+.popular-icon svg,
+.service-icon-large svg {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effects */
+.benefit-item:hover .benefit-icon svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.stat-card:hover .stat-icon svg {
+    transform: scale(1.1);
+}
+
+.popular-card:hover .popular-icon svg {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.service-card-new:hover .service-icon-large svg {
+    transform: scale(1.1);
+}
+
+/* Fix wave emoji display */
+.wave-emoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.wave-emoji svg {
+    width: 36px;
+    height: 36px;
+    color: #fbbf24;
+    display: block;
+}
+
+/* Fix floating card icons */
+.floating-card .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+}
+
+.floating-card .card-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #3b82f6;
+    display: block;
+}
+
+/* Ensure greeting is flex container */
+.greeting {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.welcome-title {
+    display: inline-flex;
+    align-items: center;
+}
