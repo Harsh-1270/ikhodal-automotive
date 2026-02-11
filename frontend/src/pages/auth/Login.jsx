@@ -109,30 +109,30 @@ const Login = () => {
        ========================================== */
     return (
         <div className="login-page">
-            <div className="login-container">
+            <div className="login-main-container">
                 {/* Left Side - Branding */}
-                <div className="login-left">
-                    <div className="brand-content">
-                        <div className="brand-icon">
-                            <div className="icon-circle">
+                <div className="login-brand-panel">
+                    <div className="login-brand-wrapper">
+                        <div className="login-icon-wrapper">
+                            <div className="login-icon-box">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                                 </svg>
                             </div>
                         </div>
-                        <h1 className="brand-title">I Khodal Automotive</h1>
-                        <p className="brand-subtitle">Your Trusted Car Service Partner</p>
-                        <div className="brand-features">
-                            <div className="feature-item">
-                                <span className="feature-icon">✓</span>
+                        <h1 className="login-brand-heading">I Khodal Automotive</h1>
+                        <p className="login-brand-text">Your Trusted Car Service Partner</p>
+                        <div className="login-features-list">
+                            <div className="login-feature-box">
+                                <span className="login-feature-symbol">✓</span>
                                 <span>Expert Technicians</span>
                             </div>
-                            <div className="feature-item">
-                                <span className="feature-icon">✓</span>
+                            <div className="login-feature-box">
+                                <span className="login-feature-symbol">✓</span>
                                 <span>Quality Service</span>
                             </div>
-                            <div className="feature-item">
-                                <span className="feature-icon">✓</span>
+                            <div className="login-feature-box">
+                                <span className="login-feature-symbol">✓</span>
                                 <span>Easy Booking</span>
                             </div>
                         </div>
@@ -140,26 +140,26 @@ const Login = () => {
                 </div>
 
                 {/* Right Side - Login Form */}
-                <div className="login-right">
-                    <div className="form-wrapper">
-                        <div className="form-header">
-                            <h2 className="form-title">Welcome Back!</h2>
-                            <p className="form-subtitle">Login to your account to continue</p>
+                <div className="login-form-panel">
+                    <div className="login-form-container">
+                        <div className="login-header">
+                            <h2 className="login-heading">Welcome Back!</h2>
+                            <p className="login-subheading">Login to your account to continue</p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="login-form">
+                        <form onSubmit={handleSubmit} className="login-form-element">
                             {/* API Error */}
                             {apiError && (
-                                <div className="error-banner">
-                                    <span className="error-icon">⚠</span>
+                                <div className="login-error-message">
+                                    <span className="login-error-symbol">⚠</span>
                                     <span>{apiError}</span>
                                 </div>
                             )}
 
                             {/* Email Input */}
-                            <div className="input-group">
-                                <label htmlFor="email" className="input-label">Email Address</label>
-                                <div className="input-wrapper">
+                            <div className="login-field-group">
+                                <label htmlFor="email" className="login-field-label">Email Address</label>
+                                <div className="login-field-container">
                                     <input
                                         type="email"
                                         id="email"
@@ -168,19 +168,19 @@ const Login = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         disabled={loading}
-                                        className={`input-field ${errors.email ? 'error' : ''}`}
+                                        className={`login-input-box ${errors.email ? 'login-error-state' : ''}`}
                                     />
-                                    <span className="input-icon">✉</span>
+                                    <span className="login-field-icon">✉</span>
                                 </div>
                                 {errors.email && (
-                                    <span className="error-text">{errors.email}</span>
+                                    <span className="login-validation-text">{errors.email}</span>
                                 )}
                             </div>
 
                             {/* Password Input */}
-                            <div className="input-group">
-                                <label htmlFor="password" className="input-label">Password</label>
-                                <div className="input-wrapper">
+                            <div className="login-field-group">
+                                <label htmlFor="password" className="login-field-label">Password</label>
+                                <div className="login-field-container">
                                     <input
                                         type="password"
                                         id="password"
@@ -189,18 +189,18 @@ const Login = () => {
                                         value={formData.password}
                                         onChange={handleChange}
                                         disabled={loading}
-                                        className={`input-field ${errors.password ? 'error' : ''}`}
+                                        className={`login-input-box ${errors.password ? 'login-error-state' : ''}`}
                                     />
-                                    <span className="input-icon">🔒</span>
+                                    <span className="login-field-icon">🔒</span>
                                 </div>
                                 {errors.password && (
-                                    <span className="error-text">{errors.password}</span>
+                                    <span className="login-validation-text">{errors.password}</span>
                                 )}
                             </div>
 
                             {/* Forgot Password Link */}
-                            <div className="forgot-password">
-                                <Link to="/forgot-password" className="forgot-link">
+                            <div className="login-forgot-section">
+                                <Link to="/forgot-password" className="login-forgot-anchor">
                                     Forgot Password?
                                 </Link>
                             </div>
@@ -208,12 +208,12 @@ const Login = () => {
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                className="submit-btn"
+                                className="login-submit-button"
                                 disabled={loading}
                             >
                                 {loading ? (
                                     <>
-                                        <span className="spinner-small"></span>
+                                        <span className="login-spinner"></span>
                                         Logging In...
                                     </>
                                 ) : (
@@ -223,10 +223,10 @@ const Login = () => {
                         </form>
 
                         {/* Footer Links */}
-                        <div className="form-footer">
-                            <p className="footer-text">
+                        <div className="login-footer-section">
+                            <p className="login-footer-paragraph">
                                 Don't have an account?{' '}
-                                <Link to="/register" className="footer-link">
+                                <Link to="/register" className="login-footer-anchor">
                                     Register here
                                 </Link>
                             </p>
