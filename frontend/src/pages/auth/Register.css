@@ -253,27 +253,49 @@ body {
     font-weight: 700;
     color: #0f172a;
 }
-
-.input-wrapper {
+/* === FORCE LOGIN-LIKE INPUT STRUCTURE === */
+.register-page .input-wrapper {
     position: relative;
     width: 100%;
 }
 
-.input-field {
+/* === INPUT FIELD === */
+.register-page .input-field {
     width: 100%;
     height: 44px;
-    padding: 0 48px 0 14px;
-    /* LEFT | RIGHT padding */
+    padding-left: 14px;
+    padding-right: 46px; /* space for right icon */
     font-size: 0.875rem;
+
     direction: ltr;
-    /* 🔥 force left-to-right */
     text-align: left;
+
     border: 2px solid #e2e8f0;
     border-radius: 12px;
-    background: white;
+    background-color: white;
     color: #0f172a;
     outline: none;
 }
+
+/* === ICON FIXED ON RIGHT (LIKE LOGIN) === */
+.register-page .input-icon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    line-height: 1;
+    pointer-events: none;
+    color: #94a3b8;
+    z-index: 2;
+}
+
+/* === FOCUS EFFECT === */
+.register-page .input-field:focus + .input-icon {
+    color: #1e3a8a;
+    transform: translateY(-50%) scale(1.1);
+}
+
 
 .input-field::placeholder {
     color: #94a3b8;
@@ -285,10 +307,11 @@ body {
     box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
 }
 
-.input-field:focus+.input-icon {
+/* ===== FOCUS EFFECT SAME AS LOGIN =====
+.input-field:focus + .input-icon {
     color: #1e3a8a;
     transform: translateY(-50%) scale(1.1);
-}
+} */
 
 .input-field.error {
     border-color: #dc2626;
@@ -298,16 +321,17 @@ body {
     box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
-.input-icon {
+/* ===== ICON (RIGHT SIDE FIXED) ===== */
+/* .input-icon {
     position: absolute;
+    right: 14px;
     top: 50%;
-    right: 16px;
-    /* Perfect edge alignment */
     transform: translateY(-50%);
     font-size: 18px;
     pointer-events: none;
     line-height: 1;
-}
+    color: #64748b;
+} */
 
 
 .error-text {
@@ -487,3 +511,52 @@ body {
     -ms-user-select: text;
     user-select: text;
 }
+
+
+
+/* ============================================
+   INPUT SVG ICONS (RIGHT SIDE)
+   ============================================ */
+
+.input-field {
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+    padding-right: 46px; /* space for icon */
+}
+
+/* ===== NAME ICON ===== */
+.name-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%2394a3b8' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M15 21H9a4 4 0 01-4-4v-1a4 4 0 014-4h6a4 4 0 014 4v1a4 4 0 01-4 4z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 11a4 4 0 100-8 4 4 0 000 8z'/%3E%3C/svg%3E");
+}
+
+/* ===== EMAIL ICON ===== */
+.email-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%2394a3b8' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='20' height='16' x='2' y='4' rx='2' ry='2'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M22 6l-10 7L2 6'/%3E%3C/svg%3E");
+}
+
+/* ===== PASSWORD ICON ===== */
+.password-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%2394a3b8' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='18' height='11' x='3' y='11' rx='2' ry='2'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M7 11V7a5 5 0 0110 0v4'/%3E%3C/svg%3E");
+}
+
+/* ===== FOCUS STATE (THEME COLOR) ===== */
+.input-field:focus.name-icon,
+.input-field:focus.email-icon,
+.input-field:focus.password-icon {
+    background-image: none;
+}
+
+/* Re-apply focused icon color */
+.input-field:focus.name-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%231e3a8a' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M15 21H9a4 4 0 01-4-4v-1a4 4 0 014-4h6a4 4 0 014 4v1a4 4 0 01-4 4z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 11a4 4 0 100-8 4 4 0 000 8z'/%3E%3C/svg%3E");
+}
+
+.input-field:focus.email-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%231e3a8a' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='20' height='16' x='2' y='4' rx='2' ry='2'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M22 6l-10 7L2 6'/%3E%3C/svg%3E");
+}
+
+.input-field:focus.password-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%231e3a8a' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='18' height='11' x='3' y='11' rx='2' ry='2'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M7 11V7a5 5 0 0110 0v4'/%3E%3C/svg%3E");
+}
+

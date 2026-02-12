@@ -182,10 +182,10 @@ const Register = () => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         disabled={loading}
-                                        className={`input-field ${errors.name ? 'error' : ''}`}
+                                        className={`input-field name-icon ${errors.name ? 'error' : ''}`}
                                         autoComplete="name"
                                     />
-                                    <span className="input-icon">👤</span>
+                                    {/* <span className="input-icon">👤</span> */}
                                 </div>
                                 {errors.name && (
                                     <span className="error-text">{errors.name}</span>
@@ -204,10 +204,9 @@ const Register = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         disabled={loading}
-                                        className={`input-field ${errors.email ? 'error' : ''}`}
+                                        className={`input-field email-icon ${errors.email ? 'error' : ''}`}
                                         autoComplete="email"
                                     />
-                                    <span className="input-icon">✉</span>
                                 </div>
                                 {errors.email && (
                                     <span className="error-text">{errors.email}</span>
@@ -226,10 +225,10 @@ const Register = () => {
                                         value={formData.password}
                                         onChange={handleChange}
                                         disabled={loading}
-                                        className={`input-field ${errors.password ? 'error' : ''}`}
+                                        className={`input-field password-icon ${errors.password ? 'error' : ''}`}
                                         autoComplete="new-password"
                                     />
-                                    <span className="input-icon">🔒</span>
+                                    {/* <span className="input-icon">🔒</span> */}
                                 </div>
                                 {errors.password && (
                                     <span className="error-text">{errors.password}</span>
