@@ -1,5 +1,5 @@
 /* ============================================
-   LOGIN PAGE - UNIQUE CLASS NAMES
+   LOGIN PAGE - FULLY RESPONSIVE & PROFESSIONAL
    ============================================ */
 
 * {
@@ -372,6 +372,73 @@ body {
     text-decoration: underline;
 }
 
+/* Disable text selection for professional look */
+.login-page,
+.login-main-container {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Allow selection in form inputs */
+input,
+textarea,
+.editable {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+/* Prevent text selection highlight */
+*::selection {
+    background: transparent;
+    color: inherit;
+}
+
+*::-moz-selection {
+    background: transparent;
+    color: inherit;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - FULL MOBILE SUPPORT
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .login-main-container {
+        width: 800px;
+        height: 500px;
+    }
+
+    .login-brand-panel {
+        padding: 2.5rem 2rem;
+    }
+
+    .login-form-panel {
+        padding: 2.5rem 2rem;
+    }
+
+    .login-icon-box {
+        width: 60px;
+        height: 60px;
+    }
+
+    .login-icon-box svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .login-brand-heading {
+        font-size: 1.625rem;
+    }
+
+    .login-heading {
+        font-size: 1.875rem;
+    }
+}
+
 @media (max-width: 968px) {
     .login-main-container {
         grid-template-columns: 1fr;
@@ -383,6 +450,10 @@ body {
     .login-brand-panel {
         padding: 2rem 1.75rem;
         min-height: 180px;
+    }
+
+    .login-form-panel {
+        padding: 2.5rem 2rem;
     }
 
     .login-icon-box {
@@ -402,6 +473,103 @@ body {
     .login-brand-text {
         font-size: 0.875rem;
     }
+
+    .login-heading {
+        font-size: 1.875rem;
+    }
+
+    .login-subheading {
+        font-size: 0.9375rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-main-container {
+        width: 95%;
+        max-width: 420px;
+    }
+
+    .login-brand-panel {
+        padding: 1.875rem 1.5rem;
+        min-height: 170px;
+    }
+
+    .login-form-panel {
+        padding: 2.25rem 1.75rem;
+    }
+
+    .login-icon-wrapper {
+        margin-bottom: 1.5rem;
+    }
+
+    .login-icon-box {
+        width: 54px;
+        height: 54px;
+    }
+
+    .login-icon-box svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    .login-brand-heading {
+        font-size: 1.4375rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .login-brand-text {
+        font-size: 0.875rem;
+    }
+
+    .login-header {
+        margin-bottom: 1.75rem;
+    }
+
+    .login-heading {
+        font-size: 1.75rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .login-subheading {
+        font-size: 0.9375rem;
+    }
+
+    .login-form-element {
+        gap: 1.125rem;
+    }
+
+    .login-field-group {
+        gap: 0.4rem;
+    }
+
+    .login-field-label {
+        font-size: 0.875rem;
+    }
+
+    .login-input-box {
+        padding: 0.875rem 3rem 0.875rem 1rem;
+        font-size: 0.9375rem;
+        height: 48px;
+    }
+
+    .login-field-icon {
+        font-size: 1.25rem;
+    }
+
+    .login-submit-button {
+        padding: 1rem;
+        font-size: 1rem;
+        height: 52px;
+    }
+
+    .login-footer-section {
+        padding-top: 1.5rem;
+        margin-top: 0.1rem;
+    }
+
+    .login-footer-paragraph {
+        font-size: 0.9375rem;
+    }
 }
 
 @media (max-width: 640px) {
@@ -409,6 +577,7 @@ body {
         width: 100%;
         height: 100vh;
         border-radius: 0;
+        max-width: none;
     }
 
     .login-brand-panel {
@@ -420,8 +589,8 @@ body {
         padding: 2rem 1.5rem;
     }
 
-    .login-heading {
-        font-size: 1.75rem;
+    .login-icon-wrapper {
+        margin-bottom: 1.25rem;
     }
 
     .login-icon-box {
@@ -436,9 +605,437 @@ body {
 
     .login-brand-heading {
         font-size: 1.375rem;
+        margin-bottom: 0.375rem;
     }
 
     .login-brand-text {
+        font-size: 0.8125rem;
+    }
+
+    .login-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .login-heading {
+        font-size: 1.625rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .login-subheading {
+        font-size: 0.875rem;
+    }
+
+    .login-form-element {
+        gap: 1rem;
+    }
+
+    .login-field-group {
+        gap: 0.375rem;
+    }
+
+    .login-field-label {
+        font-size: 0.8125rem;
+    }
+
+    .login-input-box {
+        padding: 0.8125rem 2.75rem 0.8125rem 0.9375rem;
+        font-size: 0.875rem;
+        height: 46px;
+    }
+
+    .login-field-icon {
+        font-size: 1.125rem;
+        right: 0.875rem;
+    }
+
+    .login-error-message {
+        padding: 0.8125rem 0.9375rem;
+        font-size: 0.8125rem;
+    }
+
+    .login-error-symbol {
+        font-size: 1rem;
+    }
+
+    .login-validation-text {
+        font-size: 0.75rem;
+    }
+
+    .login-forgot-anchor {
+        font-size: 0.8125rem;
+    }
+
+    .login-submit-button {
+        padding: 0.9375rem;
+        font-size: 0.9375rem;
+        height: 50px;
+        letter-spacing: 0.75px;
+    }
+
+    .login-spinner {
+        width: 15px;
+        height: 15px;
+    }
+
+    .login-footer-section {
+        padding-top: 1.375rem;
+        margin-top: 0.05rem;
+    }
+
+    .login-footer-paragraph {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-brand-panel {
+        padding: 1.5rem 1.25rem;
+        min-height: 150px;
+    }
+
+    .login-form-panel {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .login-icon-wrapper {
+        margin-bottom: 1rem;
+    }
+
+    .login-icon-box {
+        width: 50px;
+        height: 50px;
+    }
+
+    .login-icon-box svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .login-brand-heading {
+        font-size: 1.3125rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .login-brand-text {
+        font-size: 0.8125rem;
+    }
+
+    .login-header {
+        margin-bottom: 1.375rem;
+    }
+
+    .login-heading {
+        font-size: 1.5rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .login-subheading {
+        font-size: 0.875rem;
+    }
+
+    .login-form-element {
+        gap: 0.9375rem;
+    }
+
+    .login-field-group {
+        gap: 0.375rem;
+    }
+
+    .login-field-label {
+        font-size: 0.8125rem;
+    }
+
+    .login-input-box {
+        padding: 0.75rem 2.625rem 0.75rem 0.875rem;
+        font-size: 0.875rem;
+        height: 44px;
+        border-radius: 10px;
+    }
+
+    .login-field-icon {
+        font-size: 1.0625rem;
+        right: 0.8125rem;
+    }
+
+    .login-error-message {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.8125rem;
+        border-radius: 10px;
+    }
+
+    .login-error-symbol {
+        font-size: 1rem;
+    }
+
+    .login-validation-text {
+        font-size: 0.75rem;
+    }
+
+    .login-forgot-section {
+        margin-top: -0.375rem;
+    }
+
+    .login-forgot-anchor {
+        font-size: 0.8125rem;
+    }
+
+    .login-submit-button {
+        padding: 0.875rem;
+        font-size: 0.9375rem;
+        height: 48px;
+        letter-spacing: 0.5px;
+        border-radius: 10px;
+        margin-top: 0.375rem;
+    }
+
+    .login-spinner {
+        width: 14px;
+        height: 14px;
+    }
+
+    .login-footer-section {
+        padding-top: 1.25rem;
+        margin-top: 0;
+        border-top: 1.5px solid #f1f5f9;
+    }
+
+    .login-footer-paragraph {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-brand-panel {
+        padding: 1.375rem 1.125rem;
+        min-height: 145px;
+    }
+
+    .login-form-panel {
+        padding: 1.625rem 1.125rem;
+    }
+
+    .login-icon-wrapper {
+        margin-bottom: 0.9375rem;
+    }
+
+    .login-icon-box {
+        width: 48px;
+        height: 48px;
+    }
+
+    .login-icon-box svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .login-brand-heading {
+        font-size: 1.25rem;
+        margin-bottom: 0.3125rem;
+    }
+
+    .login-brand-text {
+        font-size: 0.8125rem;
+    }
+
+    .login-header {
+        margin-bottom: 1.25rem;
+    }
+
+    .login-heading {
+        font-size: 1.4375rem;
+        margin-bottom: 0.3125rem;
+    }
+
+    .login-subheading {
+        font-size: 0.8125rem;
+    }
+
+    .login-form-element {
+        gap: 0.875rem;
+    }
+
+    .login-field-group {
+        gap: 0.3125rem;
+    }
+
+    .login-field-label {
+        font-size: 0.8125rem;
+    }
+
+    .login-input-box {
+        padding: 0.6875rem 2.5rem 0.6875rem 0.8125rem;
+        font-size: 0.8125rem;
+        height: 42px;
+        border-radius: 10px;
+    }
+
+    .login-field-icon {
+        font-size: 1rem;
+        right: 0.75rem;
+    }
+
+    .login-error-message {
+        padding: 0.6875rem 0.8125rem;
+        font-size: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .login-error-symbol {
+        font-size: 0.9375rem;
+    }
+
+    .login-validation-text {
+        font-size: 0.6875rem;
+    }
+
+    .login-forgot-section {
+        margin-top: -0.3125rem;
+    }
+
+    .login-forgot-anchor {
+        font-size: 0.75rem;
+    }
+
+    .login-submit-button {
+        padding: 0.8125rem;
+        font-size: 0.875rem;
+        height: 46px;
+        letter-spacing: 0.5px;
+        border-radius: 10px;
+        margin-top: 0.3125rem;
+    }
+
+    .login-spinner {
+        width: 13px;
+        height: 13px;
+        border-width: 1.5px;
+    }
+
+    .login-footer-section {
+        padding-top: 1.125rem;
+        margin-top: 0;
+        border-top: 1.5px solid #f1f5f9;
+    }
+
+    .login-footer-paragraph {
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .login-brand-panel {
+        padding: 1.25rem 1rem;
+        min-height: 140px;
+    }
+
+    .login-form-panel {
+        padding: 1.5rem 1rem;
+    }
+
+    .login-icon-wrapper {
+        margin-bottom: 0.875rem;
+    }
+
+    .login-icon-box {
+        width: 46px;
+        height: 46px;
+    }
+
+    .login-icon-box svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .login-brand-heading {
+        font-size: 1.1875rem;
+        margin-bottom: 0.3125rem;
+    }
+
+    .login-brand-text {
+        font-size: 0.75rem;
+    }
+
+    .login-header {
+        margin-bottom: 1.125rem;
+    }
+
+    .login-heading {
+        font-size: 1.375rem;
+        margin-bottom: 0.3125rem;
+    }
+
+    .login-subheading {
+        font-size: 0.8125rem;
+    }
+
+    .login-form-element {
+        gap: 0.8125rem;
+    }
+
+    .login-field-group {
+        gap: 0.3125rem;
+    }
+
+    .login-field-label {
+        font-size: 0.75rem;
+    }
+
+    .login-input-box {
+        padding: 0.625rem 2.375rem 0.625rem 0.75rem;
+        font-size: 0.8125rem;
+        height: 40px;
+        border-radius: 8px;
+    }
+
+    .login-field-icon {
+        font-size: 0.9375rem;
+        right: 0.6875rem;
+    }
+
+    .login-error-message {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .login-error-symbol {
+        font-size: 0.875rem;
+    }
+
+    .login-validation-text {
+        font-size: 0.6875rem;
+    }
+
+    .login-forgot-section {
+        margin-top: -0.25rem;
+    }
+
+    .login-forgot-anchor {
+        font-size: 0.75rem;
+    }
+
+    .login-submit-button {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+        height: 44px;
+        letter-spacing: 0.5px;
+        border-radius: 8px;
+        margin-top: 0.25rem;
+    }
+
+    .login-spinner {
+        width: 12px;
+        height: 12px;
+        border-width: 1.5px;
+    }
+
+    .login-footer-section {
+        padding-top: 1rem;
+        margin-top: 0;
+        border-top: 1.5px solid #f1f5f9;
+    }
+
+    .login-footer-paragraph {
         font-size: 0.8125rem;
     }
 }

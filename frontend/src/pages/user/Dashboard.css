@@ -170,6 +170,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+    padding-bottom: 4rem;
 }
 
 /* ============================================
@@ -370,10 +371,6 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
-/*
-============================================
-INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
-============================================ */
 .popular-services-section,
 .category-section,
 .services-section,
@@ -393,7 +390,6 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
     transform: translateY(0);
 }
 
-/* Mobile: Instant animations for better UX */
 @media (max-width: 768px) {
 
     .popular-services-section,
@@ -428,9 +424,6 @@ INITIALLY HIDE ALL SECTIONS (LAZY LOAD)
     margin-bottom: 4rem;
 }
 
-/* ============================================
-SECTION TITLES
-============================================ */
 .section-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -446,9 +439,6 @@ SECTION TITLES
     margin-bottom: 2.5rem;
 }
 
-/* ============================================
-POPULAR SERVICES GRID
-============================================ */
 .popular-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -472,9 +462,19 @@ POPULAR SERVICES GRID
 }
 
 .popular-icon {
-    font-size: 3rem;
-    ;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popular-icon svg {
+    width: 36px;
+    height: 36px;
+    color: #3b82f6;
+    display: block;
+    margin: 0 auto;
 }
 
 .popular-name {
@@ -490,9 +490,6 @@ POPULAR SERVICES GRID
     color: #1e3a8a;
 }
 
-/* ============================================
-CATEGORY PILLS
-============================================ */
 .category-pills {
     display: flex;
     gap: 1rem;
@@ -540,9 +537,6 @@ CATEGORY PILLS
     background: rgba(255, 255, 255, 0.3);
 }
 
-/* ============================================
-SERVICES GRID
-============================================ */
 .section-header-row {
     display: flex;
     justify-content: space-between;
@@ -596,7 +590,6 @@ SERVICES GRID
     transform: translateY(40px) scale(0.9);
 }
 
-/* Staggered animation delays for progressive loading */
 .service-card-new:nth-child(1) {
     animation-delay: 0s;
 }
@@ -645,7 +638,6 @@ SERVICES GRID
     animation-delay: 1.1s;
 }
 
-/* Mobile: Remove cursor pointer and disable card click */
 @media (max-width: 768px) {
     .service-card-new {
         cursor: default;
@@ -660,7 +652,6 @@ SERVICES GRID
         pointer-events: auto;
     }
 
-    /* Much faster stagger on mobile - nearly instant */
     .service-card-new:nth-child(1) {
         animation-delay: 0s;
     }
@@ -714,7 +705,6 @@ SERVICES GRID
     animation: serviceCardFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* Mobile: Slightly faster but still smooth */
 @media (max-width: 768px) {
     .section-visible .service-card-new {
         animation: serviceCardFadeIn 0.25s ease forwards;
@@ -739,7 +729,6 @@ SERVICES GRID
     border-color: #3b82f6;
 }
 
-/* Mobile: Disable hover transform */
 @media (max-width: 768px) {
     .service-card-new:hover {
         transform: none;
@@ -773,9 +762,20 @@ SERVICES GRID
 }
 
 .service-icon-large {
-    font-size: 3.5rem;
-    text-align: center;
-    margin-bottom: 1rem;
+    width: 100%;
+    height: 64px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-icon-large svg {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6;
+    display: block;
+    margin: 0 auto;
 }
 
 .service-title {
@@ -869,9 +869,6 @@ SERVICES GRID
     transform: translateX(5px);
 }
 
-/* ============================================
-WHY CHOOSE - BENEFITS
-============================================ */
 .benefits-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -883,8 +880,19 @@ WHY CHOOSE - BENEFITS
 }
 
 .benefit-icon {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benefit-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #3b82f6;
+    display: block;
+    margin: 0 auto;
 }
 
 .benefit-item h3 {
@@ -900,9 +908,6 @@ WHY CHOOSE - BENEFITS
     line-height: 1.6;
 }
 
-/* ============================================
-STATISTICS SECTION
-============================================ */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -926,8 +931,19 @@ STATISTICS SECTION
 }
 
 .stat-icon {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #3b82f6;
+    display: block;
+    margin: 0 auto;
 }
 
 .stat-value {
@@ -944,9 +960,6 @@ STATISTICS SECTION
     color: #64748b;
 }
 
-/* ============================================
-   CART NOTIFICATION
-   ============================================ */
 .cart-notification {
     position: fixed;
     top: 100px;
@@ -991,9 +1004,6 @@ STATISTICS SECTION
     font-size: 0.9375rem;
 }
 
-/* ============================================
-   SERVICE ACTIONS (CART + BOOK)
-   ============================================ */
 .service-actions {
     display: flex;
     gap: 0.75rem;
@@ -1068,10 +1078,6 @@ STATISTICS SECTION
 .service-book-btn:hover .btn-arrow {
     transform: translateX(5px);
 }
-
-/* ============================================
-   LIST VIEW STYLES
-   ============================================ */
 
 .services-list {
     display: flex;
@@ -1160,7 +1166,6 @@ STATISTICS SECTION
     min-width: 180px;
 }
 
-/* Disable text selection for professional look */
 .cart-container,
 .payments-container,
 .my-bookings-container,
@@ -1172,7 +1177,6 @@ STATISTICS SECTION
     user-select: none;
 }
 
-/* Allow selection in form inputs */
 input,
 textarea,
 .editable {
@@ -1182,7 +1186,6 @@ textarea,
     user-select: text !important;
 }
 
-/* Prevent text selection highlight */
 *::selection {
     background: transparent;
     color: inherit;
@@ -1192,10 +1195,6 @@ textarea,
     background: transparent;
     color: inherit;
 }
-
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
 
 @media (max-width: 1024px) {
     .banner-content {
@@ -1227,6 +1226,7 @@ textarea,
 @media (max-width: 768px) {
     .dashboard-main {
         padding: 1rem;
+        padding-bottom: 2rem;
     }
 
     .navbar-content {
@@ -1299,7 +1299,6 @@ textarea,
         display: none;
     }
 
-    /* List view adaptations for mobile */
     .services-list .service-card-new {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -1388,7 +1387,12 @@ textarea,
     }
 
     .popular-icon {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .popular-icon svg {
+        width: 32px;
+        height: 32px;
     }
 
     .service-card-new {
@@ -1396,7 +1400,12 @@ textarea,
     }
 
     .service-icon-large {
-        font-size: 3rem;
+        font-size: 2rem;
+    }
+
+    .service-icon-large svg {
+        width: 40px;
+        height: 40px;
     }
 
     .service-title {
@@ -1421,7 +1430,12 @@ textarea,
     }
 
     .stat-icon {
-        font-size: 3rem;
+        font-size: 2rem;
+    }
+
+    .stat-icon svg {
+        width: 28px;
+        height: 28px;
     }
 
     .stat-value {
@@ -1429,7 +1443,12 @@ textarea,
     }
 
     .benefit-icon {
-        font-size: 3rem;
+        font-size: 2rem;
+    }
+
+    .benefit-icon svg {
+        width: 36px;
+        height: 36px;
     }
 
     .pill {
@@ -1464,38 +1483,24 @@ textarea,
     }
 }
 
-
-
-/* ============================================
-   ADD THESE STYLES TO YOUR Dashboard.css
-   ============================================ */
-
-/* ==========================================
-   SVG ICON STYLING - MATCHING COLOR SCHEME
-   ========================================== */
-
-/* Wave emoji icon */
 .wave-emoji svg {
     width: 32px;
     height: 32px;
     color: #3b82f6;
 }
 
-/* Quick action button icons */
 .btn-icon svg {
     width: 20px;
     height: 20px;
     color: currentColor;
 }
 
-/* Floating card icons */
 .floating-card .card-icon svg {
     width: 28px;
     height: 28px;
     color: #3b82f6;
 }
 
-/* Section title icons */
 .section-title-icon {
     width: 24px;
     height: 24px;
@@ -1505,28 +1510,18 @@ textarea,
     margin-right: 8px;
 }
 
-/* Popular card icons */
-.popular-icon svg {
-    width: 40px;
-    height: 40px;
-    color: #3b82f6;
-}
-
-/* Category pill icons */
 .pill-icon svg {
     width: 20px;
     height: 20px;
     color: currentColor;
 }
 
-/* View toggle icons */
 .toggle-btn svg {
     width: 18px;
     height: 18px;
     color: currentColor;
 }
 
-/* Badge icons */
 .badge-icon {
     width: 16px;
     height: 16px;
@@ -1535,28 +1530,18 @@ textarea,
     margin-right: 4px;
 }
 
-/* Service icon large */
-.service-icon-large svg {
-    width: 56px;
-    height: 56px;
-    color: #3b82f6;
-}
-
-/* Info item icons */
 .info-icon svg {
     width: 18px;
     height: 18px;
     color: #64748b;
 }
 
-/* Cart icons */
 .cart-icon svg {
     width: 20px;
     height: 20px;
     color: currentColor;
 }
 
-/* Button arrow icons */
 .btn-arrow svg {
     width: 18px;
     height: 18px;
@@ -1568,208 +1553,17 @@ textarea,
     transform: translateX(4px);
 }
 
-/* Notification icon */
 .notification-icon svg {
     width: 20px;
     height: 20px;
     color: #10b981;
 }
 
-/* Floating cart button icon */
-.floating-cart-btn .cart-icon svg {
-    width: 24px;
-    height: 24px;
-    color: white;
-}
-
-/* Benefit icons */
-.benefit-icon svg {
-    width: 48px;
-    height: 48px;
-    color: #3b82f6;
-}
-
-/* Stat icons */
-.stat-icon svg {
-    width: 40px;
-    height: 40px;
-    color: #3b82f6;
-}
-
-/* Footer logo icon */
-.dashboard-footer .logo-icon svg {
-    width: 32px;
-    height: 32px;
-    color: #3b82f6;
-}
-
-/* ==========================================
-   FOOTER STYLING (Same as Home.jsx)
-   ========================================== */
-
-.dashboard-footer {
-    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-    color: white;
-    padding: 3rem 2rem 1.5rem;
-    margin-top: 4rem;
-}
-
-.dashboard-footer .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
-}
-
-.dashboard-footer .footer-brand p {
-    margin-top: 1rem;
-    opacity: 0.9;
-    line-height: 1.6;
-}
-
-.dashboard-footer .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 1rem;
-}
-
-.dashboard-footer .logo-icon {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Stacked Logo Styling */
-.logo-text-stacked {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-    gap: 2px;
-}
-
-.logo-line-top,
-.logo-line-bottom {
-    display: block;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-}
-
-.dashboard-footer .logo-text-stacked .logo-line-top {
-    font-size: 1.1rem;
-}
-
-.dashboard-footer .logo-text-stacked .logo-line-bottom {
-    font-size: 1.1rem;
-}
-
-.dashboard-footer .footer-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.dashboard-footer .footer-column h4 {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.dashboard-footer .footer-column button,
-.dashboard-footer .footer-column a {
-    display: block;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    margin-bottom: 0.75rem;
-    transition: all 0.3s ease;
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 0.95rem;
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-}
-
-.dashboard-footer .footer-column button:hover,
-.dashboard-footer .footer-column a:hover {
-    color: white;
-    transform: translateX(4px);
-}
-
-.dashboard-footer .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.dashboard-footer .footer-bottom p {
-    opacity: 0.7;
-    font-size: 0.9rem;
-}
-
-/* ==========================================
-   FOOTER RESPONSIVE DESIGN
-   ========================================== */
-
-@media (max-width: 968px) {
-    .dashboard-footer .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .dashboard-footer .footer-links {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 640px) {
-    .dashboard-footer {
-        padding: 2rem 1.5rem 1rem;
-        margin-top: 3rem;
-    }
-
-    .dashboard-footer .footer-content {
-        gap: 1.5rem;
-    }
-
-    .dashboard-footer .footer-links {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .dashboard-footer .logo-text-stacked .logo-line-top,
-    .dashboard-footer .logo-text-stacked .logo-line-bottom {
-        font-size: 1rem;
-    }
-
-    .dashboard-footer .footer-column h4 {
-        font-size: 1rem;
-    }
-
-    .dashboard-footer .footer-column button,
-    .dashboard-footer .footer-column a {
-        font-size: 0.9rem;
-    }
-}
-
-/* ==========================================
-   ENSURE SVG ICONS ARE INLINE
-   ========================================== */
-
 svg {
     display: inline-block;
     vertical-align: middle;
 }
 
-/* Smooth transitions for all SVG icons */
 .benefit-icon svg,
 .stat-icon svg,
 .popular-icon svg,
@@ -1777,7 +1571,6 @@ svg {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover effects */
 .benefit-item:hover .benefit-icon svg {
     transform: scale(1.1) rotate(5deg);
 }
@@ -1794,7 +1587,6 @@ svg {
     transform: scale(1.1);
 }
 
-/* Fix wave emoji display */
 .wave-emoji {
     display: inline-flex;
     align-items: center;
@@ -1809,7 +1601,6 @@ svg {
     display: block;
 }
 
-/* Fix floating card icons */
 .floating-card .card-icon {
     display: flex;
     align-items: center;
@@ -1825,7 +1616,6 @@ svg {
     display: block;
 }
 
-/* Ensure greeting is flex container */
 .greeting {
     display: flex;
     align-items: center;

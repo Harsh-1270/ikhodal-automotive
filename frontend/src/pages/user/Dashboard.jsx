@@ -822,46 +822,6 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-
-            {/* ========== FOOTER ========== */}
-            <footer className="dashboard-footer">
-                <div className="footer-content">
-                    <div className="footer-brand">
-                        <div className="footer-logo">
-                            <span className="logo-icon">
-                                <Icons.Car />
-                            </span>
-                            <div className="logo-text-stacked">
-                                <span className="logo-line-top">I Khodal</span>
-                                <span className="logo-line-bottom">Automotive</span>
-                            </div>
-                        </div>
-                        <p>Your trusted partner for premium car service and maintenance</p>
-                    </div>
-
-                    <div className="footer-links">
-                        <div className="footer-column">
-                            <h4>Quick Links</h4>
-                            <button onClick={() => navigate('/dashboard')}>Dashboard</button>
-                            <button onClick={() => navigate('/my-bookings')}>My Bookings</button>
-                            <button onClick={() => navigate('/profile')}>Profile</button>
-                        </div>
-
-                        <div className="footer-column">
-                            <h4>Support</h4>
-                            <button onClick={() => navigate('/contact')}>Contact</button>
-                            <a href="#">FAQs</a>
-                            <button onClick={() => navigate('/terms')}>
-                                Terms & Conditions
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="footer-bottom">
-                    <p>&copy; 2026 I Khodal Automotive. All rights reserved.</p>
-                </div>
-            </footer>
         </div>
     );
 };
