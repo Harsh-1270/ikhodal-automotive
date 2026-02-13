@@ -514,22 +514,6 @@ const TermsConditions = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Footer Note */}
-                <div className="terms-footer">
-                    <div
-                        ref={footerRef}
-                        data-section-id="footer"
-                        className={`footer-card ${visibleSections.has('footer') ? 'visible' : ''}`}
-                    >
-                        <div className="footer-icon"><Icons.Phone /></div>
-                        <h3>Questions about our Terms?</h3>
-                        <p>If you have any questions or concerns about these terms and conditions, please contact us.</p>
-                        <button className="contact-btn" onClick={() => navigate('/dashboard')}>
-                            Back to Dashboard
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     );
