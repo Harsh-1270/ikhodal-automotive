@@ -12,6 +12,123 @@ const TermsConditions = () => {
     const sectionRefs = useRef([]);
     const footerRef = useRef(null);
 
+    /* ==========================================
+       SVG ICONS COMPONENT
+       ========================================== */
+    const Icons = {
+        Scroll: ({ className = "", color = "currentColor" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4" />
+                <path d="M19 3H8a2 2 0 0 0-2 2v14" />
+            </svg>
+        ),
+        Clipboard: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                <path d="M9 12h6" />
+                <path d="M9 16h6" />
+            </svg>
+        ),
+        Wrench: ({ className = "", color = "#f59e0b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill={color}>
+                <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
+            </svg>
+        ),
+        DollarSign: ({ className = "", color = "#10b981" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+        ),
+        CreditCard: ({ className = "", color = "#6366f1" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+        ),
+        Gear: ({ className = "", color = "#64748b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill={color}>
+                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+            </svg>
+        ),
+        AlertTriangle: ({ className = "", color = "#f59e0b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+        ),
+        Plug: ({ className = "", color = "#8b5cf6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22v-5" />
+                <path d="M9 8V2" />
+                <path d="M15 8V2" />
+                <path d="M18 8v5a6 6 0 0 1-6 6v0a6 6 0 0 1-6-6V8z" />
+            </svg>
+        ),
+        Smartphone: ({ className = "", color = "#0ea5e9" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
+        ),
+        Clock: ({ className = "", color = "#ef4444" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+            </svg>
+        ),
+        CheckCircle: ({ className = "", color = "#10b981" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+        ),
+        Shield: ({ className = "", color = "#1e3a8a" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+        ),
+        Camera: ({ className = "", color = "#ec4899" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                <circle cx="12" cy="13" r="4" />
+            </svg>
+        ),
+        Scale: ({ className = "", color = "#64748b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="3" x2="12" y2="21" />
+                <polyline points="1 12 5 8 9 12" />
+                <polyline points="15 12 19 8 23 12" />
+                <path d="M1 12h8" />
+                <path d="M15 12h8" />
+            </svg>
+        ),
+        Refresh: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="23 4 23 10 17 10" />
+                <polyline points="1 20 1 14 7 14" />
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+            </svg>
+        ),
+        Phone: ({ className = "", color = "#1e3a8a" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+        ),
+        ChevronDown: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+            </svg>
+        ),
+        ChevronUp: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 15 12 9 18 15" />
+            </svg>
+        )
+    };
+
     useEffect(() => {
         // Remove delay - immediate load
         setInitialLoadComplete(true);
@@ -21,7 +138,7 @@ const TermsConditions = () => {
         {
             id: 1,
             title: 'General',
-            icon: '📋',
+            icon: <Icons.Clipboard />,
             summary: 'By booking or using services from I Khodal Automotive, you agree to the following terms and conditions. These apply to all mechanical, diagnostic, electrical, and accessory-fitment services provided.',
             details: [
                 'These terms constitute a legally binding agreement between you (the customer) and I Khodal Automotive.',
@@ -34,7 +151,7 @@ const TermsConditions = () => {
         {
             id: 2,
             title: 'Services',
-            icon: '🔧',
+            icon: <Icons.Wrench />,
             summary: 'We provide mobile automotive repair, servicing, diagnostics, and accessory installation. Services are carried out based on visible inspection and customer-provided information. Additional faults may be identified during or after the service.',
             details: [
                 'Our mobile service operates within designated service areas. Additional travel fees may apply for locations outside our standard coverage.',
@@ -49,7 +166,7 @@ const TermsConditions = () => {
         {
             id: 3,
             title: 'Quotes & Pricing',
-            icon: '💰',
+            icon: <Icons.DollarSign />,
             summary: 'All quotes are estimates only unless stated otherwise. Final pricing may change if additional parts or labour are required, or hidden/pre-existing issues are discovered. Any major price changes will be discussed before proceeding.',
             details: [
                 'Initial quotes are provided as good-faith estimates based on the information available at the time.',
@@ -65,7 +182,7 @@ const TermsConditions = () => {
         {
             id: 4,
             title: 'Payments',
-            icon: '💳',
+            icon: <Icons.CreditCard />,
             summary: 'Payment is due upon completion of work unless agreed in writing. Accepted payment methods: cash, bank transfer, or other agreed methods. Unpaid invoices may incur follow-up fees or legal recovery costs.',
             details: [
                 'Full payment is required immediately upon completion of service unless alternative arrangements have been made in writing.',
@@ -82,7 +199,7 @@ const TermsConditions = () => {
         {
             id: 5,
             title: 'Parts & Warranty',
-            icon: '⚙️',
+            icon: <Icons.Gear />,
             summary: 'New parts supplied are covered by the manufacturer\'s warranty only. No warranty is provided on customer-supplied parts or second-hand/used parts (unless stated). Labour warranty applies only to work performed, not related or pre-existing faults.',
             details: [
                 'All new parts supplied by us come with the manufacturer\'s standard warranty, typically ranging from 3 to 12 months.',
@@ -100,7 +217,7 @@ const TermsConditions = () => {
         {
             id: 6,
             title: 'Pre-Existing Conditions',
-            icon: '⚠️',
+            icon: <Icons.AlertTriangle />,
             summary: 'I Khodal Automotive is not responsible for existing mechanical or electrical faults, or failures caused by worn, aged, or previously damaged components. Older vehicles may experience unrelated failures after service.',
             details: [
                 'We are not liable for pre-existing faults, defects, or damage that existed prior to our service.',
@@ -117,7 +234,7 @@ const TermsConditions = () => {
         {
             id: 7,
             title: 'Electrical & Diagnostic Work',
-            icon: '🔌',
+            icon: <Icons.Plug />,
             summary: 'Diagnostic scans identify fault codes, not guaranteed root causes. Electrical repairs may require multiple steps or follow-up work. No guarantee that a single repair will resolve all warning lights or faults.',
             details: [
                 'Diagnostic scans read stored fault codes but do not always pinpoint the exact root cause of the problem.',
@@ -135,7 +252,7 @@ const TermsConditions = () => {
         {
             id: 8,
             title: 'Accessory Installation (Dashcams, Audio, Electrical)',
-            icon: '📱',
+            icon: <Icons.Smartphone />,
             summary: 'Installations are performed to industry standards. We are not responsible for manufacturer software issues or vehicle system updates affecting accessories. Customer is responsible for legality of installed accessories.',
             details: [
                 'All accessory installations are performed according to industry best practices and safety standards.',
@@ -153,7 +270,7 @@ const TermsConditions = () => {
         {
             id: 9,
             title: 'Cancellations & No-Shows',
-            icon: '⏰',
+            icon: <Icons.Clock />,
             summary: 'Please provide minimum 2 hours notice for cancellations. Late cancellations or no-shows may attract a call-out fee.',
             details: [
                 'We require at least 2 hours advance notice for appointment cancellations.',
@@ -170,7 +287,7 @@ const TermsConditions = () => {
         {
             id: 10,
             title: 'Customer Responsibility',
-            icon: '✅',
+            icon: <Icons.CheckCircle />,
             summary: 'Customers must ensure vehicle is accessible and safe to work on, provide correct vehicle information, and disclose any known issues before service.',
             details: [
                 'You must provide a safe, accessible location for our technicians to perform mobile service.',
@@ -188,7 +305,7 @@ const TermsConditions = () => {
         {
             id: 11,
             title: 'Limitation of Liability',
-            icon: '🛡️',
+            icon: <Icons.Shield />,
             summary: 'We are not liable for indirect or consequential losses, loss of income, time, or vehicle use. Liability is limited to the cost of the service provided.',
             details: [
                 'Our liability is limited to the direct cost of the service provided, not exceeding the invoice amount.',
@@ -206,7 +323,7 @@ const TermsConditions = () => {
         {
             id: 12,
             title: 'Photos & Media',
-            icon: '📸',
+            icon: <Icons.Camera />,
             summary: 'Photos or videos of work may be used for marketing or records. No personal details or number plates will be shown without consent.',
             details: [
                 'We may take photos or videos of vehicles and work performed for quality control and record-keeping purposes.',
@@ -223,7 +340,7 @@ const TermsConditions = () => {
         {
             id: 13,
             title: 'Governing Law',
-            icon: '⚖️',
+            icon: <Icons.Scale />,
             summary: 'These terms are governed by the laws of Victoria, Australia.',
             details: [
                 'These terms and conditions are governed by and construed in accordance with the laws of Victoria, Australia.',
@@ -239,7 +356,7 @@ const TermsConditions = () => {
         {
             id: 14,
             title: 'Changes to Terms',
-            icon: '🔄',
+            icon: <Icons.Refresh />,
             summary: 'I Khodal Automotive reserves the right to update these terms at any time without notice.',
             details: [
                 'We reserve the right to modify, update, or change these terms and conditions at any time.',
@@ -333,7 +450,7 @@ const TermsConditions = () => {
                 <div className="page-header">
                     <div className="header-content">
                         <h1 className="page-title">
-                            <span className="title-icon">📜</span>
+                            <span className="title-icon"><Icons.Scroll color="#ffffff" /></span>
                             Terms & Conditions
                         </h1>
                         <div className="last-updated">
@@ -385,12 +502,12 @@ const TermsConditions = () => {
                                 {expandedSections.has(term.id) ? (
                                     <>
                                         <span>See Less</span>
-                                        <span className="arrow up">↑</span>
+                                        <span className="arrow up"><Icons.ChevronUp /></span>
                                     </>
                                 ) : (
                                     <>
                                         <span>See More</span>
-                                        <span className="arrow down">↓</span>
+                                        <span className="arrow down"><Icons.ChevronDown /></span>
                                     </>
                                 )}
                             </button>
@@ -405,7 +522,7 @@ const TermsConditions = () => {
                         data-section-id="footer"
                         className={`footer-card ${visibleSections.has('footer') ? 'visible' : ''}`}
                     >
-                        <div className="footer-icon">📞</div>
+                        <div className="footer-icon"><Icons.Phone /></div>
                         <h3>Questions about our Terms?</h3>
                         <p>If you have any questions or concerns about these terms and conditions, please contact us.</p>
                         <button className="contact-btn" onClick={() => navigate('/dashboard')}>
