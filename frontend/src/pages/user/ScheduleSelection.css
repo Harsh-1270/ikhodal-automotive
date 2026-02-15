@@ -41,7 +41,17 @@
 }
 
 .title-icon {
-    font-size: 1.875rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.title-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .page-subtitle {
@@ -156,6 +166,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.month-nav-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .month-nav-btn:hover {
@@ -409,8 +424,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.summary-icon svg {
+    width: 1rem;
+    height: 1rem;
+    stroke: #ffffff;
 }
 
 .summary-title {
@@ -467,8 +487,14 @@
 }
 
 .btn-arrow {
-    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
     transition: transform 0.3s ease;
+}
+
+.btn-arrow svg {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .continue-btn:hover .btn-arrow {
@@ -485,9 +511,15 @@
 }
 
 .no-date-icon {
-    font-size: 5rem;
-    margin-bottom: 1.5rem;
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1.5rem;
     opacity: 0.5;
+}
+
+.no-date-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .no-date-selected h3 {
@@ -533,7 +565,8 @@
     }
 
     .title-icon {
-        font-size: 1.75rem;
+        width: 1.75rem;
+        height: 1.75rem;
     }
 
     .page-subtitle {
@@ -574,7 +607,11 @@
     .month-nav-btn {
         width: 40px;
         height: 40px;
-        font-size: 1.125rem;
+    }
+
+    .month-nav-btn svg {
+        width: 1.125rem;
+        height: 1.125rem;
     }
 
     /* Calendar Grid */
@@ -654,7 +691,11 @@
     .summary-icon {
         width: 28px;
         height: 28px;
-        font-size: 0.9375rem;
+    }
+
+    .summary-icon svg {
+        width: 0.9375rem;
+        height: 0.9375rem;
     }
 
     .summary-title {
@@ -685,7 +726,8 @@
     }
 
     .no-date-icon {
-        font-size: 4rem;
+        width: 4rem;
+        height: 4rem;
     }
 
     .no-date-selected h3 {
@@ -711,7 +753,8 @@
     }
 
     .title-icon {
-        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
     .page-subtitle {
@@ -744,7 +787,11 @@
     .month-nav-btn {
         width: 36px;
         height: 36px;
-        font-size: 1rem;
+    }
+
+    .month-nav-btn svg {
+        width: 1rem;
+        height: 1rem;
     }
 
     .calendar-days-header {
@@ -811,7 +858,11 @@
     .summary-icon {
         width: 24px;
         height: 24px;
-        font-size: 0.875rem;
+    }
+
+    .summary-icon svg {
+        width: 0.875rem;
+        height: 0.875rem;
     }
 
     .summary-title {
@@ -841,7 +892,8 @@
     }
 
     .no-date-icon {
-        font-size: 3.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
     }
 
     .no-date-selected h3 {
