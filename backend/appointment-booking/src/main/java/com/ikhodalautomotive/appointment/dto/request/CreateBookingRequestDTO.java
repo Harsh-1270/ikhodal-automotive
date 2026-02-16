@@ -14,4 +14,16 @@ public class CreateBookingRequestDTO {
     private LocalTime endTime;
     private List<Long> serviceIds;
 
+    // Vehicle information
+    private String registrationNumber;
+    private String make;
+    private String model;
+    private String year;
+
+    // Contact information
+    private String fullName;
+    private String address;
+    private String postcode;
+    private String additionalComments;
+
 }

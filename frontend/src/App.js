@@ -24,6 +24,7 @@ import Cart from './pages/user/Cart';
 import ScheduleSelection from './pages/user/ScheduleSelection';
 import TermsConditions from './pages/user/TermsConditions';
 import BookingForm from './pages/user/BookingForm';
+import StripeCheckout from './pages/user/StripeCheckout';
 
 // Import Pages - Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -205,6 +206,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <BookingForm />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <StripeCheckout />
                   </ProtectedRoute>
                 }
               />

@@ -13,6 +13,7 @@ const Dashboard = () => {
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const [cart, setCart] = useState([]);
     const [showCartNotification, setShowCartNotification] = useState(false);
+    const [cartLoading, setCartLoading] = useState(false);
 
     /* ==========================================
        SVG ICONS COMPONENT - COLORFUL GRADIENTS
@@ -331,29 +332,47 @@ const Dashboard = () => {
     };
 
     // Cart functions
-    const addToCart = (service) => {
-        const existingItem = cart.find(item => item.id === service.id);
-        if (existingItem) {
-            setCart(cart.map(item =>
-                item.id === service.id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            ));
-        } else {
-            setCart([...cart, { ...service, quantity: 1 }]);
-        }
+    const addToCart = async (service) => {
+        try {
+            const { addToCart: addToCartApi } = require('../../services/api');
+            const response = await addToCartApi({ serviceId: service.id, quantity: 1 });
+            if (response.success) {
+                const existingItem = cart.find(item => item.serviceId === service.id);
+                if (existingItem) {
+                    setCart(cart.map(item =>
+                        item.serviceId === service.id
+                            ? { ...item, quantity: item.quantity + 1 }
+                            : item
+                    ));
+                } else {
+                    setCart([...cart, { ...response.data, id: response.data.id }]);
+                }
 
-        // Show notification
-        setShowCartNotification(true);
-        setTimeout(() => setShowCartNotification(false), 3000);
+                // Show notification
+                setShowCartNotification(true);
+                setTimeout(() => setShowCartNotification(false), 3000);
+            } else {
+                console.error('Failed to add to cart:', response.message);
+            }
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
     };
 
-    const removeFromCart = (serviceId) => {
-        setCart(cart.filter(item => item.id !== serviceId));
+    const removeFromCart = async (serviceId) => {
+        try {
+            const { removeCartItem } = require('../../services/api');
+            const response = await removeCartItem(serviceId);
+            if (response.success) {
+                setCart(cart.filter(item => item.serviceId !== serviceId));
+            }
+        } catch (error) {
+            console.error('Error removing from cart:', error);
+        }
     };
 
     const isInCart = (serviceId) => {
-        return cart.some(item => item.id === serviceId);
+        return cart.some(item => item.serviceId === serviceId);
     };
 
     const getTotalItems = () => {
@@ -460,6 +479,28 @@ const Dashboard = () => {
 
         if (initialLoadComplete) {
             fetchServices();
+        }
+    }, [initialLoadComplete]);
+
+    // Fetch cart items from API
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                setCartLoading(true);
+                const { getCartItems } = require('../../services/api');
+                const response = await getCartItems();
+                if (response.success) {
+                    setCart(response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching cart:', error);
+            } finally {
+                setCartLoading(false);
+            }
+        };
+
+        if (initialLoadComplete) {
+            fetchCart();
         }
     }, [initialLoadComplete]);
 

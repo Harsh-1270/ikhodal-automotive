@@ -20,6 +20,18 @@ public class BookingDetailsResponseDTO {
     private BigDecimal totalAmount;
     private List<ServiceItemDTO> services;
 
+    // Vehicle information
+    private String registrationNumber;
+    private String vehicleMake;
+    private String vehicleModel;
+    private String vehicleYear;
+
+    // Contact information
+    private String fullName;
+    private String address;
+    private String postcode;
+    private String additionalComments;
+
     @Data
     @AllArgsConstructor
     public static class ServiceItemDTO {

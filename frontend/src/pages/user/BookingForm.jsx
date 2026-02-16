@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
+import { createBooking } from '../../services/api';
 import './BookingForm.css';
 
 const BookingForm = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Read schedule + cart data passed from ScheduleSelection
+    const { selectedDate, selectedTime, serviceIds = [], cartItems = [] } = location.state || {};
+
+    // Redirect to cart if accessed without state (e.g. direct URL or refresh)
+    React.useEffect(() => {
+        if (!location.state || !serviceIds || serviceIds.length === 0) {
+            navigate('/cart', { replace: true });
+        }
+    }, [location.state, serviceIds, navigate]);
 
     /* ==========================================
        SVG ICONS COMPONENT
@@ -71,13 +83,18 @@ const BookingForm = () => {
     });
 
     const [errors, setErrors] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
-    // Mock cart summary (in real app, get from context/state)
+    // Compute cart summary from real cart data
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
+    const tax = Math.round(subtotal * 0.18);
+    const total = subtotal + tax;
     const cartSummary = {
-        items: 3,
-        subtotal: 5097,
-        tax: 917,
-        total: 6014
+        items: cartItems.length,
+        subtotal,
+        tax,
+        total
     };
 
     // Handle input change
@@ -135,15 +152,48 @@ const BookingForm = () => {
     };
 
     // Handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitError('');
 
         if (validateForm()) {
-            // In real app: save form data to context/backend
-            console.log('Form Data:', formData);
+            setSubmitting(true);
+            try {
+                const bookingPayload = {
+                    date: selectedDate,
+                    startTime: selectedTime?.start || null,
+                    endTime: selectedTime?.end || null,
+                    serviceIds: serviceIds,
+                    // Vehicle information
+                    registrationNumber: formData.registrationNumber,
+                    make: formData.make,
+                    model: formData.model,
+                    year: formData.year,
+                    // Contact information
+                    fullName: formData.fullName,
+                    address: formData.address,
+                    postcode: formData.postcode,
+                    additionalComments: formData.additionalComments
+                };
 
-            // Navigate to payment page
-            navigate('/payment');
+                const response = await createBooking(bookingPayload);
+
+                if (response.success) {
+                    // Navigate to Stripe checkout with the appointmentId
+                    const appointmentId = response.data.appointmentId;
+                    navigate('/checkout', {
+                        state: { appointmentId },
+                        replace: true
+                    });
+                } else {
+                    setSubmitError(response.message || 'Failed to create booking. Please try again.');
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                setSubmitError('An unexpected error occurred. Please try again.');
+            } finally {
+                setSubmitting(false);
+            }
         }
     };
 
@@ -373,18 +423,26 @@ const BookingForm = () => {
                                 </div>
                             </div>
 
+                            {/* Error Message */}
+                            {submitError && (
+                                <div style={{ color: '#ef4444', background: 'rgba(239,68,68,0.1)', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px' }}>
+                                    {submitError}
+                                </div>
+                            )}
+
                             {/* Form Actions */}
                             <div className="form-actions">
                                 <button
                                     type="button"
                                     className="btn-secondary"
-                                    onClick={() => navigate('/cart')}
+                                    onClick={() => navigate('/schedule')}
+                                    disabled={submitting}
                                 >
                                     <span className="btn-icon"><Icons.ChevronLeft /></span>
-                                    Back to Cart
+                                    Back to Schedule
                                 </button>
-                                <button type="submit" className="btn-primary">
-                                    Continue to Payment
+                                <button type="submit" className="btn-primary" disabled={submitting}>
+                                    {submitting ? 'Booking...' : 'Confirm Booking'}
                                     <span className="btn-icon"><Icons.ChevronRight /></span>
                                 </button>
                             </div>
@@ -406,11 +464,11 @@ const BookingForm = () => {
                                 </div>
                                 <div className="summary-row">
                                     <span className="label">Subtotal</span>
-                                    <span className="value">₹{cartSummary.subtotal.toLocaleString()}</span>
+                                    <span className="value">${cartSummary.subtotal.toLocaleString()}</span>
                                 </div>
                                 <div className="summary-row">
                                     <span className="label">GST (18%)</span>
-                                    <span className="value">₹{cartSummary.tax.toLocaleString()}</span>
+                                    <span className="value">${cartSummary.tax.toLocaleString()}</span>
                                 </div>
                             </div>
 
@@ -418,7 +476,7 @@ const BookingForm = () => {
 
                             <div className="summary-total">
                                 <span className="total-label">Total Amount</span>
-                                <span className="total-value">₹{cartSummary.total.toLocaleString()}</span>
+                                <span className="total-value">${cartSummary.total.toLocaleString()}</span>
                             </div>
                         </div>
                     </div>

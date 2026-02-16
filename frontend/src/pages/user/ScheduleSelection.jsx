@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getAvailableSlots, checkDateAvailability } from '../../services/api';
 import UserNavbar from '../../components/common/UserNavbar';
 import './ScheduleSelection.css';
 
@@ -51,33 +52,20 @@ const ScheduleSelection = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [timeSlots, setTimeSlots] = useState([]);
+    const [slotsLoading, setSlotsLoading] = useState(false);
+    const [unavailableDates, setUnavailableDates] = useState([]);
 
-    // Mock data - Admin configured unavailable dates and holidays
-    const adminConfig = {
-        holidays: [
-            '2025-02-01', // Weekend/Holiday
-            '2025-02-15', // Holiday
-            '2025-02-26', // Republic Day
-        ],
-        unavailableDates: [
-            '2025-02-05', // Fully booked
-            '2025-02-12', // Maintenance day
-            '2025-02-20', // Staff unavailable
-        ]
-    };
+    // Get cart data from navigation state
+    const serviceIds = location.state?.serviceIds || [];
+    const cartItems = location.state?.cartItems || [];
 
-    // Mock time slots with availability
-    const timeSlots = [
-        { id: 1, time: '09:00 AM', duration: '9:00 AM - 11:00 AM', available: true },
-        { id: 2, time: '10:00 AM', duration: '10:00 AM - 12:00 PM', available: true },
-        { id: 3, time: '11:00 AM', duration: '11:00 AM - 01:00 PM', available: false },
-        { id: 4, time: '12:00 PM', duration: '12:00 PM - 02:00 PM', available: true },
-        { id: 5, time: '02:00 PM', duration: '02:00 PM - 04:00 PM', available: true },
-        { id: 6, time: '03:00 PM', duration: '03:00 PM - 05:00 PM', available: false },
-        { id: 7, time: '04:00 PM', duration: '04:00 PM - 06:00 PM', available: true },
-        { id: 8, time: '05:00 PM', duration: '05:00 PM - 07:00 PM', available: true },
-    ];
-
+    // Redirect to cart if accessed without state (e.g. direct URL or refresh)
+    useEffect(() => {
+        if (!location.state || !location.state.serviceIds || location.state.serviceIds.length === 0) {
+            navigate('/cart', { replace: true });
+        }
+    }, [location.state, navigate]);
     // Generate calendar days
     const getDaysInMonth = (date) => {
         const year = date.getFullYear();
@@ -112,12 +100,13 @@ const ScheduleSelection = () => {
 
     const isHoliday = (date) => {
         if (!date) return false;
-        return adminConfig.holidays.includes(formatDateToString(date));
+        // Sundays are treated as holidays
+        return date.getDay() === 0;
     };
 
     const isUnavailable = (date) => {
         if (!date) return false;
-        return adminConfig.unavailableDates.includes(formatDateToString(date));
+        return unavailableDates.includes(formatDateToString(date));
     };
 
     const isPastDate = (date) => {
@@ -146,12 +135,51 @@ const ScheduleSelection = () => {
         setSelectedTime(null);
     };
 
-    const handleDateClick = (date) => {
+    const handleDateClick = async (date) => {
         const status = getDayStatus(date);
         if (status === 'available') {
             setSelectedDate(date);
             setSelectedTime(null);
+
+            // Fetch time slots from API
+            try {
+                setSlotsLoading(true);
+                const dateStr = formatDateToString(date);
+                const response = await getAvailableSlots(dateStr);
+                if (response.success && response.data && response.data.slots) {
+                    // Map API SlotDTO to rendering format
+                    const mappedSlots = response.data.slots.map((slot, index) => {
+                        const startTime = formatTimeForDisplay(slot.start);
+                        const endTime = formatTimeForDisplay(slot.end);
+                        return {
+                            id: index + 1,
+                            time: startTime,
+                            duration: `${startTime} - ${endTime}`,
+                            available: slot.available,
+                            start: slot.start,
+                            end: slot.end
+                        };
+                    });
+                    setTimeSlots(mappedSlots);
+                } else {
+                    setTimeSlots([]);
+                }
+            } catch (error) {
+                console.error('Error fetching time slots:', error);
+                setTimeSlots([]);
+            } finally {
+                setSlotsLoading(false);
+            }
         }
+    };
+
+    // Helper to format 24h time ("08:00") to 12h display ("08:00 AM")
+    const formatTimeForDisplay = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        return `${String(displayHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`;
     };
 
     const handleTimeClick = (slot) => {
@@ -166,7 +194,9 @@ const ScheduleSelection = () => {
             navigate('/booking-form', {
                 state: {
                     selectedDate: formatDateToString(selectedDate),
-                    selectedTime: selectedTime
+                    selectedTime: selectedTime,
+                    serviceIds: serviceIds,
+                    cartItems: cartItems
                 }
             });
         }
@@ -301,22 +331,30 @@ const ScheduleSelection = () => {
                                         </p>
                                     </div>
 
-                                    <div className="timeslots-grid">
-                                        {timeSlots.map(slot => (
-                                            <div
-                                                key={slot.id}
-                                                className={`time-slot ${!slot.available ? 'booked' : ''} ${selectedTime?.id === slot.id ? 'selected' : ''
-                                                    }`}
-                                                onClick={() => handleTimeClick(slot)}
-                                            >
-                                                <div className="time-main">{slot.time}</div>
-                                                <div className="time-duration">{slot.duration}</div>
-                                                {!slot.available && (
-                                                    <div className="booked-badge">Booked</div>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
+                                    {slotsLoading ? (
+                                        <div className="no-date-selected">
+                                            <div className="no-date-icon"><Icons.Clock /></div>
+                                            <h3>Loading Slots...</h3>
+                                            <p>Fetching available time slots for the selected date</p>
+                                        </div>
+                                    ) : (
+                                        <div className="timeslots-grid">
+                                            {timeSlots.map(slot => (
+                                                <div
+                                                    key={slot.id}
+                                                    className={`time-slot ${!slot.available ? 'booked' : ''} ${selectedTime?.id === slot.id ? 'selected' : ''
+                                                        }`}
+                                                    onClick={() => handleTimeClick(slot)}
+                                                >
+                                                    <div className="time-main">{slot.time}</div>
+                                                    <div className="time-duration">{slot.duration}</div>
+                                                    {!slot.available && (
+                                                        <div className="booked-badge">Booked</div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
 
                                     {/* Selected Summary */}
                                     {selectedTime && (

@@ -195,12 +195,12 @@ export const getServiceById = async (serviceId) => {
    ============================================ */
 
 /* Create Booking
-   POST /bookings
-   Body: { serviceId, date, time, customerDetails }
+   POST /createBooking
+   Body: { date, startTime, endTime, serviceIds }
 */
 export const createBooking = async (bookingData) => {
     try {
-        const response = await api.post('/bookings', bookingData);
+        const response = await api.post('/createBooking', bookingData);
         return {
             success: true,
             data: response.data,
@@ -215,11 +215,11 @@ export const createBooking = async (bookingData) => {
 };
 
 /* Get User Bookings
-   GET /bookings/user
+   GET /bookings/my
 */
 export const getUserBookings = async () => {
     try {
-        const response = await api.get('/bookings/user');
+        const response = await api.get('/bookings/my');
         return {
             success: true,
             data: response.data,
@@ -247,6 +247,30 @@ export const getBookingById = async (bookingId) => {
         return {
             success: false,
             message: error.response?.data?.message || 'Failed to fetch booking'
+        };
+    }
+};
+
+/* ============================================
+   PAYMENT FUNCTIONS
+   ============================================ */
+
+/* Create Payment Intent
+   POST /payments/create-intent
+   Body: { appointmentId }
+   Returns: { clientSecret }
+*/
+export const createPaymentIntent = async (appointmentId) => {
+    try {
+        const response = await api.post('/payments/create-intent', { appointmentId });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to create payment intent'
         };
     }
 };
@@ -294,49 +318,6 @@ export const checkDateAvailability = async (date) => {
         return {
             success: false,
             message: error.response?.data?.message || 'Failed to check availability'
-        };
-    }
-};
-
-/* ============================================
-   PAYMENT APIs (Stripe Integration)
-   ============================================ */
-
-/* Create Payment Intent
-   POST /payment/create-intent
-   Body: { amount, bookingId }
-*/
-export const createPaymentIntent = async (paymentData) => {
-    try {
-        const response = await api.post('/payment/create-intent', paymentData);
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to create payment intent'
-        };
-    }
-};
-
-/* Confirm Payment
-   POST /payment/confirm
-   Body: { paymentIntentId, bookingId }
-*/
-export const confirmPayment = async (paymentData) => {
-    try {
-        const response = await api.post('/payment/confirm', paymentData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Payment confirmed successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Payment confirmation failed'
         };
     }
 };
@@ -577,6 +558,105 @@ export const getDashboardStats = async () => {
 };
 
 /* ============================================
+   CART APIs
+   ============================================ */
+
+/* Get Cart Items
+   GET /cart
+*/
+export const getCartItems = async () => {
+    try {
+        const response = await api.get('/cart');
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to fetch cart items',
+            data: []
+        };
+    }
+};
+
+/* Add to Cart
+   POST /cart
+   Body: { serviceId, quantity }
+*/
+export const addToCart = async (cartData) => {
+    try {
+        const response = await api.post('/cart', cartData);
+        return {
+            success: true,
+            data: response.data,
+            message: 'Item added to cart'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to add item to cart'
+        };
+    }
+};
+
+/* Update Cart Item Quantity
+   PUT /cart/:serviceId
+   Body: { quantity }
+*/
+export const updateCartItem = async (serviceId, cartData) => {
+    try {
+        const response = await api.put(`/cart/${serviceId}`, cartData);
+        return {
+            success: true,
+            data: response.data,
+            message: 'Cart item updated'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to update cart item'
+        };
+    }
+};
+
+/* Remove Item from Cart
+   DELETE /cart/:serviceId
+*/
+export const removeCartItem = async (serviceId) => {
+    try {
+        await api.delete(`/cart/${serviceId}`);
+        return {
+            success: true,
+            message: 'Item removed from cart'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to remove item from cart'
+        };
+    }
+};
+
+/* Clear Entire Cart
+   DELETE /cart
+*/
+export const clearCart = async () => {
+    try {
+        await api.delete('/cart');
+        return {
+            success: true,
+            message: 'Cart cleared'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to clear cart'
+        };
+    }
+};
+
+/* ============================================
    EMAIL APIs (Confirmation emails)
    ============================================ */
 
@@ -624,7 +704,6 @@ export default {
 
     // Payment
     createPaymentIntent,
-    confirmPayment,
 
     // Admin - Appointments
     getAdminAppointments,
@@ -644,6 +723,13 @@ export default {
 
     // Admin - Stats
     getDashboardStats,
+
+    // Cart
+    getCartItems,
+    addToCart,
+    updateCartItem,
+    removeCartItem,
+    clearCart,
 
     // Email
     sendBookingConfirmation

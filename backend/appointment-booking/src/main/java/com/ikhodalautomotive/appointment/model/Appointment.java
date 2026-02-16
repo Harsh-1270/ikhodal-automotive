@@ -39,4 +39,30 @@ public class Appointment {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    // Vehicle information
+    @Column(name = "registration_number")
+    private String registrationNumber;
+
+    @Column(name = "vehicle_make")
+    private String vehicleMake;
+
+    @Column(name = "vehicle_model")
+    private String vehicleModel;
+
+    @Column(name = "vehicle_year")
+    private String vehicleYear;
+
+    // Contact information
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "postcode")
+    private String postcode;
+
+    @Column(name = "additional_comments", length = 500)
+    private String additionalComments;
 }

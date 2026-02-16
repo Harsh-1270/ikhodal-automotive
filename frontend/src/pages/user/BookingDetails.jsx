@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
+import { getBookingById } from '../../services/api';
 import './BookingDetails.css';
 
 const BookingDetails = () => {
@@ -141,111 +142,64 @@ const BookingDetails = () => {
         )
     };
 
-    // Mock user data
-    const user = {
-        name: 'Alis Desai',
-        email: 'alis.desai@example.com',
-        avatar: <Icons.User color="#64748b" />
-    };
-
-    // Mock booking data (in real app, fetch based on bookingId)
-    const mockBookings = {
-        'BK001': {
-            id: 'BK001',
-            serviceName: 'General Service',
-            serviceIcon: <Icons.Wrench />,
-            price: 2499,
-            bookingDate: '2024-01-20',
-            serviceDate: '2024-01-25',
-            timeSlot: '10:00 AM - 12:00 PM',
-            status: 'completed',
-            paymentStatus: 'paid',
-            paymentMethod: 'UPI',
-            transactionId: 'TXN123456789',
-            vehicleNumber: 'GJ-01-AB-1234',
-            vehicleBrand: 'Maruti Suzuki',
-            vehicleModel: 'Swift VXI',
-            vehicleYear: '2020',
-            address: '123 Main Street, Surat',
-            landmark: 'Near City Mall',
-            pincode: '395007',
-            customerName: 'Alis Desai',
-            customerEmail: 'alis.desai@example.com',
-            customerPhone: '+91 98765 43210',
-            specialInstructions: 'Please check the AC cooling and brake pads thoroughly.',
-            serviceCenter: 'I Khodal Automotive Service Center - Surat Branch',
-            serviceCenterAddress: '456 Ring Road, Surat - 395001',
-            serviceCenterPhone: '+91 98765 00000',
-            technician: 'Ramesh Kumar',
-            technicianPhone: '+91 98765 11111',
-            estimatedDuration: '2-3 hours',
-            servicesIncluded: [
-                'Engine Oil Change',
-                'Oil Filter Replacement',
-                'Air Filter Cleaning',
-                'Brake Inspection',
-                'Battery Check',
-                'Tire Pressure Check',
-                'General Checkup'
-            ],
-            invoiceNumber: 'INV-2024-001',
-            gstNumber: 'GST123456789',
-            basePrice: 2118,
-            gst: 381,
-            discount: 0,
-            totalPrice: 2499
-        },
-        'BK002': {
-            id: 'BK002',
-            serviceName: 'AC Service',
-            serviceIcon: <Icons.Snowflake />,
-            price: 1799,
-            bookingDate: '2024-01-22',
-            serviceDate: '2024-01-28',
-            timeSlot: '02:00 PM - 04:00 PM',
-            status: 'pending',
-            paymentStatus: 'paid',
-            paymentMethod: 'Credit Card',
-            transactionId: 'TXN987654321',
-            vehicleNumber: 'GJ-01-AB-1234',
-            vehicleBrand: 'Maruti Suzuki',
-            vehicleModel: 'Swift VXI',
-            vehicleYear: '2020',
-            address: '123 Main Street, Surat',
-            landmark: 'Near City Mall',
-            pincode: '395007',
-            customerName: 'Alis Desai',
-            customerEmail: 'alis.desai@example.com',
-            customerPhone: '+91 98765 43210',
-            specialInstructions: 'AC is not cooling properly. Need gas refill.',
-            serviceCenter: 'I Khodal Automotive Service Center - Surat Branch',
-            serviceCenterAddress: '456 Ring Road, Surat - 395001',
-            serviceCenterPhone: '+91 98765 00000',
-            technician: 'To be assigned',
-            technicianPhone: '-',
-            estimatedDuration: '1-2 hours',
-            servicesIncluded: [
-                'AC Gas Refill',
-                'AC Filter Cleaning',
-                'Cooling Check',
-                'Blower Motor Inspection',
-                'Temperature Sensor Check'
-            ],
-            invoiceNumber: 'INV-2024-002',
-            gstNumber: 'GST123456789',
-            basePrice: 1524,
-            gst: 275,
-            discount: 0,
-            totalPrice: 1799
-        }
+    // Helper to format 24h time to 12h display
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        return `${String(displayHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`;
     };
 
     useEffect(() => {
-        // Simulate API call to fetch booking details
-        const fetchedBooking = mockBookings[bookingId];
-        if (fetchedBooking) {
-            setBooking(fetchedBooking);
-        }
+        const fetchBooking = async () => {
+            try {
+                const response = await getBookingById(bookingId);
+                if (response.success && response.data) {
+                    const b = response.data;
+                    setBooking({
+                        id: `BK${String(b.bookingId).padStart(3, '0')}`,
+                        serviceName: b.services && b.services.length > 0 ? b.services.map(s => s.serviceName).join(', ') : 'Service Appointment',
+                        serviceIcon: <Icons.Wrench />,
+                        price: b.totalAmount || 0,
+                        bookingDate: b.date,
+                        serviceDate: b.date,
+                        timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
+                        status: (b.status || 'PENDING').toLowerCase(),
+                        paymentStatus: '—',
+                        paymentMethod: '—',
+                        transactionId: '—',
+                        vehicleNumber: b.registrationNumber || '—',
+                        vehicleBrand: b.vehicleMake || '—',
+                        vehicleModel: b.vehicleModel || '—',
+                        vehicleYear: b.vehicleYear || '—',
+                        address: b.address || '—',
+                        landmark: '—',
+                        pincode: b.postcode || '—',
+                        customerName: b.fullName || '—',
+                        customerEmail: '—',
+                        customerPhone: '—',
+                        specialInstructions: b.additionalComments || '',
+                        serviceCenter: 'I Khodal Automotive Service Center',
+                        serviceCenterAddress: '—',
+                        serviceCenterPhone: '—',
+                        technician: 'To be assigned',
+                        technicianPhone: '—',
+                        estimatedDuration: '—',
+                        servicesIncluded: b.services ? b.services.map(s => s.serviceName) : [],
+                        invoiceNumber: '—',
+                        gstNumber: '—',
+                        basePrice: b.totalAmount ? Math.round(Number(b.totalAmount) / 1.18) : 0,
+                        gst: b.totalAmount ? Math.round(Number(b.totalAmount) - Number(b.totalAmount) / 1.18) : 0,
+                        discount: 0,
+                        totalPrice: Number(b.totalAmount) || 0
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching booking:', error);
+            }
+        };
+        fetchBooking();
     }, [bookingId]);
 
     if (!booking) {

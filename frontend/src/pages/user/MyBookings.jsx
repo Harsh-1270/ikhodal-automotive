@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
+import { getUserBookings } from '../../services/api';
 import './MyBookings.css';
 
 const MyBookings = () => {
@@ -157,95 +158,49 @@ const MyBookings = () => {
     const [visibleBookings, setVisibleBookings] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const bookingRefs = useRef([]);
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    // Mock user data
-    const user = {
-        name: 'Alis Desai',
-        email: 'alis.desai@example.com',
-        avatar: <Icons.User />
+    // Helper to format 24h time ("08:00:00") to 12h display ("08:00 AM")
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        return `${String(displayHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`;
     };
 
-    // Mock bookings data
-    const bookings = [
-        {
-            id: 'BK001',
-            serviceName: 'General Service',
-            serviceIcon: <Icons.Wrench />,
-            price: 2499,
-            bookingDate: '2024-01-20',
-            serviceDate: '2024-01-25',
-            timeSlot: '10:00 AM - 12:00 PM',
-            status: 'completed',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        },
-        {
-            id: 'BK002',
-            serviceName: 'AC Service',
-            serviceIcon: <Icons.Snowflake />,
-            price: 1799,
-            bookingDate: '2024-01-22',
-            serviceDate: '2024-01-28',
-            timeSlot: '02:00 PM - 04:00 PM',
-            status: 'pending',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        },
-        {
-            id: 'BK003',
-            serviceName: 'Car Spa',
-            serviceIcon: <Icons.Bubbles />,
-            price: 799,
-            bookingDate: '2024-01-18',
-            serviceDate: '2024-01-22',
-            timeSlot: '11:00 AM - 01:00 PM',
-            status: 'completed',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        },
-        {
-            id: 'BK004',
-            serviceName: 'Tyres & Wheels',
-            serviceIcon: <Icons.Gear />,
-            price: 1199,
-            bookingDate: '2024-01-24',
-            serviceDate: '2024-01-30',
-            timeSlot: '03:00 PM - 05:00 PM',
-            status: 'pending',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        },
-        {
-            id: 'BK005',
-            serviceName: 'Car Detailing',
-            serviceIcon: <Icons.SparklesStar />,
-            price: 1999,
-            bookingDate: '2024-01-15',
-            serviceDate: '2024-01-19',
-            timeSlot: '09:00 AM - 12:00 PM',
-            status: 'completed',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        },
-        {
-            id: 'BK006',
-            serviceName: 'Battery Service',
-            serviceIcon: <Icons.Battery />,
-            price: 3499,
-            bookingDate: '2024-01-26',
-            serviceDate: '2024-02-02',
-            timeSlot: '10:30 AM - 11:30 AM',
-            status: 'pending',
-            paymentStatus: 'paid',
-            vehicleNumber: 'GJ-01-AB-1234',
-            address: '123 Main Street, Surat'
-        }
-    ];
+    // Fetch bookings from API
+    useEffect(() => {
+        const fetchBookings = async () => {
+            setLoading(true);
+            try {
+                const response = await getUserBookings();
+                if (response.success && response.data) {
+                    const mapped = response.data.map(b => ({
+                        id: `BK${String(b.bookingId).padStart(3, '0')}`,
+                        bookingId: b.bookingId,
+                        serviceName: b.serviceNames || 'Service Appointment',
+                        serviceIcon: <Icons.Wrench />,
+                        price: Number(b.totalAmount) || 0,
+                        bookingDate: b.date,
+                        serviceDate: b.date,
+                        timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
+                        status: (b.status || 'PENDING').toLowerCase(),
+                        paymentStatus: 'paid',
+                        vehicleNumber: b.vehicleMake && b.vehicleModel ? `${b.vehicleMake} ${b.vehicleModel}` : '—',
+                        address: b.address || '—'
+                    }));
+                    setBookings(mapped);
+                }
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchBookings();
+    }, []);
 
     /* ==========================================
        DELAYED INITIAL LOAD
@@ -296,7 +251,7 @@ const MyBookings = () => {
                 }
             });
         };
-    }, [initialLoadComplete, activeTab]);
+    }, [initialLoadComplete, activeTab, bookings]);
 
     // Filter bookings based on active tab
     const filteredBookings = activeTab === 'all'
@@ -413,7 +368,13 @@ const MyBookings = () => {
 
                 {/* Bookings List */}
                 <div className="bookings-list">
-                    {filteredBookings.length === 0 ? (
+                    {loading ? (
+                        <div className="empty-state">
+                            <div className="empty-icon"><Icons.Clock /></div>
+                            <h3>Loading bookings...</h3>
+                            <p>Please wait while we fetch your appointments.</p>
+                        </div>
+                    ) : filteredBookings.length === 0 ? (
                         <div className="empty-state">
                             <div className="empty-icon"><Icons.Inbox /></div>
                             <h3>No Bookings Found</h3>
@@ -484,7 +445,7 @@ const MyBookings = () => {
                                     <div className="booking-actions">
                                         <button
                                             className="action-btn secondary"
-                                            onClick={() => navigate(`/booking-details/${booking.id}`, { state: { from: '/my-bookings' } })}
+                                            onClick={() => navigate(`/booking-details/${booking.bookingId}`, { state: { from: '/my-bookings' } })}
                                         >
                                             <span className="action-btn-icon"><Icons.File /></span>
                                             View Details

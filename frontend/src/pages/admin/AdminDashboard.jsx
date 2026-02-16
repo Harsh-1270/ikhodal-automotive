@@ -612,7 +612,7 @@ const AdminDashboard = () => {
 
                                     <div className="price-section">
                                         <span className="price-label">Total Amount</span>
-                                        <span className="price-value">₹{booking.price.toLocaleString()}</span>
+                                        <span className="price-value">${booking.price.toLocaleString()}</span>
                                         <span className={`payment-status ${booking.paymentStatus}`}>
                                             <span className="payment-icon"><Icons.Check /></span>
                                             {booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}
