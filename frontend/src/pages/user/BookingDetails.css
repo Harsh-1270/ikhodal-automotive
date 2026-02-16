@@ -200,7 +200,17 @@
 }
 
 .back-icon {
-    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.back-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 /* ============================================
@@ -229,7 +239,17 @@
 }
 
 .title-icon {
-    font-size: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.title-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .booking-ref {
@@ -324,7 +344,17 @@
 }
 
 .card-icon {
-    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .card-body {
@@ -346,7 +376,6 @@
 }
 
 .service-icon-xl {
-    font-size: 5rem;
     width: 100px;
     height: 100px;
     display: flex;
@@ -355,6 +384,11 @@
     background: #ffffff;
     border-radius: 20px;
     flex-shrink: 0;
+}
+
+.service-icon-xl svg {
+    width: 5rem;
+    height: 5rem;
 }
 
 .service-info-text {
@@ -372,6 +406,9 @@
     font-size: 1.125rem;
     font-weight: 600;
     color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* ============================================
@@ -401,6 +438,9 @@
     font-size: 0.9375rem;
     font-weight: 600;
     color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .info-value {
@@ -431,6 +471,9 @@
     font-weight: 700;
     color: #0f172a;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .included-list {
@@ -458,9 +501,13 @@
     background: linear-gradient(135deg, #10b981, #059669);
     color: #ffffff;
     border-radius: 50%;
-    font-size: 0.75rem;
-    font-weight: 700;
     flex-shrink: 0;
+}
+
+.check-icon svg {
+    width: 0.75rem;
+    height: 0.75rem;
+    stroke: #ffffff;
 }
 
 /* ============================================
@@ -511,7 +558,17 @@
 }
 
 .contact-icon {
-    font-size: 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .contact-text {
@@ -530,6 +587,10 @@
     font-weight: 600;
     color: #64748b;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .tech-name {
@@ -629,7 +690,17 @@
 }
 
 .status-icon {
-    font-size: 0.875rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.status-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .payment-info-row {
@@ -674,7 +745,36 @@
 }
 
 .btn-icon {
-    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   INLINE ICONS (for icons appearing with text)
+   ============================================ */
+
+.inline-icon {
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.inline-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 /* ============================================

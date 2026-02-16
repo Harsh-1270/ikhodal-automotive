@@ -6,6 +6,58 @@ import './BookingForm.css';
 const BookingForm = () => {
     const navigate = useNavigate();
 
+    /* ==========================================
+       SVG ICONS COMPONENT
+       ========================================== */
+    const Icons = {
+        Clipboard: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                <path d="M9 12h6" />
+                <path d="M9 16h6" />
+            </svg>
+        ),
+        Check: ({ className = "", color = "#10b981" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        ),
+        Car: ({ className = "", color = "#f59e0b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0a2 2 0 1 1-4 0m-4 0a2 2 0 1 1-4 0" />
+                <path d="M5 9l1.5-4.5h5L13 9" />
+            </svg>
+        ),
+        User: ({ className = "", color = "#8b5cf6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        ),
+        MessageSquare: ({ className = "", color = "#06b6d4" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+        ),
+        CreditCard: ({ className = "", color = "#6366f1" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+        ),
+        ChevronLeft: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        ),
+        ChevronRight: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 6 15 12 9 18" />
+            </svg>
+        )
+    };
+
     // Form state
     const [formData, setFormData] = useState({
         registrationNumber: '',
@@ -104,7 +156,7 @@ const BookingForm = () => {
                 <div className="page-header">
                     <div className="header-left">
                         <h1 className="page-title">
-                            <span className="title-icon">📝</span>
+                            <span className="title-icon"><Icons.Clipboard /></span>
                             Booking Details
                         </h1>
                         <p className="page-subtitle">Please provide your vehicle and contact information</p>
@@ -114,7 +166,7 @@ const BookingForm = () => {
                 {/* Progress Indicator */}
                 <div className="progress-steps">
                     <div className="step completed">
-                        <div className="step-icon">✓</div>
+                        <div className="step-icon"><Icons.Check /></div>
                         <span className="step-label">Services</span>
                     </div>
                     <div className="step-line completed"></div>
@@ -129,12 +181,12 @@ const BookingForm = () => {
                     </div>
                     <div className="step-line active"></div>
                     <div className="step active">
-                        <div className="step-icon">📝</div>
+                        <div className="step-icon"><Icons.Clipboard color="#ffffff" /></div>
                         <span className="step-label">Details</span>
                     </div>
                     <div className="step-line"></div>
                     <div className="step">
-                        <div className="step-icon">💳</div>
+                        <div className="step-icon"><Icons.CreditCard /></div>
                         <span className="step-label">Payment</span>
                     </div>
                 </div>
@@ -147,7 +199,7 @@ const BookingForm = () => {
                             {/* Vehicle Information Section */}
                             <div className="form-card">
                                 <h2 className="section-title">
-                                    <span className="section-icon">🚗</span>
+                                    <span className="section-icon"><Icons.Car /></span>
                                     Vehicle Information
                                 </h2>
 
@@ -232,7 +284,7 @@ const BookingForm = () => {
                             {/* Contact Information Section */}
                             <div className="form-card">
                                 <h2 className="section-title">
-                                    <span className="section-icon">👤</span>
+                                    <span className="section-icon"><Icons.User /></span>
                                     Contact Information
                                 </h2>
 
@@ -297,7 +349,7 @@ const BookingForm = () => {
                             {/* Additional Comments Section */}
                             <div className="form-card">
                                 <h2 className="section-title">
-                                    <span className="section-icon">💬</span>
+                                    <span className="section-icon"><Icons.MessageSquare /></span>
                                     Additional Information
                                 </h2>
 
@@ -328,12 +380,12 @@ const BookingForm = () => {
                                     className="btn-secondary"
                                     onClick={() => navigate('/cart')}
                                 >
-                                    <span className="btn-icon">←</span>
+                                    <span className="btn-icon"><Icons.ChevronLeft /></span>
                                     Back to Cart
                                 </button>
                                 <button type="submit" className="btn-primary">
                                     Continue to Payment
-                                    <span className="btn-icon">→</span>
+                                    <span className="btn-icon"><Icons.ChevronRight /></span>
                                 </button>
                             </div>
                         </form>
@@ -343,7 +395,7 @@ const BookingForm = () => {
                     <div className="summary-section">
                         <div className="summary-card sticky-card">
                             <h3 className="summary-title">
-                                <span className="summary-icon">📋</span>
+                                <span className="summary-icon"><Icons.Clipboard /></span>
                                 Order Summary
                             </h3>
 

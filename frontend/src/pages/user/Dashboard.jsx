@@ -13,27 +13,51 @@ const Dashboard = () => {
     const [showCartNotification, setShowCartNotification] = useState(false);
 
     /* ==========================================
-       SVG ICONS COMPONENT
+       SVG ICONS COMPONENT - COLORFUL GRADIENTS
        ========================================== */
     const Icons = {
         Car: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashCarGradient)">
+                <defs>
+                    <linearGradient id="dashCarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                    </linearGradient>
+                </defs>
                 <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
             </svg>
         ),
         User: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashUserGradient)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="dashUserGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#7c3aed" />
+                    </linearGradient>
+                </defs>
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
             </svg>
         ),
         Wave: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashWaveGradient)">
+                <defs>
+                    <linearGradient id="dashWaveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#06b6d4" />
+                        <stop offset="100%" stopColor="#0ea5e9" />
+                    </linearGradient>
+                </defs>
                 <path d="M7.5 11c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5S6 2.2 6 3v6.5C6 10.3 6.7 11 7.5 11zM4.5 13c-.8 0-1.5.7-1.5 1.5V21c0 .8.7 1.5 1.5 1.5S6 21.8 6 21v-6.5C6 13.7 5.3 13 4.5 13zM13.5 7c-.8 0-1.5.7-1.5 1.5V21c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5V8.5C15 7.7 14.3 7 13.5 7zM10.5 1C9.7 1 9 1.7 9 2.5V21c0 .8.7 1.5 1.5 1.5S12 21.8 12 21V2.5C12 1.7 11.3 1 10.5 1z" />
             </svg>
         ),
         Calendar: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashCalendarGradient)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="dashCalendarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#2563eb" />
+                    </linearGradient>
+                </defs>
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
@@ -41,33 +65,69 @@ const Dashboard = () => {
             </svg>
         ),
         MapPin: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashMapPinGradient)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="dashMapPinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="100%" stopColor="#dc2626" />
+                    </linearGradient>
+                </defs>
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
             </svg>
         ),
         Star: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashStarGradient)">
+                <defs>
+                    <linearGradient id="dashStarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                    </linearGradient>
+                </defs>
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
         ),
         Rocket: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashRocketGradient)">
+                <defs>
+                    <linearGradient id="dashRocketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                </defs>
                 <path d="M12 2c-4 0-8 .5-8 4 0 1.5.5 3 1 4l-1 4c0 .5.5 1 1 1h2v3c0 .5.5 1 1 1s1-.5 1-1v-3h4v3c0 .5.5 1 1 1s1-.5 1-1v-3h2c.5 0 1-.5 1-1l-1-4c.5-1 1-2.5 1-4 0-3.5-4-4-8-4zm0 2c2.4 0 4.7.3 5.7 1.3.3.3.3.6.3 1.2 0 1-.4 2.2-.8 3.2L16 12H8l-1.2-2.3c-.4-1-.8-2.2-.8-3.2 0-.6 0-.9.3-1.2C7.3 4.3 9.6 4 12 4z" />
             </svg>
         ),
         Lightning: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashLightningGradient)">
+                <defs>
+                    <linearGradient id="dashLightningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                    </linearGradient>
+                </defs>
                 <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
             </svg>
         ),
         Fire: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashFireGradient)">
+                <defs>
+                    <linearGradient id="dashFireGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                    </linearGradient>
+                </defs>
                 <path d="M13.5 0c-.8 2.5-1.5 5-2.8 6.5-1.3-2-2.5-4-4.2-6 0 0-2.5 4.5-2.5 9.5 0 5 4 9 9 9s9-4 9-9c0-4-2-7-3-8.5-.5 1.5-1.5 3-3 4-1-2.5-1.5-4-2.5-5.5z" />
             </svg>
         ),
         Sparkles: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <svg className={className} viewBox="0 0 24 24" fill="url(#dashSparklesGradient)">
+                <defs>
+                    <linearGradient id="dashSparklesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                    </linearGradient>
+                </defs>
                 <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" />
                 <path d="M5 5l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" />
             </svg>

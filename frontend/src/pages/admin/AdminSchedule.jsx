@@ -8,6 +8,71 @@ import AdminNavbar from '../../components/common/AdminNavbar';
 import './AdminSchedule.css';
 
 const AdminSchedule = () => {
+    /* ==========================================
+       SVG ICONS COMPONENT
+       ========================================== */
+    const Icons = {
+        Calendar: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+        ),
+        Settings: ({ className = "", color = "#64748b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 1v6m0 6v6m8.66-15l-5.2 3m-6.92 4l-5.2 3M23 12h-6m-6 0H1m17.66 8l-5.2-3m-6.92-4l-5.2-3" />
+            </svg>
+        ),
+        PartyPopper: ({ className = "", color = "#f59e0b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5.8 11.3L2 22l10.7-3.79" />
+                <path d="M4 3h.01M22 8h.01M15 2h.01M22 20h.01" />
+                <path d="M22 2l-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" />
+                <path d="M22 13l-.82-.33c-.86-.34-1.82.2-1.98 1.11v0c-.11.7-.72 1.22-1.43 1.22H17" />
+                <circle cx="12" cy="12" r="2" />
+            </svg>
+        ),
+        XCircle: ({ className = "", color = "#ef4444" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
+            </svg>
+        ),
+        CheckCircle: ({ className = "", color = "#10b981" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="9 12 11 14 15 10" />
+            </svg>
+        ),
+        Clock: ({ className = "", color = "#64748b" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+            </svg>
+        ),
+        Info: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+        ),
+        ChevronLeft: ({ className = "", color = "currentColor" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        ),
+        ChevronRight: ({ className = "", color = "currentColor" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        )
+    };
+
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -224,7 +289,7 @@ const AdminSchedule = () => {
                 <div className="page-header">
                     <div className="header-left">
                         <h1 className="page-title">
-                            <span className="title-icon">📅</span>
+                            <span className="title-icon"><Icons.Calendar /></span>
                             Schedule Management
                         </h1>
                     </div>
@@ -258,13 +323,13 @@ const AdminSchedule = () => {
                             {/* Calendar Header */}
                             <div className="calendar-header">
                                 <button className="month-nav-btn" onClick={handlePrevMonth}>
-                                    <span>←</span>
+                                    <span><Icons.ChevronLeft /></span>
                                 </button>
                                 <h2 className="calendar-month">
                                     {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                                 </h2>
                                 <button className="month-nav-btn" onClick={handleNextMonth}>
-                                    <span>→</span>
+                                    <span><Icons.ChevronRight /></span>
                                 </button>
                             </div>
 
@@ -309,7 +374,7 @@ const AdminSchedule = () => {
                                 <>
                                     <div className="controls-header">
                                         <h3 className="controls-title">
-                                            <span className="title-icon">⚙️</span>
+                                            <span className="title-icon"><Icons.Settings /></span>
                                             Manage Availability
                                         </h3>
                                         <p className="selected-date-display">
@@ -330,21 +395,21 @@ const AdminSchedule = () => {
                                                 className="action-btn holiday"
                                                 onClick={handleMarkAsHoliday}
                                             >
-                                                <span className="btn-icon">🎉</span>
+                                                <span className="btn-icon"><Icons.PartyPopper /></span>
                                                 <span>{isHoliday(selectedDate) ? 'Remove Holiday' : 'Mark as Holiday'}</span>
                                             </button>
                                             <button
                                                 className="action-btn unavailable"
                                                 onClick={handleMarkAsUnavailable}
                                             >
-                                                <span className="btn-icon">❌</span>
+                                                <span className="btn-icon"><Icons.XCircle /></span>
                                                 <span>{isUnavailable(selectedDate) ? 'Make Available' : 'Mark Unavailable'}</span>
                                             </button>
                                             <button
                                                 className="action-btn available"
                                                 onClick={handleMarkAsAvailable}
                                             >
-                                                <span className="btn-icon">✅</span>
+                                                <span className="btn-icon"><Icons.CheckCircle /></span>
                                                 <span>Clear All Restrictions</span>
                                             </button>
                                         </div>
@@ -354,7 +419,7 @@ const AdminSchedule = () => {
                                     {getDayStatus(selectedDate) === 'available' && (
                                         <div className="timeslots-management">
                                             <h4 className="section-title">
-                                                <span>⏰</span>
+                                                <span><Icons.Clock /></span>
                                                 Time Slot Availability
                                             </h4>
                                             <p className="section-subtitle">
@@ -370,7 +435,7 @@ const AdminSchedule = () => {
                                                             onClick={() => handleTimeSlotToggle(slot.id)}
                                                         >
                                                             <div className="slot-status-icon">
-                                                                {isUnavail ? '❌' : '✅'}
+                                                                {isUnavail ? <Icons.XCircle /> : <Icons.CheckCircle />}
                                                             </div>
                                                             <div className="slot-details">
                                                                 <div className="slot-time">{slot.time}</div>
@@ -389,7 +454,7 @@ const AdminSchedule = () => {
                                     {/* Info Message */}
                                     {(isHoliday(selectedDate) || isUnavailable(selectedDate)) && (
                                         <div className="info-message">
-                                            <div className="info-icon">ℹ️</div>
+                                            <div className="info-icon"><Icons.Info /></div>
                                             <div className="info-text">
                                                 {isHoliday(selectedDate) &&
                                                     'This date is marked as a holiday. All time slots are unavailable.'}
@@ -401,7 +466,7 @@ const AdminSchedule = () => {
                                 </>
                             ) : (
                                 <div className="no-date-selected">
-                                    <div className="no-date-icon">📅</div>
+                                    <div className="no-date-icon"><Icons.Calendar color="#94a3b8" /></div>
                                     <h3>Select a Date</h3>
                                     <p>Click on a date in the calendar to manage its availability settings</p>
                                 </div>

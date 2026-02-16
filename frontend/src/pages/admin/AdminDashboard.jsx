@@ -20,6 +20,199 @@ const AdminDashboard = () => {
     });
 
     /* ==========================================
+       SVG ICONS COMPONENT - COLORFUL GRADIENTS
+       ========================================== */
+    const Icons = {
+        BarChart: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adBarChartGrad)">
+                <defs>
+                    <linearGradient id="adBarChartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <path d="M3 3v18h18M9 17V10m4 7V7m4 10v-4" stroke="url(#adBarChartGrad)" strokeWidth="2" fill="none" strokeLinecap="round" />
+                <path d="M7 17h2v-7H7v7zm4 0h2V7h-2v10zm4 0h2v-4h-2v4z" />
+            </svg>
+        ),
+        Clipboard: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adClipboardGrad)">
+                <defs>
+                    <linearGradient id="adClipboardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#06b6d4" />
+                    </linearGradient>
+                </defs>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" />
+            </svg>
+        ),
+        Hourglass: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adHourglassGrad)">
+                <defs>
+                    <linearGradient id="adHourglassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                    </linearGradient>
+                </defs>
+                <path d="M6 2h12v4l-6 6 6 6v4H6v-4l6-6-6-6V2z" />
+            </svg>
+        ),
+        CheckCircle: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adCheckCircleGrad)">
+                <defs>
+                    <linearGradient id="adCheckCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#10b981" />
+                        <stop offset="100%" stopColor="#059669" />
+                    </linearGradient>
+                </defs>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
+            </svg>
+        ),
+        XCircle: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adXCircleGrad)">
+                <defs>
+                    <linearGradient id="adXCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="100%" stopColor="#dc2626" />
+                    </linearGradient>
+                </defs>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M15 9l-6 6M9 9l6 6" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+        ),
+        Ticket: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adTicketGrad)">
+                <defs>
+                    <linearGradient id="adTicketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ec4899" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <path d="M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.5a1.5 1.5 0 0 1 0 3V15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1.5a1.5 1.5 0 0 1 0-3V9z" />
+            </svg>
+        ),
+        User: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adUserGrad)">
+                <defs>
+                    <linearGradient id="adUserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#6366f1" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <circle cx="12" cy="8" r="4" />
+                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" fill="none" stroke="url(#adUserGrad)" strokeWidth="2" />
+            </svg>
+        ),
+        Mail: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adMailGrad)">
+                <defs>
+                    <linearGradient id="adMailGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#06b6d4" />
+                    </linearGradient>
+                </defs>
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <path d="M22 6l-10 7L2 6" stroke="white" strokeWidth="2" fill="none" />
+            </svg>
+        ),
+        Phone: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adPhoneGrad)">
+                <defs>
+                    <linearGradient id="adPhoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#10b981" />
+                        <stop offset="100%" stopColor="#059669" />
+                    </linearGradient>
+                </defs>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+        ),
+        Calendar: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adCalendarGrad)">
+                <defs>
+                    <linearGradient id="adCalendarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                </defs>
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <path d="M16 2v4M8 2v4M3 10h18" stroke="white" strokeWidth="2" fill="none" />
+            </svg>
+        ),
+        Clock: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adClockGrad)">
+                <defs>
+                    <linearGradient id="adClockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                    </linearGradient>
+                </defs>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
+            </svg>
+        ),
+        MapPin: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adMapPinGrad)">
+                <defs>
+                    <linearGradient id="adMapPinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                </defs>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" fill="white" />
+            </svg>
+        ),
+        Eye: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#adEyeGrad)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="adEyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#06b6d4" />
+                        <stop offset="100%" stopColor="#3b82f6" />
+                    </linearGradient>
+                </defs>
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+            </svg>
+        ),
+        Trash: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#adTrashGrad)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="adTrashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ef4444" />
+                        <stop offset="100%" stopColor="#dc2626" />
+                    </linearGradient>
+                </defs>
+                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" strokeLinecap="round" />
+            </svg>
+        ),
+        Inbox: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#adInboxGrad)">
+                <defs>
+                    <linearGradient id="adInboxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#9ca3af" />
+                        <stop offset="100%" stopColor="#6b7280" />
+                    </linearGradient>
+                </defs>
+                <path d="M22 12h-6l-2 3h-4l-2-3H2" fill="none" stroke="url(#adInboxGrad)" strokeWidth="2" />
+                <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+            </svg>
+        ),
+        Check: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#adCheckGrad)" strokeWidth="3">
+                <defs>
+                    <linearGradient id="adCheckGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#10b981" />
+                        <stop offset="100%" stopColor="#059669" />
+                    </linearGradient>
+                </defs>
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        )
+    };
+
+    /* ==========================================
        MOCK BOOKINGS DATA (ALL USERS)
        ========================================== */
     const mockBookings = [
@@ -271,7 +464,9 @@ const AdminDashboard = () => {
                 <div className="page-header">
                     <div className="header-left">
                         <h1 className="page-title">
-                            <span className="title-icon">📊</span>
+                            <span className="title-icon">
+                                <Icons.BarChart />
+                            </span>
                             Admin Dashboard
                         </h1>
                         {/* <p className="page-subtitle">Manage all customer bookings</p> */}
@@ -282,7 +477,7 @@ const AdminDashboard = () => {
                 <div className="stats-row">
                     <div className="stat-box blue">
                         <div className="stat-icon-circle blue">
-                            <span>📋</span>
+                            <span><Icons.Clipboard /></span>
                         </div>
                         <div className="stat-details">
                             <div className="stat-value">{stats.total}</div>
@@ -292,7 +487,7 @@ const AdminDashboard = () => {
 
                     <div className="stat-box orange">
                         <div className="stat-icon-circle orange">
-                            <span>⏳</span>
+                            <span><Icons.Hourglass /></span>
                         </div>
                         <div className="stat-details">
                             <div className="stat-value">{stats.pending}</div>
@@ -302,14 +497,14 @@ const AdminDashboard = () => {
 
                     <div className="stat-box green">
                         <div className="stat-icon-circle green">
-                            <span>✅</span>
+                            <span><Icons.CheckCircle /></span>
                         </div>
                         <div className="stat-details">
                             <div className="stat-value">{stats.completed}</div>
                             <div className="stat-label">Completed</div>
                         </div>
                     </div>
-{/*
+                    {/*
                     <div className="stat-box red">
                         <div className="stat-icon-circle red">
                             <span>❌</span>
@@ -327,7 +522,7 @@ const AdminDashboard = () => {
                         className={`filter-tab ${activeFilter === 'all' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('all')}
                     >
-                        <span className="tab-icon">📋</span>
+                        <span className="tab-icon"><Icons.Clipboard /></span>
                         All Bookings
                         <span className="tab-count">{stats.total}</span>
                     </button>
@@ -336,7 +531,7 @@ const AdminDashboard = () => {
                         className={`filter-tab ${activeFilter === 'pending' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('pending')}
                     >
-                        <span className="tab-icon">⏳</span>
+                        <span className="tab-icon"><Icons.Hourglass /></span>
                         Pending
                         <span className="tab-count">{stats.pending}</span>
                     </button>
@@ -345,7 +540,7 @@ const AdminDashboard = () => {
                         className={`filter-tab ${activeFilter === 'completed' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('completed')}
                     >
-                        <span className="tab-icon">✅</span>
+                        <span className="tab-icon"><Icons.CheckCircle /></span>
                         Completed
                         <span className="tab-count">{stats.completed}</span>
                     </button>
@@ -355,7 +550,7 @@ const AdminDashboard = () => {
                 <div className="bookings-list">
                     {filteredBookings.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-icon">📭</div>
+                            <div className="empty-icon"><Icons.Inbox /></div>
                             <h3>No bookings found</h3>
                             <p>There are no {activeFilter !== 'all' ? activeFilter : ''} bookings at the moment.</p>
                         </div>
@@ -365,11 +560,11 @@ const AdminDashboard = () => {
                                 {/* Booking Header */}
                                 <div className="booking-header">
                                     <div className="booking-id-section">
-                                        <span className="booking-id">🎫 {booking.id}</span>
+                                        <span className="booking-id"><Icons.Ticket /> {booking.id}</span>
                                         <span className={`status-badge ${booking.status}`}>
-                                            {booking.status === 'pending' && '⏳'}
-                                            {booking.status === 'completed' && '✅'}
-                                            {booking.status === 'cancelled' && '❌'}
+                                            {booking.status === 'pending' && <Icons.Hourglass className="status-icon" />}
+                                            {booking.status === 'completed' && <Icons.CheckCircle className="status-icon" />}
+                                            {booking.status === 'cancelled' && <Icons.XCircle className="status-icon" />}
                                             {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                                         </span>
                                     </div>
@@ -382,14 +577,14 @@ const AdminDashboard = () => {
                                 {/* Customer Info */}
                                 <div className="customer-info">
                                     <div className="customer-avatar">
-                                        <span>👤</span>
+                                        <span><Icons.User /></span>
                                     </div>
                                     <div className="customer-details">
                                         <div className="customer-name">{booking.userName}</div>
                                         <div className="customer-contact">
-                                            <span>📧 {booking.userEmail}</span>
+                                            <span><Icons.Mail className="contact-icon" /> {booking.userEmail}</span>
                                             <span className="divider">•</span>
-                                            <span>📱 {booking.userPhone}</span>
+                                            <span><Icons.Phone className="contact-icon" /> {booking.userPhone}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -404,11 +599,11 @@ const AdminDashboard = () => {
                                             <div className="service-name">{booking.serviceName}</div>
                                             <div className="service-meta">
                                                 <div className="meta-item">
-                                                    <span className="meta-icon">📅</span>
+                                                    <span className="meta-icon"><Icons.Calendar /></span>
                                                     <span className="meta-text">{formatDate(booking.date)}</span>
                                                 </div>
                                                 <div className="meta-item">
-                                                    <span className="meta-icon">🕐</span>
+                                                    <span className="meta-icon"><Icons.Clock /></span>
                                                     <span className="meta-text">{booking.time}</span>
                                                 </div>
                                             </div>
@@ -419,7 +614,7 @@ const AdminDashboard = () => {
                                         <span className="price-label">Total Amount</span>
                                         <span className="price-value">₹{booking.price.toLocaleString()}</span>
                                         <span className={`payment-status ${booking.paymentStatus}`}>
-                                            <span className="payment-icon">✓</span>
+                                            <span className="payment-icon"><Icons.Check /></span>
                                             {booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}
                                         </span>
                                     </div>
@@ -428,7 +623,7 @@ const AdminDashboard = () => {
                                 {/* Booking Footer */}
                                 <div className="booking-footer">
                                     <div className="address-info">
-                                        <span className="address-icon">📍</span>
+                                        <span className="address-icon"><Icons.MapPin /></span>
                                         <span>{booking.address}</span>
                                     </div>
 
@@ -437,14 +632,14 @@ const AdminDashboard = () => {
                                             className="action-btn secondary"
                                             onClick={() => navigate(`/admin/booking/${booking.id}`)}
                                         >
-                                            <span>👁️</span>
+                                            <span><Icons.Eye /></span>
                                             View Details
                                         </button>
                                         <button
                                             className="action-btn danger"
                                             onClick={() => handleDeleteBooking(booking.id)}
                                         >
-                                            <span>🗑️</span>
+                                            <span><Icons.Trash /></span>
                                             Delete Booking
                                         </button>
                                     </div>

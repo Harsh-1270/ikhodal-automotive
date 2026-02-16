@@ -13,6 +13,77 @@ const Register = () => {
     const { login } = useAuth();
 
     /* ==========================================
+       SVG ICONS COMPONENT - COLORFUL GRADIENTS
+       ========================================== */
+    const Icons = {
+        Monitor: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#regMonitorGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <defs>
+                    <linearGradient id="regMonitorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#06b6d4" />
+                        <stop offset="50%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                </defs>
+                <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1" />
+                <polygon points="12 15 17 21 7 21 12 15" />
+            </svg>
+        ),
+        Lightning: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#regLightningGradient)">
+                <defs>
+                    <linearGradient id="regLightningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                    </linearGradient>
+                </defs>
+                <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
+            </svg>
+        ),
+        Diamond: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#regDiamondGradient)">
+                <defs>
+                    <linearGradient id="regDiamondGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#ec4899" />
+                        <stop offset="100%" stopColor="#db2777" />
+                    </linearGradient>
+                </defs>
+                <path d="M12 2L2 7l10 15L22 7 12 2zm0 3.84L18.93 9H5.07L12 5.84zM6.54 11h10.92L12 18.5 6.54 11z" />
+            </svg>
+        ),
+        Rocket: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#regRocketGradient)">
+                <defs>
+                    <linearGradient id="regRocketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                </defs>
+                <path d="M12 2c-4 0-8 .5-8 4 0 1.5.5 3 1 4l-1 4c0 .5.5 1 1 1h2v3c0 .5.5 1 1 1s1-.5 1-1v-3h4v3c0 .5.5 1 1 1s1-.5 1-1v-3h2c.5 0 1-.5 1-1l-1-4c.5-1 1-2.5 1-4 0-3.5-4-4-8-4zm0 2c2.4 0 4.7.3 5.7 1.3.3.3.3.6.3 1.2 0 1-.4 2.2-.8 3.2L16 12H8l-1.2-2.3c-.4-1-.8-2.2-.8-3.2 0-.6 0-.9.3-1.2C7.3 4.3 9.6 4 12 4z" />
+            </svg>
+        ),
+        AlertTriangle: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="url(#regAlertGradient)">
+                <defs>
+                    <linearGradient id="regAlertGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                    </linearGradient>
+                </defs>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" stroke="white" strokeWidth="2" />
+                <circle cx="12" cy="17" r="0.5" fill="white" />
+            </svg>
+        ),
+        ArrowRight: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+            </svg>
+        )
+    };
+
+    /* ==========================================
        STATE MANAGEMENT
        ========================================== */
     const [formData, setFormData] = useState({
@@ -122,10 +193,7 @@ const Register = () => {
                         {/* Brand Icon with Modern SVG */}
                         <div className="brand-icon">
                             <div className="icon-circle">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1" />
-                                    <polygon points="12 15 17 21 7 21 12 15" />
-                                </svg>
+                                <Icons.Monitor />
                             </div>
                         </div>
 
@@ -136,15 +204,21 @@ const Register = () => {
                         {/* Feature List */}
                         <div className="brand-features">
                             <div className="feature-item">
-                                <span className="feature-icon">⚡</span>
+                                <span className="feature-icon">
+                                    <Icons.Lightning />
+                                </span>
                                 <span>Expert Technicians</span>
                             </div>
                             <div className="feature-item">
-                                <span className="feature-icon">💎</span>
+                                <span className="feature-icon">
+                                    <Icons.Diamond />
+                                </span>
                                 <span>Quality Guaranteed</span>
                             </div>
                             <div className="feature-item">
-                                <span className="feature-icon">🚀</span>
+                                <span className="feature-icon">
+                                    <Icons.Rocket />
+                                </span>
                                 <span>Quick & Easy Booking</span>
                             </div>
                         </div>
@@ -165,7 +239,9 @@ const Register = () => {
                             {/* API Error Banner */}
                             {apiError && (
                                 <div className="error-banner">
-                                    <span className="error-icon">⚠</span>
+                                    <span className="error-icon">
+                                        <Icons.AlertTriangle />
+                                    </span>
                                     <span>{apiError}</span>
                                 </div>
                             )}
@@ -249,7 +325,9 @@ const Register = () => {
                                 ) : (
                                     <>
                                         Create Account
-                                        <span>→</span>
+                                        <span className="arrow-icon">
+                                            <Icons.ArrowRight />
+                                        </span>
                                     </>
                                 )}
                             </button>
