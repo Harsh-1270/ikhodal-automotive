@@ -9,4 +9,6 @@ public interface ServiceService {
     void addService(CreateServiceRequestDTO request);
 
     List<ServiceResponseDTO> getAllActiveServices();
+
+    void seedServices();
 }

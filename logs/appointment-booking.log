@@ -429,3 +429,458 @@ Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieva
 2026-02-16T11:59:32.070+05:30  INFO 16664 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-16T11:59:32.191+05:30  INFO 16664 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-02-16T11:59:32.275+05:30  INFO 16664 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T11:59:39.836+05:30  INFO 22168 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 22168 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T11:59:39.844+05:30  INFO 22168 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T11:59:44.404+05:30  INFO 22168 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T11:59:44.899+05:30  INFO 22168 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 435 ms. Found 10 JPA repository interfaces.
+2026-02-16T11:59:48.759+05:30  INFO 22168 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T11:59:48.827+05:30  INFO 22168 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T11:59:48.840+05:30  INFO 22168 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T11:59:49.305+05:30  INFO 22168 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T11:59:49.307+05:30  INFO 22168 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9288 ms
+2026-02-16T11:59:50.594+05:30  INFO 22168 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T11:59:50.954+05:30  INFO 22168 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T11:59:51.252+05:30  INFO 22168 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T11:59:53.276+05:30  INFO 22168 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T11:59:53.522+05:30  INFO 22168 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T11:59:54.555+05:30  INFO 22168 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@277bc3a5
+2026-02-16T11:59:54.570+05:30  INFO 22168 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T11:59:54.909+05:30  WARN 22168 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T11:59:54.918+05:30  WARN 22168 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T11:59:55.013+05:30  INFO 22168 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T11:59:59.916+05:30  INFO 22168 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T12:00:00.470+05:30  INFO 22168 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T12:00:00.512+05:30  INFO 22168 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T12:00:03.774+05:30  INFO 22168 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T12:00:10.500+05:30  WARN 22168 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T12:00:10.703+05:30 DEBUG 22168 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T12:00:12.069+05:30 DEBUG 22168 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T12:00:13.718+05:30  INFO 22168 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T12:00:13.769+05:30  INFO 22168 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 37.89 seconds (process running for 39.161)
+2026-02-16T12:00:25.997+05:30  INFO 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-16T12:00:25.999+05:30  INFO 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-16T12:00:26.004+05:30  INFO 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-02-16T12:00:26.213+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-16T12:00:26.447+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:00:26.453+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-16T12:03:34.731+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-16T12:03:34.740+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:03:34.741+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-16T12:10:34.396+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/signup
+2026-02-16T12:10:34.405+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:10:34.418+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/signup
+2026-02-16T12:10:59.462+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/signup
+2026-02-16T12:10:59.470+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:10:59.478+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/signup
+2026-02-16T12:11:22.374+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/verify-otp
+2026-02-16T12:11:22.388+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:11:22.395+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/verify-otp
+2026-02-16T12:11:36.485+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-16T12:11:36.502+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:11:36.506+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-16T12:27:59.059+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/auth/login
+2026-02-16T12:28:08.221+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-16T12:28:08.244+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:28:08.249+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-16T12:28:50.146+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-16T12:28:50.155+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-16T12:28:50.159+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-16T12:38:44.217+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/services
+2026-02-16T12:38:48.446+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:38:52.518+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:40:31.209+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:40:31.249+05:30 DEBUG 22168 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:41:18.526+05:30  INFO 22168 --- [appointment-booking] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T12:41:19.196+05:30  INFO 22168 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T12:41:19.630+05:30  INFO 22168 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T12:41:20.230+05:30  INFO 22168 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T12:41:20.427+05:30  INFO 22168 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T12:41:27.463+05:30  INFO 8432 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 8432 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T12:41:27.473+05:30  INFO 8432 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T12:41:30.902+05:30  INFO 8432 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T12:41:31.346+05:30  INFO 8432 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 405 ms. Found 10 JPA repository interfaces.
+2026-02-16T12:41:33.444+05:30  INFO 8432 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T12:41:33.498+05:30  INFO 8432 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T12:41:33.504+05:30  INFO 8432 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T12:41:33.843+05:30  INFO 8432 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T12:41:33.845+05:30  INFO 8432 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6122 ms
+2026-02-16T12:41:34.626+05:30  INFO 8432 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T12:41:34.826+05:30  INFO 8432 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T12:41:34.952+05:30  INFO 8432 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T12:41:35.970+05:30  INFO 8432 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T12:41:36.085+05:30  INFO 8432 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T12:41:36.691+05:30  INFO 8432 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@47f0f414
+2026-02-16T12:41:36.701+05:30  INFO 8432 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T12:41:36.979+05:30  WARN 8432 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T12:41:37.034+05:30  WARN 8432 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T12:41:37.206+05:30  INFO 8432 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T12:41:40.070+05:30  INFO 8432 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T12:41:41.384+05:30  INFO 8432 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T12:41:41.413+05:30  INFO 8432 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T12:41:42.534+05:30  INFO 8432 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T12:41:45.027+05:30  WARN 8432 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T12:41:45.160+05:30 DEBUG 8432 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T12:41:46.345+05:30 DEBUG 8432 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T12:41:47.258+05:30  INFO 8432 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T12:41:47.276+05:30  INFO 8432 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 21.89 seconds (process running for 23.117)
+2026-02-16T12:41:54.534+05:30  INFO 8432 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-16T12:41:54.537+05:30  INFO 8432 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-16T12:41:54.550+05:30  INFO 8432 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2026-02-16T12:41:54.615+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:41:55.004+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:42:16.351+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:42:16.377+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:42:23.940+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:42:23.981+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:42:36.995+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:42:37.018+05:30 DEBUG 8432 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:47:22.516+05:30  INFO 8432 --- [appointment-booking] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T12:47:22.876+05:30  INFO 8432 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T12:47:23.052+05:30  INFO 8432 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T12:47:23.311+05:30  INFO 8432 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T12:47:23.524+05:30  INFO 8432 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T12:47:31.292+05:30  INFO 15900 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 15900 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T12:47:31.313+05:30  INFO 15900 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T12:47:34.901+05:30  INFO 15900 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T12:47:35.240+05:30  INFO 15900 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 293 ms. Found 10 JPA repository interfaces.
+2026-02-16T12:47:37.151+05:30  INFO 15900 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T12:47:37.180+05:30  INFO 15900 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T12:47:37.181+05:30  INFO 15900 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T12:47:37.379+05:30  INFO 15900 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T12:47:37.380+05:30  INFO 15900 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5691 ms
+2026-02-16T12:47:38.186+05:30  INFO 15900 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T12:47:38.359+05:30  INFO 15900 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T12:47:38.588+05:30  INFO 15900 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T12:47:39.856+05:30  INFO 15900 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T12:47:39.943+05:30  INFO 15900 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T12:47:40.456+05:30  INFO 15900 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26101efc
+2026-02-16T12:47:40.511+05:30  INFO 15900 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T12:47:40.716+05:30  WARN 15900 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T12:47:40.719+05:30  WARN 15900 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T12:47:40.820+05:30  INFO 15900 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T12:47:43.589+05:30  INFO 15900 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T12:47:43.900+05:30  INFO 15900 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T12:47:43.928+05:30  INFO 15900 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T12:47:45.133+05:30  INFO 15900 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T12:47:48.237+05:30  WARN 15900 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T12:47:48.744+05:30 DEBUG 15900 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T12:47:49.700+05:30 DEBUG 15900 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T12:47:50.892+05:30  INFO 15900 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T12:47:50.918+05:30  INFO 15900 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 21.558 seconds (process running for 23.649)
+2026-02-16T12:48:11.445+05:30  INFO 15900 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-16T12:48:11.447+05:30  INFO 15900 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-16T12:48:11.458+05:30  INFO 15900 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-02-16T12:48:11.582+05:30 DEBUG 15900 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:48:12.028+05:30 DEBUG 15900 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T12:48:18.859+05:30 DEBUG 15900 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T12:48:18.914+05:30 DEBUG 15900 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T14:14:12.342+05:30  INFO 15900 --- [appointment-booking] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T14:14:13.020+05:30  INFO 15900 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T14:14:13.537+05:30  INFO 15900 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:14:14.244+05:30  INFO 15900 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T14:14:14.413+05:30  INFO 15900 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T14:14:31.093+05:30  INFO 20120 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 20120 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T14:14:31.101+05:30  INFO 20120 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T14:14:36.167+05:30  INFO 20120 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T14:14:36.707+05:30  INFO 20120 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 505 ms. Found 10 JPA repository interfaces.
+2026-02-16T14:14:39.652+05:30  INFO 20120 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T14:14:39.711+05:30  INFO 20120 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T14:14:39.720+05:30  INFO 20120 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T14:14:40.034+05:30  INFO 20120 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T14:14:40.046+05:30  INFO 20120 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 8691 ms
+2026-02-16T14:14:40.821+05:30  INFO 20120 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T14:14:41.064+05:30  INFO 20120 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T14:14:41.263+05:30  INFO 20120 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T14:14:42.526+05:30  INFO 20120 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T14:14:42.609+05:30  INFO 20120 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T14:14:43.207+05:30  INFO 20120 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@277bc3a5
+2026-02-16T14:14:43.212+05:30  INFO 20120 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T14:14:43.425+05:30  WARN 20120 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T14:14:43.433+05:30  WARN 20120 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T14:14:43.508+05:30  INFO 20120 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T14:14:46.049+05:30  INFO 20120 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T14:14:46.536+05:30  INFO 20120 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:14:46.557+05:30  INFO 20120 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T14:14:47.538+05:30  INFO 20120 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T14:14:50.341+05:30  WARN 20120 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T14:14:50.416+05:30 DEBUG 20120 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T14:14:51.514+05:30 DEBUG 20120 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T14:14:52.480+05:30  INFO 20120 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T14:14:52.514+05:30  INFO 20120 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 22.944 seconds (process running for 24.115)
+2026-02-16T14:14:53.233+05:30  WARN 20120 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1451, SQLState: 23000
+2026-02-16T14:14:53.235+05:30 ERROR 20120 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot delete or update a parent row: a foreign key constraint fails (`appointment_booking`.`appointment_services`, CONSTRAINT `FK68fbfnf0iy7uq0tfb5mjmm2hx` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`))
+2026-02-16T14:14:53.258+05:30  INFO 20120 --- [appointment-booking] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-16T14:14:53.294+05:30 ERROR 20120 --- [appointment-booking] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.dao.DataIntegrityViolationException: could not execute statement [Cannot delete or update a parent row: a foreign key constraint fails (`appointment_booking`.`appointment_services`, CONSTRAINT `FK68fbfnf0iy7uq0tfb5mjmm2hx` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`))] [delete from services where id=?]; SQL [delete from services where id=?]; constraint [null]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:294) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:567) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:795) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:758) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:698) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:416) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.2.15.jar:6.2.15]
+	at jdk.proxy2/jdk.proxy2.$Proxy131.deleteAll(Unknown Source) ~[na:na]
+	at com.ikhodalautomotive.appointment.service.impl.ServiceServiceImpl.seedServices(ServiceServiceImpl.java:79) ~[classes/:na]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.lambda$0(AppointmentBookingApplication.java:19) ~[classes/:na]
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772) ~[spring-boot-3.5.9.jar:3.5.9]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.9.jar:3.5.9]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.main(AppointmentBookingApplication.java:13) ~[classes/:na]
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Cannot delete or update a parent row: a foreign key constraint fails (`appointment_booking`.`appointment_services`, CONSTRAINT `FK68fbfnf0iy7uq0tfb5mjmm2hx` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`))] [delete from services where id=?]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:62) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:197) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:134) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:55) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.persister.entity.mutation.AbstractDeleteCoordinator.doStaticDelete(AbstractDeleteCoordinator.java:280) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.persister.entity.mutation.AbstractDeleteCoordinator.delete(AbstractDeleteCoordinator.java:87) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.action.internal.EntityDeleteAction.execute(EntityDeleteAction.java:131) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:644) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:511) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:414) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:41) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:491) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2354) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1978) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:563) ~[spring-orm-6.2.15.jar:6.2.15]
+	... 34 common frames omitted
+Caused by: java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`appointment_booking`.`appointment_services`, CONSTRAINT `FK68fbfnf0iy7uq0tfb5mjmm2hx` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`))
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:109) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1166) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1101) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1448) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1084) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-6.3.3.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:194) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	... 54 common frames omitted
+
+2026-02-16T14:14:53.350+05:30  INFO 20120 --- [appointment-booking] [main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T14:14:53.525+05:30  INFO 20120 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T14:14:53.535+05:30  INFO 20120 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:14:53.540+05:30  INFO 20120 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T14:14:53.569+05:30  INFO 20120 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T14:17:25.104+05:30  INFO 20056 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 20056 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T14:17:25.126+05:30  INFO 20056 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T14:17:28.835+05:30  INFO 20056 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T14:17:29.355+05:30  INFO 20056 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 484 ms. Found 10 JPA repository interfaces.
+2026-02-16T14:17:31.896+05:30  INFO 20056 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T14:17:31.950+05:30  INFO 20056 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T14:17:31.951+05:30  INFO 20056 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T14:17:32.195+05:30  INFO 20056 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T14:17:32.197+05:30  INFO 20056 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6854 ms
+2026-02-16T14:17:33.067+05:30  INFO 20056 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T14:17:33.228+05:30  INFO 20056 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T14:17:33.437+05:30  INFO 20056 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T14:17:34.624+05:30  INFO 20056 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T14:17:34.735+05:30  INFO 20056 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T14:17:35.290+05:30  INFO 20056 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@100eeedc
+2026-02-16T14:17:35.295+05:30  INFO 20056 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T14:17:35.417+05:30  WARN 20056 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T14:17:35.421+05:30  WARN 20056 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T14:17:35.561+05:30  INFO 20056 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T14:17:39.508+05:30  INFO 20056 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T14:17:40.004+05:30  INFO 20056 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:17:40.027+05:30  INFO 20056 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T14:17:41.224+05:30  INFO 20056 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T14:17:44.048+05:30  WARN 20056 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T14:17:44.159+05:30 DEBUG 20056 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T14:17:45.346+05:30 DEBUG 20056 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T14:17:46.661+05:30  INFO 20056 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T14:17:46.680+05:30  INFO 20056 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 25.145 seconds (process running for 26.666)
+2026-02-16T14:17:47.966+05:30  INFO 20056 --- [appointment-booking] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-16T14:17:48.084+05:30 ERROR 20056 --- [appointment-booking] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.dao.IncorrectResultSizeDataAccessException: Query did not return a unique result: 2 results were returned
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:305) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:244) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:560) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:343) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.2.15.jar:6.2.15]
+	at jdk.proxy2/jdk.proxy2.$Proxy131.findByName(Unknown Source) ~[na:na]
+	at com.ikhodalautomotive.appointment.service.impl.ServiceServiceImpl.createSeedService(ServiceServiceImpl.java:165) ~[classes/:na]
+	at com.ikhodalautomotive.appointment.service.impl.ServiceServiceImpl.seedServices(ServiceServiceImpl.java:83) ~[classes/:na]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.lambda$0(AppointmentBookingApplication.java:19) ~[classes/:na]
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86) ~[spring-core-6.2.15.jar:6.2.15]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772) ~[spring-boot-3.5.9.jar:3.5.9]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.9.jar:3.5.9]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.main(AppointmentBookingApplication.java:13) ~[classes/:na]
+Caused by: org.hibernate.NonUniqueResultException: Query did not return a unique result: 2 results were returned
+	at org.hibernate.query.spi.AbstractSelectionQuery.uniqueElement(AbstractSelectionQuery.java:298) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:281) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:419) ~[spring-orm-6.2.15.jar:6.2.15]
+	at jdk.proxy2/jdk.proxy2.$Proxy157.getSingleResult(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$SingleEntityExecution.doExecute(JpaQueryExecution.java:226) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:95) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:160) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:148) ~[spring-data-jpa-3.5.7.jar:3.5.7]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.5.7.jar:3.5.7]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-3.5.7.jar:3.5.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170) ~[spring-data-commons-3.5.7.jar:3.5.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149) ~[spring-data-commons-3.5.7.jar:3.5.7]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-3.5.7.jar:3.5.7]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.15.jar:6.2.15]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.15.jar:6.2.15]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.2.15.jar:6.2.15]
+	... 28 common frames omitted
+
+2026-02-16T14:17:48.141+05:30  INFO 20056 --- [appointment-booking] [main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T14:17:48.368+05:30  INFO 20056 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T14:17:48.379+05:30  INFO 20056 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:17:48.466+05:30  INFO 20056 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T14:17:48.496+05:30  INFO 20056 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-16T14:20:03.075+05:30  INFO 20468 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.17 with PID 20468 (C:\Users\DELL\Downloads\ikhodal-automotive\backend\appointment-booking\target\classes started by DELL in C:\Users\DELL\Downloads\ikhodal-automotive)
+2026-02-16T14:20:03.088+05:30  INFO 20468 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-16T14:20:06.844+05:30  INFO 20468 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-16T14:20:07.603+05:30  INFO 20468 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 715 ms. Found 10 JPA repository interfaces.
+2026-02-16T14:20:10.807+05:30  INFO 20468 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-16T14:20:10.917+05:30  INFO 20468 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-16T14:20:10.923+05:30  INFO 20468 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-16T14:20:11.297+05:30  INFO 20468 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-16T14:20:11.314+05:30  INFO 20468 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 8055 ms
+2026-02-16T14:20:12.200+05:30  INFO 20468 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-16T14:20:12.501+05:30  INFO 20468 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-16T14:20:12.621+05:30  INFO 20468 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-16T14:20:13.706+05:30  INFO 20468 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-16T14:20:13.841+05:30  INFO 20468 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-16T14:20:14.431+05:30  INFO 20468 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@277bc3a5
+2026-02-16T14:20:14.439+05:30  INFO 20468 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-16T14:20:14.590+05:30  WARN 20468 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-16T14:20:14.597+05:30  WARN 20468 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-16T14:20:14.660+05:30  INFO 20468 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-16T14:20:18.274+05:30  INFO 20468 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-16T14:20:18.618+05:30  INFO 20468 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:20:18.639+05:30  INFO 20468 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-16T14:20:20.024+05:30  INFO 20468 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-16T14:20:22.663+05:30  WARN 20468 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-16T14:20:22.869+05:30 DEBUG 20468 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-16T14:20:24.187+05:30 DEBUG 20468 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-16T14:20:25.068+05:30  INFO 20468 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-16T14:20:25.098+05:30  INFO 20468 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 23.865 seconds (process running for 24.702)
+2026-02-16T14:20:33.468+05:30  INFO 20468 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-16T14:20:33.533+05:30  INFO 20468 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-16T14:20:33.556+05:30  INFO 20468 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-02-16T14:20:33.780+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/services
+2026-02-16T14:20:33.964+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T14:20:34.233+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T14:22:47.544+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T14:22:47.610+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T14:23:24.278+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T14:23:24.304+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T14:32:55.674+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-16T14:32:55.941+05:30 DEBUG 20468 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-16T14:37:36.705+05:30  INFO 20468 --- [appointment-booking] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-16T14:37:37.014+05:30  INFO 20468 --- [appointment-booking] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-16T14:37:37.169+05:30  INFO 20468 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-16T14:37:37.291+05:30  INFO 20468 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-16T14:37:37.402+05:30  INFO 20468 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

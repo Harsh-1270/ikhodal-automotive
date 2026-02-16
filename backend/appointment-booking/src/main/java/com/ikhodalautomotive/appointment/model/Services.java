@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 import java.math.BigDecimal;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +29,17 @@ public class Services {
     private String description;
 
     private BigDecimal price;
+
+    private String icon;
+
+    private String duration;
+
+    private String category;
+
+    @Column(name = "is_popular")
+    private Boolean isPopular;
+
+    private Double rating;
 
     @Column(name = "is_active")
     private Boolean isActive;

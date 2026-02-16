@@ -16,5 +16,15 @@ public class CreateServiceRequestDTO {
     @NotNull
     private BigDecimal price;
 
+    private String icon;
+
+    private String duration;
+
+    private String category;
+
+    private Boolean isPopular;
+
+    private Double rating;
+
     private Boolean isActive;
 }
