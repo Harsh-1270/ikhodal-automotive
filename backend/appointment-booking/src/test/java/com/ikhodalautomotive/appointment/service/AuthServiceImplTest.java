@@ -183,9 +183,9 @@ class AuthServiceImplTest {
         dto.setEmail("test@test.com");
         dto.setPassword("pass");
 
-        String token = authService.login(dto);
+        var response = authService.login(dto);
 
-        assertEquals("JWT_TOKEN", token);
+        assertEquals("JWT_TOKEN", response.get("token"));
     }
 
     @Test

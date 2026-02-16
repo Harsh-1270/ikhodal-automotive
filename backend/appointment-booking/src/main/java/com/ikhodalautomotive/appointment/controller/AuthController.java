@@ -8,11 +8,8 @@ import com.ikhodalautomotive.appointment.dto.response.ApiResponseDTO;
 import com.ikhodalautomotive.appointment.service.AuthService;
 import com.ikhodalautomotive.appointment.service.impl.AuthServiceImpl;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/api/auth")
@@ -41,12 +38,15 @@ public class AuthController {
     // POST : localhost:8082/api/auth/login
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO dto) {
-        String token = authService.login(dto);
-        return ResponseEntity.ok(new AuthResponseDTO(token, "Login successful"));
+        java.util.Map<String, String> loginResult = authService.login(dto);
+        String token = loginResult.get("token");
+        String name = loginResult.get("name");
+        Long roleId = Long.parseLong(loginResult.get("roleId"));
+        return ResponseEntity.ok(new AuthResponseDTO(token, name, roleId, "Login successful"));
     }
 
     // @PostMapping("/logout")
     // public ResponseEntity<?> logout() {
-    //     return ResponseEntity.ok("Logged out successfully");
+    // return ResponseEntity.ok("Logged out successfully");
     // }
 }

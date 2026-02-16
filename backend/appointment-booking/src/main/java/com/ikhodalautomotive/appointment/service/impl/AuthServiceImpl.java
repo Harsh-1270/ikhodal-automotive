@@ -1,6 +1,7 @@
 package com.ikhodalautomotive.appointment.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -76,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
         provider.setProvider("LOCAL");
         provider.setCreatedAt(LocalDateTime.now());
         authProviderRepository.save(provider);
-                                                                                                                        
+
         String otp = generateOtp();
 
         EmailOtpVerification otpEntity = new EmailOtpVerification();
@@ -116,7 +117,7 @@ public class AuthServiceImpl implements AuthService {
 
     // ================= LOGIN =================
     @Override
-    public String login(LoginRequestDTO request) {
+    public Map<String, String> login(LoginRequestDTO request) {
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ApiException("Invalid email or password"));
@@ -125,7 +126,7 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException("Email not verified");
         }
 
-        if(!user.isEmailVerified() || !user.isActive()) {
+        if (!user.isEmailVerified() || !user.isActive()) {
             throw new ApiException("Account not active. Please verify your email.");
         }
 
@@ -133,7 +134,11 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException("Invalid email or password");
         }
 
-        return jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
+        String token = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
+        return Map.of(
+                "token", token,
+                "name", user.getName(),
+                "roleId", String.valueOf(user.getRole().getId()));
     }
 
     // ================= UTIL =================

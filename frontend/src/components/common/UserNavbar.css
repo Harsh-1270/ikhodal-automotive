@@ -87,6 +87,7 @@
 
 .nav-icon-btn .icon {
     font-size: 1.5rem;
+    color: #3b82f6;
 }
 
 .nav-icon-btn .badge {
@@ -156,6 +157,44 @@
     font-size: 0.625rem;
     color: #64748b;
     margin-left: 0.5rem;
+}
+
+.user-profile-wrapper {
+    position: relative;
+}
+
+.logout-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem;
+    min-width: 160px;
+    z-index: 200;
+    animation: slideDown 0.2s ease;
+}
+
+.logout-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #dc2626;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-dropdown-btn:hover {
+    background: rgba(220, 38, 38, 0.08);
 }
 
 /* ============================================
@@ -368,7 +407,7 @@
         display: none;
     }
 
-    .user-profile {
+    .user-profile-wrapper {
         display: none;
     }
 

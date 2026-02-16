@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 // Base API URL from environment variables
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8082/api';
 
 /* ==========================================
    AXIOS INSTANCE with default config
@@ -66,17 +66,18 @@ api.interceptors.response.use(
    AUTHENTICATION APIs
    ============================================ */
 
-/* User Registration
-   POST /auth/register
+/* User Signup (Step 1: sends OTP to email)
+   POST /auth/signup
    Body: { name, email, password }
+   Response: { message: "OTP sent to email" }
 */
 export const registerUser = async (userData) => {
     try {
-        const response = await api.post('/auth/register', userData);
+        const response = await api.post('/auth/signup', userData);
         return {
             success: true,
             data: response.data,
-            message: 'Registration successful'
+            message: response.data?.message || 'OTP sent to email'
         };
     } catch (error) {
         return {
@@ -86,9 +87,31 @@ export const registerUser = async (userData) => {
     }
 };
 
+/* Verify OTP (Step 2: verify email with OTP)
+   POST /auth/verify-otp
+   Body: { email, otp }
+   Response: { message: "Account verified" }
+*/
+export const verifyOtp = async (otpData) => {
+    try {
+        const response = await api.post('/auth/verify-otp', otpData);
+        return {
+            success: true,
+            data: response.data,
+            message: response.data?.message || 'Account verified'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'OTP verification failed'
+        };
+    }
+};
+
 /* User Login
    POST /auth/login
    Body: { email, password }
+   Response: { token, message }
 */
 export const loginUser = async (credentials) => {
     try {
@@ -96,7 +119,7 @@ export const loginUser = async (credentials) => {
         return {
             success: true,
             data: response.data,
-            message: 'Login successful'
+            message: response.data?.message || 'Login successful'
         };
     } catch (error) {
         return {
@@ -582,6 +605,7 @@ export const sendBookingConfirmation = async (emailData) => {
 export default {
     // Auth
     registerUser,
+    verifyOtp,
     loginUser,
     loginAdmin,
 

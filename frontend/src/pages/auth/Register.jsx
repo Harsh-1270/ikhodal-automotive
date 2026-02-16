@@ -4,13 +4,11 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { registerUser } from '../../services/api';
-import { useAuth } from '../../context/AuthContext';
+import { registerUser, verifyOtp } from '../../services/api';
 import './Register.css';
 
 const Register = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
 
     /* ==========================================
        SVG ICONS COMPONENT - COLORFUL GRADIENTS
@@ -95,6 +93,10 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState('');
+    const [otpStep, setOtpStep] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [signupEmail, setSignupEmail] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     /* ==========================================
        HANDLE INPUT CHANGE
@@ -137,10 +139,12 @@ const Register = () => {
             newErrors.email = 'Please enter a valid email';
         }
 
-        if (!formData.password) {
+        if (!formData.password || !formData.password.trim()) {
             newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
+        } else if (formData.password.trim().length < 6) {
             newErrors.password = 'Password must be at least 6 characters';
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+            newErrors.password = 'Password must describe a special character';
         }
 
         setErrors(newErrors);
@@ -148,11 +152,12 @@ const Register = () => {
     };
 
     /* ==========================================
-       HANDLE FORM SUBMIT
+       HANDLE FORM SUBMIT (Step 1: Signup)
        ========================================== */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setApiError('');
+        setSuccessMessage('');
 
         if (!validateForm()) {
             return;
@@ -164,18 +169,49 @@ const Register = () => {
             const response = await registerUser(formData);
 
             if (response.success) {
-                login(
-                    response.data.user,
-                    response.data.token,
-                    false
-                );
-                navigate('/', { replace: true });
+                setSignupEmail(formData.email);
+                setOtpStep(true);
+                setSuccessMessage(response.message || 'OTP sent to your email!');
             } else {
                 setApiError(response.message);
             }
         } catch (error) {
             setApiError('Something went wrong. Please try again.');
             console.error('Registration error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /* ==========================================
+       HANDLE OTP SUBMIT (Step 2: Verify OTP)
+       ========================================== */
+    const handleOtpSubmit = async (e) => {
+        e.preventDefault();
+        setApiError('');
+        setSuccessMessage('');
+
+        if (!otp.trim()) {
+            setApiError('Please enter the OTP');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await verifyOtp({ email: signupEmail, otp: otp.trim() });
+
+            if (response.success) {
+                setSuccessMessage(response.message || 'Account verified! Redirecting to login...');
+                setTimeout(() => {
+                    navigate('/login', { replace: true });
+                }, 2000);
+            } else {
+                setApiError(response.message);
+            }
+        } catch (error) {
+            setApiError('OTP verification failed. Please try again.');
+            console.error('OTP verification error:', error);
         } finally {
             setLoading(false);
         }
@@ -230,8 +266,13 @@ const Register = () => {
                     <div className="form-wrapper">
                         {/* Form Header */}
                         <div className="form-header">
-                            <h2 className="form-title">Create Account</h2>
-                            <p className="form-subtitle">Welcome! Register to start booking premium car services</p>
+                            <h2 className="form-title">{otpStep ? 'Verify Your Email' : 'Create Account'}</h2>
+                            <p className="form-subtitle">
+                                {otpStep
+                                    ? `We've sent a verification code to ${signupEmail}`
+                                    : 'Welcome! Register to start booking premium car services'
+                                }
+                            </p>
                         </div>
 
                         {/* Registration Form */}
@@ -246,91 +287,145 @@ const Register = () => {
                                 </div>
                             )}
 
-                            {/* Name Input */}
-                            <div className="input-group">
-                                <label htmlFor="name" className="input-label">Full Name</label>
-                                <div className="input-wrapper">
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Enter your full name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        disabled={loading}
-                                        className={`input-field name-icon ${errors.name ? 'error' : ''}`}
-                                        autoComplete="name"
-                                    />
-                                    {/* <span className="input-icon">👤</span> */}
+                            {/* Success Message */}
+                            {successMessage && (
+                                <div className="error-banner" style={{ background: 'rgba(34, 197, 94, 0.1)', borderColor: 'rgba(34, 197, 94, 0.3)', color: '#22c55e' }}>
+                                    <span>✓</span>
+                                    <span>{successMessage}</span>
                                 </div>
-                                {errors.name && (
-                                    <span className="error-text">{errors.name}</span>
-                                )}
-                            </div>
+                            )}
 
-                            {/* Email Input */}
-                            <div className="input-group">
-                                <label htmlFor="email" className="input-label">Email Address</label>
-                                <div className="input-wrapper">
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        placeholder="Enter your email"
-                                        value={formData.email}
-                                        onChange={handleChange}
+                            {otpStep ? (
+                                <>
+                                    <div className="input-group">
+                                        <label htmlFor="otp" className="input-label">Enter OTP</label>
+                                        <div className="input-wrapper">
+                                            <input
+                                                type="text"
+                                                id="otp"
+                                                name="otp"
+                                                placeholder="Enter OTP from your email"
+                                                value={otp}
+                                                onChange={(e) => { setOtp(e.target.value); setApiError(''); }}
+                                                disabled={loading}
+                                                className="input-field email-icon"
+                                                autoComplete="one-time-code"
+                                                autoFocus
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        className="submit-btn"
                                         disabled={loading}
-                                        className={`input-field email-icon ${errors.email ? 'error' : ''}`}
-                                        autoComplete="email"
-                                    />
-                                </div>
-                                {errors.email && (
-                                    <span className="error-text">{errors.email}</span>
-                                )}
-                            </div>
+                                        onClick={handleOtpSubmit}
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <span className="spinner-small"></span>
+                                                Verifying...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Verify OTP
+                                                <span className="arrow-icon">
+                                                    <Icons.ArrowRight />
+                                                </span>
+                                            </>
+                                        )}
+                                    </button>
+                                </>
+                            ) : (
+                                <>
 
-                            {/* Password Input */}
-                            <div className="input-group">
-                                <label htmlFor="password" className="input-label">Password</label>
-                                <div className="input-wrapper">
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        placeholder="Create a strong password"
-                                        value={formData.password}
-                                        onChange={handleChange}
+                                    {/* Name Input */}
+                                    <div className="input-group">
+                                        <label htmlFor="name" className="input-label">Full Name</label>
+                                        <div className="input-wrapper">
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                placeholder="Enter your full name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                disabled={loading}
+                                                className={`input-field name-icon ${errors.name ? 'error' : ''}`}
+                                                autoComplete="name"
+                                            />
+                                            {/* <span className="input-icon">👤</span> */}
+                                        </div>
+                                        {errors.name && (
+                                            <span className="error-text">{errors.name}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Email Input */}
+                                    <div className="input-group">
+                                        <label htmlFor="email" className="input-label">Email Address</label>
+                                        <div className="input-wrapper">
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                placeholder="Enter your email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                disabled={loading}
+                                                className={`input-field email-icon ${errors.email ? 'error' : ''}`}
+                                                autoComplete="email"
+                                            />
+                                        </div>
+                                        {errors.email && (
+                                            <span className="error-text">{errors.email}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Password Input */}
+                                    <div className="input-group">
+                                        <label htmlFor="password" className="input-label">Password</label>
+                                        <div className="input-wrapper">
+                                            <input
+                                                type="password"
+                                                id="password"
+                                                name="password"
+                                                placeholder="Create a strong password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                disabled={loading}
+                                                className={`input-field password-icon ${errors.password ? 'error' : ''}`}
+                                                autoComplete="new-password"
+                                            />
+                                            {/* <span className="input-icon">🔒</span> */}
+                                        </div>
+                                        {errors.password && (
+                                            <span className="error-text">{errors.password}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <button
+                                        type="submit"
+                                        className="submit-btn"
                                         disabled={loading}
-                                        className={`input-field password-icon ${errors.password ? 'error' : ''}`}
-                                        autoComplete="new-password"
-                                    />
-                                    {/* <span className="input-icon">🔒</span> */}
-                                </div>
-                                {errors.password && (
-                                    <span className="error-text">{errors.password}</span>
-                                )}
-                            </div>
-
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                className="submit-btn"
-                                disabled={loading}
-                            >
-                                {loading ? (
-                                    <>
-                                        <span className="spinner-small"></span>
-                                        Creating Account...
-                                    </>
-                                ) : (
-                                    <>
-                                        Create Account
-                                        <span className="arrow-icon">
-                                            <Icons.ArrowRight />
-                                        </span>
-                                    </>
-                                )}
-                            </button>
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <span className="spinner-small"></span>
+                                                Creating Account...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Create Account
+                                                <span className="arrow-icon">
+                                                    <Icons.ArrowRight />
+                                                </span>
+                                            </>
+                                        )}
+                                    </button>
+                                </>
+                            )}
                         </form>
 
                         {/* Footer Links */}

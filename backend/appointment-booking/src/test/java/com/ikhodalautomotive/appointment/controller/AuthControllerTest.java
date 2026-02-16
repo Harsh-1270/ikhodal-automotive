@@ -19,6 +19,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Map;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthControllerTest {
@@ -85,7 +87,7 @@ class AuthControllerTest {
         dto.setPassword("password");
 
         when(authService.login(dto))
-                .thenReturn("JWT_TOKEN");
+                .thenReturn(Map.of("token", "JWT_TOKEN", "message", "Login successful"));
 
         mockMvc.perform(
                 post("/api/auth/login")

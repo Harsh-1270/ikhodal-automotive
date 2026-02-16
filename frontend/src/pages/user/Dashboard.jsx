@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import UserNavbar from '../../components/common/UserNavbar';
 import './Dashboard.css';
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const [activeFilter, setActiveFilter] = useState('all');
     const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
     const [visibleSections, setVisibleSections] = useState(new Set());
@@ -344,12 +346,9 @@ const Dashboard = () => {
         };
     }, [initialLoadComplete]);
 
-    // Mock user data
-    const user = {
-        name: 'Alis Desai',
-        email: 'alis.desai@example.com',
-        avatar: '👤'
-    };
+    // Use logged-in user data from AuthContext
+    const userName = user?.name || user?.email?.split('@')[0] || 'User';
+    const userEmail = user?.email || '';
 
     // Real services data based on I Khodal Automotive
     const services = [
@@ -550,14 +549,15 @@ const Dashboard = () => {
         ? services
         : services.filter(service => service.category === activeFilter);
 
-    // Handle browser back button - redirect to home page
+    // Prevent browser back button from going to login/home page after logging in
     useEffect(() => {
         const handlePopState = (e) => {
             e.preventDefault();
-            navigate('/', { replace: true });
+            // Push the current page back into history so user stays on dashboard
+            window.history.pushState(null, '', window.location.href);
         };
 
-        // Add a history entry
+        // Add a history entry to trap the back button
         window.history.pushState(null, '', window.location.href);
 
         // Listen for back button
@@ -566,7 +566,7 @@ const Dashboard = () => {
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, [navigate]);
+    }, []);
 
     return (
         <div className="dashboard-container">
@@ -614,7 +614,7 @@ const Dashboard = () => {
                                     <span className="wave-emoji">
                                         <Icons.Wave />
                                     </span>
-                                    Welcome back, <span className="user-highlight">{user.name.split(' ')[0]}</span>!
+                                    Welcome back, <span className="user-highlight">{userName.split(' ')[0]}</span>!
                                 </h1>
                             </div>
                             <p className="welcome-text">

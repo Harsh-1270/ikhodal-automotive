@@ -80,7 +80,7 @@ const PublicRoute = ({ children }) => {
 
   // If already logged in as user, redirect to my-bookings
   if (user && !isAdmin) {
-    return <Navigate to="/my-bookings" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   // If already logged in as admin, redirect to admin dashboard
