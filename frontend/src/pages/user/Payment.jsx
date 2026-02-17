@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+// import { getPaymentHistory } from '../../services/api';
 import UserNavbar from '../../components/common/UserNavbar';
 import './Payment.css';
 
@@ -151,114 +152,23 @@ const Payments = () => {
 
     const [visibleTransactions, setVisibleTransactions] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
     const transactionRefs = useRef([]);
 
-    // Mock user data
+    // Get real payment history
+    // Get real payment history
+    useEffect(() => {
+        setTransactions([]);
+        setLoading(false);
+    }, []);
+
+    // Mock user data (kept for display if needed, though user info comes from Navbar)
     const user = {
-        name: 'Alis Desai',
-        email: 'alis.desai@example.com',
+        name: 'User',
+        email: 'user@example.com',
         avatar: <Icons.User />
     };
-
-    // Mock transactions data
-    const transactions = [
-        {
-            id: 'TXN123456789',
-            bookingId: 'BK001',
-            serviceName: 'General Service',
-            serviceIcon: <Icons.Wrench />,
-            amount: 2499,
-            date: '2024-01-20',
-            time: '10:30 AM',
-            paymentMethod: 'UPI',
-            status: 'success',
-            invoiceNumber: 'INV-2024-001'
-        },
-        {
-            id: 'TXN987654321',
-            bookingId: 'BK002',
-            serviceName: 'AC Service',
-            serviceIcon: <Icons.Snowflake />,
-            amount: 1799,
-            date: '2024-01-22',
-            time: '02:15 PM',
-            paymentMethod: 'Credit Card',
-            status: 'success',
-            invoiceNumber: 'INV-2024-002'
-        },
-        {
-            id: 'TXN456789123',
-            bookingId: 'BK003',
-            serviceName: 'Car Spa',
-            serviceIcon: <Icons.Bubbles />,
-            amount: 799,
-            date: '2024-01-18',
-            time: '11:45 AM',
-            paymentMethod: 'UPI',
-            status: 'success',
-            invoiceNumber: 'INV-2024-003'
-        },
-        {
-            id: 'TXN789123456',
-            bookingId: 'BK004',
-            serviceName: 'Tyres & Wheels',
-            serviceIcon: <Icons.Gear />,
-            amount: 1199,
-            date: '2024-01-24',
-            time: '03:20 PM',
-            paymentMethod: 'Debit Card',
-            status: 'success',
-            invoiceNumber: 'INV-2024-004'
-        },
-        {
-            id: 'TXN321654987',
-            bookingId: 'BK005',
-            serviceName: 'Car Detailing',
-            serviceIcon: <Icons.SparklesStar />,
-            amount: 1999,
-            date: '2024-01-15',
-            time: '09:30 AM',
-            paymentMethod: 'UPI',
-            status: 'success',
-            invoiceNumber: 'INV-2024-005'
-        },
-        {
-            id: 'TXN654987321',
-            bookingId: 'BK006',
-            serviceName: 'Battery Service',
-            serviceIcon: <Icons.Battery />,
-            amount: 3499,
-            date: '2024-01-26',
-            time: '10:45 AM',
-            paymentMethod: 'Credit Card',
-            status: 'success',
-            invoiceNumber: 'INV-2024-006'
-        },
-        {
-            id: 'TXN147258369',
-            bookingId: 'BK007',
-            serviceName: 'Denting & Painting',
-            serviceIcon: <Icons.Palette />,
-            amount: 4999,
-            date: '2024-01-12',
-            time: '01:00 PM',
-            paymentMethod: 'UPI',
-            status: 'success',
-            invoiceNumber: 'INV-2024-007'
-        },
-        {
-            id: 'TXN369258147',
-            bookingId: 'BK008',
-            serviceName: 'Full Inspection',
-            serviceIcon: <Icons.Clipboard />,
-            amount: 1499,
-            date: '2024-01-28',
-            time: '04:30 PM',
-            paymentMethod: 'Debit Card',
-            status: 'success',
-            invoiceNumber: 'INV-2024-008'
-        }
-    ];
 
     /* ==========================================
        DELAYED INITIAL LOAD
@@ -337,9 +247,9 @@ const Payments = () => {
             return transactionDate.getMonth() === now.getMonth() &&
                 transactionDate.getFullYear() === now.getFullYear();
         }).length,
-        lastTransaction: transactions.reduce((latest, t) => {
+        lastTransaction: transactions.length > 0 ? transactions.reduce((latest, t) => {
             return new Date(t.date) > new Date(latest.date) ? t : latest;
-        }, transactions[0])
+        }, transactions[0]) : { amount: 0 }
     };
 
     // Handle browser back button - always redirect to dashboard

@@ -457,6 +457,11 @@
     color: #065f46;
 }
 
+.status-badge.confirmed {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
 .booking-date {
     display: flex;
     flex-direction: column;

@@ -12,12 +12,15 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
 import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.PENDING;
+import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CONFIRMED;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -124,6 +127,55 @@ public class PaymentServiceImpl implements PaymentService {
         } catch (Exception e) {
             log.error("Failed to create PaymentIntent for appointmentId={}", appointmentId, e);
             throw new IllegalStateException("Payment initialization failed");
+        }
+    }
+
+    @Override
+    @Transactional
+    public String verifyAndConfirmPayment(Long appointmentId) {
+        log.info("Verifying payment for appointmentId={}", appointmentId);
+
+        Payment payment = paymentRepository.findByAppointmentId(appointmentId)
+                .orElseThrow(() -> {
+                    log.error("No payment found for appointmentId={}", appointmentId);
+                    return new IllegalArgumentException("Payment not found for this appointment");
+                });
+
+        // Already confirmed — skip Stripe call
+        if (payment.getStatus() == PaymentStatus.SUCCESS) {
+            log.info("Payment already confirmed for appointmentId={}", appointmentId);
+            return CONFIRMED;
+        }
+
+        try {
+            // Retrieve the PaymentIntent from Stripe API
+            PaymentIntent intent = PaymentIntent.retrieve(payment.getStripePaymentId());
+            String stripeStatus = intent.getStatus();
+
+            log.info("Stripe PaymentIntent status={} for appointmentId={}, stripePaymentId={}",
+                    stripeStatus, appointmentId, payment.getStripePaymentId());
+
+            if ("succeeded".equals(stripeStatus)) {
+                // Update payment and appointment status
+                payment.setStatus(PaymentStatus.SUCCESS);
+                payment.setPaymentTime(LocalDateTime.now());
+                paymentRepository.save(payment);
+
+                Appointment appointment = payment.getAppointment();
+                appointment.setStatus(CONFIRMED);
+                appointmentRepository.save(appointment);
+
+                log.info("Payment verified and confirmed for appointmentId={}", appointmentId);
+                return CONFIRMED;
+            } else {
+                log.info("Payment not yet succeeded. stripeStatus={}, appointmentId={}",
+                        stripeStatus, appointmentId);
+                return payment.getAppointment().getStatus();
+            }
+
+        } catch (Exception e) {
+            log.error("Failed to verify PaymentIntent for appointmentId={}", appointmentId, e);
+            return payment.getAppointment().getStatus();
         }
     }
 

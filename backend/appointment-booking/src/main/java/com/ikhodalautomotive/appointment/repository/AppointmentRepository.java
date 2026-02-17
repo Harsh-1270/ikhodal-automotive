@@ -10,4 +10,8 @@ public interface AppointmentRepository
                 extends JpaRepository<Appointment, Long> {
 
         List<Appointment> findByUserEmailOrderByCreatedAtDesc(String email);
+
+        List<Appointment> findByAppointmentDateAndStatusNot(java.time.LocalDate date, String status);
+
+        List<Appointment> findByAppointmentDateAndStatusIn(java.time.LocalDate date, List<String> statuses);
 }

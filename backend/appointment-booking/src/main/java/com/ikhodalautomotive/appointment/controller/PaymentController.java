@@ -14,19 +14,30 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    private final PaymentService paymentService;
+        private final PaymentService paymentService;
 
-    // POST : localhost:8082/api/payments/create-intent
-    @PostMapping("/create-intent")
-    public Map<String, String> createPaymentIntent(
-            @RequestBody CreatePaymentIntentRequest request) {
+        // POST : localhost:8082/api/payments/create-intent
+        @PostMapping("/create-intent")
+        public Map<String, String> createPaymentIntent(
+                        @RequestBody CreatePaymentIntentRequest request) {
 
-        log.info("Received create payment intent request for appointmentId={}",
-                request.getAppointmentId());
+                log.info("Received create payment intent request for appointmentId={}",
+                                request.getAppointmentId());
 
-        String clientSecret =
-                paymentService.createPaymentIntent(request.getAppointmentId());
+                // Calculate amount first (will also be used inside createPaymentIntent)
+                java.math.BigDecimal amount = paymentService.calculateAppointmentAmount(request.getAppointmentId());
 
-        return Map.of("clientSecret", clientSecret);
-    }
+                String clientSecret = paymentService.createPaymentIntent(request.getAppointmentId());
+
+                return Map.of("clientSecret", clientSecret, "amount", amount.toString());
+        }
+
+        // POST : localhost:8082/api/payments/verify/{appointmentId}
+        @PostMapping("/verify/{appointmentId}")
+        public Map<String, String> verifyPayment(@PathVariable Long appointmentId) {
+                log.info("Received verify payment request for appointmentId={}", appointmentId);
+                String status = paymentService.verifyAndConfirmPayment(appointmentId);
+                return Map.of("status", status);
+        }
+
 }

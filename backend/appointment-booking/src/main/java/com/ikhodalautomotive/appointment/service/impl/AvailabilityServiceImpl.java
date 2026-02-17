@@ -5,9 +5,16 @@ import com.ikhodalautomotive.appointment.dto.response.AvailabilityResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.TimeSlotResponseDTO;
 import com.ikhodalautomotive.appointment.exception.ApiException;
 import com.ikhodalautomotive.appointment.model.AvailabilityRule;
+import com.ikhodalautomotive.appointment.model.Appointment;
 import com.ikhodalautomotive.appointment.repository.AvailabilityRuleRepository;
+import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 
+import com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants;
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -20,10 +27,14 @@ import java.util.stream.Collectors;
 @Service
 public class AvailabilityServiceImpl implements AvailabilityService {
 
-    private final AvailabilityRuleRepository repository;
+    private static final Logger log = LoggerFactory.getLogger(AvailabilityServiceImpl.class);
 
-    public AvailabilityServiceImpl(AvailabilityRuleRepository repository) {
+    private final AvailabilityRuleRepository repository;
+    private final AppointmentRepository appointmentRepository;
+
+    public AvailabilityServiceImpl(AvailabilityRuleRepository repository, AppointmentRepository appointmentRepository) {
         this.repository = repository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     @Override
@@ -111,9 +122,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
                 .filter(r -> !r.getIsAvailable())
                 .toList();
 
+        // ...
+
+        // 3️⃣ Get existing appointments (exclude CANCELLED)
+
         List<TimeSlotResponseDTO.SlotDTO> slots = new ArrayList<>();
 
-        // 3️⃣ Generate slots
+        // 4️⃣ Generate slots
         LocalTime current = workingStart;
 
         while (current.plusMinutes(slotMinutes).compareTo(workingEnd) <= 0) {
@@ -124,9 +139,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
             boolean available = blockedRules.stream().noneMatch(rule -> slotStart.isBefore(rule.getEndTime())
                     && slotEnd.isAfter(rule.getStartTime()));
 
+            if (!available) {
+                log.info("Slot {} - {} is UNAVAILABLE", slotStart, slotEnd);
+            }
+
             TimeSlotResponseDTO.SlotDTO slot = new TimeSlotResponseDTO.SlotDTO();
-            slot.setStart(current);
-            slot.setEnd(slotEnd);
+            slot.setStart(current.toString());
+            slot.setEnd(slotEnd.toString());
             slot.setAvailable(available);
 
             slots.add(slot);
@@ -138,6 +157,8 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         TimeSlotResponseDTO response = new TimeSlotResponseDTO();
         response.setDate(date.toString());
         response.setSlots(slots);
+
+        log.info("Total slots generated: {}", slots.size());
 
         return response;
     }

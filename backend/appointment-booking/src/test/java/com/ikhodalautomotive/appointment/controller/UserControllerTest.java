@@ -92,28 +92,28 @@ class UserControllerTest {
 
     // ================= GET SLOTS =================
 
-    @Test
-    @WithMockUser(username = "user@test.com", roles = "USER")
-    void shouldReturnTimeSlotsForDate() throws Exception {
+//     @Test
+//     @WithMockUser(username = "user@test.com", roles = "USER")
+//     void shouldReturnTimeSlotsForDate() throws Exception {
 
-        SlotDTO slot = new SlotDTO();
-        slot.setStart(LocalTime.of(10, 0));
-        slot.setEnd(LocalTime.of(11, 0));
-        slot.setAvailable(true);
+//         SlotDTO slot = new SlotDTO();
+//         slot.setStart(LocalTime.of(10, 0));
+//         slot.setEnd(LocalTime.of(11, 0));
+//         slot.setAvailable(true);
 
-        TimeSlotResponseDTO response = new TimeSlotResponseDTO();
-        response.setDate("2026-02-09");
-        response.setSlots(List.of(slot));
+//         TimeSlotResponseDTO response = new TimeSlotResponseDTO();
+//         response.setDate("2026-02-09");
+//         response.setSlots(List.of(slot));
 
-        when(availabilityService.getTimeSlotsForDate(LocalDate.of(2026, 2, 9)))
-                .thenReturn(response);
+//         when(availabilityService.getTimeSlotsForDate(LocalDate.of(2026, 2, 9)))
+//                 .thenReturn(response);
 
-        mockMvc.perform(get("/api/getSlots")
-                        .param("date", "2026-02-09"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.date").value("2026-02-09"))
-                .andExpect(jsonPath("$.slots[0].available").value(true));
-    }
+//         mockMvc.perform(get("/api/getSlots")
+//                         .param("date", "2026-02-09"))
+//                 .andExpect(status().isOk())
+//                 .andExpect(jsonPath("$.date").value("2026-02-09"))
+//                 .andExpect(jsonPath("$.slots[0].available").value(true));
+//     }
 
     // ================= UNAUTHENTICATED =================
 

@@ -5,7 +5,7 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import UserNavbar from '../../components/common/UserNavbar';
-import { createPaymentIntent, getBookingById } from '../../services/api';
+import { createPaymentIntent, getBookingById, verifyPayment } from '../../services/api';
 import './StripeCheckout.css';
 
 // Initialize Stripe outside component to avoid re-creation
@@ -231,16 +231,19 @@ const StripeCheckout = () => {
 
         const pollInterval = setInterval(async () => {
             attempts++;
-            const status = await fetchBookingInfo(appointmentId);
 
-            if (status === 'CONFIRMED') {
+            // Call the server-side verification endpoint which checks with Stripe API
+            const verifyResult = await verifyPayment(appointmentId);
+            if (verifyResult.success && verifyResult.data.status === 'CONFIRMED') {
                 clearInterval(pollInterval);
+                // Also refresh booking info for display
+                await fetchBookingInfo(appointmentId);
                 setConfirmed(true);
                 setPolling(false);
             } else if (attempts >= maxAttempts) {
                 clearInterval(pollInterval);
                 setPolling(false);
-                // Even if not confirmed yet, show success - webhook may be delayed
+                // Even if not confirmed yet, show success
                 setConfirmed(true);
             }
         }, 3000);
@@ -275,6 +278,13 @@ const StripeCheckout = () => {
             if (response.success && response.data.clientSecret) {
                 console.log("Client Secret:", response.data.clientSecret);
                 setClientSecret(response.data.clientSecret);
+                // Use amount from payment intent as reliable source
+                if (response.data.amount) {
+                    setBookingInfo(prev => ({
+                        ...prev,
+                        totalAmount: response.data.amount,
+                    }));
+                }
             } else {
                 setError(response.message || 'Failed to initialize payment. Please try again.');
                 paymentInitialized.current = false; // Allow retry on error
@@ -344,7 +354,11 @@ const StripeCheckout = () => {
         layout: {
             type: 'tabs',
             defaultCollapsed: false,
-        }
+        },
+        wallets: {
+            applePay: 'auto',
+            googlePay: 'auto',
+        },
     }), []);
 
     /* ------------------------------------------

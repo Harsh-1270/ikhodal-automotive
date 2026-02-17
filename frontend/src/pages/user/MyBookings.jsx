@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
-import { getUserBookings } from '../../services/api';
+import { getUserBookings, verifyPayment } from '../../services/api';
 import './MyBookings.css';
 
 const MyBookings = () => {
@@ -202,6 +202,44 @@ const MyBookings = () => {
         fetchBookings();
     }, []);
 
+    // Self-Healing Status Check: Verify pending bookings on load
+    useEffect(() => {
+        const verifyPending = async () => {
+            // Find bookings that are locally pending
+            const pendingBookings = bookings.filter(b => b.status === 'pending');
+
+            if (pendingBookings.length === 0) return;
+
+            let updatesFound = false;
+            const updatedBookings = [...bookings];
+
+            await Promise.all(pendingBookings.map(async (booking) => {
+                try {
+                    // Call backend verification
+                    const response = await verifyPayment(booking.bookingId);
+                    if (response.success && response.data.status === 'CONFIRMED') {
+                        // Update local state
+                        const index = updatedBookings.findIndex(b => b.bookingId === booking.bookingId);
+                        if (index !== -1) {
+                            updatedBookings[index] = { ...updatedBookings[index], status: 'confirmed' };
+                            updatesFound = true;
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Verification check failed for booking ${booking.bookingId}`, error);
+                }
+            }));
+
+            if (updatesFound) {
+                setBookings(updatedBookings);
+            }
+        };
+
+        if (bookings.length > 0) {
+            verifyPending();
+        }
+    }, [bookings.length]); // Only run when booking list length changes (initial load), avoiding strict infinite loops
+
     /* ==========================================
        DELAYED INITIAL LOAD
        ========================================== */
@@ -262,6 +300,7 @@ const MyBookings = () => {
     const stats = {
         total: bookings.length,
         pending: bookings.filter(b => b.status === 'pending').length,
+        confirmed: bookings.filter(b => b.status === 'confirmed').length,
         completed: bookings.filter(b => b.status === 'completed').length,
         totalSpent: bookings.reduce((sum, b) => sum + b.price, 0)
     };
@@ -357,6 +396,15 @@ const MyBookings = () => {
                     </button>
 
                     <button
+                        className={`filter-tab ${activeTab === 'confirmed' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('confirmed')}
+                    >
+                        <span className="tab-icon"><Icons.CheckCircle /></span>
+                        Confirmed
+                        <span className="tab-count">{stats.confirmed}</span>
+                    </button>
+
+                    <button
                         className={`filter-tab ${activeTab === 'completed' ? 'active' : ''}`}
                         onClick={() => setActiveTab('completed')}
                     >
@@ -396,7 +444,9 @@ const MyBookings = () => {
                                     <div className="booking-id-section">
                                         <span className="booking-id">#{booking.id}</span>
                                         <span className={`status-badge ${booking.status}`}>
-                                            {booking.status === 'pending' ? <><Icons.Hourglass color="#92400e" /> Pending</> : <><Icons.CheckCircle color="#065f46" /> Completed</>}
+                                            {booking.status === 'pending' ? <><Icons.Hourglass color="#92400e" /> Pending</> :
+                                                booking.status === 'confirmed' ? <><Icons.CheckCircle color="#065f46" /> Completed</> :
+                                                    <><Icons.CheckCircle color="#065f46" /> Completed</>}
                                         </span>
                                     </div>
                                     <div className="booking-date">

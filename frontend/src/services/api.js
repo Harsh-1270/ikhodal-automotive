@@ -279,6 +279,31 @@ export const createPaymentIntent = async (appointmentId) => {
    AVAILABILITY APIs
    ============================================ */
 
+/* Verify Payment Status (server-side check with Stripe API)
+   POST /payments/verify/{appointmentId}
+   Returns: { status }
+*/
+export const verifyPayment = async (appointmentId) => {
+    try {
+        const response = await api.post(`/payments/verify/${appointmentId}`);
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to verify payment'
+        };
+    }
+};
+
+
+
+/* ============================================
+   AVAILABILITY APIs
+   ============================================ */
+
 /* Get Available Time Slots
    GET /availability/slots
    Query: ?date=YYYY-MM-DD&serviceId=123
