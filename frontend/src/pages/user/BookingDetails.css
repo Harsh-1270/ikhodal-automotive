@@ -1,15 +1,5 @@
 /* ============================================
-   BOOKING DETAILS - PROFESSIONAL & COMPREHENSIVE & RESPONSIVE
-   ============================================ */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* ============================================
-   MAIN CONTAINER
+   BOOKING DETAILS - LIGHT PROFESSIONAL THEME
    ============================================ */
 
 .booking-details-container {
@@ -17,158 +7,11 @@
     background: #f9fafb;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
-}
-
-/* ============================================
-   TOP NAVIGATION (REUSED)
-   ============================================ */
-
-.dashboard-navbar {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.navbar-content {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.navbar-left {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-}
-
-.logo-icon {
-    font-size: 2rem;
-}
-
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.nav-icon-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.nav-icon-btn:hover {
-    background: #f3f4f6;
-}
-
-.nav-icon-btn .icon {
-    font-size: 1.5rem;
-}
-
-.nav-icon-btn .badge {
-    position: absolute;
-    top: 0.25rem;
-    right: 0.5rem;
-    background: #dc2626;
-    color: white;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    padding: 0.125rem 0.375rem;
-    border-radius: 10px;
-    min-width: 18px;
-    text-align: center;
-}
-
-.nav-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #4b5563;
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 1rem;
-    background: #f3f4f6;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-left: 0.5rem;
-}
-
-.user-profile:hover {
-    background: #e5e7eb;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-size: 0.875rem;
-    font-weight: 600;
     color: #0f172a;
 }
 
-.user-email {
-    font-size: 0.75rem;
-    color: #64748b;
-}
-
-.dropdown-arrow {
-    font-size: 0.625rem;
-    color: #64748b;
-    margin-left: 0.5rem;
-}
-
-/* ============================================
-   MAIN CONTENT AREA
-   ============================================ */
-
 .booking-details-main {
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -205,12 +48,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-}
-
-.back-icon svg {
-    width: 100%;
-    height: 100%;
 }
 
 /* ============================================
@@ -222,10 +59,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2.5rem;
-}
-
-.header-left {
-    flex: 1;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .details-title {
@@ -241,26 +76,12 @@
 .title-icon {
     width: 2.5rem;
     height: 2.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.title-icon svg {
-    width: 100%;
-    height: 100%;
 }
 
 .booking-ref {
     font-size: 1.125rem;
     color: #64748b;
     font-weight: 600;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
 }
 
 .status-badge-large {
@@ -271,6 +92,7 @@
     border-radius: 50px;
     font-size: 1.125rem;
     font-weight: 700;
+    text-transform: capitalize;
 }
 
 .status-badge-large.pending {
@@ -278,13 +100,14 @@
     color: #92400e;
 }
 
-.status-badge-large.completed {
+.status-badge-large.completed,
+.status-badge-large.confirmed {
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
     color: #065f46;
 }
 
 /* ============================================
-   DETAILS GRID LAYOUT
+   GRID LAYOUT
    ============================================ */
 
 .details-grid {
@@ -293,12 +116,7 @@
     gap: 2rem;
 }
 
-.details-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
+.details-left,
 .details-right {
     display: flex;
     flex-direction: column;
@@ -312,53 +130,42 @@
 .detail-card {
     background: #ffffff;
     border-radius: 20px;
-    border: 2px solid #f3f4f6;
+    border: 1px solid #e2e8f0;
     overflow: hidden;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .detail-card:hover {
-    border-color: #e5e7eb;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-/* Remove sticky from all, only apply to specific cards */
-.details-right .detail-card:first-child {
-    position: sticky;
-    top: 90px;
-    align-self: flex-start;
+    border-color: #3b82f6;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .card-header {
-    background: linear-gradient(135deg, #1e3a8a, #0f172a);
-    padding: 1.5rem;
+    background: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 2px solid #f1f5f9;
 }
 
 .card-title {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #1e3a8a;
 }
 
 .card-icon {
     width: 1.5rem;
     height: 1.5rem;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-}
-
-.card-icon svg {
-    width: 100%;
-    height: 100%;
 }
 
 .card-body {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 /* ============================================
@@ -370,42 +177,40 @@
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
     border-radius: 16px;
     margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
 }
 
 .service-icon-xl {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 16px;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .service-icon-xl svg {
-    width: 5rem;
-    height: 5rem;
-}
-
-.service-info-text {
-    flex: 1;
+    width: 3rem;
+    height: 3rem;
 }
 
 .service-name-large {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #0f172a;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .service-duration {
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
     font-weight: 600;
-    color: #1e3a8a;
+    color: #64748b;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -415,16 +220,10 @@
    INFO ROWS
    ============================================ */
 
-.info-divider {
-    height: 2px;
-    background: linear-gradient(90deg, #e5e7eb, transparent);
-    margin: 1.5rem 0;
-}
-
 .info-rows {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .info-row {
@@ -432,10 +231,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.info-row:last-child {
+    border-bottom: none;
 }
 
 .info-label {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: #64748b;
     display: flex;
@@ -444,7 +248,7 @@
 }
 
 .info-value {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 700;
     color: #0f172a;
     text-align: right;
@@ -452,7 +256,7 @@
 
 .info-value.highlight {
     color: #1e3a8a;
-    font-size: 1.125rem;
+    font-weight: 800;
 }
 
 /* ============================================
@@ -461,13 +265,14 @@
 
 .services-included {
     margin-top: 1.5rem;
-    padding: 1.5rem;
-    background: #f9fafb;
+    padding: 1.25rem;
+    background: #f8fafc;
     border-radius: 12px;
+    border: 1px solid #f1f5f9;
 }
 
 .included-title {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #0f172a;
     margin-bottom: 1rem;
@@ -479,7 +284,7 @@
 .included-list {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 0.75rem;
 }
 
@@ -487,7 +292,7 @@
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: #4b5563;
     font-weight: 500;
 }
@@ -496,118 +301,56 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: #ffffff;
+    width: 18px;
+    height: 18px;
+    background: #dcfce7;
+    color: #10b981;
     border-radius: 50%;
     flex-shrink: 0;
 }
 
 .check-icon svg {
-    width: 0.75rem;
-    height: 0.75rem;
-    stroke: #ffffff;
+    width: 0.625rem;
+    height: 0.625rem;
+    stroke: #10b981;
 }
 
 /* ============================================
-   SPECIAL INSTRUCTIONS
-   ============================================ */
-
-.instructions-text {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #4b5563;
-    padding: 1rem;
-    background: #fffbeb;
-    border-left: 4px solid #f59e0b;
-    border-radius: 8px;
-}
-
-/* ============================================
-   SERVICE CENTER INFO
+   SERVICE CENTER 
    ============================================ */
 
 .center-info {
-    text-align: center;
+    text-align: left;
 }
 
 .center-name {
-    font-size: 1.25rem;
+    color: #1e3a8a !important;
+    /* Ensure visibility on light background */
+    font-size: 1.125rem;
     font-weight: 700;
-    color: #1e3a8a;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
 }
 
 .center-address {
-    font-size: 0.9375rem;
-    color: #64748b;
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    color: #64748b !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 1.25rem !important;
 }
 
 .center-contact {
-    display: inline-flex;
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0;
+    color: #1e3a8a !important;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border-radius: 50px;
-    font-weight: 700;
-    color: #1e3a8a;
-}
-
-.contact-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.contact-icon svg {
-    width: 100%;
-    height: 100%;
+    padding: 0.75rem 1rem !important;
+    border-radius: 10px !important;
 }
 
 .contact-text {
-    font-size: 0.9375rem;
-}
-
-.technician-info {
-    text-align: center;
-    padding: 1.25rem;
-    background: #f9fafb;
-    border-radius: 12px;
-}
-
-.tech-title {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #64748b;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.tech-name {
-    font-size: 1.125rem;
     font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-}
-
-.tech-phone {
     font-size: 0.9375rem;
-    font-weight: 600;
-    color: #4b5563;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
 }
 
 /* ============================================
@@ -617,31 +360,21 @@
 .payment-rows {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
 }
 
 .payment-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-}
-
-.payment-label {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: #64748b;
     font-weight: 500;
 }
 
 .payment-value {
-    font-size: 0.9375rem;
-    font-weight: 700;
     color: #0f172a;
-}
-
-.payment-row.discount .payment-value {
-    color: #10b981;
+    font-weight: 600;
 }
 
 .payment-total {
@@ -649,58 +382,45 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     margin-bottom: 1.5rem;
 }
 
 .total-label {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1e3a8a;
 }
 
 .total-value {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #1e3a8a;
 }
 
 .payment-status-section {
     padding: 1.25rem;
-    background: #f9fafb;
+    background: #f8fafc;
     border-radius: 12px;
-    margin-bottom: 1.5rem;
+    border: 1px solid #f1f5f9;
 }
 
 .payment-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.625rem 1.25rem;
     border-radius: 50px;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }
 
 .payment-status-badge.paid {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    color: #065f46;
-}
-
-.status-icon {
-    width: 0.875rem;
-    height: 0.875rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.status-icon svg {
-    width: 100%;
-    height: 100%;
+    background: #dcfce7;
+    color: #15803d;
 }
 
 .payment-info-row {
@@ -711,106 +431,23 @@
 }
 
 .payment-info-label {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: #64748b;
     font-weight: 500;
 }
 
 .payment-info-value {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: #0f172a;
 }
 
-.download-invoice-btn {
-    width: 100%;
+.status-icon {
+    width: 0.875rem;
+    height: 0.875rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.625rem;
-    padding: 1rem;
-    background: linear-gradient(135deg, #1e3a8a, #0f172a);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.9375rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.download-invoice-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.35);
-}
-
-.btn-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.btn-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-/* ============================================
-   INLINE ICONS (for icons appearing with text)
-   ============================================ */
-
-.inline-icon {
-    width: 1em;
-    height: 1em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    flex-shrink: 0;
-}
-
-.inline-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-/* ============================================
-   QUICK ACTIONS
-   ============================================ */
-
-.quick-actions-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.quick-action-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    background: #f9fafb;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #0f172a;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.quick-action-btn:hover {
-    background: #ffffff;
-    border-color: #1e3a8a;
-    color: #1e3a8a;
-    transform: translateX(5px);
-}
-
-.action-icon {
-    font-size: 1.25rem;
 }
 
 /* ============================================
@@ -818,19 +455,20 @@
    ============================================ */
 
 .loading-container {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    background: #f9fafb;
     gap: 1.5rem;
 }
 
 .spinner {
-    width: 60px;
-    height: 60px;
-    border: 4px solid #e5e7eb;
-    border-top: 4px solid #1e3a8a;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #e5e7eb;
+    border-top: 5px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -845,60 +483,17 @@
     }
 }
 
-.loading-container p {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1e3a8a;
-}
-
-/* Disable text selection for professional look */
-.cart-container,
-.payments-container,
-.my-bookings-container,
-.dashboard-container,
-.booking-details-container {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Allow selection in form inputs */
-input,
-textarea,
-.editable {
-    -webkit-user-select: text !important;
-    -moz-user-select: text !important;
-    -ms-user-select: text !important;
-    user-select: text !important;
-}
-
-/* Prevent text selection highlight */
-*::selection {
-    background: transparent;
-    color: inherit;
-}
-
-*::-moz-selection {
-    background: transparent;
-    color: inherit;
-}
-
 /* ============================================
-   RESPONSIVE DESIGN - FULL MOBILE SUPPORT
+   RESPONSIVE DESIGN
    ============================================ */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .details-grid {
         grid-template-columns: 1fr;
     }
 
-    .details-right .detail-card:first-child {
-        position: static;
-    }
-
-    .included-list {
-        grid-template-columns: 1fr;
+    .details-right {
+        order: -1;
     }
 }
 
@@ -907,28 +502,11 @@ textarea,
         padding: 1rem;
     }
 
-    .navbar-content {
-        padding: 1rem;
-    }
-
-    .nav-label {
-        display: none;
-    }
-
-    .user-info {
-        display: none;
-    }
-
-    .back-btn {
-        padding: 0.625rem 1.25rem;
-        font-size: 0.875rem;
-    }
-
     .details-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .details-title {
@@ -937,438 +515,79 @@ textarea,
     }
 
     .title-icon {
-        font-size: 1.75rem;
-    }
-
-    .booking-ref {
-        font-size: 1rem;
+        width: 2rem;
+        height: 2rem;
     }
 
     .status-badge-large {
+        width: 100%;
+        justify-content: center;
         padding: 0.625rem 1.25rem;
         font-size: 0.9375rem;
-    }
-
-    .details-grid {
-        gap: 1.5rem;
-    }
-
-    .details-left,
-    .details-right {
-        gap: 1.25rem;
-    }
-
-    .card-header {
-        padding: 1.25rem;
-    }
-
-    .card-title {
-        font-size: 1.125rem;
-    }
-
-    .card-icon {
-        font-size: 1.25rem;
-    }
-
-    .card-body {
-        padding: 1.5rem;
     }
 
     .service-showcase {
         flex-direction: column;
         text-align: center;
-        padding: 1.25rem;
+        gap: 1rem;
     }
 
     .service-icon-xl {
-        font-size: 4rem;
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .service-icon-xl svg {
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .service-name-large {
-        font-size: 1.5rem;
-    }
-
-    .service-duration {
-        font-size: 1rem;
+        font-size: 1.375rem;
     }
 
     .info-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 0.625rem 0;
+        flex-direction: row;
+        /* Match image behavior if possible, or stack but keep it clean */
+        padding: 0.875rem 0;
+    }
+
+    .info-label {
+        font-size: 0.8125rem;
     }
 
     .info-value {
-        text-align: left;
-    }
-
-    .services-included {
-        padding: 1.25rem;
-    }
-
-    .included-title {
-        font-size: 1rem;
+        font-size: 0.8125rem;
     }
 
     .included-list {
-        gap: 0.625rem;
-    }
-
-    .included-item {
-        font-size: 0.875rem;
-    }
-
-    .center-name {
-        font-size: 1.125rem;
-    }
-
-    .center-address {
-        font-size: 0.875rem;
-    }
-
-    .center-contact {
-        padding: 0.625rem 1.25rem;
-        font-size: 0.875rem;
-    }
-
-    .technician-info {
-        padding: 1rem;
-    }
-
-    .tech-name {
-        font-size: 1rem;
-    }
-
-    .tech-phone {
-        font-size: 0.875rem;
-    }
-
-    .payment-total {
-        padding: 1rem;
-    }
-
-    .total-label {
-        font-size: 1rem;
+        grid-template-columns: 1fr;
     }
 
     .total-value {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
-    .payment-status-section {
-        padding: 1rem;
+    .payment-status-badge {
+        width: 100%;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
-    .booking-details-main {
-        padding: 0.75rem;
-    }
-
-    .navbar-content {
-        padding: 0.875rem;
-    }
-
-    .back-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8125rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .back-icon {
-        font-size: 1.125rem;
-    }
-
-    .details-header {
-        margin-bottom: 1.25rem;
-    }
-
     .details-title {
         font-size: 1.5rem;
-        gap: 0.625rem;
-    }
-
-    .title-icon {
-        font-size: 1.5rem;
-    }
-
-    .booking-ref {
-        font-size: 0.9375rem;
-    }
-
-    .status-badge-large {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-    }
-
-    .details-grid {
-        gap: 1.25rem;
-    }
-
-    .details-left,
-    .details-right {
-        gap: 1rem;
     }
 
     .card-header {
         padding: 1rem;
     }
 
-    .card-title {
-        font-size: 1rem;
-        gap: 0.5rem;
-    }
-
-    .card-icon {
-        font-size: 1.125rem;
-    }
-
     .card-body {
-        padding: 1.25rem;
+        padding: 1rem;
     }
 
     .service-showcase {
         padding: 1rem;
-    }
-
-    .service-icon-xl {
-        font-size: 3.5rem;
-        width: 70px;
-        height: 70px;
-    }
-
-    .service-name-large {
-        font-size: 1.25rem;
-    }
-
-    .service-duration {
-        font-size: 0.9375rem;
-    }
-
-    .info-divider {
-        margin: 1.25rem 0;
-    }
-
-    .info-rows {
-        gap: 1rem;
-    }
-
-    .info-row {
-        padding: 0.5rem 0;
-    }
-
-    .info-label {
-        font-size: 0.875rem;
-    }
-
-    .info-value {
-        font-size: 0.875rem;
-    }
-
-    .info-value.highlight {
-        font-size: 1rem;
-    }
-
-    .services-included {
-        padding: 1rem;
-        margin-top: 1.25rem;
-    }
-
-    .included-title {
-        font-size: 0.9375rem;
-        margin-bottom: 0.875rem;
-    }
-
-    .included-item {
-        font-size: 0.8125rem;
-        gap: 0.5rem;
-    }
-
-    .check-icon {
-        width: 18px;
-        height: 18px;
-        font-size: 0.6875rem;
-    }
-
-    .instructions-text {
-        font-size: 0.9375rem;
-        padding: 0.875rem;
-    }
-
-    .center-info {
-        padding: 0.5rem 0;
-    }
-
-    .center-name {
-        font-size: 1rem;
-        margin-bottom: 0.625rem;
-    }
-
-    .center-address {
-        font-size: 0.8125rem;
-        margin-bottom: 0.875rem;
-    }
-
-    .center-contact {
-        padding: 0.5rem 1rem;
-        font-size: 0.8125rem;
-    }
-
-    .contact-icon {
-        font-size: 1rem;
-    }
-
-    .contact-text {
-        font-size: 0.8125rem;
-    }
-
-    .technician-info {
-        padding: 0.875rem;
-    }
-
-    .tech-title {
-        font-size: 0.875rem;
-    }
-
-    .tech-name {
-        font-size: 0.9375rem;
-    }
-
-    .tech-phone {
-        font-size: 0.8125rem;
-    }
-
-    .payment-rows {
-        gap: 0.875rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .payment-row {
-        padding: 0.375rem 0;
-    }
-
-    .payment-label {
-        font-size: 0.875rem;
-    }
-
-    .payment-value {
-        font-size: 0.875rem;
-    }
-
-    .payment-total {
-        padding: 0.875rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .total-label {
-        font-size: 0.9375rem;
-    }
-
-    .total-value {
-        font-size: 1.375rem;
-    }
-
-    .payment-status-section {
-        padding: 0.875rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .payment-status-badge {
-        padding: 0.625rem 1rem;
-        font-size: 0.875rem;
-        margin-bottom: 0.875rem;
-    }
-
-    .payment-info-row {
-        padding: 0.375rem 0;
-    }
-
-    .payment-info-label {
-        font-size: 0.8125rem;
-    }
-
-    .payment-info-value {
-        font-size: 0.8125rem;
-    }
-
-    .download-invoice-btn {
-        padding: 0.875rem;
-        font-size: 0.875rem;
-    }
-
-    .btn-icon {
-        font-size: 1.125rem;
-    }
-
-    .quick-action-btn {
-        padding: 0.875rem 1rem;
-        font-size: 0.875rem;
-        gap: 0.625rem;
-    }
-
-    .action-icon {
-        font-size: 1.125rem;
-    }
-}
-
-@media (max-width: 360px) {
-    .booking-details-main {
-        padding: 0.625rem;
-    }
-
-    .navbar-content {
-        padding: 0.75rem;
-    }
-
-    .back-btn {
-        padding: 0.5rem 0.875rem;
-        font-size: 0.75rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .details-title {
-        font-size: 1.375rem;
-    }
-
-    .title-icon {
-        font-size: 1.375rem;
-    }
-
-    .booking-ref {
-        font-size: 0.875rem;
-    }
-
-    .status-badge-large {
-        padding: 0.5rem 0.875rem;
-        font-size: 0.8125rem;
-    }
-
-    .card-title {
-        font-size: 0.9375rem;
-    }
-
-    .card-body {
-        padding: 1rem;
-    }
-
-    .service-icon-xl {
-        font-size: 3rem;
-        width: 60px;
-        height: 60px;
-    }
-
-    .service-name-large {
-        font-size: 1.125rem;
-    }
-
-    .service-duration {
-        font-size: 0.875rem;
-    }
-
-    .total-value {
-        font-size: 1.25rem;
     }
 }

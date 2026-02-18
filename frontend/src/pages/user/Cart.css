@@ -387,9 +387,6 @@
 }
 
 /* STICKY SUMMARY - handled by .order-summary-section on desktop */
-.sticky-summary {
-    /* sticky positioning managed by parent .order-summary-section */
-}
 
 .summary-title {
     display: flex;
@@ -402,10 +399,11 @@
 }
 
 .summary-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
 }
 

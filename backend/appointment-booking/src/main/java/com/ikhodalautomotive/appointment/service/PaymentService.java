@@ -18,4 +18,6 @@ public interface PaymentService {
      */
     String verifyAndConfirmPayment(Long appointmentId);
 
+    java.util.List<com.ikhodalautomotive.appointment.dto.response.PaymentHistoryResponseDTO> getPaymentHistory(
+            String email);
 }

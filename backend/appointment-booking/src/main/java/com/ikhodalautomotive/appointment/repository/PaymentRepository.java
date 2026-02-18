@@ -11,4 +11,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Optional<Payment> findByAppointmentId(Long appointmentId);
 
     Optional<Payment> findByStripePaymentId(String stripePaymentId);
+
+    java.util.List<Payment> findByAppointmentUserEmailOrderByPaymentTimeDesc(String email);
 }

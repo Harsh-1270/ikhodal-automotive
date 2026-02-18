@@ -113,7 +113,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         // 1️⃣ Configuration (can move to DB later)
         LocalTime workingStart = LocalTime.of(8, 0);
         LocalTime workingEnd = LocalTime.of(22, 0);
-        int slotMinutes = 60;
+        int slotMinutes = 120; // Changed from 60 to 120 (2 hours)
 
         // 2️⃣ Get blocked slots for that day
         DayOfWeek day = date.getDayOfWeek();
@@ -122,26 +122,39 @@ public class AvailabilityServiceImpl implements AvailabilityService {
                 .filter(r -> !r.getIsAvailable())
                 .toList();
 
-        // ...
-
-        // 3️⃣ Get existing appointments (exclude CANCELLED)
+        // 3️⃣ Get existing appointments (exclude CANCELLED if we had that status, for
+        // now just PENDING/CONFIRMED/COMPLETED)
+        List<Appointment> existingAppointments = appointmentRepository.findByAppointmentDateAndStatusIn(
+                date,
+                Arrays.asList(
+                        AppointmentStatusConstants.PENDING,
+                        AppointmentStatusConstants.CONFIRMED,
+                        AppointmentStatusConstants.COMPLETED));
 
         List<TimeSlotResponseDTO.SlotDTO> slots = new ArrayList<>();
 
         // 4️⃣ Generate slots
         LocalTime current = workingStart;
 
-        while (current.plusMinutes(slotMinutes).compareTo(workingEnd) <= 0) {
-
-            LocalTime slotStart = current; // ✅ final reference
+        while (current.isBefore(workingEnd)) {
             LocalTime slotEnd = current.plusMinutes(slotMinutes);
 
-            boolean available = blockedRules.stream().noneMatch(rule -> slotStart.isBefore(rule.getEndTime())
-                    && slotEnd.isAfter(rule.getStartTime()));
-
-            if (!available) {
-                log.info("Slot {} - {} is UNAVAILABLE", slotStart, slotEnd);
+            // If it wraps around or goes past workingEnd, stop
+            if (slotEnd.isBefore(current) || slotEnd.isAfter(workingEnd)) {
+                break;
             }
+
+            LocalTime slotStart = current;
+
+            // Check against blocked rules
+            boolean isBlockedByRule = blockedRules.stream()
+                    .anyMatch(rule -> slotStart.isBefore(rule.getEndTime()) && slotEnd.isAfter(rule.getStartTime()));
+
+            // Check against existing appointments
+            boolean isBooked = existingAppointments.stream()
+                    .anyMatch(app -> slotStart.isBefore(app.getEndTime()) && slotEnd.isAfter(app.getStartTime()));
+
+            boolean available = !isBlockedByRule && !isBooked;
 
             TimeSlotResponseDTO.SlotDTO slot = new TimeSlotResponseDTO.SlotDTO();
             slot.setStart(current.toString());
@@ -153,7 +166,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
             current = slotEnd;
         }
 
-        // 4️⃣ Build response
+        // 5️⃣ Build response
         TimeSlotResponseDTO response = new TimeSlotResponseDTO();
         response.setDate(date.toString());
         response.setSlots(slots);

@@ -22,53 +22,59 @@ const BookingForm = () => {
        SVG ICONS COMPONENT
        ========================================== */
     const Icons = {
-        Clipboard: ({ className = "", color = "#3b82f6" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        Clipboard: ({ className = "", stroke = "url(#dashCyanGradient)", strokeWidth = "2" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
                 <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-                <path d="M9 12h6" />
-                <path d="M9 16h6" />
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <path d="M9 12h6M9 16h6" />
             </svg>
         ),
-        Check: ({ className = "", color = "#10b981" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        Check: ({ className = "", stroke = "#10b981", strokeWidth = "3" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
             </svg>
         ),
-        Car: ({ className = "", color = "#f59e0b" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0a2 2 0 1 1-4 0m-4 0a2 2 0 1 1-4 0" />
-                <path d="M5 9l1.5-4.5h5L13 9" />
+        Car: ({ className = "", fill = "url(#dashRedGradient)" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill={fill}>
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
             </svg>
         ),
-        User: ({ className = "", color = "#8b5cf6" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        User: ({ className = "", stroke = "url(#dashPurpleGradient)", strokeWidth = "2" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
             </svg>
         ),
-        MessageSquare: ({ className = "", color = "#06b6d4" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        MessageSquare: ({ className = "", stroke = "url(#dashCyanGradient)", strokeWidth = "2" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
         ),
-        CreditCard: ({ className = "", color = "#6366f1" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        CreditCard: ({ className = "", stroke = "#8b5cf6", strokeWidth = "2" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
                 <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
                 <line x1="1" y1="10" x2="23" y2="10" />
             </svg>
         ),
-        ChevronLeft: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-            </svg>
-        ),
-        ChevronRight: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 6 15 12 9 18" />
-            </svg>
-        )
+        ChevronLeft: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>,
+        ChevronRight: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg>
     };
+
+    const Gradients = () => (
+        <svg style={{ width: 0, height: 0, position: 'absolute' }}>
+            <defs>
+                <linearGradient id="dashRedGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#ef4444" /><stop offset="100%" stopColor="#b91c1c" /></linearGradient>
+                <linearGradient id="dashBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#3b82f6" /><stop offset="100%" stopColor="#1d4ed8" /></linearGradient>
+                <linearGradient id="dashOrangeGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f97316" /><stop offset="100%" stopColor="#c2410c" /></linearGradient>
+                <linearGradient id="dashCyanGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#06b6d4" /><stop offset="100%" stopColor="#0891b2" /></linearGradient>
+                <linearGradient id="dashPurpleRocketGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#8b5cf6" /><stop offset="100%" stopColor="#6366f1" /></linearGradient>
+                <linearGradient id="dashPurpleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a855f7" /><stop offset="100%" stopColor="#7e22ce" /></linearGradient>
+                <linearGradient id="dashYellowLightGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24" /><stop offset="100%" stopColor="#f59e0b" /></linearGradient>
+                <linearGradient id="dashGreenGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#22c55e" /><stop offset="100%" stopColor="#15803d" /></linearGradient>
+                <linearGradient id="dashYellowGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24" /><stop offset="100%" stopColor="#d97706" /></linearGradient>
+            </defs>
+        </svg>
+    );
 
     // Form state
     const [formData, setFormData] = useState({
@@ -199,6 +205,7 @@ const BookingForm = () => {
 
     return (
         <div className="booking-form-container">
+            <Gradients />
             <UserNavbar cartCount={cartSummary.items} />
 
             <div className="booking-form-main">
@@ -216,7 +223,7 @@ const BookingForm = () => {
                 {/* Progress Indicator */}
                 <div className="progress-steps">
                     <div className="step completed">
-                        <div className="step-icon"><Icons.Check /></div>
+                        <div className="step-icon">✓</div>
                         <span className="step-label">Services</span>
                     </div>
                     <div className="step-line completed"></div>
@@ -231,12 +238,12 @@ const BookingForm = () => {
                     </div>
                     <div className="step-line active"></div>
                     <div className="step active">
-                        <div className="step-icon"><Icons.Clipboard color="#ffffff" /></div>
+                        <div className="step-icon"><Icons.Clipboard stroke="#ffffff" /></div>
                         <span className="step-label">Details</span>
                     </div>
                     <div className="step-line"></div>
                     <div className="step">
-                        <div className="step-icon"><Icons.CreditCard /></div>
+                        <div className="step-icon"><Icons.CreditCard stroke="#94a3b8" /></div>
                         <span className="step-label">Payment</span>
                     </div>
                 </div>
@@ -464,11 +471,11 @@ const BookingForm = () => {
                                 </div>
                                 <div className="summary-row">
                                     <span className="label">Subtotal</span>
-                                    <span className="value">${cartSummary.subtotal.toLocaleString()}</span>
+                                    <span className="value">AUD {cartSummary.subtotal.toLocaleString()}</span>
                                 </div>
                                 <div className="summary-row">
                                     <span className="label">GST (18%)</span>
-                                    <span className="value">${cartSummary.tax.toLocaleString()}</span>
+                                    <span className="value">AUD {cartSummary.tax.toLocaleString()}</span>
                                 </div>
                             </div>
 
@@ -476,7 +483,7 @@ const BookingForm = () => {
 
                             <div className="summary-total">
                                 <span className="total-label">Total Amount</span>
-                                <span className="total-value">${cartSummary.total.toLocaleString()}</span>
+                                <span className="total-value">AUD {cartSummary.total.toLocaleString()}</span>
                             </div>
                         </div>
                     </div>

@@ -562,18 +562,7 @@ const Dashboard = () => {
                 </div>
             )}
 
-            {/* Floating Cart Button */}
-            {cart.length > 0 && (
-                <button className="floating-cart-btn" onClick={goToCart}>
-                    <span className="cart-icon">
-                        <Icons.ShoppingCart />
-                    </span>
-                    <span className="cart-badge">{getTotalItems()}</span>
-                    <span className="cart-text">
-                        ${getTotalPrice().toLocaleString()}
-                    </span>
-                </button>
-            )}
+
 
             {/* Main Scrollable Content */}
             <div className="dashboard-main">
@@ -768,7 +757,21 @@ const Dashboard = () => {
                                         </span>
                                         {isInCart(service.id) ? 'Added' : 'Add'}
                                     </button>
-                                    <button className="service-book-btn">
+                                    <button
+                                        className="service-book-btn"
+                                        onClick={() => navigate('/schedule', {
+                                            state: {
+                                                serviceIds: [service.id],
+                                                cartItems: [{
+                                                    serviceId: service.id,
+                                                    name: service.name,
+                                                    price: service.price,
+                                                    quantity: 1,
+                                                    icon: service.icon
+                                                }]
+                                            }
+                                        })}
+                                    >
                                         Book Now
                                         <span className="btn-arrow">
                                             <Icons.ArrowRight />

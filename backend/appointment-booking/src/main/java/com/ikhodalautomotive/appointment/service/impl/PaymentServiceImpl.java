@@ -14,13 +14,19 @@ import com.stripe.param.PaymentIntentCreateParams;
 import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.PENDING;
 import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CONFIRMED;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.ikhodalautomotive.appointment.dto.response.PaymentHistoryResponseDTO;
+import com.ikhodalautomotive.appointment.model.Services;
 
 @Slf4j
 @Service
@@ -177,6 +183,41 @@ public class PaymentServiceImpl implements PaymentService {
             log.error("Failed to verify PaymentIntent for appointmentId={}", appointmentId, e);
             return payment.getAppointment().getStatus();
         }
+    }
+
+    @Override
+    public List<PaymentHistoryResponseDTO> getPaymentHistory(String email) {
+        log.info("Fetching payment history for email={}", email);
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
+        return paymentRepository.findByAppointmentUserEmailOrderByPaymentTimeDesc(email).stream()
+                .map(payment -> {
+                    List<AppointmentService> appointmentServices = appointmentServiceRepository
+                            .findByAppointment_Id(payment.getAppointment().getId());
+
+                    String serviceNames = appointmentServices.stream()
+                            .map(as -> as.getService().getName())
+                            .collect(Collectors.joining(", "));
+
+                    String serviceIcon = appointmentServices.isEmpty() ? "🛠️"
+                            : appointmentServices.get(0).getService().getIcon();
+
+                    return PaymentHistoryResponseDTO.builder()
+                            .id(payment.getId())
+                            .bookingId(payment.getAppointment().getId())
+                            .amount(payment.getAmount())
+                            .date(payment.getPaymentTime())
+                            .status(payment.getStatus().name())
+                            .serviceName(serviceNames)
+                            .serviceIcon(serviceIcon)
+                            .invoiceNumber("INV-" + payment.getId() + "-" + payment.getAppointment().getId())
+                            .paymentMethod("Card")
+                            .time(payment.getPaymentTime() != null ? payment.getPaymentTime().format(timeFormatter)
+                                    : "N/A")
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 
 }

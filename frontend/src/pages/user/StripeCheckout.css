@@ -80,18 +80,20 @@
     margin-bottom: 32px;
 }
 
-.summary-row {
+.checkout-card .summary-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
     font-size: 15px;
-    color: #94a3b8;
+    color: #ffffff !important;
+    /* Force white for labels */
 }
 
-.summary-row .value {
-    font-weight: 500;
-    color: #e2e8f0;
+.checkout-card .summary-row .value {
+    font-weight: 600;
+    color: #ffffff !important;
+    /* Force white for values */
 }
 
 .summary-row.total {
@@ -167,6 +169,10 @@
 
 /* Success State */
 .success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 40px 20px;
 }
@@ -243,8 +249,13 @@
 
 /* Loading & Processing States */
 .checkout-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 60px 20px;
+    min-height: 200px;
 }
 
 .checkout-loading p {

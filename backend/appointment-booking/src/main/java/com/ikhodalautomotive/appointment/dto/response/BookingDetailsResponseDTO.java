@@ -18,6 +18,7 @@ public class BookingDetailsResponseDTO {
     private LocalTime endTime;
     private String status;
     private BigDecimal totalAmount;
+    private String serviceIcon;
     private List<ServiceItemDTO> services;
 
     // Vehicle information

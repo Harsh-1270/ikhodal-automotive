@@ -91,8 +91,8 @@
 }
 
 .legend-color.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
+    background: #ffffff;
+    border-color: #e5e7eb;
 }
 
 .legend-color.holiday {
@@ -101,7 +101,7 @@
 }
 
 .legend-color.unavailable {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    background: #fee2e2;
     border-color: #ef4444;
 }
 
@@ -238,15 +238,16 @@
 
 /* Day States */
 .calendar-day.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
-    color: #065f46;
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #4b5563;
 }
 
 .calendar-day.available:hover {
-    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+    background: #f8fafc;
+    border-color: #3b82f6;
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
 }
 
 .calendar-day.holiday {
@@ -332,13 +333,14 @@
 }
 
 .time-slot {
-    background: linear-gradient(135deg, #f9fafb, #ffffff);
+    background: #ffffff;
     border: 2px solid #e5e7eb;
     border-radius: 16px;
     padding: 1.25rem 1.5rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    color: #4b5563;
 }
 
 .time-slot:hover {
@@ -356,10 +358,11 @@
 }
 
 .time-slot.booked {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    background: #fee2e2;
     border-color: #ef4444;
+    color: #991b1b;
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .time-slot.booked:hover {
@@ -511,10 +514,11 @@
 }
 
 .no-date-icon {
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
     margin: 0 auto 1.5rem;
-    opacity: 0.5;
+    opacity: 1;
+    color: #3b82f6;
 }
 
 .no-date-icon svg {

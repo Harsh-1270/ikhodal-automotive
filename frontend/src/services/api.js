@@ -275,6 +275,25 @@ export const createPaymentIntent = async (appointmentId) => {
     }
 };
 
+/* Get Payment History
+   GET /payments/history
+*/
+export const getPaymentHistory = async () => {
+    try {
+        const response = await api.get('/payments/history');
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to fetch payment history',
+            data: []
+        };
+    }
+};
+
 /* ============================================
    AVAILABILITY APIs
    ============================================ */
@@ -729,6 +748,7 @@ export default {
 
     // Payment
     createPaymentIntent,
+    getPaymentHistory,
 
     // Admin - Appointments
     getAdminAppointments,

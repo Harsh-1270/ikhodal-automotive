@@ -130,6 +130,8 @@ public class BookingServiceImpl implements BookingService {
                                         String serviceNames = appServices.stream()
                                                         .map(as -> as.getService().getName())
                                                         .collect(Collectors.joining(", "));
+                                        String serviceIcon = appServices.isEmpty() ? "Wrench"
+                                                        : appServices.get(0).getService().getIcon();
 
                                         return new MyBookingResponseDTO(
                                                         a.getId(),
@@ -139,6 +141,7 @@ public class BookingServiceImpl implements BookingService {
                                                         a.getStatus(),
                                                         total,
                                                         serviceNames.isEmpty() ? "Service Appointment" : serviceNames,
+                                                        serviceIcon,
                                                         a.getVehicleMake(),
                                                         a.getVehicleModel(),
                                                         a.getFullName(),
@@ -176,6 +179,9 @@ public class BookingServiceImpl implements BookingService {
                                 .map(AppointmentService::getServicePrice)
                                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+                String serviceIcon = appointmentServices.isEmpty() ? "Wrench"
+                                : appointmentServices.get(0).getService().getIcon();
+
                 return new BookingDetailsResponseDTO(
                                 appointment.getId(),
                                 appointment.getAppointmentDate(),
@@ -183,6 +189,7 @@ public class BookingServiceImpl implements BookingService {
                                 appointment.getEndTime(),
                                 appointment.getStatus(),
                                 total,
+                                serviceIcon,
                                 services,
                                 appointment.getRegistrationNumber(),
                                 appointment.getVehicleMake(),

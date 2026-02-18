@@ -18,6 +18,7 @@ public class MyBookingResponseDTO {
     private String status;
     private BigDecimal totalAmount;
     private String serviceNames;
+    private String serviceIcon;
 
     // Vehicle & contact info
     private String vehicleMake;

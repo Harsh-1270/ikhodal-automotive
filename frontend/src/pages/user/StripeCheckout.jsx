@@ -88,6 +88,8 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
         }
     };
 
+
+
     return (
         <>
             {processing && (
@@ -117,7 +119,7 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                         {bookingInfo.totalAmount && (
                             <div className="summary-row total">
                                 <span>Total</span>
-                                <span className="value">A${Number(bookingInfo.totalAmount).toLocaleString()}</span>
+                                <span className="value">AUD {Number(bookingInfo.totalAmount).toLocaleString()}</span>
                             </div>
                         )}
                     </div>
@@ -150,7 +152,7 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                     ) : (
                         <>
                             <Icons.Lock />
-                            Pay A${Number(bookingInfo?.totalAmount || 0).toLocaleString()}
+                            Pay AUD {Number(bookingInfo?.totalAmount || 0).toLocaleString()}
                         </>
                     )}
                 </button>
@@ -172,6 +174,15 @@ const StripeCheckout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [searchParams] = useSearchParams();
+
+    // Helper to format 24h time to 12h display
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        return `${String(displayHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`;
+    };
 
     const [clientSecret, setClientSecret] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -200,8 +211,12 @@ const StripeCheckout = () => {
                 console.log("Booking data:", b);
                 setBookingInfo({
                     serviceNames: b.services?.map(s => s.serviceName).join(', ') || 'Service Appointment',
-                    date: b.date,
-                    timeSlot: `${b.startTime} - ${b.endTime}`,
+                    date: new Date(b.date).toLocaleDateString('en-AU', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    }),
+                    timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
                     totalAmount: b.totalAmount,
                     status: b.status,
                 });

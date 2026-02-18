@@ -1,11 +1,14 @@
 package com.ikhodalautomotive.appointment.controller;
 
 import com.ikhodalautomotive.appointment.dto.request.CreatePaymentIntentRequest;
+import com.ikhodalautomotive.appointment.dto.response.PaymentHistoryResponseDTO;
 import com.ikhodalautomotive.appointment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -38,6 +41,13 @@ public class PaymentController {
                 log.info("Received verify payment request for appointmentId={}", appointmentId);
                 String status = paymentService.verifyAndConfirmPayment(appointmentId);
                 return Map.of("status", status);
+        }
+
+        @GetMapping("/history")
+        public List<PaymentHistoryResponseDTO> getPaymentHistory(Authentication authentication) {
+                String email = authentication.getName();
+                log.info("Received payment history request for email={}", email);
+                return paymentService.getPaymentHistory(email);
         }
 
 }
