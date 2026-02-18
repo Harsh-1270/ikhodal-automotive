@@ -20,6 +20,7 @@ import com.ikhodalautomotive.appointment.repository.UserRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 import com.ikhodalautomotive.appointment.service.BookingService;
 import com.ikhodalautomotive.appointment.dto.request.CreateBookingRequestDTO;
+import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
@@ -70,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
                 appointment.setAppointmentDate(request.getDate());
                 appointment.setStartTime(request.getStartTime());
                 appointment.setEndTime(request.getEndTime());
-                appointment.setStatus("PENDING");
+                appointment.setStatus("CONFIRMED");
                 appointment.setCreatedAt(LocalDateTime.now());
 
                 // Vehicle information
@@ -199,6 +200,85 @@ public class BookingServiceImpl implements BookingService {
                                 appointment.getAddress(),
                                 appointment.getPostcode(),
                                 appointment.getAdditionalComments());
+        }
+
+        /*
+         * ==========================================
+         * ADMIN METHODS
+         * ==========================================
+         */
+
+        @Override
+        @Transactional(readOnly = true)
+        public List<AdminBookingResponseDTO> getAllBookingsForAdmin(String status) {
+
+                List<Appointment> appointments;
+
+                if (status != null && !status.isEmpty()) {
+                        appointments = appointmentRepository.findByStatusOrderByCreatedAtDesc(status.toUpperCase());
+                } else {
+                        appointments = appointmentRepository.findAllByOrderByCreatedAtDesc();
+                }
+
+                return appointments.stream()
+                                .map(a -> {
+                                        List<AppointmentService> appServices = appointmentServiceRepository
+                                                        .findByAppointment_Id(a.getId());
+
+                                        BigDecimal total = appServices.stream()
+                                                        .map(AppointmentService::getServicePrice)
+                                                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                                        String serviceNames = appServices.stream()
+                                                        .map(as -> as.getService().getName())
+                                                        .collect(Collectors.joining(", "));
+
+                                        String serviceIcon = appServices.isEmpty() ? "Wrench"
+                                                        : appServices.get(0).getService().getIcon();
+
+                                        return new AdminBookingResponseDTO(
+                                                        a.getId(),
+                                                        a.getFullName() != null ? a.getFullName()
+                                                                        : a.getUser().getName(),
+                                                        a.getUser().getEmail(),
+                                                        a.getAppointmentDate(),
+                                                        a.getStartTime(),
+                                                        a.getEndTime(),
+                                                        a.getStatus(),
+                                                        total,
+                                                        serviceNames.isEmpty() ? "Service Appointment" : serviceNames,
+                                                        serviceIcon,
+                                                        a.getVehicleMake(),
+                                                        a.getVehicleModel(),
+                                                        a.getAddress(),
+                                                        a.getCreatedAt());
+                                })
+                                .collect(Collectors.toList());
+        }
+
+        @Override
+        @Transactional
+        public void completeBooking(Long bookingId) {
+                Appointment appointment = appointmentRepository.findById(bookingId)
+                                .orElseThrow(() -> new ApiException("Booking not found"));
+
+                appointment.setStatus("COMPLETED");
+                appointmentRepository.save(appointment);
+        }
+
+        @Override
+        @Transactional
+        public void deleteBooking(Long bookingId) {
+                Appointment appointment = appointmentRepository.findById(bookingId)
+                                .orElseThrow(() -> new ApiException("Booking not found"));
+
+                // Delete associated services first
+                List<AppointmentService> appServices = appointmentServiceRepository
+                                .findByAppointment_Id(bookingId);
+                appointmentServiceRepository.deleteAll(appServices);
+
+                // Delete the appointment
+                appointmentRepository.delete(appointment);
         }
 
 }

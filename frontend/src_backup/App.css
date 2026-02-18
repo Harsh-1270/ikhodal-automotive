@@ -1,0 +1,541 @@
+/* ============================================
+   APP.CSS - WHITE THEME WITH PROPER SCROLLING
+   ============================================ */
+
+/* Reset for proper scroll behavior */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  /* Prevent body scroll */
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App Container - Full height flex container */
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  overflow: hidden;
+  /* Prevent app container scroll */
+}
+
+/* Main Content Area - This is the scrollable container */
+.main-content {
+  flex: 1;
+  background-color: var(--white);
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  overflow-x: hidden;
+  position: relative;
+
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scroll on iOS */
+}
+
+/* Custom Scrollbar for better UX */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* ============================================
+   STICKY NAVBAR (GLOBAL)
+   ============================================ */
+
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   PAGE WRAPPER
+   ============================================ */
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem var(--spacing-lg);
+  background-color: var(--white);
+}
+
+/* Page Title */
+.page-title {
+  font-size: var(--font-size-3xl);
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+/* ============================================
+   AUTHENTICATION PAGES LAYOUT
+   ============================================ */
+
+.auth-container {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background-color: var(--white);
+}
+
+.auth-card {
+  background-color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--primary-color);
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.auth-card p {
+  text-align: center;
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ============================================
+   FORM GROUPS
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+}
+
+.form-error {
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  display: block;
+  font-weight: 500;
+}
+
+.form-success {
+  color: var(--success-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  display: block;
+  font-weight: 500;
+}
+
+/* ============================================
+   GRID LAYOUTS
+   ============================================ */
+
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ============================================
+   SERVICE CARDS GRID
+   ============================================ */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+/* ============================================
+   BOOKINGS LIST
+   ============================================ */
+
+.bookings-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background-color: var(--white);
+}
+
+.bookings-empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--gray-500);
+  background-color: var(--gray-50);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--gray-300);
+}
+
+.bookings-empty h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   ADMIN DASHBOARD LAYOUT
+   ============================================ */
+
+.admin-container {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background-color: var(--white);
+  min-height: 100%;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.admin-header h1 {
+  color: var(--primary-color);
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.stat-card {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: var(--white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-card h3 {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.95;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-card p {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  margin: 0;
+  color: var(--white);
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+
+.table-container {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--gray-200);
+  overflow-x: auto;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.table-header h3 {
+  color: var(--primary-color);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: var(--primary-color);
+}
+
+table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-800);
+}
+
+table tbody tr:hover {
+  background-color: var(--gray-50);
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   ALERT / NOTIFICATION
+   ============================================ */
+
+.alert {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  border-left: 4px solid;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  border-color: var(--success-color);
+  color: #065f46;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  border-color: var(--error-color);
+  color: #991b1b;
+}
+
+.alert-warning {
+  background-color: #fef3c7;
+  border-color: var(--warning-color);
+  color: #92400e;
+}
+
+.alert-info {
+  background-color: #dbeafe;
+  border-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* ============================================
+   MODAL OVERLAY
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  border: 2px solid var(--primary-color);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.loading-container p {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* ============================================
+   BUTTON GROUPS
+   ============================================ */
+
+.button-group {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.button-group .btn {
+  flex: 1;
+}
+
+/* ============================================
+   SMOOTH SCROLL ANIMATIONS
+   ============================================ */
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card {
+    padding: var(--spacing-lg);
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    padding: var(--spacing-md);
+  }
+
+  table {
+    font-size: var(--font-size-sm);
+  }
+
+  table th,
+  table td {
+    padding: var(--spacing-sm);
+  }
+
+  .page-wrapper {
+    padding: 1rem var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .stat-card p {
+    font-size: var(--font-size-2xl);
+  }
+}

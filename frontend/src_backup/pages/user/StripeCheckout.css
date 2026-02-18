@@ -1,0 +1,372 @@
+/* ============================================
+   STRIPE CHECKOUT CSS
+   Matches existing dark-themed pages
+   ============================================ */
+
+.checkout-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    color: #e2e8f0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.checkout-main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 100px 24px 60px;
+}
+
+/* Header */
+.checkout-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.checkout-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.checkout-header h1 svg {
+    width: 28px;
+    height: 28px;
+}
+
+.checkout-header p {
+    font-size: 15px;
+    color: #94a3b8;
+}
+
+/* Card - Premium Glassmorphism */
+.checkout-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.checkout-card h2 svg {
+    width: 24px;
+    height: 24px;
+    color: #818cf8;
+}
+
+/* Order summary - Cleaner look */
+.order-summary {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.checkout-card .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #ffffff !important;
+    /* Force white for labels */
+}
+
+.checkout-card .summary-row .value {
+    font-weight: 600;
+    color: #ffffff !important;
+    /* Force white for values */
+}
+
+.summary-row.total {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 12px;
+    padding-top: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.summary-row.total .value {
+    color: #818cf8;
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Pay button - Premium Gradient */
+.pay-button {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.pay-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.pay-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.pay-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.pay-button:hover:not(:disabled)::before {
+    transform: translateX(100%);
+}
+
+.pay-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -5px rgba(99, 102, 241, 0.4);
+}
+
+.pay-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Success State */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+    animation: successPop 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes successPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-container h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 8px;
+}
+
+.success-container p {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-bottom: 32px;
+}
+
+.success-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.success-btn:hover {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -5px rgba(99, 102, 241, 0.4);
+}
+
+.success-btn:active {
+    transform: translateY(0);
+}
+
+/* Loading & Processing States */
+.checkout-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 200px;
+}
+
+.checkout-loading p {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-top: 16px;
+}
+
+.processing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.processing-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(148, 163, 184, 0.2);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.processing-text {
+    color: #f1f5f9;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.processing-subtext {
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Stripe Element Wrapper */
+.stripe-element-wrapper {
+    margin-bottom: 24px;
+}
+
+/* Payment Error */
+.payment-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    color: #fca5a5;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Stripe Badge */
+.stripe-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* Button Spinner */
+.btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .checkout-main {
+        padding: 80px 16px 40px;
+    }
+
+    .checkout-card {
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .checkout-header h1 {
+        font-size: 24px;
+    }
+
+    .summary-row {
+        font-size: 14px;
+    }
+
+    .summary-row.total {
+        font-size: 18px;
+    }
+}

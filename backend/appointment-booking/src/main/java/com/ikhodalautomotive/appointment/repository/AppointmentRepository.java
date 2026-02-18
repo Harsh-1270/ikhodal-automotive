@@ -14,4 +14,10 @@ public interface AppointmentRepository
         List<Appointment> findByAppointmentDateAndStatusNot(java.time.LocalDate date, String status);
 
         List<Appointment> findByAppointmentDateAndStatusIn(java.time.LocalDate date, List<String> statuses);
+
+        List<Appointment> findAllByOrderByCreatedAtDesc();
+
+        List<Appointment> findByStatusOrderByCreatedAtDesc(String status);
+
+        long countByUserId(Long userId);
 }
