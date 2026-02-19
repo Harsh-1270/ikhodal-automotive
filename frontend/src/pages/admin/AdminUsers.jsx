@@ -232,7 +232,7 @@ const AdminUsers = () => {
 
         // Animate cards on load
         setTimeout(() => {
-            document.querySelectorAll('.user-card').forEach((card, index) => {
+            document.querySelectorAll('.adm-user-card').forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
                 }, index * 80);
@@ -270,11 +270,11 @@ const AdminUsers = () => {
 
         // Re-animate cards after search
         setTimeout(() => {
-            document.querySelectorAll('.user-card').forEach((card) => {
+            document.querySelectorAll('.adm-user-card').forEach((card) => {
                 card.classList.remove('visible');
             });
             setTimeout(() => {
-                document.querySelectorAll('.user-card').forEach((card, index) => {
+                document.querySelectorAll('.adm-user-card').forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('visible');
                     }, index * 80);
@@ -320,82 +320,82 @@ const AdminUsers = () => {
             {/* Main Content */}
             <div className="admin-users-main">
                 {/* Page Header */}
-                <div className="page-header">
-                    <div className="header-left">
-                        <h1 className="page-title">
-                            <span className="title-icon"><Icons.Users /></span>
+                <div className="adm-page-header">
+                    <div className="adm-header-left">
+                        <h1 className="adm-page-title">
+                            <span className="adm-title-icon"><Icons.Users /></span>
                             User Management
                         </h1>
                     </div>
                 </div>
 
                 {/* Statistics Row */}
-                <div className="stats-row">
-                    <div className="stat-box blue">
-                        <div className="stat-icon-circle blue">
+                <div className="adm-stats-row">
+                    <div className="adm-stat-box blue">
+                        <div className="adm-stat-icon-circle blue">
                             <span><Icons.User /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.total}</div>
-                            <div className="stat-label">Total Users</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.total}</div>
+                            <div className="adm-stat-label">Total Users</div>
                         </div>
                     </div>
 
-                    <div className="stat-box green">
-                        <div className="stat-icon-circle green">
+                    <div className="adm-stat-box green">
+                        <div className="adm-stat-icon-circle green">
                             <span><Icons.CheckCircle /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.active}</div>
-                            <div className="stat-label">Active Users</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.active}</div>
+                            <div className="adm-stat-label">Active Users</div>
                         </div>
                     </div>
 
-                    <div className="stat-box red">
-                        <div className="stat-icon-circle red">
+                    <div className="adm-stat-box red">
+                        <div className="adm-stat-icon-circle red">
                             <span><Icons.PauseCircle /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.inactive}</div>
-                            <div className="stat-label">Inactive Users</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.inactive}</div>
+                            <div className="adm-stat-label">Inactive Users</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Search Bar */}
-                <div className="search-section">
-                    <div className="search-wrapper">
-                        <span className="search-icon"><Icons.Search /></span>
+                <div className="adm-search-section">
+                    <div className="adm-search-wrapper">
+                        <span className="adm-search-icon"><Icons.Search /></span>
                         <input
                             type="text"
-                            className="search-input"
+                            className="adm-search-input"
                             placeholder="Search by name, email, phone, or user ID..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         {searchQuery && (
                             <button
-                                className="clear-search"
+                                className="adm-clear-search"
                                 onClick={() => setSearchQuery('')}
                             >
                                 <Icons.X />
                             </button>
                         )}
                     </div>
-                    <div className="search-results-count">
+                    <div className="adm-search-results-count">
                         Showing {filteredUsers.length} of {users.length} users
                     </div>
                 </div>
 
                 {/* Users Grid */}
-                <div className="users-grid">
+                <div className="adm-users-grid">
                     {filteredUsers.length === 0 ? (
-                        <div className="empty-state">
-                            <div className="empty-icon"><Icons.Search color="#94a3b8" /></div>
+                        <div className="adm-empty-state">
+                            <div className="adm-empty-icon"><Icons.Search color="#94a3b8" /></div>
                             <h3>No users found</h3>
                             <p>Try adjusting your search query</p>
                             <button
-                                className="clear-filters-btn"
+                                className="adm-clear-filters-btn"
                                 onClick={() => setSearchQuery('')}
                             >
                                 Clear Search
@@ -403,54 +403,54 @@ const AdminUsers = () => {
                         </div>
                     ) : (
                         filteredUsers.map((user) => (
-                            <div key={user.id} className="user-card">
+                            <div key={user.id} className="adm-user-card">
                                 {/* User Header */}
-                                <div className="user-card-header">
-                                    <div className="user-avatar-large">
+                                <div className="adm-user-card-header">
+                                    <div className="adm-user-avatar-large">
                                         <Icons.User color="#ffffff" />
                                     </div>
-                                    <div className={`user-status-badge ${user.status}`}>
+                                    <div className={`adm-user-status-badge ${user.status}`}>
                                         {user.status === 'active' ? <Icons.CircleDot color="#10b981" /> : <Icons.CircleDot color="#ef4444" />}
                                         {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
                                     </div>
                                 </div>
 
                                 {/* User Info */}
-                                <div className="user-card-body">
-                                    <h3 className="user-card-name">{user.name}</h3>
-                                    <p className="user-card-id">ID: {user.id}</p>
+                                <div className="adm-user-card-body">
+                                    <h3 className="adm-user-card-name">{user.name}</h3>
+                                    <p className="adm-user-card-id">ID: {user.id}</p>
 
-                                    <div className="user-card-details">
-                                        <div className="detail-item">
-                                            <span className="detail-icon"><Icons.Mail /></span>
-                                            <span className="detail-text">{user.email}</span>
+                                    <div className="adm-user-card-details">
+                                        <div className="adm-detail-item">
+                                            <span className="adm-detail-icon"><Icons.Mail /></span>
+                                            <span className="adm-detail-text">{user.email}</span>
                                         </div>
-                                        <div className="detail-item">
-                                            <span className="detail-icon"><Icons.Phone /></span>
-                                            <span className="detail-text">{user.phone}</span>
+                                        <div className="adm-detail-item">
+                                            <span className="adm-detail-icon"><Icons.Phone /></span>
+                                            <span className="adm-detail-text">{user.phone}</span>
                                         </div>
-                                        <div className="detail-item">
-                                            <span className="detail-icon"><Icons.Calendar /></span>
-                                            <span className="detail-text">{formatDate(user.registeredDate)}</span>
+                                        <div className="adm-detail-item">
+                                            <span className="adm-detail-icon"><Icons.Calendar /></span>
+                                            <span className="adm-detail-text">{formatDate(user.registeredDate)}</span>
                                         </div>
-                                        <div className="detail-item">
-                                            <span className="detail-icon"><Icons.Ticket /></span>
-                                            <span className="detail-text">{user.totalBookings} bookings</span>
+                                        <div className="adm-detail-item">
+                                            <span className="adm-detail-icon"><Icons.Ticket /></span>
+                                            <span className="adm-detail-text">{user.totalBookings} bookings</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* User Actions */}
-                                <div className="user-card-footer">
+                                <div className="adm-user-card-footer">
                                     <button
-                                        className="user-action-btn view"
+                                        className="adm-user-action-btn view"
                                         onClick={() => navigate(`/admin/user/${user.id}`)}
                                     >
                                         <span><Icons.Eye /></span>
                                         View Details
                                     </button>
                                     <button
-                                        className="user-action-btn delete"
+                                        className="adm-user-action-btn delete"
                                         onClick={() => handleDeleteUser(user.id, user.name)}
                                     >
                                         <span><Icons.Trash /></span>

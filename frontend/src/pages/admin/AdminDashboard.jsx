@@ -378,7 +378,7 @@ const AdminDashboard = () => {
 
         // Animate cards on load
         setTimeout(() => {
-            document.querySelectorAll('.booking-card').forEach((card, index) => {
+            document.querySelectorAll('.adm-booking-card').forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
                 }, index * 100);
@@ -403,7 +403,7 @@ const AdminDashboard = () => {
    ========================================== */
     useEffect(() => {
         // Remove visible class from all cards first
-        document.querySelectorAll('.booking-card').forEach((card) => {
+        document.querySelectorAll('.adm-booking-card').forEach((card) => {
             card.classList.remove('visible');
         });
 
@@ -416,7 +416,7 @@ const AdminDashboard = () => {
 
         // Re-animate cards after filter change
         setTimeout(() => {
-            document.querySelectorAll('.booking-card').forEach((card, index) => {
+            document.querySelectorAll('.adm-booking-card').forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('visible');
                 }, index * 100);
@@ -461,182 +461,182 @@ const AdminDashboard = () => {
             {/* Main Content */}
             <div className="admin-dashboard-main">
                 {/* Page Header */}
-                <div className="page-header">
-                    <div className="header-left">
-                        <h1 className="page-title">
-                            <span className="title-icon">
+                <div className="adm-page-header">
+                    <div className="adm-header-left">
+                        <h1 className="adm-page-title">
+                            <span className="adm-title-icon">
                                 <Icons.BarChart />
                             </span>
                             Admin Dashboard
                         </h1>
-                        {/* <p className="page-subtitle">Manage all customer bookings</p> */}
+                        {/* <p className="adm-page-subtitle">Manage all customer bookings</p> */}
                     </div>
                 </div>
 
                 {/* Statistics Row */}
-                <div className="stats-row">
-                    <div className="stat-box blue">
-                        <div className="stat-icon-circle blue">
+                <div className="adm-stats-row">
+                    <div className="adm-stat-box blue">
+                        <div className="adm-stat-icon-circle blue">
                             <span><Icons.Clipboard /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.total}</div>
-                            <div className="stat-label">Total Bookings</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.total}</div>
+                            <div className="adm-stat-label">Total Bookings</div>
                         </div>
                     </div>
 
-                    <div className="stat-box orange">
-                        <div className="stat-icon-circle orange">
+                    <div className="adm-stat-box orange">
+                        <div className="adm-stat-icon-circle orange">
                             <span><Icons.Hourglass /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.pending}</div>
-                            <div className="stat-label">Pending</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.pending}</div>
+                            <div className="adm-stat-label">Pending</div>
                         </div>
                     </div>
 
-                    <div className="stat-box green">
-                        <div className="stat-icon-circle green">
+                    <div className="adm-stat-box green">
+                        <div className="adm-stat-icon-circle green">
                             <span><Icons.CheckCircle /></span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.completed}</div>
-                            <div className="stat-label">Completed</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.completed}</div>
+                            <div className="adm-stat-label">Completed</div>
                         </div>
                     </div>
                     {/*
-                    <div className="stat-box red">
-                        <div className="stat-icon-circle red">
+                    <div className="adm-stat-box red">
+                        <div className="adm-stat-icon-circle red">
                             <span>❌</span>
                         </div>
-                        <div className="stat-details">
-                            <div className="stat-value">{stats.cancelled}</div>
-                            <div className="stat-label">Cancelled</div>
+                        <div className="adm-stat-details">
+                            <div className="adm-stat-value">{stats.cancelled}</div>
+                            <div className="adm-stat-label">Cancelled</div>
                         </div>
                     </div> */}
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="filter-tabs">
+                <div className="adm-filter-tabs">
                     <button
-                        className={`filter-tab ${activeFilter === 'all' ? 'active' : ''}`}
+                        className={`adm-filter-tab ${activeFilter === 'all' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('all')}
                     >
-                        <span className="tab-icon"><Icons.Clipboard /></span>
+                        <span className="adm-tab-icon"><Icons.Clipboard /></span>
                         All Bookings
-                        <span className="tab-count">{stats.total}</span>
+                        <span className="adm-tab-count">{stats.total}</span>
                     </button>
 
                     <button
-                        className={`filter-tab ${activeFilter === 'pending' ? 'active' : ''}`}
+                        className={`adm-filter-tab ${activeFilter === 'pending' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('pending')}
                     >
-                        <span className="tab-icon"><Icons.Hourglass /></span>
+                        <span className="adm-tab-icon"><Icons.Hourglass /></span>
                         Pending
-                        <span className="tab-count">{stats.pending}</span>
+                        <span className="adm-tab-count">{stats.pending}</span>
                     </button>
 
                     <button
-                        className={`filter-tab ${activeFilter === 'completed' ? 'active' : ''}`}
+                        className={`adm-filter-tab ${activeFilter === 'completed' ? 'active' : ''}`}
                         onClick={() => setActiveFilter('completed')}
                     >
-                        <span className="tab-icon"><Icons.CheckCircle /></span>
+                        <span className="adm-tab-icon"><Icons.CheckCircle /></span>
                         Completed
-                        <span className="tab-count">{stats.completed}</span>
+                        <span className="adm-tab-count">{stats.completed}</span>
                     </button>
                 </div>
 
                 {/* Bookings List */}
-                <div className="bookings-list">
+                <div className="adm-bookings-list">
                     {filteredBookings.length === 0 ? (
-                        <div className="empty-state">
-                            <div className="empty-icon"><Icons.Inbox /></div>
+                        <div className="adm-empty-state">
+                            <div className="adm-empty-icon"><Icons.Inbox /></div>
                             <h3>No bookings found</h3>
                             <p>There are no {activeFilter !== 'all' ? activeFilter : ''} bookings at the moment.</p>
                         </div>
                     ) : (
                         filteredBookings.map((booking) => (
-                            <div key={booking.id} className="booking-card">
+                            <div key={booking.id} className="adm-booking-card">
                                 {/* Booking Header */}
-                                <div className="booking-header">
-                                    <div className="booking-id-section">
-                                        <span className="booking-id"><Icons.Ticket /> {booking.id}</span>
-                                        <span className={`status-badge ${booking.status}`}>
-                                            {booking.status === 'pending' && <Icons.Hourglass className="status-icon" />}
-                                            {booking.status === 'completed' && <Icons.CheckCircle className="status-icon" />}
-                                            {booking.status === 'cancelled' && <Icons.XCircle className="status-icon" />}
+                                <div className="adm-booking-header">
+                                    <div className="adm-booking-id-section">
+                                        <span className="adm-booking-id"><Icons.Ticket /> {booking.id}</span>
+                                        <span className={`adm-status-badge ${booking.status}`}>
+                                            {booking.status === 'pending' && <Icons.Hourglass className="adm-status-icon" />}
+                                            {booking.status === 'completed' && <Icons.CheckCircle className="adm-status-icon" />}
+                                            {booking.status === 'cancelled' && <Icons.XCircle className="adm-status-icon" />}
                                             {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                                         </span>
                                     </div>
-                                    <div className="booking-date">
-                                        <span className="date-label">Booked On</span>
-                                        <span className="date-value">{formatDate(booking.bookingDate)}</span>
+                                    <div className="adm-booking-date">
+                                        <span className="adm-date-label">Booked On</span>
+                                        <span className="adm-date-value">{formatDate(booking.bookingDate)}</span>
                                     </div>
                                 </div>
 
                                 {/* Customer Info */}
-                                <div className="customer-info">
-                                    <div className="customer-avatar">
+                                <div className="adm-customer-info">
+                                    <div className="adm-customer-avatar">
                                         <span><Icons.User /></span>
                                     </div>
-                                    <div className="customer-details">
-                                        <div className="customer-name">{booking.userName}</div>
-                                        <div className="customer-contact">
-                                            <span><Icons.Mail className="contact-icon" /> {booking.userEmail}</span>
-                                            <span className="divider">•</span>
-                                            <span><Icons.Phone className="contact-icon" /> {booking.userPhone}</span>
+                                    <div className="adm-customer-details">
+                                        <div className="adm-customer-name">{booking.userName}</div>
+                                        <div className="adm-customer-contact">
+                                            <span><Icons.Mail className="adm-contact-icon" /> {booking.userEmail}</span>
+                                            <span className="adm-divider">•</span>
+                                            <span><Icons.Phone className="adm-contact-icon" /> {booking.userPhone}</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Booking Body */}
-                                <div className="booking-body">
-                                    <div className="service-info">
-                                        <div className="service-icon-large">
+                                <div className="adm-booking-body">
+                                    <div className="adm-service-info">
+                                        <div className="adm-service-icon-large">
                                             <span>{booking.serviceIcon}</span>
                                         </div>
-                                        <div className="service-details">
-                                            <div className="service-name">{booking.serviceName}</div>
-                                            <div className="service-meta">
-                                                <div className="meta-item">
-                                                    <span className="meta-icon"><Icons.Calendar /></span>
-                                                    <span className="meta-text">{formatDate(booking.date)}</span>
+                                        <div className="adm-service-details">
+                                            <div className="adm-service-name">{booking.serviceName}</div>
+                                            <div className="adm-service-meta">
+                                                <div className="adm-meta-item">
+                                                    <span className="adm-meta-icon"><Icons.Calendar /></span>
+                                                    <span className="adm-meta-text">{formatDate(booking.date)}</span>
                                                 </div>
-                                                <div className="meta-item">
-                                                    <span className="meta-icon"><Icons.Clock /></span>
-                                                    <span className="meta-text">{booking.time}</span>
+                                                <div className="adm-meta-item">
+                                                    <span className="adm-meta-icon"><Icons.Clock /></span>
+                                                    <span className="adm-meta-text">{booking.time}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="price-section">
-                                        <span className="price-label">Total Amount</span>
-                                        <span className="price-value">${booking.price.toLocaleString()}</span>
-                                        <span className={`payment-status ${booking.paymentStatus}`}>
-                                            <span className="payment-icon"><Icons.Check /></span>
+                                    <div className="adm-price-section">
+                                        <span className="adm-price-label">Total Amount</span>
+                                        <span className="adm-price-value">${booking.price.toLocaleString()}</span>
+                                        <span className={`adm-payment-status ${booking.paymentStatus}`}>
+                                            <span className="adm-payment-icon"><Icons.Check /></span>
                                             {booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}
                                         </span>
                                     </div>
                                 </div>
 
                                 {/* Booking Footer */}
-                                <div className="booking-footer">
-                                    <div className="address-info">
-                                        <span className="address-icon"><Icons.MapPin /></span>
+                                <div className="adm-booking-footer">
+                                    <div className="adm-address-info">
+                                        <span className="adm-address-icon"><Icons.MapPin /></span>
                                         <span>{booking.address}</span>
                                     </div>
 
-                                    <div className="booking-actions">
+                                    <div className="adm-booking-actions">
                                         <button
-                                            className="action-btn secondary"
+                                            className="adm-action-btn secondary"
                                             onClick={() => navigate(`/admin/booking/${booking.id}`)}
                                         >
                                             <span><Icons.Eye /></span>
                                             View Details
                                         </button>
                                         <button
-                                            className="action-btn danger"
+                                            className="adm-action-btn danger"
                                             onClick={() => handleDeleteBooking(booking.id)}
                                         >
                                             <span><Icons.Trash /></span>

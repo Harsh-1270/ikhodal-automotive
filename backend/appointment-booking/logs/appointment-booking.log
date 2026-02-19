@@ -1182,3 +1182,565 @@ java.lang.IllegalStateException: ApplicationContext failure threshold (1) exceed
 2026-02-19T12:04:18.540+05:30  INFO 4000 --- [appointment-booking] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-19T12:04:18.541+05:30  INFO 4000 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
 2026-02-19T12:04:18.786+05:30  INFO 4000 --- [appointment-booking] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2026-02-19T20:11:51.011+05:30  INFO 14408 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.12 with PID 14408 (D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking\target\classes started by alisk in D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking)
+2026-02-19T20:11:51.018+05:30  INFO 14408 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-19T20:11:52.973+05:30  INFO 14408 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-19T20:11:53.269+05:30  INFO 14408 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 272 ms. Found 11 JPA repository interfaces.
+2026-02-19T20:11:54.721+05:30  INFO 14408 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-19T20:11:54.761+05:30  INFO 14408 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-19T20:11:54.763+05:30  INFO 14408 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-19T20:11:54.919+05:30  INFO 14408 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-19T20:11:54.921+05:30  INFO 14408 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3804 ms
+2026-02-19T20:11:55.432+05:30  INFO 14408 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-19T20:11:55.623+05:30  INFO 14408 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-19T20:11:55.737+05:30  INFO 14408 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-19T20:11:56.645+05:30  INFO 14408 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-19T20:11:56.731+05:30  INFO 14408 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-19T20:11:57.950+05:30  WARN 14408 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08S01
+2026-02-19T20:11:57.951+05:30 ERROR 14408 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2026-02-19T20:11:57.953+05:30  WARN 14408 --- [appointment-booking] [main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+org.hibernate.exception.JDBCConnectionException: unable to obtain isolated JDBC connection [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:100) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:334) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:226) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:194) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1442) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1513) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.9.jar:3.5.9]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.main(AppointmentBookingApplication.java:13) ~[classes/:na]
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:840) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:416) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:485) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	... 35 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:964) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	... 48 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	... 51 common frames omitted
+
+2026-02-19T20:11:58.012+05:30  WARN 14408 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19T20:11:58.015+05:30  WARN 14408 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-19T20:11:58.051+05:30  INFO 14408 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (null)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-19T20:12:00.677+05:30  INFO 14408 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19T20:12:00.741+05:30  INFO 14408 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-19T20:12:01.761+05:30  WARN 14408 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08S01
+2026-02-19T20:12:01.763+05:30 ERROR 14408 --- [appointment-booking] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2026-02-19T20:12:01.771+05:30 ERROR 14408 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+2026-02-19T20:12:01.773+05:30  WARN 14408 --- [appointment-booking] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+2026-02-19T20:12:01.778+05:30  INFO 14408 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-19T20:12:01.813+05:30  INFO 14408 --- [appointment-booking] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-19T20:12:01.889+05:30 ERROR 14408 --- [appointment-booking] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1826) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.15.jar:6.2.15]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.9.jar:3.5.9]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.9.jar:3.5.9]
+	at com.ikhodalautomotive.appointment.AppointmentBookingApplication.main(AppointmentBookingApplication.java:13) ~[classes/:na]
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:431) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873) ~[spring-beans-6.2.15.jar:6.2.15]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822) ~[spring-beans-6.2.15.jar:6.2.15]
+	... 15 common frames omitted
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:100) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:74) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:39) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcConnection(ImprovedExtractionContextImpl.java:63) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcDatabaseMetaData(ImprovedExtractionContextImpl.java:70) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.extract.internal.InformationExtractorJdbcDatabaseMetaDataImpl.processTableResultSet(InformationExtractorJdbcDatabaseMetaDataImpl.java:65) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.extract.internal.AbstractInformationExtractorImpl.getTables(AbstractInformationExtractorImpl.java:570) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.getTablesInformation(DatabaseInformationImpl.java:122) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:72) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:233) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.2.15.jar:6.2.15]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419) ~[spring-orm-6.2.15.jar:6.2.15]
+	... 19 common frames omitted
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:840) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:416) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:370) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:207) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:485) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:46) ~[hibernate-core-6.6.39.Final.jar:6.6.39.Final]
+	... 40 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:964) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	... 53 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53) ~[mysql-connector-j-9.5.0.jar:9.5.0]
+	... 56 common frames omitted
+
+2026-02-19T20:13:37.071+05:30  INFO 3344 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.12 with PID 3344 (D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking\target\classes started by alisk in D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking)
+2026-02-19T20:13:37.075+05:30  INFO 3344 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-19T20:13:38.133+05:30  INFO 3344 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-19T20:13:38.292+05:30  INFO 3344 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 139 ms. Found 11 JPA repository interfaces.
+2026-02-19T20:13:38.991+05:30  INFO 3344 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-19T20:13:39.006+05:30  INFO 3344 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-19T20:13:39.011+05:30  INFO 3344 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-19T20:13:39.091+05:30  INFO 3344 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-19T20:13:39.091+05:30  INFO 3344 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1951 ms
+2026-02-19T20:13:39.305+05:30  INFO 3344 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-19T20:13:39.356+05:30  INFO 3344 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-19T20:13:39.395+05:30  INFO 3344 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-19T20:13:39.695+05:30  INFO 3344 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-19T20:13:39.731+05:30  INFO 3344 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-19T20:13:40.026+05:30  INFO 3344 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@517a46f3
+2026-02-19T20:13:40.026+05:30  INFO 3344 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-19T20:13:40.112+05:30  WARN 3344 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19T20:13:40.114+05:30  WARN 3344 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-19T20:13:40.139+05:30  INFO 3344 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-19T20:13:41.598+05:30  INFO 3344 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19T20:13:41.855+05:30  INFO 3344 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-19T20:13:41.871+05:30  INFO 3344 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-19T20:13:42.533+05:30  INFO 3344 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-19T20:13:43.565+05:30  WARN 3344 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-19T20:13:43.624+05:30 DEBUG 3344 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-19T20:13:44.191+05:30 DEBUG 3344 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-19T20:13:44.785+05:30  INFO 3344 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-19T20:13:44.801+05:30  INFO 3344 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 8.42 seconds (process running for 8.866)
+2026-02-19T20:16:48.671+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-19T20:16:48.672+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-19T20:16:48.676+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-02-19T20:16:48.714+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T20:16:48.714+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T20:16:48.771+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19T20:16:48.771+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19T20:16:48.777+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
+2026-02-19T20:16:48.777+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
+2026-02-19T20:16:48.795+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /error
+2026-02-19T20:16:48.797+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /error
+2026-02-19T20:16:48.797+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /error
+2026-02-19T20:16:48.797+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /error
+2026-02-19T20:16:48.943+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19T20:16:48.943+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19T20:17:02.100+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/auth/login
+2026-02-19T20:17:02.109+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-19T20:17:02.109+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19T20:17:02.116+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-19T20:17:02.513+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/cart
+2026-02-19T20:17:02.513+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/services
+2026-02-19T20:17:02.518+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T20:17:02.518+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T20:17:02.569+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T20:17:02.569+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T20:17:10.648+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T20:17:10.648+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T20:17:10.668+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T20:17:10.668+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T20:40:36.409+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T20:40:36.409+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T20:40:36.423+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T20:40:36.423+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T21:34:43.201+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m2s673ms980탎900ns).
+2026-02-19T21:43:22.027+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/services
+2026-02-19T21:43:22.027+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/cart
+2026-02-19T21:43:22.031+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T21:43:22.031+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T21:43:22.043+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T21:43:22.043+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T21:53:00.420+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m47s15ms186탎100ns).
+2026-02-19T21:53:27.497+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T21:53:27.497+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T21:53:27.512+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T21:53:27.512+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T21:53:27.672+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T21:53:27.672+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T21:53:27.683+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T21:53:27.683+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T21:55:37.707+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T21:55:37.707+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T21:55:37.726+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T21:55:37.726+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T22:03:50.839+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m50s334ms901탎).
+2026-02-19T22:18:40.477+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m19s457ms739탎800ns).
+2026-02-19T22:25:20.126+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m39s596ms724탎200ns).
+2026-02-19T22:27:24.281+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:27:24.297+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:27:24.312+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:27:24.326+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:27:27.067+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:27:27.067+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T22:27:27.078+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T22:27:27.081+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:27:29.546+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/cart
+2026-02-19T22:27:29.553+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/cart
+2026-02-19T22:27:29.569+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/cart
+2026-02-19T22:27:31.471+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:27:31.480+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:27:31.548+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:27:31.556+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:27:35.531+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-02-20
+2026-02-19T22:27:35.536+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:27:35.545+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:27:35.644+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:28:06.298+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:06.315+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:06.334+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:06.349+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:13.302+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-02-25
+2026-02-19T22:28:13.306+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-25
+2026-02-19T22:28:13.317+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-25
+2026-02-19T22:28:13.333+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:28:21.039+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-03-21
+2026-02-19T22:28:21.045+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-03-21
+2026-02-19T22:28:21.050+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-03-21
+2026-02-19T22:28:21.070+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:28:27.711+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:27.761+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:27.776+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:27.789+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:45.095+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:45.112+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:45.124+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:28:45.135+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:28:57.915+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-03-05
+2026-02-19T22:28:57.915+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-03-05
+2026-02-19T22:28:57.931+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-03-05
+2026-02-19T22:28:57.941+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-8] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:29:04.169+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:29:04.169+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T22:29:04.180+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:29:04.180+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T22:29:05.539+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/my
+2026-02-19T22:29:05.539+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/my
+2026-02-19T22:29:05.545+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:29:05.555+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:29:05.663+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:29:05.675+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:29:05.702+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/1
+2026-02-19T22:29:05.706+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-19T22:29:05.721+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-19T22:29:05.725+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-19T22:29:05.725+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-19T22:29:13.522+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-19T22:29:13.525+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-19T22:29:18.663+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/4
+2026-02-19T22:29:18.665+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/4
+2026-02-19T22:29:18.668+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:29:18.676+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:29:18.722+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:29:18.732+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:29:43.131+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:29:43.142+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:29:43.171+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:29:43.186+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:04.060+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:04.073+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:04.099+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:04.110+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:12.208+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:12.220+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:12.254+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:12.267+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:12.977+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:12.989+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:13.016+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:13.031+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:13.241+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:13.258+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:13.285+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/4
+2026-02-19T22:30:13.300+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/4
+2026-02-19T22:30:55.653+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:30:55.662+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:30:55.699+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:30:55.700+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:30:55.731+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-19T22:30:55.738+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-19T22:30:55.746+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-19T22:30:55.746+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-19T22:30:59.974+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-19T22:30:59.974+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-19T22:31:06.800+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T22:31:06.806+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:31:06.807+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T22:31:06.815+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:31:35.411+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:31:35.420+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:31:35.454+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:31:35.456+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:31:35.485+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-19T22:31:35.517+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-19T22:31:35.518+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-19T22:31:35.521+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-19T22:31:48.429+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-19T22:31:48.429+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-19T22:31:54.456+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:31:54.463+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:31:54.472+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:31:54.486+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:33:22.472+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:33:22.472+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-19T22:33:22.481+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:33:22.484+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-19T22:33:25.431+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing POST /api/cart
+2026-02-19T22:33:25.478+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured POST /api/cart
+2026-02-19T22:33:26.586+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:33:26.596+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:33:26.614+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:33:26.621+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:33:30.075+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:33:30.084+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:33:30.089+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:33:47.637+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/createBooking
+2026-02-19T22:33:47.678+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/createBooking
+2026-02-19T22:33:47.689+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/createBooking
+2026-02-19T22:33:47.803+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/7
+2026-02-19T22:33:47.806+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/7
+2026-02-19T22:33:47.818+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/7
+2026-02-19T22:33:47.852+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/create-intent
+2026-02-19T22:33:47.855+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/create-intent
+2026-02-19T22:33:47.863+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/create-intent
+2026-02-19T22:33:47.867+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.controller.PaymentController       : Received create payment intent request for appointmentId=7
+2026-02-19T22:33:47.867+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=7
+2026-02-19T22:33:47.873+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=398.00 for appointmentId=7
+2026-02-19T22:33:47.876+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Starting PaymentIntent creation for appointmentId=7
+2026-02-19T22:33:47.876+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Validating payment eligibility for appointmentId=7
+2026-02-19T22:33:47.888+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Payment eligibility validated successfully for appointmentId=7
+2026-02-19T22:33:47.890+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=7
+2026-02-19T22:33:47.892+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=398.00 for appointmentId=7
+2026-02-19T22:33:50.934+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : PaymentIntent created successfully. appointmentId=7, stripePaymentId=pi_3T2adnRWQnOyDE4N0JPV9avd
+2026-02-19T22:34:44.934+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:34:44.942+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:34:44.986+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:34:44.994+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:34:45.036+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/7
+2026-02-19T22:34:45.040+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-19T22:34:45.040+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/7
+2026-02-19T22:34:45.051+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/7
+2026-02-19T22:34:45.048+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-19T22:34:45.051+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=7
+2026-02-19T22:34:45.051+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-19T22:34:45.051+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=7
+2026-02-19T22:34:45.051+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-19T22:34:46.019+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=7, stripePaymentId=pi_3T2adnRWQnOyDE4N0JPV9avd
+2026-02-19T22:34:46.021+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=7
+2026-02-19T22:34:47.213+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-19T22:34:47.213+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-19T22:35:07.061+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/history
+2026-02-19T22:35:07.061+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/history
+2026-02-19T22:35:07.066+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/payments/history
+2026-02-19T22:35:07.075+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/payments/history
+2026-02-19T22:35:07.075+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.controller.PaymentController       : Received payment history request for email=aliskdesai111@gmail.com
+2026-02-19T22:35:07.075+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.service.impl.PaymentServiceImpl    : Fetching payment history for email=aliskdesai111@gmail.com
+2026-02-19T22:35:07.147+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/payments/history
+2026-02-19T22:35:07.156+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/payments/history
+2026-02-19T22:35:07.158+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.controller.PaymentController       : Received payment history request for email=aliskdesai111@gmail.com
+2026-02-19T22:35:07.158+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-10] c.i.a.service.impl.PaymentServiceImpl    : Fetching payment history for email=aliskdesai111@gmail.com
+2026-02-19T22:35:12.346+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/1
+2026-02-19T22:35:12.346+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/1
+2026-02-19T22:35:12.391+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/1
+2026-02-19T22:35:12.392+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/1
+2026-02-19T22:35:12.409+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/1
+2026-02-19T22:35:12.427+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/1
+2026-02-19T22:35:14.806+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:35:14.813+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:35:14.847+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-19T22:35:14.859+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-19T22:35:14.894+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/7
+2026-02-19T22:35:14.894+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-19T22:35:14.904+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/7
+2026-02-19T22:35:14.908+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-19T22:35:14.909+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=7
+2026-02-19T22:35:14.909+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-19T22:35:14.909+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-19T22:35:14.909+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=7
+2026-02-19T22:35:19.079+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-19T22:35:19.079+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-19T22:35:22.079+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=7, stripePaymentId=pi_3T2adnRWQnOyDE4N0JPV9avd
+2026-02-19T22:35:22.079+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=7
+2026-02-19T22:35:40.758+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:35:40.771+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:35:40.788+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:35:40.797+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:36:20.687+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:36:20.698+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:36:20.712+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:36:20.717+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:37:15.801+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-03-20
+2026-02-19T22:37:15.802+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-03-20
+2026-02-19T22:37:15.813+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-03-20
+2026-02-19T22:37:15.820+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:42:48.721+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:42:48.729+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:42:48.744+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:42:48.749+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:43:43.344+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-03-20
+2026-02-19T22:43:43.344+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-03-20
+2026-02-19T22:43:43.361+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:43:53.570+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:43:53.576+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:43:53.592+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:43:53.597+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:45:08.828+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:45:08.834+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:45:08.850+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-19T22:45:08.858+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-19T22:45:20.728+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:45:20.734+05:30 DEBUG 3344 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-20
+2026-02-19T22:45:20.747+05:30  INFO 3344 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-19T22:51:19.774+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=59s282ms633탎800ns).
+2026-02-19T22:55:42.093+05:30  WARN 3344 --- [appointment-booking] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=52s275ms610탎700ns).
