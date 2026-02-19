@@ -1,7 +1,9 @@
 package com.ikhodalautomotive.appointment.service;
 
 import com.ikhodalautomotive.appointment.dto.response.UserResponseDTO;
+import com.ikhodalautomotive.appointment.model.Role;
 import com.ikhodalautomotive.appointment.model.User;
+import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
 import com.ikhodalautomotive.appointment.repository.UserRepository;
 import com.ikhodalautomotive.appointment.service.impl.UserServiceImpl;
 
@@ -22,22 +24,34 @@ class UserServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private AppointmentRepository appointmentRepository;
+
     @InjectMocks
     private UserServiceImpl userService;
 
     @Test
     void shouldReturnAllUsersMappedToResponseDTO() {
 
+        Role userRole = new Role("ROLE_USER");
+
         User u1 = new User();
+        u1.setId(1L);
         u1.setName("User One");
         u1.setEmail("one@test.com");
+        u1.setRole(userRole);
 
         User u2 = new User();
+        u2.setId(2L);
         u2.setName("User Two");
         u2.setEmail("two@test.com");
+        u2.setRole(userRole);
 
         when(userRepository.findAll())
                 .thenReturn(List.of(u1, u2));
+
+        when(appointmentRepository.countByUserId(anyLong()))
+                .thenReturn(1L);
 
         List<UserResponseDTO> result = userService.getAllUsers();
 

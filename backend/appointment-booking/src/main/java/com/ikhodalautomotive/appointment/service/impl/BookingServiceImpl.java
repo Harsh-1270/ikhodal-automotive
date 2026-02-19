@@ -71,7 +71,7 @@ public class BookingServiceImpl implements BookingService {
                 appointment.setAppointmentDate(request.getDate());
                 appointment.setStartTime(request.getStartTime());
                 appointment.setEndTime(request.getEndTime());
-                appointment.setStatus("CONFIRMED");
+                appointment.setStatus("PENDING");
                 appointment.setCreatedAt(LocalDateTime.now());
 
                 // Vehicle information

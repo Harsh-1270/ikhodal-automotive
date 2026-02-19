@@ -54,9 +54,8 @@ class AdminControllerTest {
     void shouldReturnAllUsersForAdmin() throws Exception {
 
         List<UserResponseDTO> users = List.of(
-                new UserResponseDTO("User One", "one@test.com"),
-                new UserResponseDTO("User Two", "two@test.com")
-        );
+                UserResponseDTO.builder().name("User One").email("one@test.com").build(),
+                UserResponseDTO.builder().name("User Two").email("two@test.com").build());
 
         when(userService.getAllUsers()).thenReturn(users);
 
@@ -91,10 +90,9 @@ class AdminControllerTest {
         mockMvc.perform(
                 post("/api/admin/addServices")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto))
-        )
-        .andExpect(status().isOk())
-        .andExpect(content().string("Service added successfully"));
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Service added successfully"));
     }
 
     @Test
@@ -104,9 +102,8 @@ class AdminControllerTest {
         mockMvc.perform(
                 post("/api/admin/addServices")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}")
-        )
-        .andExpect(status().isForbidden());
+                        .content("{}"))
+                .andExpect(status().isForbidden());
     }
 
     // ================= ADD AVAILABILITY RULE =================
@@ -126,10 +123,9 @@ class AdminControllerTest {
         mockMvc.perform(
                 post("/api/admin/addAvailabilityRule")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto))
-        )
-        .andExpect(status().isOk())
-        .andExpect(content().string("Availability rule added"));
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Availability rule added"));
     }
 
     @Test
@@ -139,8 +135,7 @@ class AdminControllerTest {
         mockMvc.perform(
                 post("/api/admin/addAvailabilityRule")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}")
-        )
-        .andExpect(status().isForbidden());
+                        .content("{}"))
+                .andExpect(status().isForbidden());
     }
 }

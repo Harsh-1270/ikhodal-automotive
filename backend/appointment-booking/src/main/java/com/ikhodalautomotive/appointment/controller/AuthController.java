@@ -6,7 +6,6 @@ import com.ikhodalautomotive.appointment.dto.request.VerifyOtpRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.AuthResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.ApiResponseDTO;
 import com.ikhodalautomotive.appointment.service.AuthService;
-import com.ikhodalautomotive.appointment.service.impl.AuthServiceImpl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class AuthController {
 
     private AuthService authService;
 
-    public AuthController(AuthServiceImpl authService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
     }
 

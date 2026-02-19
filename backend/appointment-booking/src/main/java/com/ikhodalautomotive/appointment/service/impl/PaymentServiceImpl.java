@@ -131,8 +131,9 @@ public class PaymentServiceImpl implements PaymentService {
             return intent.getClientSecret();
 
         } catch (Exception e) {
-            log.error("Failed to create PaymentIntent for appointmentId={}", appointmentId, e);
-            throw new IllegalStateException("Payment initialization failed");
+            log.error("EXCEPTION in createPaymentIntent for appointmentId={}: {}", appointmentId, e.getMessage());
+            log.error("Stack trace: ", e);
+            throw new IllegalStateException("Payment initialization failed: " + e.getMessage());
         }
     }
 
@@ -180,7 +181,8 @@ public class PaymentServiceImpl implements PaymentService {
             }
 
         } catch (Exception e) {
-            log.error("Failed to verify PaymentIntent for appointmentId={}", appointmentId, e);
+            log.error("EXCEPTION in verifyAndConfirmPayment for appointmentId={}: {}", appointmentId, e.getMessage());
+            log.error("Stack trace: ", e);
             return payment.getAppointment().getStatus();
         }
     }

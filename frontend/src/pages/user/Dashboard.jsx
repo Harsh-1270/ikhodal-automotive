@@ -734,7 +734,7 @@ const Dashboard = () => {
                                             <span className="info-icon">
                                                 <Icons.DollarSign />
                                             </span>
-                                            <span className="info-text">
+                                            <span className="info-text price-text">
                                                 {service.price === 0 ? 'Free' : `$${service.price.toLocaleString()}`}
                                             </span>
                                         </div>
