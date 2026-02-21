@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import BookingDetails from './pages/user/BookingDetails';
+import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
 // Import Pages - Auth
@@ -100,6 +101,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="app">
+          <ScrollToTop />
           <main className="main-content">
             <Routes>
               {/* ========== PUBLIC LANDING PAGE ========== */}
