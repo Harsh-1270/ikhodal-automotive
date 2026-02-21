@@ -106,6 +106,39 @@
     z-index: 1;
 }
 
+/* Desktop: wider max-width */
+@media (min-width: 1024px) {
+    .checkout-main {
+        max-width: 1080px;
+        padding: 48px 40px 80px;
+    }
+
+    /* Centered card override: single-column glass card (success/loading states) */
+    .checkout-card.checkout-card--centered {
+        display: block;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 36px 40px;
+        background: rgba(22, 32, 52, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 28px;
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        box-shadow:
+            0 32px 64px -16px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+            0 1px 0 rgba(255, 255, 255, 0.06) inset;
+        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    }
+
+    /* Step indicator capped so it stays centered under the 600px card */
+    .checkout-steps {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 /* ---- Page Header ---- */
 .checkout-header {
     text-align: center;
@@ -136,7 +169,7 @@
     padding: 6px 16px;
     font-size: 12px;
     font-weight: 600;
-    color: #a5b4fc;
+    color: #c7d2fe;
     letter-spacing: 0.8px;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -191,9 +224,9 @@
     gap: 6px;
     font-size: 11px;
     font-weight: 500;
-    color: #64748b;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
     padding: 5px 13px;
     letter-spacing: 0.2px;
@@ -202,9 +235,9 @@
 }
 
 .trust-badge:hover {
-    background: rgba(99, 102, 241, 0.08);
-    border-color: rgba(99, 102, 241, 0.2);
-    color: #94a3b8;
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #c7d2fe;
 }
 
 .trust-badge svg {
@@ -213,7 +246,7 @@
     flex-shrink: 0;
 }
 
-/* ---- Step Indicator ---- */
+/* ---- Step Indicator — always centred ---- */
 .checkout-steps {
     display: flex;
     align-items: center;
@@ -221,6 +254,8 @@
     gap: 0;
     margin-bottom: 28px;
     animation: fadeSlideDown 0.5s ease-out 0.1s both;
+    /* center on desktop when checkout-main is wide */
+    width: 100%;
 }
 
 .step-item {
@@ -313,6 +348,94 @@
     overflow: hidden;
 }
 
+/* Desktop: two-column layout inside card */
+@media (min-width: 1024px) {
+    .checkout-card {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 0;
+        padding: 0;
+        overflow: visible;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        animation: none;
+    }
+
+    /* Left panel — order summary */
+    .checkout-card .order-summary-panel {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(99, 102, 241, 0.18);
+        border-radius: 28px;
+        padding: 36px 32px;
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        box-shadow:
+            0 32px 64px -16px rgba(0, 0, 0, 0.7),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+            0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        position: relative;
+        overflow: hidden;
+        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        align-self: start;
+        position: sticky;
+        top: 100px;
+    }
+
+    .checkout-card .order-summary-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), rgba(139, 92, 246, 0.5), transparent);
+    }
+
+    /* Right panel — payment form */
+    .checkout-card .payment-panel {
+        background: rgba(22, 32, 52, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 28px;
+        padding: 36px 40px;
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        box-shadow:
+            0 32px 64px -16px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+            0 1px 0 rgba(255, 255, 255, 0.06) inset;
+        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        margin-left: 24px;
+    }
+
+    .checkout-card .payment-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.4), transparent);
+        pointer-events: none;
+    }
+
+    /* On desktop, order-summary nested inside card doesn't need extra styling */
+    .checkout-card .order-summary {
+        margin-bottom: 0;
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .checkout-card .order-summary::before {
+        display: none;
+    }
+}
+
 /* top shimmer line */
 .checkout-card::before {
     content: '';
@@ -340,7 +463,7 @@
 .checkout-card h2 {
     font-size: 16px;
     font-weight: 700;
-    color: #f8fafc;
+    color: #ffffff;
     margin-bottom: 24px;
     display: flex;
     align-items: center;
@@ -353,7 +476,7 @@
 .checkout-card h2 svg {
     width: 18px;
     height: 18px;
-    color: #818cf8;
+    color: #a5b4fc;
     flex-shrink: 0;
 }
 
@@ -363,6 +486,29 @@
     align-items: center;
     gap: 12px;
     margin: 24px 0;
+}
+
+/* Panel wrappers (mobile: transparent stacked containers) */
+.order-summary-panel {
+    background: transparent;
+    padding: 0;
+}
+
+.payment-panel {
+    background: transparent;
+    padding: 0;
+    position: relative;
+}
+
+/* Desktop panel title hidden on mobile */
+.order-summary-panel-title {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .order-summary-panel-title {
+        display: flex;
+    }
 }
 
 .section-divider-line {
@@ -413,7 +559,7 @@
 .order-summary-title {
     font-size: 10px;
     font-weight: 800;
-    color: #818cf8;
+    color: #c7d2fe;
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
@@ -439,8 +585,8 @@
     align-items: flex-start;
     padding: 10px 0;
     font-size: 14px;
-    color: #64748b;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     gap: 12px;
 }
 
@@ -464,21 +610,21 @@
 
 .checkout-card .summary-row .value {
     font-weight: 600;
-    color: #cbd5e1;
+    color: #e2e8f0;
     text-align: right;
     min-width: 0;
     word-break: break-word;
 }
 
 .summary-row.total {
-    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    border-top: 1px solid rgba(99, 102, 241, 0.25);
     border-bottom: none;
     margin-top: 8px;
     padding-top: 16px;
     font-size: 15px;
     font-weight: 700;
-    color: #e2e8f0;
-    background: rgba(99, 102, 241, 0.04);
+    color: #ffffff;
+    background: rgba(99, 102, 241, 0.08);
     border-radius: 10px;
     padding-left: 12px;
     padding-right: 12px;
@@ -488,10 +634,10 @@
 }
 
 .summary-row.total .value {
-    color: #a5b4fc;
+    color: #c7d2fe;
     font-size: 20px;
     font-weight: 800;
-    text-shadow: 0 0 24px rgba(129, 140, 248, 0.35);
+    text-shadow: 0 0 24px rgba(129, 140, 248, 0.4);
 }
 
 /* ---- Stripe Element Wrapper ---- */
@@ -817,7 +963,7 @@
 .success-container h2 {
     font-size: 28px;
     font-weight: 800;
-    color: #f1f5f9;
+    color: #ffffff;
     margin-bottom: 10px;
     letter-spacing: -0.5px;
 }
@@ -825,14 +971,14 @@
 .success-container .success-amount {
     font-size: 36px;
     font-weight: 900;
-    color: #a5b4fc;
+    color: #ffffff;
     margin-bottom: 8px;
     letter-spacing: -1px;
-    text-shadow: 0 0 32px rgba(129, 140, 248, 0.4);
+    text-shadow: 0 0 32px rgba(165, 180, 252, 0.5);
 }
 
 .success-container p {
-    color: #94a3b8;
+    color: #cbd5e1;
     font-size: 15px;
     margin-bottom: 32px;
     max-width: 320px;
@@ -856,8 +1002,8 @@
     align-items: center;
     padding: 8px 0;
     font-size: 13px;
-    color: #64748b;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .success-detail-row:last-child {
@@ -865,7 +1011,7 @@
 }
 
 .success-detail-row .value {
-    color: #cbd5e1;
+    color: #ffffff;
     font-weight: 600;
     text-align: right;
 }
@@ -913,6 +1059,135 @@
 
 .success-btn:active {
     transform: translateY(0);
+}
+
+/* ============================================
+   DESKTOP ENHANCEMENTS (>= 1024px)
+   ============================================ */
+@media (min-width: 1024px) {
+
+    /* Larger glow blobs for desktop */
+    .checkout-glow-1 {
+        width: 800px;
+        height: 800px;
+    }
+
+    .checkout-glow-2 {
+        width: 700px;
+        height: 700px;
+    }
+
+    /* Header wider on desktop */
+    .checkout-header h1 {
+        font-size: 40px;
+    }
+
+    .checkout-header p {
+        font-size: 16px;
+    }
+
+    /* Step connector wider for desktop spacing */
+    .step-connector {
+        width: 80px;
+    }
+
+    /* Order summary panel left side title */
+    .order-summary-panel-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0 0 24px;
+        letter-spacing: -0.4px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .order-summary-panel-title svg {
+        width: 22px;
+        height: 22px;
+        color: #a5b4fc;
+        flex-shrink: 0;
+    }
+
+    /* Service list on desktop left panel */
+    .order-service-list {
+        margin-bottom: 20px;
+    }
+
+    .order-service-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 14px;
+        color: #e2e8f0;
+        gap: 12px;
+    }
+
+    .order-service-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-service-name {
+        font-weight: 500;
+        color: #e2e8f0;
+    }
+
+    .order-service-price {
+        font-weight: 700;
+        color: #c7d2fe;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Desktop: bigger pay button */
+    .pay-button {
+        font-size: 17px;
+        padding: 20px 32px;
+    }
+
+    /* Desktop booking info card on left */
+    .order-booking-info {
+        background: rgba(99, 102, 241, 0.07);
+        border: 1px solid rgba(99, 102, 241, 0.15);
+        border-radius: 14px;
+        padding: 16px 18px;
+        margin-top: 20px;
+    }
+
+    .order-booking-info-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 13px;
+        color: #94a3b8;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .order-booking-info-row:last-child {
+        border-bottom: none;
+    }
+
+    .order-booking-info-row svg {
+        width: 14px;
+        height: 14px;
+        color: #818cf8;
+        flex-shrink: 0;
+    }
+
+    .order-booking-info-label {
+        flex: 1;
+        color: #94a3b8;
+    }
+
+    .order-booking-info-value {
+        font-weight: 600;
+        color: #e2e8f0;
+        text-align: right;
+    }
 }
 
 /* ============================================

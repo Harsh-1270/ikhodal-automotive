@@ -5,7 +5,7 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import UserNavbar from '../../components/common/UserNavbar';
-import { createPaymentIntent, getBookingById, verifyPayment } from '../../services/api';
+import { createPaymentIntent, getBookingById, verifyPayment, clearCart } from '../../services/api';
 import './StripeCheckout.css';
 
 // Initialize Stripe outside component to avoid re-creation
@@ -179,109 +179,124 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                 </div>
             )}
 
-            <form onSubmit={handleSubmit}>
-                {/* Order Summary */}
+            {/* Left panel — Order Summary (desktop: sticky left column) */}
+            <div className="order-summary-panel">
                 {bookingInfo && (
-                    <div className="order-summary">
-                        <div className="order-summary-header">
-                            <div className="order-summary-title">Order Summary</div>
-                            <div className="order-summary-icon">
-                                <Icons.Receipt />
+                    <>
+                        <h3 className="order-summary-panel-title">
+                            <Icons.Receipt />
+                            Order Summary
+                        </h3>
+                        <div className="order-summary">
+                            <div className="order-summary-header">
+                                <div className="order-summary-title">Booking Details</div>
+                                <div className="order-summary-icon">
+                                    <Icons.Receipt />
+                                </div>
                             </div>
-                        </div>
-                        <div className="summary-row">
-                            <span className="label">
-                                <Icons.Wrench />
-                                Services
-                            </span>
-                            <span className="value">{bookingInfo.serviceNames || 'Service Appointment'}</span>
-                        </div>
-                        <div className="summary-row">
-                            <span className="label">
-                                <Icons.Calendar />
-                                Date
-                            </span>
-                            <span className="value">{bookingInfo.date || '—'}</span>
-                        </div>
-                        <div className="summary-row">
-                            <span className="label">
-                                <Icons.Clock />
-                                Time
-                            </span>
-                            <span className="value">{bookingInfo.timeSlot || '—'}</span>
-                        </div>
-                        {bookingInfo.totalAmount && (
-                            <div className="summary-row total">
+                            <div className="summary-row">
                                 <span className="label">
-                                    <Icons.DollarSign />
-                                    Total Due
+                                    <Icons.Wrench />
+                                    Services
                                 </span>
-                                <span className="value">AUD {Number(bookingInfo.totalAmount).toLocaleString()}</span>
+                                <span className="value">{bookingInfo.serviceNames || 'Service Appointment'}</span>
                             </div>
-                        )}
-                    </div>
+                            <div className="summary-row">
+                                <span className="label">
+                                    <Icons.Calendar />
+                                    Date
+                                </span>
+                                <span className="value">{bookingInfo.date || '—'}</span>
+                            </div>
+                            <div className="summary-row">
+                                <span className="label">
+                                    <Icons.Clock />
+                                    Time
+                                </span>
+                                <span className="value">{bookingInfo.timeSlot || '—'}</span>
+                            </div>
+                            {bookingInfo.totalAmount && (
+                                <div className="summary-row total">
+                                    <span className="label">
+                                        <Icons.DollarSign />
+                                        Total Due
+                                    </span>
+                                    <span className="value">AUD {Number(bookingInfo.totalAmount).toLocaleString()}</span>
+                                </div>
+                            )}
+                        </div>
+                    </>
                 )}
+            </div>
 
-                {/* Error */}
-                {error && (
-                    <div className="payment-error">
-                        <Icons.AlertCircle />
-                        <span>{error}</span>
-                    </div>
-                )}
-
-                {/* Section divider */}
-                <div className="section-divider">
-                    <div className="section-divider-line" />
-                    <span className="section-divider-text">Payment Method</span>
-                    <div className="section-divider-line" />
-                </div>
-
-                {/* Stripe Payment Element */}
-                <div className="stripe-element-wrapper">
-                    <PaymentElement options={paymentElementOptions} />
-                </div>
-
-                {/* Pay Button */}
-                <button
-                    type="submit"
-                    className="pay-button"
-                    disabled={!stripe || processing}
-                >
-                    {processing ? (
-                        <>
-                            <div className="btn-spinner" />
-                            Processing...
-                        </>
-                    ) : (
-                        <>
-                            <Icons.Lock />
-                            Pay&nbsp;
-                            <span className="pay-button-amount">
-                                AUD {Number(bookingInfo?.totalAmount || 0).toLocaleString()}
-                            </span>
-                            <Icons.ArrowRight />
-                        </>
+            {/* Right panel — Payment Form */}
+            <div className="payment-panel">
+                <form onSubmit={handleSubmit}>
+                    {/* Payment panel heading */}
+                    <h2>
+                        <Icons.CreditCard />
+                        Payment Details
+                    </h2>
+                    {error && (
+                        <div className="payment-error">
+                            <Icons.AlertCircle />
+                            <span>{error}</span>
+                        </div>
                     )}
-                </button>
 
-                {/* Footer security info */}
-                <div className="payment-footer">
-                    <div className="payment-footer-item">
-                        <Icons.Shield />
-                        SSL Encrypted
+                    {/* Section divider */}
+                    <div className="section-divider">
+                        <div className="section-divider-line" />
+                        <span className="section-divider-text">Payment Method</span>
+                        <div className="section-divider-line" />
                     </div>
-                    <div className="payment-footer-dot" />
-                    <div className="payment-footer-item">
-                        <Icons.Lock />
-                        256-bit Secure
+
+                    {/* Stripe Payment Element */}
+                    <div className="stripe-element-wrapper">
+                        <PaymentElement options={paymentElementOptions} />
                     </div>
-                    <div className="payment-footer-dot" />
-                    <div className="payment-footer-item">
-                        Powered by Stripe
+
+                    {/* Pay Button */}
+                    <button
+                        type="submit"
+                        className="pay-button"
+                        disabled={!stripe || processing}
+                    >
+                        {processing ? (
+                            <>
+                                <div className="btn-spinner" />
+                                Processing...
+                            </>
+                        ) : (
+                            <>
+                                <Icons.Lock />
+                                Pay&nbsp;
+                                <span className="pay-button-amount">
+                                    AUD {Number(bookingInfo?.totalAmount || 0).toLocaleString()}
+                                </span>
+                                <Icons.ArrowRight />
+                            </>
+                        )}
+                    </button>
+
+                    {/* Footer security info */}
+                    <div className="payment-footer">
+                        <div className="payment-footer-item">
+                            <Icons.Shield />
+                            SSL Encrypted
+                        </div>
+                        <div className="payment-footer-dot" />
+                        <div className="payment-footer-item">
+                            <Icons.Lock />
+                            256-bit Secure
+                        </div>
+                        <div className="payment-footer-dot" />
+                        <div className="payment-footer-item">
+                            Powered by Stripe
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </>
     );
 };
@@ -370,12 +385,16 @@ const StripeCheckout = () => {
             const verifyResult = await verifyPayment(appointmentId);
             if (verifyResult.success && verifyResult.data.status === 'CONFIRMED') {
                 clearInterval(pollInterval);
-                // Also refresh booking info for display
+                // Refresh booking info for the success screen
                 await fetchBookingInfo(appointmentId);
+                // Clear the cart after confirmed payment
+                try { await clearCart(); } catch (_) { }
                 setConfirmed(true);
                 setPolling(false);
             } else if (attempts >= maxAttempts) {
                 clearInterval(pollInterval);
+                // Clear cart even if not yet confirmed (payment was charged)
+                try { await clearCart(); } catch (_) { }
                 setPolling(false);
                 // Even if not confirmed yet, show success
                 setConfirmed(true);
@@ -510,7 +529,7 @@ const StripeCheckout = () => {
                 <UserNavbar />
                 <div className="checkout-main">
                     <StepIndicator currentStep={confirmed ? 3 : 2} />
-                    <div className="checkout-card">
+                    <div className="checkout-card checkout-card--centered">
                         {polling && !confirmed ? (
                             <div className="checkout-loading">
                                 <div className="processing-spinner" />
@@ -630,10 +649,6 @@ const StripeCheckout = () => {
                         </div>
                     ) : clientSecret ? (
                         <Elements stripe={stripePromise} options={elementsOptions}>
-                            <h2>
-                                <Icons.CreditCard />
-                                Payment Details
-                            </h2>
                             <CheckoutForm
                                 appointmentId={appointmentId}
                                 bookingInfo={bookingInfo}

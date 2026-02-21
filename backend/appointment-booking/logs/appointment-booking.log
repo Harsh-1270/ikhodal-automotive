@@ -431,3 +431,173 @@
 2026-02-21T09:14:59.925+05:30  INFO 19980 --- [appointment-booking] [http-nio-8082-exec-1] c.i.a.service.impl.PaymentServiceImpl    : Payment verified and confirmed for appointmentId=12
 2026-02-21T09:15:00.011+05:30 DEBUG 19980 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/12
 2026-02-21T09:15:00.015+05:30 DEBUG 19980 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/12
+2026-02-21T09:30:21.947+05:30  INFO 16528 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Starting AppointmentBookingApplication using Java 17.0.12 with PID 16528 (D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking\target\classes started by alisk in D:\ikhodal-automotive\ikhodal-automotive\backend\appointment-booking)
+2026-02-21T09:30:21.950+05:30  INFO 16528 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-21T09:30:23.321+05:30  INFO 16528 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-21T09:30:23.525+05:30  INFO 16528 --- [appointment-booking] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 180 ms. Found 11 JPA repository interfaces.
+2026-02-21T09:30:24.458+05:30  INFO 16528 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-21T09:30:24.474+05:30  INFO 16528 --- [appointment-booking] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-21T09:30:24.480+05:30  INFO 16528 --- [appointment-booking] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-21T09:30:24.561+05:30  INFO 16528 --- [appointment-booking] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-21T09:30:24.562+05:30  INFO 16528 --- [appointment-booking] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2533 ms
+2026-02-21T09:30:24.790+05:30  INFO 16528 --- [appointment-booking] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-21T09:30:24.850+05:30  INFO 16528 --- [appointment-booking] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-02-21T09:30:24.905+05:30  INFO 16528 --- [appointment-booking] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-21T09:30:25.251+05:30  INFO 16528 --- [appointment-booking] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-21T09:30:25.293+05:30  INFO 16528 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-21T09:30:25.544+05:30  INFO 16528 --- [appointment-booking] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@53b7bf01
+2026-02-21T09:30:25.552+05:30  INFO 16528 --- [appointment-booking] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-21T09:30:25.609+05:30  WARN 16528 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-21T09:30:25.612+05:30  WARN 16528 --- [appointment-booking] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-02-21T09:30:25.637+05:30  INFO 16528 --- [appointment-booking] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-21T09:30:27.130+05:30  INFO 16528 --- [appointment-booking] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-21T09:30:27.424+05:30  INFO 16528 --- [appointment-booking] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-21T09:30:27.443+05:30  INFO 16528 --- [appointment-booking] [main] c.i.appointment.config.StripeConfig      : Stripe API key initialized
+2026-02-21T09:30:27.935+05:30  INFO 16528 --- [appointment-booking] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-21T09:30:28.674+05:30  WARN 16528 --- [appointment-booking] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-21T09:30:28.710+05:30 DEBUG 16528 --- [appointment-booking] [main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-02-21T09:30:29.122+05:30 DEBUG 16528 --- [appointment-booking] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-02-21T09:30:29.500+05:30  INFO 16528 --- [appointment-booking] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2026-02-21T09:30:29.509+05:30  INFO 16528 --- [appointment-booking] [main] c.i.a.AppointmentBookingApplication      : Started AppointmentBookingApplication in 8.376 seconds (process running for 9.057)
+2026-02-21T09:30:33.134+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-21T09:30:33.136+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-21T09:30:33.137+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-21T09:30:33.176+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/12
+2026-02-21T09:32:43.281+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/services
+2026-02-21T09:32:43.286+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/cart
+2026-02-21T09:32:43.314+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:32:43.314+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-21T09:32:43.443+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-21T09:32:43.443+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:32:54.470+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/cart
+2026-02-21T09:32:54.490+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing POST /api/cart
+2026-02-21T09:32:54.500+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured POST /api/cart
+2026-02-21T09:32:55.960+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:32:55.973+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:32:56.013+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:32:56.022+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:32:59.350+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/availability/slots?date=2026-02-26
+2026-02-21T09:32:59.367+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-26
+2026-02-21T09:32:59.382+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-26
+2026-02-21T09:32:59.410+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-21T09:33:13.721+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/createBooking
+2026-02-21T09:33:13.892+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/createBooking
+2026-02-21T09:33:13.901+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/createBooking
+2026-02-21T09:33:14.144+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/13
+2026-02-21T09:33:14.222+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/13
+2026-02-21T09:33:14.231+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/13
+2026-02-21T09:33:14.381+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/create-intent
+2026-02-21T09:33:14.461+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/create-intent
+2026-02-21T09:33:14.469+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/create-intent
+2026-02-21T09:33:14.473+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.controller.PaymentController       : Received create payment intent request for appointmentId=13
+2026-02-21T09:33:14.474+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=13
+2026-02-21T09:33:14.479+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=706.00 for appointmentId=13
+2026-02-21T09:33:14.479+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Starting PaymentIntent creation for appointmentId=13
+2026-02-21T09:33:14.479+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Validating payment eligibility for appointmentId=13
+2026-02-21T09:33:14.495+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Payment eligibility validated successfully for appointmentId=13
+2026-02-21T09:33:14.499+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=13
+2026-02-21T09:33:14.505+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=706.00 for appointmentId=13
+2026-02-21T09:33:15.665+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-9] c.i.a.service.impl.PaymentServiceImpl    : PaymentIntent created successfully. appointmentId=13, stripePaymentId=pi_3T37PVRWQnOyDE4N05Cwcvsu
+2026-02-21T09:33:18.449+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:33:18.460+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:33:18.536+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:33:18.543+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:33:26.216+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/availability/slots?date=2026-02-26
+2026-02-21T09:33:26.225+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/availability/slots?date=2026-02-26
+2026-02-21T09:33:26.235+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.s.impl.AvailabilityServiceImpl     : Total slots generated: 7
+2026-02-21T09:33:39.024+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/createBooking
+2026-02-21T09:33:39.032+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/createBooking
+2026-02-21T09:33:39.249+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/14
+2026-02-21T09:33:39.264+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/14
+2026-02-21T09:33:39.272+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/14
+2026-02-21T09:33:39.365+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/create-intent
+2026-02-21T09:33:39.376+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/create-intent
+2026-02-21T09:33:39.380+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.controller.PaymentController       : Received create payment intent request for appointmentId=14
+2026-02-21T09:33:39.380+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=14
+2026-02-21T09:33:39.385+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=706.00 for appointmentId=14
+2026-02-21T09:33:39.385+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Starting PaymentIntent creation for appointmentId=14
+2026-02-21T09:33:39.385+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Validating payment eligibility for appointmentId=14
+2026-02-21T09:33:39.399+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Payment eligibility validated successfully for appointmentId=14
+2026-02-21T09:33:39.399+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Calculating total amount for appointmentId=14
+2026-02-21T09:33:39.405+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Total amount calculated=706.00 for appointmentId=14
+2026-02-21T09:33:40.065+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : PaymentIntent created successfully. appointmentId=14, stripePaymentId=pi_3T37PtRWQnOyDE4N0ixDWhFB
+2026-02-21T09:34:02.623+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/14
+2026-02-21T09:34:02.641+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/14
+2026-02-21T09:34:02.649+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/14
+2026-02-21T09:34:02.649+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-8] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=14
+2026-02-21T09:34:02.655+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-8] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=14
+2026-02-21T09:34:03.249+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-8] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=succeeded for appointmentId=14, stripePaymentId=pi_3T37PtRWQnOyDE4N0ixDWhFB
+2026-02-21T09:34:03.260+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-8] c.i.a.service.impl.PaymentServiceImpl    : Payment verified and confirmed for appointmentId=14
+2026-02-21T09:34:03.362+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/14
+2026-02-21T09:34:03.371+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/14
+2026-02-21T09:35:10.533+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/my
+2026-02-21T09:35:10.533+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/bookings/my
+2026-02-21T09:35:10.558+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-21T09:35:10.566+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-21T09:35:10.673+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /api/bookings/my
+2026-02-21T09:35:10.687+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /api/bookings/my
+2026-02-21T09:35:10.876+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/13
+2026-02-21T09:35:10.894+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/11
+2026-02-21T09:35:10.897+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/9
+2026-02-21T09:35:10.897+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/7
+2026-02-21T09:35:10.897+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/8
+2026-02-21T09:35:10.906+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/payments/verify/1
+2026-02-21T09:35:10.906+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/13
+2026-02-21T09:35:10.907+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/11
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/11
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/9
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/13
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/7
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/1
+2026-02-21T09:35:10.920+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/payments/verify/8
+2026-02-21T09:35:10.921+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=11
+2026-02-21T09:35:10.922+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=13
+2026-02-21T09:35:10.922+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=11
+2026-02-21T09:35:10.925+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=13
+2026-02-21T09:35:10.934+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/9
+2026-02-21T09:35:10.935+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/8
+2026-02-21T09:35:10.935+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/7
+2026-02-21T09:35:10.935+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/payments/verify/1
+2026-02-21T09:35:10.937+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=9
+2026-02-21T09:35:10.938+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=8
+2026-02-21T09:35:10.938+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=7
+2026-02-21T09:35:10.939+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.controller.PaymentController       : Received verify payment request for appointmentId=1
+2026-02-21T09:35:10.940+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=9
+2026-02-21T09:35:10.940+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=8
+2026-02-21T09:35:10.941+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=7
+2026-02-21T09:35:10.941+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Verifying payment for appointmentId=1
+2026-02-21T09:35:11.485+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=11, stripePaymentId=pi_3T3766RWQnOyDE4N0ofqKjUV
+2026-02-21T09:35:11.485+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-2] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=11
+2026-02-21T09:35:11.496+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=13, stripePaymentId=pi_3T37PVRWQnOyDE4N05Cwcvsu
+2026-02-21T09:35:11.496+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-5] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=13
+2026-02-21T09:35:11.523+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=7, stripePaymentId=pi_3T2adnRWQnOyDE4N0JPV9avd
+2026-02-21T09:35:11.523+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=1, stripePaymentId=pi_3T21o3RWQnOyDE4N0L1DHCCn
+2026-02-21T09:35:11.524+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-3] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=7
+2026-02-21T09:35:11.524+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=9, stripePaymentId=pi_3T36ulRWQnOyDE4N1u34ZERW
+2026-02-21T09:35:11.524+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-7] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=1
+2026-02-21T09:35:11.526+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-4] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=9
+2026-02-21T09:35:11.569+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Stripe PaymentIntent status=requires_payment_method for appointmentId=8, stripePaymentId=pi_3T36l9RWQnOyDE4N0W7uv3z2
+2026-02-21T09:35:11.571+05:30  INFO 16528 --- [appointment-booking] [http-nio-8082-exec-6] c.i.a.service.impl.PaymentServiceImpl    : Payment not yet succeeded. stripeStatus=requires_payment_method, appointmentId=8
+2026-02-21T09:35:31.943+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-21T09:35:31.943+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:35:31.952+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/services
+2026-02-21T09:35:31.954+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:36:08.273+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /api/cart
+2026-02-21T09:36:08.273+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /api/cart
+2026-02-21T09:36:08.341+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /api/cart
+2026-02-21T09:36:08.347+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /api/cart
+2026-02-21T09:36:09.190+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-5] o.s.security.web.FilterChainProxy        : Securing OPTIONS /api/auth/login
+2026-02-21T09:36:09.248+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2026-02-21T09:36:09.260+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2026-02-21T09:36:09.266+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2026-02-21T09:36:09.989+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /api/cart
+2026-02-21T09:36:09.989+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/services
+2026-02-21T09:36:10.041+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /api/cart
+2026-02-21T09:36:10.042+05:30 DEBUG 16528 --- [appointment-booking] [http-nio-8082-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/services
