@@ -43,8 +43,85 @@ const Icons = {
         <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
-    )
+    ),
+    Calendar: ({ className = "" }) => (
+        <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+    ),
+    Clock: ({ className = "" }) => (
+        <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+        </svg>
+    ),
+    Wrench: ({ className = "" }) => (
+        <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+        </svg>
+    ),
+    DollarSign: ({ className = "" }) => (
+        <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23" />
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+    ),
+    ArrowRight: ({ className = "" }) => (
+        <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+        </svg>
+    ),
+    Receipt: ({ className = "" }) => (
+        <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+        </svg>
+    ),
 };
+
+/* ==========================================
+   STEP INDICATOR
+   ========================================== */
+const StepIndicator = ({ currentStep }) => {
+    const steps = [
+        { label: 'Booking', id: 1 },
+        { label: 'Payment', id: 2 },
+        { label: 'Confirmed', id: 3 },
+    ];
+
+    return (
+        <div className="checkout-steps">
+            {steps.map((step, idx) => {
+                const status = step.id < currentStep ? 'done' : step.id === currentStep ? 'active' : 'pending';
+                return (
+                    <React.Fragment key={step.id}>
+                        <div className="step-item">
+                            <div className={`step-circle ${status}`}>
+                                {status === 'done' ? (
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                ) : (
+                                    step.id
+                                )}
+                            </div>
+                            <span className={`step-label ${status}`}>{step.label}</span>
+                        </div>
+                        {idx < steps.length - 1 && (
+                            <div className={`step-connector ${status === 'done' ? 'done' : ''}`} />
+                        )}
+                    </React.Fragment>
+                );
+            })}
+        </div>
+    );
+};
+
 
 /* ==========================================
    CHECKOUT FORM (inside Elements provider)
@@ -94,9 +171,11 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
         <>
             {processing && (
                 <div className="processing-overlay">
-                    <div className="processing-spinner" />
-                    <div className="processing-text">Processing Payment...</div>
-                    <div className="processing-subtext">Please do not close this page</div>
+                    <div className="processing-content">
+                        <div className="processing-spinner" />
+                        <div className="processing-text">Processing Payment...</div>
+                        <div className="processing-subtext">Please do not close this page</div>
+                    </div>
                 </div>
             )}
 
@@ -104,21 +183,39 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                 {/* Order Summary */}
                 {bookingInfo && (
                     <div className="order-summary">
+                        <div className="order-summary-header">
+                            <div className="order-summary-title">Order Summary</div>
+                            <div className="order-summary-icon">
+                                <Icons.Receipt />
+                            </div>
+                        </div>
                         <div className="summary-row">
-                            <span>Services</span>
+                            <span className="label">
+                                <Icons.Wrench />
+                                Services
+                            </span>
                             <span className="value">{bookingInfo.serviceNames || 'Service Appointment'}</span>
                         </div>
                         <div className="summary-row">
-                            <span>Date</span>
+                            <span className="label">
+                                <Icons.Calendar />
+                                Date
+                            </span>
                             <span className="value">{bookingInfo.date || '—'}</span>
                         </div>
                         <div className="summary-row">
-                            <span>Time</span>
+                            <span className="label">
+                                <Icons.Clock />
+                                Time
+                            </span>
                             <span className="value">{bookingInfo.timeSlot || '—'}</span>
                         </div>
                         {bookingInfo.totalAmount && (
                             <div className="summary-row total">
-                                <span>Total</span>
+                                <span className="label">
+                                    <Icons.DollarSign />
+                                    Total Due
+                                </span>
                                 <span className="value">AUD {Number(bookingInfo.totalAmount).toLocaleString()}</span>
                             </div>
                         )}
@@ -129,9 +226,16 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                 {error && (
                     <div className="payment-error">
                         <Icons.AlertCircle />
-                        {error}
+                        <span>{error}</span>
                     </div>
                 )}
+
+                {/* Section divider */}
+                <div className="section-divider">
+                    <div className="section-divider-line" />
+                    <span className="section-divider-text">Payment Method</span>
+                    <div className="section-divider-line" />
+                </div>
 
                 {/* Stripe Payment Element */}
                 <div className="stripe-element-wrapper">
@@ -152,15 +256,30 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                     ) : (
                         <>
                             <Icons.Lock />
-                            Pay AUD {Number(bookingInfo?.totalAmount || 0).toLocaleString()}
+                            Pay&nbsp;
+                            <span className="pay-button-amount">
+                                AUD {Number(bookingInfo?.totalAmount || 0).toLocaleString()}
+                            </span>
+                            <Icons.ArrowRight />
                         </>
                     )}
                 </button>
 
-                {/* Stripe badge */}
-                <div className="stripe-badge">
-                    <Icons.Shield />
-                    Secured by Stripe
+                {/* Footer security info */}
+                <div className="payment-footer">
+                    <div className="payment-footer-item">
+                        <Icons.Shield />
+                        SSL Encrypted
+                    </div>
+                    <div className="payment-footer-dot" />
+                    <div className="payment-footer-item">
+                        <Icons.Lock />
+                        256-bit Secure
+                    </div>
+                    <div className="payment-footer-dot" />
+                    <div className="payment-footer-item">
+                        Powered by Stripe
+                    </div>
                 </div>
             </form>
         </>
@@ -321,28 +440,27 @@ const StripeCheckout = () => {
             appearance: {
                 theme: 'night',
                 labels: 'floating',
-                // Temporarily simplified to debug 400 error
-                /* 
                 variables: {
                     colorPrimary: '#6366f1',
                     colorBackground: '#0f172a',
                     colorText: '#e2e8f0',
                     colorDanger: '#ef4444',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     fontSizeBase: '14px',
                     spacingUnit: '4px',
                 },
                 rules: {
                     '.Input': {
-                        border: '1px solid rgba(148, 163, 184, 0.2)',
+                        border: '1px solid rgba(148, 163, 184, 0.18)',
                         boxShadow: 'none',
-                        padding: '10px 12px',
+                        padding: '11px 14px',
                         fontSize: '14px',
+                        backgroundColor: 'rgba(15, 23, 42, 0.6)',
                     },
                     '.Input:focus': {
                         border: '1px solid #6366f1',
-                        boxShadow: '0 0 0 1px rgba(99, 102, 241, 0.2)',
+                        boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.15)',
                     },
                     '.Label': {
                         color: '#94a3b8',
@@ -350,16 +468,19 @@ const StripeCheckout = () => {
                         fontSize: '13px',
                     },
                     '.Tab': {
-                        border: '1px solid rgba(148, 163, 184, 0.15)',
+                        border: '1px solid rgba(148, 163, 184, 0.12)',
                         backgroundColor: 'rgba(30, 41, 59, 0.5)',
                         padding: '8px 12px',
                     },
                     '.Tab--selected': {
                         border: '1px solid #6366f1',
-                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        backgroundColor: 'rgba(99, 102, 241, 0.12)',
+                        boxShadow: '0 0 0 1px #6366f1',
+                    },
+                    '.Tab:hover': {
+                        backgroundColor: 'rgba(99, 102, 241, 0.06)',
                     },
                 },
-                */
             },
         };
     }, [clientSecret]);
@@ -384,8 +505,11 @@ const StripeCheckout = () => {
     if (paymentSuccess) {
         return (
             <div className="checkout-container">
+                <div className="checkout-glow-1" />
+                <div className="checkout-glow-2" />
                 <UserNavbar />
                 <div className="checkout-main">
+                    <StepIndicator currentStep={confirmed ? 3 : 2} />
                     <div className="checkout-card">
                         {polling && !confirmed ? (
                             <div className="checkout-loading">
@@ -401,12 +525,42 @@ const StripeCheckout = () => {
                                     <Icons.Check />
                                 </div>
                                 <h2>Payment Successful!</h2>
+                                {bookingInfo?.totalAmount && (
+                                    <div className="success-amount">
+                                        AUD {Number(bookingInfo.totalAmount).toLocaleString()}
+                                    </div>
+                                )}
                                 <p>Your booking has been confirmed. You can track it in My Bookings.</p>
+
+                                {bookingInfo && (
+                                    <div className="success-details">
+                                        {bookingInfo.serviceNames && (
+                                            <div className="success-detail-row">
+                                                <span>Service</span>
+                                                <span className="value">{bookingInfo.serviceNames}</span>
+                                            </div>
+                                        )}
+                                        {bookingInfo.date && (
+                                            <div className="success-detail-row">
+                                                <span>Date</span>
+                                                <span className="value">{bookingInfo.date}</span>
+                                            </div>
+                                        )}
+                                        {bookingInfo.timeSlot && (
+                                            <div className="success-detail-row">
+                                                <span>Time</span>
+                                                <span className="value">{bookingInfo.timeSlot}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
                                 <button
                                     className="success-btn"
                                     onClick={() => navigate('/my-bookings', { replace: true })}
                                 >
                                     View My Bookings
+                                    <Icons.ArrowRight />
                                 </button>
                             </div>
                         )}
@@ -418,16 +572,40 @@ const StripeCheckout = () => {
 
     return (
         <div className="checkout-container">
+            <div className="checkout-glow-1" />
+            <div className="checkout-glow-2" />
+            <div className="checkout-glow-3" />
             <UserNavbar />
             <div className="checkout-main">
                 {/* Header */}
                 <div className="checkout-header">
+                    <div className="checkout-brand-pill">
+                        <Icons.Shield />
+                        Secure Checkout
+                    </div>
                     <h1>
                         <Icons.CreditCard />
                         Secure Payment
                     </h1>
-                    <p>Complete your booking with a secure payment</p>
+                    <p>Complete your booking with a secure, encrypted payment</p>
+                    <div className="checkout-trust-row">
+                        <span className="trust-badge">
+                            <Icons.Shield />
+                            SSL Encrypted
+                        </span>
+                        <span className="trust-badge">
+                            <Icons.Lock />
+                            256-bit Secure
+                        </span>
+                        <span className="trust-badge">
+                            <Icons.Shield />
+                            Powered by Stripe
+                        </span>
+                    </div>
                 </div>
+
+                {/* Step Indicator */}
+                <StepIndicator currentStep={2} />
 
                 {/* Main Card */}
                 <div className="checkout-card">
@@ -440,7 +618,7 @@ const StripeCheckout = () => {
                         <div>
                             <div className="payment-error">
                                 <Icons.AlertCircle />
-                                {error}
+                                <span>{error}</span>
                             </div>
                             <button
                                 className="pay-button"
