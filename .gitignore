@@ -11,3 +11,7 @@ ikhodal-automotive/.pre-commit-config.yaml
 # OS
 .DS_Store
 .pre-commit-config.yaml
+
+# Logs
+*.log
+*.gz
