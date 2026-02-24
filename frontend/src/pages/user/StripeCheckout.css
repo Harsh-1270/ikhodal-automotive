@@ -142,7 +142,8 @@
 /* ---- Page Header ---- */
 .checkout-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 0;
+    padding-bottom: 36px;
     animation: fadeSlideDown 0.5s ease-out both;
 }
 
@@ -252,7 +253,8 @@
     align-items: center;
     justify-content: center;
     gap: 0;
-    margin-bottom: 28px;
+    margin-top: 0;
+    margin-bottom: 48px;
     animation: fadeSlideDown 0.5s ease-out 0.1s both;
     /* center on desktop when checkout-main is wide */
     width: 100%;
@@ -345,7 +347,8 @@
         0 1px 0 rgba(255, 255, 255, 0.06) inset;
     animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
     position: relative;
-    overflow: hidden;
+    /* overflow:hidden clips Stripe iframe touch targets on mobile — use visible */
+    overflow: visible;
 }
 
 /* Desktop: two-column layout inside card */
@@ -436,16 +439,7 @@
     }
 }
 
-/* top shimmer line */
-.checkout-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4), transparent);
-}
+/* top shimmer line removed */
 
 @keyframes cardSlideUp {
     from {
@@ -608,9 +602,11 @@
     flex-shrink: 0;
 }
 
-.checkout-card .summary-row .value {
+.checkout-card .summary-row .value,
+.order-summary .summary-row .value,
+.summary-row .value {
     font-weight: 600;
-    color: #e2e8f0;
+    color: #c7c5c5 !important;
     text-align: right;
     min-width: 0;
     word-break: break-word;
@@ -621,23 +617,90 @@
     border-bottom: none;
     margin-top: 8px;
     padding-top: 16px;
+    padding-bottom: 12px;
     font-size: 15px;
     font-weight: 700;
     color: #ffffff;
-    background: rgba(99, 102, 241, 0.08);
-    border-radius: 10px;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-bottom: 12px;
-    margin-left: -12px;
-    margin-right: -12px;
+    background: transparent;
 }
 
 .summary-row.total .value {
-    color: #c7d2fe;
+    color: #ffffff !important;
     font-size: 20px;
     font-weight: 800;
     text-shadow: 0 0 24px rgba(129, 140, 248, 0.4);
+}
+
+/* ---- Service Tags inside Order Summary ---- */
+
+/* Services row: stack label on top, tags below on new line */
+.summary-row--services {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.summary-row--services .label {
+    font-size: 13px;
+}
+
+/* Scrollable tag container — shows ~3 rows then scrolls */
+.service-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    max-height: 110px;
+    overflow-y: auto;
+    width: 100%;
+    padding-bottom: 2px;
+    /* custom slim scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.35) transparent;
+}
+
+.service-tag-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.service-tag-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.service-tag-list::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.35);
+    border-radius: 4px;
+}
+
+/* Individual service pill/chip */
+.service-tag {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #c7d2fe;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.service-tag:hover {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Subtle hover tint on summary rows for polish */
+.checkout-card .summary-row:not(.total):hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-left: -6px;
+    margin-right: -6px;
+    transition: background 0.2s ease;
 }
 
 /* ---- Stripe Element Wrapper ---- */
@@ -645,7 +708,8 @@
     margin-bottom: 22px;
     animation: fadeIn 0.4s ease 0.3s both;
     border-radius: 14px;
-    overflow: hidden;
+    /* overflow:hidden misaligns touch events in Stripe's iframe on mobile */
+    overflow: visible;
 }
 
 @keyframes fadeIn {
@@ -910,6 +974,8 @@
     padding: 64px 20px;
     min-height: 220px;
     gap: 0;
+    /* span both grid columns on desktop so spinner is centred */
+    grid-column: 1 / -1;
 }
 
 .checkout-loading p {

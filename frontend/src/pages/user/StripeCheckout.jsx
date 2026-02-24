@@ -190,16 +190,20 @@ const CheckoutForm = ({ appointmentId, bookingInfo, paymentElementOptions }) => 
                         <div className="order-summary">
                             <div className="order-summary-header">
                                 <div className="order-summary-title">Booking Details</div>
-                                <div className="order-summary-icon">
+                                {/* <div className="order-summary-icon">
                                     <Icons.Receipt />
-                                </div>
+                                </div> */}
                             </div>
-                            <div className="summary-row">
+                            <div className="summary-row summary-row--services">
                                 <span className="label">
                                     <Icons.Wrench />
                                     Services
                                 </span>
-                                <span className="value">{bookingInfo.serviceNames || 'Service Appointment'}</span>
+                                <div className="service-tag-list">
+                                    {(bookingInfo.serviceList || [bookingInfo.serviceNames || 'Service Appointment']).map((name, i) => (
+                                        <span key={i} className="service-tag">{name}</span>
+                                    ))}
+                                </div>
                             </div>
                             <div className="summary-row">
                                 <span className="label">
@@ -345,6 +349,7 @@ const StripeCheckout = () => {
                 console.log("Booking data:", b);
                 setBookingInfo({
                     serviceNames: b.services?.map(s => s.serviceName).join(', ') || 'Service Appointment',
+                    serviceList: b.services?.map(s => s.serviceName) || ['Service Appointment'],
                     date: new Date(b.date).toLocaleDateString('en-AU', {
                         day: 'numeric',
                         month: 'short',
