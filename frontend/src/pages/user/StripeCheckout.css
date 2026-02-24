@@ -708,8 +708,48 @@
     margin-bottom: 22px;
     animation: fadeIn 0.4s ease 0.3s both;
     border-radius: 14px;
-    /* overflow:hidden misaligns touch events in Stripe's iframe on mobile */
     overflow: visible;
+    position: relative;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+    transform: none;
+}
+
+@media (max-width: 640px) {
+    .stripe-element-wrapper {
+        z-index: 10;
+        transform: none !important;
+        overflow: visible !important;
+    }
+
+    .stripe-element-wrapper iframe,
+    .stripe-element-wrapper .__PrivateStripeElement,
+    .stripe-element-wrapper .__PrivateStripeElement iframe {
+        overflow: visible !important;
+        touch-action: auto;
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 1;
+        width: 100% !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+
+    .payment-panel {
+        overflow: visible !important;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 400px) {
+    .stripe-element-wrapper {
+        min-height: 44px;
+    }
+
+    .stripe-element-wrapper .__PrivateStripeElement iframe {
+        min-height: 44px !important;
+    }
 }
 
 @keyframes fadeIn {
@@ -1275,11 +1315,17 @@
 @media (max-width: 640px) {
     .checkout-main {
         padding: 24px 16px 56px;
+        overflow: visible !important;
     }
 
     .checkout-card {
         padding: 24px 20px;
         border-radius: 22px;
+        overflow: visible !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
     }
 
     .checkout-header h1 {
