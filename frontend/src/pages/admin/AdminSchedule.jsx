@@ -84,23 +84,20 @@ const AdminSchedule = () => {
        MOCK DATA - INITIAL CONFIGURATION
        ========================================== */
     useEffect(() => {
-        // Load initial unavailable dates
         setUnavailableDates([
             '2026-02-05',
             '2026-02-12',
             '2026-02-20',
         ]);
 
-        // Load initial holidays
         setHolidays([
             '2026-02-01',
             '2026-02-15',
             '2026-02-26',
         ]);
 
-        // Load initial unavailable time slots per date
         setUnavailableTimeSlots({
-            '2026-02-08': [3, 6], // Time slot IDs that are unavailable
+            '2026-02-08': [3, 6],
             '2026-02-10': [1, 4, 7],
         });
     }, []);
@@ -189,7 +186,6 @@ const AdminSchedule = () => {
             alert(`✅ ${dateStr} removed from holidays!`);
         } else {
             setHolidays([...holidays, dateStr]);
-            // Remove from unavailable if it was there
             setUnavailableDates(unavailableDates.filter(d => d !== dateStr));
             alert(`✅ ${dateStr} marked as holiday!`);
         }
@@ -204,7 +200,6 @@ const AdminSchedule = () => {
             alert(`✅ ${dateStr} is now available!`);
         } else {
             setUnavailableDates([...unavailableDates, dateStr]);
-            // Remove from holidays if it was there
             setHolidays(holidays.filter(d => d !== dateStr));
             alert(`✅ ${dateStr} marked as unavailable!`);
         }
@@ -216,7 +211,6 @@ const AdminSchedule = () => {
 
         setUnavailableDates(unavailableDates.filter(d => d !== dateStr));
         setHolidays(holidays.filter(d => d !== dateStr));
-        // Also clear time slot restrictions for this date
         const newTimeSlots = { ...unavailableTimeSlots };
         delete newTimeSlots[dateStr];
         setUnavailableTimeSlots(newTimeSlots);
@@ -240,7 +234,6 @@ const AdminSchedule = () => {
         const currentSlots = unavailableTimeSlots[dateStr] || [];
 
         if (currentSlots.includes(slotId)) {
-            // Make available
             const newSlots = currentSlots.filter(id => id !== slotId);
             setUnavailableTimeSlots({
                 ...unavailableTimeSlots,
@@ -248,7 +241,6 @@ const AdminSchedule = () => {
             });
             alert(`✅ Time slot ${timeSlots.find(s => s.id === slotId).time} is now available!`);
         } else {
-            // Make unavailable
             setUnavailableTimeSlots({
                 ...unavailableTimeSlots,
                 [dateStr]: [...currentSlots, slotId]
@@ -278,73 +270,83 @@ const AdminSchedule = () => {
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const days = getDaysInMonth(currentMonth);
 
+    // Prevent navigating back before the real current month
+    const today = new Date();
+    const isCurrentMonth =
+        currentMonth.getFullYear() === today.getFullYear() &&
+        currentMonth.getMonth() === today.getMonth();
+
     return (
-        <div className="admin-schedule-container">
+        <div className="adm-sch-container">
             {/* Admin Navbar */}
             <AdminNavbar />
 
             {/* Main Content */}
-            <div className="admin-schedule-main">
+            <div className="adm-sch-main">
                 {/* Page Header */}
-                <div className="page-header">
-                    <div className="header-left">
-                        <h1 className="page-title">
-                            <span className="title-icon"><Icons.Calendar /></span>
+                <div className="adm-sch-page-header">
+                    <div className="adm-sch-header-left">
+                        <h1 className="adm-sch-page-title">
+                            <span className="adm-sch-title-icon"><Icons.Calendar /></span>
                             Schedule Management
                         </h1>
                     </div>
                 </div>
 
                 {/* Legend */}
-                <div className="legend-section">
-                    <div className="legend-item">
-                        <div className="legend-color available"></div>
+                <div className="adm-sch-legend-section">
+                    <div className="adm-sch-legend-item">
+                        <div className="adm-sch-legend-color available"></div>
                         <span>Available</span>
                     </div>
-                    <div className="legend-item">
-                        <div className="legend-color holiday"></div>
+                    <div className="adm-sch-legend-item">
+                        <div className="adm-sch-legend-color holiday"></div>
                         <span>Holiday</span>
                     </div>
-                    <div className="legend-item">
-                        <div className="legend-color unavailable"></div>
+                    <div className="adm-sch-legend-item">
+                        <div className="adm-sch-legend-color unavailable"></div>
                         <span>Not Available</span>
                     </div>
-                    <div className="legend-item">
-                        <div className="legend-color selected"></div>
+                    <div className="adm-sch-legend-item">
+                        <div className="adm-sch-legend-color selected"></div>
                         <span>Selected</span>
                     </div>
                 </div>
 
                 {/* Main Grid */}
-                <div className="schedule-grid">
+                <div className="adm-sch-grid">
                     {/* Left Side - Calendar */}
-                    <div className="calendar-section">
-                        <div className="calendar-card">
+                    <div className="adm-sch-calendar-section">
+                        <div className="adm-sch-calendar-card">
                             {/* Calendar Header */}
-                            <div className="calendar-header">
-                                <button className="month-nav-btn" onClick={handlePrevMonth}>
+                            <div className="adm-sch-calendar-header">
+                                <button
+                                    className="adm-sch-month-nav-btn"
+                                    onClick={handlePrevMonth}
+                                    disabled={isCurrentMonth}
+                                >
                                     <span><Icons.ChevronLeft /></span>
                                 </button>
-                                <h2 className="calendar-month">
+                                <h2 className="adm-sch-calendar-month">
                                     {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                                 </h2>
-                                <button className="month-nav-btn" onClick={handleNextMonth}>
+                                <button className="adm-sch-month-nav-btn" onClick={handleNextMonth}>
                                     <span><Icons.ChevronRight /></span>
                                 </button>
                             </div>
 
                             {/* Day Names */}
-                            <div className="calendar-days-header">
+                            <div className="adm-sch-days-header">
                                 {dayNames.map(day => (
-                                    <div key={day} className="day-name">{day}</div>
+                                    <div key={day} className="adm-sch-day-name">{day}</div>
                                 ))}
                             </div>
 
                             {/* Calendar Grid */}
-                            <div className="calendar-grid">
+                            <div className="adm-sch-calendar-grid">
                                 {days.map((date, index) => {
                                     if (!date) {
-                                        return <div key={`empty-${index}`} className="calendar-day empty"></div>;
+                                        return <div key={`empty-${index}`} className="adm-sch-day empty"></div>;
                                     }
 
                                     const status = getDayStatus(date);
@@ -354,12 +356,12 @@ const AdminSchedule = () => {
                                     return (
                                         <div
                                             key={index}
-                                            className={`calendar-day ${status} ${isSelected ? 'selected' : ''}`}
+                                            className={`adm-sch-day ${status} ${isSelected ? 'selected' : ''}`}
                                             onClick={() => handleDateClick(date)}
                                         >
-                                            <span className="day-number">{date.getDate()}</span>
-                                            {status === 'holiday' && <span className="day-label">Holiday</span>}
-                                            {status === 'unavailable' && <span className="day-label">Closed</span>}
+                                            <span className="adm-sch-day-number">{date.getDate()}</span>
+                                            {status === 'holiday' && <span className="adm-sch-day-label">Holiday</span>}
+                                            {status === 'unavailable' && <span className="adm-sch-day-label">Closed</span>}
                                         </div>
                                     );
                                 })}
@@ -368,16 +370,16 @@ const AdminSchedule = () => {
                     </div>
 
                     {/* Right Side - Controls */}
-                    <div className="controls-section">
-                        <div className="controls-card">
+                    <div className="adm-sch-controls-section">
+                        <div className="adm-sch-controls-card">
                             {selectedDate ? (
                                 <>
-                                    <div className="controls-header">
-                                        <h3 className="controls-title">
-                                            <span className="title-icon"><Icons.Settings /></span>
+                                    <div className="adm-sch-controls-header">
+                                        <h3 className="adm-sch-controls-title">
+                                            <span className="adm-sch-title-icon"><Icons.Settings /></span>
                                             Manage Availability
                                         </h3>
-                                        <p className="selected-date-display">
+                                        <p className="adm-sch-selected-date">
                                             {selectedDate.toLocaleDateString('en-IN', {
                                                 weekday: 'long',
                                                 day: 'numeric',
@@ -388,28 +390,28 @@ const AdminSchedule = () => {
                                     </div>
 
                                     {/* Date Status Actions */}
-                                    <div className="date-actions">
-                                        <h4 className="section-title">Date Status</h4>
-                                        <div className="action-buttons">
+                                    <div className="adm-sch-date-actions">
+                                        <h4 className="adm-sch-section-title">Date Status</h4>
+                                        <div className="adm-sch-action-buttons">
                                             <button
-                                                className="action-btn holiday"
+                                                className="adm-sch-action-btn holiday"
                                                 onClick={handleMarkAsHoliday}
                                             >
-                                                <span className="btn-icon"><Icons.PartyPopper /></span>
+                                                <span className="adm-sch-btn-icon"><Icons.PartyPopper /></span>
                                                 <span>{isHoliday(selectedDate) ? 'Remove Holiday' : 'Mark as Holiday'}</span>
                                             </button>
                                             <button
-                                                className="action-btn unavailable"
+                                                className="adm-sch-action-btn unavailable"
                                                 onClick={handleMarkAsUnavailable}
                                             >
-                                                <span className="btn-icon"><Icons.XCircle /></span>
+                                                <span className="adm-sch-btn-icon"><Icons.XCircle /></span>
                                                 <span>{isUnavailable(selectedDate) ? 'Make Available' : 'Mark Unavailable'}</span>
                                             </button>
                                             <button
-                                                className="action-btn available"
+                                                className="adm-sch-action-btn available"
                                                 onClick={handleMarkAsAvailable}
                                             >
-                                                <span className="btn-icon"><Icons.CheckCircle /></span>
+                                                <span className="adm-sch-btn-icon"><Icons.CheckCircle /></span>
                                                 <span>Clear All Restrictions</span>
                                             </button>
                                         </div>
@@ -417,31 +419,31 @@ const AdminSchedule = () => {
 
                                     {/* Time Slots Management */}
                                     {getDayStatus(selectedDate) === 'available' && (
-                                        <div className="timeslots-management">
-                                            <h4 className="section-title">
+                                        <div className="adm-sch-timeslots-mgmt">
+                                            <h4 className="adm-sch-section-title">
                                                 <span><Icons.Clock /></span>
                                                 Time Slot Availability
                                             </h4>
-                                            <p className="section-subtitle">
+                                            <p className="adm-sch-section-subtitle">
                                                 Click on time slots to toggle availability
                                             </p>
-                                            <div className="timeslots-grid">
+                                            <div className="adm-sch-timeslots-grid">
                                                 {timeSlots.map(slot => {
                                                     const isUnavail = isTimeSlotUnavailable(slot.id);
                                                     return (
                                                         <div
                                                             key={slot.id}
-                                                            className={`time-slot-item ${isUnavail ? 'unavailable' : 'available'}`}
+                                                            className={`adm-sch-time-slot ${isUnavail ? 'unavailable' : 'available'}`}
                                                             onClick={() => handleTimeSlotToggle(slot.id)}
                                                         >
-                                                            <div className="slot-status-icon">
+                                                            <div className="adm-sch-slot-status-icon">
                                                                 {isUnavail ? <Icons.XCircle /> : <Icons.CheckCircle />}
                                                             </div>
-                                                            <div className="slot-details">
-                                                                <div className="slot-time">{slot.time}</div>
-                                                                <div className="slot-duration">{slot.duration}</div>
+                                                            <div className="adm-sch-slot-details">
+                                                                <div className="adm-sch-slot-time">{slot.time}</div>
+                                                                <div className="adm-sch-slot-duration">{slot.duration}</div>
                                                             </div>
-                                                            <div className="slot-status-text">
+                                                            <div className="adm-sch-slot-status-text">
                                                                 {isUnavail ? 'Unavailable' : 'Available'}
                                                             </div>
                                                         </div>
@@ -453,9 +455,9 @@ const AdminSchedule = () => {
 
                                     {/* Info Message */}
                                     {(isHoliday(selectedDate) || isUnavailable(selectedDate)) && (
-                                        <div className="info-message">
-                                            <div className="info-icon"><Icons.Info /></div>
-                                            <div className="info-text">
+                                        <div className="adm-sch-info-message">
+                                            <div className="adm-sch-info-icon"><Icons.Info /></div>
+                                            <div className="adm-sch-info-text">
                                                 {isHoliday(selectedDate) &&
                                                     'This date is marked as a holiday. All time slots are unavailable.'}
                                                 {isUnavailable(selectedDate) &&
@@ -465,8 +467,8 @@ const AdminSchedule = () => {
                                     )}
                                 </>
                             ) : (
-                                <div className="no-date-selected">
-                                    <div className="no-date-icon"><Icons.Calendar color="#94a3b8" /></div>
+                                <div className="adm-sch-no-date">
+                                    <div className="adm-sch-no-date-icon"><Icons.Calendar color="#94a3b8" /></div>
                                     <h3>Select a Date</h3>
                                     <p>Click on a date in the calendar to manage its availability settings</p>
                                 </div>

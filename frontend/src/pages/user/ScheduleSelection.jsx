@@ -212,6 +212,12 @@ const ScheduleSelection = () => {
 
     const days = getDaysInMonth(currentMonth);
 
+    // Prevent navigating back before the real current month
+    const today = new Date();
+    const isCurrentMonth =
+        currentMonth.getFullYear() === today.getFullYear() &&
+        currentMonth.getMonth() === today.getMonth();
+
     // Handle browser back button
     useEffect(() => {
         const handlePopState = (e) => {
@@ -271,7 +277,11 @@ const ScheduleSelection = () => {
                         <div className="calendar-card">
                             {/* Calendar Header */}
                             <div className="calendar-header">
-                                <button className="month-nav-btn" onClick={handlePrevMonth}>
+                                <button
+                                    className="month-nav-btn"
+                                    onClick={handlePrevMonth}
+                                    disabled={isCurrentMonth}
+                                >
                                     <Icons.ChevronLeft />
                                 </button>
                                 <h2 className="calendar-month">

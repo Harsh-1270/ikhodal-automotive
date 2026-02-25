@@ -95,8 +95,8 @@
 }
 
 .legend-color.available {
-    background: #ffffff;
-    border-color: #e5e7eb;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
 }
 
 .legend-color.holiday {
@@ -242,16 +242,15 @@
 
 /* Day States */
 .calendar-day.available {
-    background: #ffffff;
-    border-color: #e5e7eb;
-    color: #4b5563;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
 }
 
 .calendar-day.available:hover {
-    background: #f8fafc;
-    border-color: #3b82f6;
+    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
 }
 
 .calendar-day.holiday {
@@ -300,6 +299,8 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 90px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
 }
 
 .timeslots-header {
@@ -554,9 +555,42 @@
         grid-template-columns: 1fr;
     }
 
-    /* Disable sticky on tablet/mobile */
+    /* Disable sticky and max-height on tablet/mobile */
     .timeslots-card {
         position: static;
+        max-height: none;
+        overflow-y: visible;
+    }
+}
+
+/* ============================================
+   FIX: TOUCH DEVICE HOVER PERSISTENCE
+   On mobile, :hover sticks after tap. This
+   resets hover on touch devices and ensures
+   .selected always shows blue immediately.
+   ============================================ */
+@media (hover: none) {
+    .calendar-day.available:hover {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        border-color: #10b981;
+        color: #065f46;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .calendar-day.holiday:hover,
+    .calendar-day.unavailable:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .calendar-day.selected,
+    .calendar-day.available.selected {
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6) !important;
+        border-color: #1e3a8a !important;
+        color: #ffffff !important;
+        transform: scale(1.08) !important;
+        box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4) !important;
     }
 }
 
