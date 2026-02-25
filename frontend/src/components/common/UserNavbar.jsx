@@ -151,7 +151,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                         <span className="icon">
                             <Icons.Cart />
                         </span>
-                        {cartCount > 0 && <span className="badge">{cartCount}</span>}
                         <span className="nav-label">My Cart</span>
                     </button>
 
@@ -246,7 +245,6 @@ const UserNavbar = ({ cartCount = 0 }) => {
                                 <Icons.Cart />
                             </span>
                             <span>My Cart</span>
-                            {cartCount > 0 && <span className="mobile-menu-badge">{cartCount}</span>}
                         </div>
                     </button>
 

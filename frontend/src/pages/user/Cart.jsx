@@ -196,9 +196,33 @@ const Cart = () => {
                     {cartItems.length === 0 ? (
                         /* Empty Cart State */
                         <div className="empty-cart">
-                            <div className="empty-icon"><Icons.ShoppingCart color="#94a3b8" /></div>
-                            <h2>Your cart is empty</h2>
-                            <p>Add services to your cart to get started!</p>
+                            <div className="empty-cart-visual">
+                                <div className="empty-cart-glow"></div>
+                                <div className="empty-icon-wrap">
+                                    <Icons.ShoppingCart />
+                                </div>
+                            </div>
+                            <h2 className="empty-cart-title">Your Cart is Empty</h2>
+                            <p className="empty-cart-sub">
+                                Looks like you haven't added any services yet.<br />
+                                Discover our premium automotive solutions!
+                            </p>
+                            <div className="empty-perks">
+                                <div className="empty-perk">
+                                    <span className="perk-icon-wrap perk-blue"><Icons.Car /></span>
+                                    <span className="perk-label">Mobile Call-Out</span>
+                                </div>
+                                <div className="perk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="perk-icon-wrap perk-green"><Icons.ShieldCheck /></span>
+                                    <span className="perk-label">Expert Technicians</span>
+                                </div>
+                                <div className="perk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="perk-icon-wrap perk-orange"><Icons.Tool /></span>
+                                    <span className="perk-label">Professional Repairs</span>
+                                </div>
+                            </div>
                             <button className="browse-btn" onClick={() => navigate('/dashboard')}>
                                 <span className="browse-icon"><Icons.Magnifier /></span>
                                 Browse Services
@@ -299,16 +323,16 @@ const Cart = () => {
                                         <span className="checkout-icon"><Icons.Calendar stroke="#ffffff" /></span>
                                         Schedule Appointment
                                     </button>
-                                </div>
 
-                                {/* Continue Shopping */}
-                                <button
-                                    className="continue-shopping-btn"
-                                    onClick={() => navigate('/dashboard')}
-                                >
-                                    <span className="back-arrow"><Icons.ChevronLeft /></span>
-                                    Continue Shopping
-                                </button>
+                                    {/* Continue Shopping - inside card so it sticks with the summary */}
+                                    <button
+                                        className="continue-shopping-btn"
+                                        onClick={() => navigate('/dashboard')}
+                                    >
+                                        <span className="back-arrow"><Icons.ChevronLeft /></span>
+                                        Continue Shopping
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}

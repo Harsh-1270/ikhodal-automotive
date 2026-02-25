@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [visibleSections, setVisibleSections] = useState(new Set());
     const [initialLoadComplete, setInitialLoadComplete] = useState(false);
     const [cart, setCart] = useState([]);
-    const [showCartNotification, setShowCartNotification] = useState(false);
+    const [showCartNotification, setShowCartNotification] = useState('');
     const [cartLoading, setCartLoading] = useState(false);
 
     /* ==========================================
@@ -349,8 +349,8 @@ const Dashboard = () => {
                 }
 
                 // Show notification
-                setShowCartNotification(true);
-                setTimeout(() => setShowCartNotification(false), 3000);
+                setShowCartNotification(service.name);
+                setTimeout(() => setShowCartNotification(''), 3000);
             } else {
                 console.error('Failed to add to cart:', response.message);
             }
@@ -552,13 +552,22 @@ const Dashboard = () => {
             {/* Cart Notification */}
             {showCartNotification && (
                 <div className="cart-notification">
-                    <span className="notification-icon">
-                        <Icons.Check />
-                    </span>
-                    <span className="notification-text">Item added to cart!</span>
-                    <button className="view-cart-btn" onClick={goToCart}>
-                        View Cart
-                    </button>
+                    <div className="notification-top">
+                        <div className="notification-icon-circle">
+                            <Icons.Check />
+                        </div>
+                        <div className="notification-body">
+                            <p className="notification-heading">Added to Cart!</p>
+                            <p className="notification-service-name">{showCartNotification}</p>
+                        </div>
+                        <button className="view-cart-btn" onClick={goToCart}>
+                            View Cart
+                            <span className="view-cart-arrow"><Icons.ArrowRight /></span>
+                        </button>
+                    </div>
+                    <div className="notification-progress-track">
+                        <div className="notification-progress-fill"></div>
+                    </div>
                 </div>
             )}
 
@@ -685,20 +694,7 @@ const Dashboard = () => {
                 >
                     <div className="section-header-row">
                         <h2 className="section-title">All Services</h2>
-                        <div className="view-toggle">
-                            <button
-                                className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                                onClick={() => setViewMode('grid')}
-                            >
-                                <Icons.Grid />
-                            </button>
-                            <button
-                                className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
-                                onClick={() => setViewMode('list')}
-                            >
-                                <Icons.List />
-                            </button>
-                        </div>
+
                     </div>
 
                     <div className={`services-${viewMode}`}>
@@ -750,7 +746,7 @@ const Dashboard = () => {
                                 <div className="service-actions">
                                     <button
                                         className={`add-cart-btn ${isInCart(service.id) ? 'in-cart' : ''}`}
-                                        onClick={() => addToCart(service)}
+                                        onClick={() => isInCart(service.id) ? removeFromCart(service.id) : addToCart(service)}
                                     >
                                         <span className="cart-icon">
                                             <Icons.ShoppingCart />
