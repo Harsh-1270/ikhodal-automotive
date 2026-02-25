@@ -1,10 +1,12 @@
 /* ============================================
    ADMIN DASHBOARD - BOOKINGS MANAGEMENT
+   Uses real API calls for booking data
    ============================================ */
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/common/AdminNavbar';
+import { getAdminAppointments, updateAppointmentStatus, deleteAppointment } from '../../services/api';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -12,11 +14,11 @@ const AdminDashboard = () => {
     const [activeFilter, setActiveFilter] = useState('all');
     const [bookings, setBookings] = useState([]);
     const [filteredBookings, setFilteredBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({
         total: 0,
         pending: 0,
         completed: 0,
-        // cancelled: 0
     });
 
     /* ==========================================
@@ -117,17 +119,6 @@ const AdminDashboard = () => {
                 <path d="M22 6l-10 7L2 6" stroke="white" strokeWidth="2" fill="none" />
             </svg>
         ),
-        Phone: ({ className = "" }) => (
-            <svg className={className} viewBox="0 0 24 24" fill="url(#adPhoneGrad)">
-                <defs>
-                    <linearGradient id="adPhoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#10b981" />
-                        <stop offset="100%" stopColor="#059669" />
-                    </linearGradient>
-                </defs>
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-        ),
         Calendar: ({ className = "" }) => (
             <svg className={className} viewBox="0 0 24 24" fill="url(#adCalendarGrad)">
                 <defs>
@@ -209,181 +200,113 @@ const AdminDashboard = () => {
                 </defs>
                 <polyline points="20 6 9 17 4 12" />
             </svg>
-        )
+        ),
+        Complete: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#adCompleteGrad)" strokeWidth="2">
+                <defs>
+                    <linearGradient id="adCompleteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#10b981" />
+                        <stop offset="100%" stopColor="#059669" />
+                    </linearGradient>
+                </defs>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" strokeLinecap="round" />
+                <polyline points="22 4 12 14.01 9 11.01" strokeLinecap="round" />
+            </svg>
+        ),
+        Loader: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeLinecap="round" />
+            </svg>
+        ),
+        // Service Icons from MyBookings
+        Car: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashRedGradient)"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" /></svg>,
+        Wrench: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashGreenGradient)"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" /></svg>,
+        Package: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashBlueGradient)" strokeWidth="2"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></svg>,
+        Tool: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashOrangeGradient)"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" /></svg>,
+        Magnifier: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashCyanGradient)" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>,
+        Camera: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashPurpleRocketGradient)"><rect x="2" y="6" width="20" height="14" rx="2" /><circle cx="12" cy="13" r="4" /></svg>,
+        Speaker: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashPurpleGradient)"><path d="M12 2L6 8H2v8h4l6 6V2z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" /></svg>,
+        Battery: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashYellowLightGradient)"><rect x="1" y="6" width="18" height="12" rx="2" /><path d="M23 13v-2M5 10v4M8 10v4M14 9l-3 6" /></svg>,
+        Snowflake: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashGreenGradient)" strokeWidth="2"><line x1="12" y1="2" x2="12" y2="22" /><line x1="20" y1="12" x2="4" y2="12" /><line x1="17.66" y1="6.34" x2="6.34" y2="17.66" /><line x1="17.66" y1="17.66" x2="6.34" y2="6.34" /></svg>,
+        Brakes: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashRedGradient)" strokeWidth="2"><circle cx="12" cy="12" r="9" /><path d="M12 7v10M7 12h10" /><path d="M15 15l2 2M9 9l-2-2M15 9l2-2M9 15l-2 2" /></svg>,
+        Engine: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashOrangeGradient)"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" /><path d="M12 5l-4 10h8l-4-10z" /></svg>,
+        ShieldCheck: ({ className = "" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashGreenGradient)" strokeWidth="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="m9 12 2 2 4-4" />
+            </svg>
+        ),
+        OilCan: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashBlueGradient)"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5L12 2 8 9.5c-2 1.6-3 3.5-3 5.5a7 7 0 0 0 7 7z" /></svg>,
+        Cog: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashOrangeGradient)" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>,
+        Plug: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashYellowGradient)" strokeWidth="2"><path d="M12 2v2M5 8v2a7 7 0 0 0 14 0V8M6 2v4M18 2v4M12 17v5" /></svg>,
+        Zap: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashYellowGradient)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
+        Bulb: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashPurpleGradient)"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" /></svg>,
+    };
+
+    const Gradients = () => (
+        <svg style={{ width: 0, height: 0, position: 'absolute' }}>
+            <defs>
+                <linearGradient id="dashRedGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#ef4444" /><stop offset="100%" stopColor="#b91c1c" /></linearGradient>
+                <linearGradient id="dashBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#3b82f6" /><stop offset="100%" stopColor="#1d4ed8" /></linearGradient>
+                <linearGradient id="dashOrangeGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f97316" /><stop offset="100%" stopColor="#c2410c" /></linearGradient>
+                <linearGradient id="dashCyanGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#06b6d4" /><stop offset="100%" stopColor="#0891b2" /></linearGradient>
+                <linearGradient id="dashPurpleRocketGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#8b5cf6" /><stop offset="100%" stopColor="#6366f1" /></linearGradient>
+                <linearGradient id="dashPurpleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a855f7" /><stop offset="100%" stopColor="#7e22ce" /></linearGradient>
+                <linearGradient id="dashYellowLightGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24" /><stop offset="100%" stopColor="#f59e0b" /></linearGradient>
+                <linearGradient id="dashGreenGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#22c55e" /><stop offset="100%" stopColor="#15803d" /></linearGradient>
+                <linearGradient id="dashYellowGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24" /><stop offset="100%" stopColor="#d97706" /></linearGradient>
+            </defs>
+        </svg>
+    );
+
+    const getIconComponent = (iconName) => {
+        if (!iconName) return <Icons.Wrench />;
+
+        let IconComponent = Icons[iconName];
+        if (!IconComponent) {
+            // Case-insensitive lookup
+            const entry = Object.entries(Icons).find(([key]) => key.toLowerCase() === iconName.toLowerCase());
+            IconComponent = entry ? entry[1] : (Icons.Wrench || Icons.Tool);
+        }
+        return <IconComponent />;
     };
 
     /* ==========================================
-       MOCK BOOKINGS DATA (ALL USERS)
+       FETCH BOOKINGS FROM API
        ========================================== */
-    const mockBookings = [
-        {
-            id: 'BK-2026-001',
-            userName: 'Alis Desai',
-            userEmail: 'alis.desai@example.com',
-            userPhone: '+91 98765 43210',
-            serviceName: '🔵 Complete Care Service',
-            serviceIcon: '🔧',
-            date: '2026-02-05',
-            time: '10:00 AM',
-            address: '123 Main Street, Ankleshwar, Gujarat',
-            price: 3999,
-            status: 'pending',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-28'
-        },
-        {
-            id: 'BK-2026-002',
-            userName: 'Raj Patel',
-            userEmail: 'raj.patel@example.com',
-            userPhone: '+91 98765 43211',
-            serviceName: '🔴 Premium Care Service',
-            serviceIcon: '⭐',
-            date: '2026-02-03',
-            time: '02:00 PM',
-            address: '456 Park Avenue, Bharuch, Gujarat',
-            price: 5999,
-            status: 'completed',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-25'
-        },
-        {
-            id: 'BK-2026-003',
-            userName: 'Priya Shah',
-            userEmail: 'priya.shah@example.com',
-            userPhone: '+91 98765 43212',
-            serviceName: '🚗 Mobile Call-Out Mechanic',
-            serviceIcon: '🔧',
-            date: '2026-02-08',
-            time: '11:30 AM',
-            address: '789 Lake View, Surat, Gujarat',
-            price: 1999,
-            status: 'pending',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-27'
-        },
-        {
-            id: 'BK-2026-004',
-            userName: 'Amit Kumar',
-            userEmail: 'amit.kumar@example.com',
-            userPhone: '+91 98765 43213',
-            serviceName: '🚘 Brake Repairs & Replacement',
-            serviceIcon: '🛑',
-            date: '2026-01-30',
-            time: '09:00 AM',
-            address: '321 Garden Road, Vadodara, Gujarat',
-            price: 4500,
-            status: 'completed',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-20'
-        },
-        {
-            id: 'BK-2026-005',
-            userName: 'Neha Mehta',
-            userEmail: 'neha.mehta@example.com',
-            userPhone: '+91 98765 43214',
-            serviceName: '🔋 Battery Testing & Replacement',
-            serviceIcon: '🔋',
-            date: '2026-02-10',
-            time: '03:00 PM',
-            address: '555 Hill Station, Ahmedabad, Gujarat',
-            price: 2500,
-            status: 'pending',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-28'
-        },
-        {
-            id: 'BK-2026-006',
-            userName: 'Vikram Singh',
-            userEmail: 'vikram.singh@example.com',
-            userPhone: '+91 98765 43215',
-            serviceName: '🔍 Vehicle Diagnostics',
-            serviceIcon: '🔍',
-            date: '2026-02-01',
-            time: '10:30 AM',
-            address: '777 Market Street, Rajkot, Gujarat',
-            price: 1500,
-            status: 'completed',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-22'
-        },
-        {
-            id: 'BK-2026-007',
-            userName: 'Kavita Joshi',
-            userEmail: 'kavita.joshi@example.com',
-            userPhone: '+91 98765 43216',
-            serviceName: '🎥 Dash Cam Installation',
-            serviceIcon: '📹',
-            date: '2026-02-12',
-            time: '01:00 PM',
-            address: '999 River Side, Gandhinagar, Gujarat',
-            price: 3500,
-            status: 'pending',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-28'
-        },
-        {
-            id: 'BK-2026-008',
-            userName: 'Rohit Sharma',
-            userEmail: 'rohit.sharma@example.com',
-            userPhone: '+91 98765 43217',
-            serviceName: '❄️ Air Conditioning Inspection',
-            serviceIcon: '❄️',
-            date: '2026-02-06',
-            time: '11:00 AM',
-            address: '111 Beach Road, Bhavnagar, Gujarat',
-            price: 2000,
-            status: 'completed',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-26'
-        },
-        {
-            id: 'BK-2026-009',
-            userName: 'Anjali Patel',
-            userEmail: 'anjali.patel@example.com',
-            userPhone: '+91 98765 43218',
-            serviceName: '🟢 Essential Care Service',
-            serviceIcon: '🔧',
-            date: '2026-02-15',
-            time: '09:30 AM',
-            address: '222 Temple Street, Jamnagar, Gujarat',
-            price: 2499,
-            status: 'pending',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-28'
-        },
-        {
-            id: 'BK-2026-010',
-            userName: 'Karan Desai',
-            userEmail: 'karan.desai@example.com',
-            userPhone: '+91 98765 43219',
-            serviceName: '🚙 Pre-Purchase Vehicle Inspection',
-            serviceIcon: '🔍',
-            date: '2026-02-04',
-            time: '04:00 PM',
-            address: '333 Shopping Complex, Navsari, Gujarat',
-            price: 1800,
-            status: 'completed',
-            paymentStatus: 'paid',
-            bookingDate: '2026-01-24'
+    const fetchBookings = async () => {
+        setLoading(true);
+        try {
+            const response = await getAdminAppointments();
+            if (response.success && response.data) {
+                const mapped = response.data.map(b => ({
+                    id: b.bookingId,
+                    displayId: `BK-${String(b.bookingId).padStart(3, '0')}`,
+                    userName: b.userName || 'Unknown User',
+                    userEmail: b.userEmail || '—',
+                    serviceName: b.serviceNames || 'Service Appointment',
+                    serviceIcon: b.serviceIcon || '🔧',
+                    date: b.date,
+                    startTime: b.startTime,
+                    endTime: b.endTime,
+                    address: b.address || '—',
+                    totalAmount: Number(b.totalAmount) || 0,
+                    status: (b.status || 'PENDING').toLowerCase(),
+                    vehicleInfo: b.vehicleMake && b.vehicleModel ? `${b.vehicleMake} ${b.vehicleModel}` : null,
+                    createdAt: b.createdAt
+                }));
+                setBookings(mapped);
+                calculateStats(mapped);
+            }
+        } catch (error) {
+            console.error('Error fetching bookings:', error);
+        } finally {
+            setLoading(false);
         }
-    ];
+    };
 
-    /* ==========================================
-       LOAD BOOKINGS ON MOUNT
-       ========================================== */
     useEffect(() => {
-        setBookings(mockBookings);
-        calculateStats(mockBookings);
-        setFilteredBookings(mockBookings);
-
-        // Animate cards on load
-        setTimeout(() => {
-            document.querySelectorAll('.adm-booking-card').forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('visible');
-                }, index * 100);
-            });
-        }, 100);
+        fetchBookings();
     }, []);
 
     /* ==========================================
@@ -394,13 +317,12 @@ const AdminDashboard = () => {
             total: data.length,
             pending: data.filter(b => b.status === 'pending').length,
             completed: data.filter(b => b.status === 'completed').length,
-            // cancelled: data.filter(b => b.status === 'cancelled').length
         });
     };
 
     /* ==========================================
-   FILTER BOOKINGS
-   ========================================== */
+       FILTER BOOKINGS
+       ========================================== */
     useEffect(() => {
         // Remove visible class from all cards first
         document.querySelectorAll('.adm-booking-card').forEach((card) => {
@@ -425,29 +347,77 @@ const AdminDashboard = () => {
     }, [activeFilter, bookings]);
 
     /* ==========================================
-       HANDLE DELETE BOOKING
+       HANDLE COMPLETE BOOKING
        ========================================== */
-    const handleDeleteBooking = (bookingId) => {
-        const confirmDelete = window.confirm(
-            `Are you sure you want to delete booking ${bookingId}?\n\nThis action cannot be undone.`
+    const handleCompleteBooking = async (booking) => {
+        const confirmComplete = window.confirm(
+            `Mark booking ${booking.displayId} as completed?\n\nCustomer: ${booking.userName}\nService: ${booking.serviceName}`
         );
 
-        if (confirmDelete) {
-            const updatedBookings = bookings.filter(b => b.id !== bookingId);
-            setBookings(updatedBookings);
-            calculateStats(updatedBookings);
-
-            // Show success message (you can replace this with a toast notification)
-            alert(`✅ Booking ${bookingId} has been deleted successfully!`);
+        if (confirmComplete) {
+            try {
+                const response = await updateAppointmentStatus(booking.id, 'COMPLETED');
+                if (response.success) {
+                    // Re-fetch all bookings to get fresh data
+                    await fetchBookings();
+                    alert(`✅ Booking ${booking.displayId} has been marked as completed!`);
+                } else {
+                    alert(`❌ Failed to update booking: ${response.message}`);
+                }
+            } catch (error) {
+                console.error('Error completing booking:', error);
+                alert('❌ An error occurred while updating the booking.');
+            }
         }
     };
 
     /* ==========================================
-       FORMAT DATE
+       HANDLE DELETE BOOKING
+       ========================================== */
+    const handleDeleteBooking = async (booking) => {
+        const confirmDelete = window.confirm(
+            `Are you sure you want to delete booking ${booking.displayId}?\n\nThis action cannot be undone.`
+        );
+
+        if (confirmDelete) {
+            try {
+                const response = await deleteAppointment(booking.id);
+                if (response.success) {
+                    // Re-fetch all bookings to get fresh data
+                    await fetchBookings();
+                    alert(`✅ Booking ${booking.displayId} has been deleted successfully!`);
+                } else {
+                    alert(`❌ Failed to delete booking: ${response.message}`);
+                }
+            } catch (error) {
+                console.error('Error deleting booking:', error);
+                alert('❌ An error occurred while deleting the booking.');
+            }
+        }
+    };
+
+    /* ==========================================
+       FORMAT HELPERS
        ========================================== */
     const formatDate = (dateString) => {
+        if (!dateString) return '—';
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        return `${String(displayHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`;
+    };
+
+    const formatTimeSlot = (startTime, endTime) => {
+        if (!startTime) return '—';
+        const start = formatTime(startTime);
+        const end = endTime ? formatTime(endTime) : '';
+        return end ? `${start} - ${end}` : start;
     };
 
     /* ==========================================
@@ -455,6 +425,7 @@ const AdminDashboard = () => {
        ========================================== */
     return (
         <div className="admin-dashboard-container">
+            <Gradients />
             {/* Common Navbar */}
             <AdminNavbar />
 
@@ -469,7 +440,6 @@ const AdminDashboard = () => {
                             </span>
                             Admin Dashboard
                         </h1>
-                        {/* <p className="adm-page-subtitle">Manage all customer bookings</p> */}
                     </div>
                 </div>
 
@@ -504,16 +474,6 @@ const AdminDashboard = () => {
                             <div className="adm-stat-label">Completed</div>
                         </div>
                     </div>
-                    {/*
-                    <div className="adm-stat-box red">
-                        <div className="adm-stat-icon-circle red">
-                            <span>❌</span>
-                        </div>
-                        <div className="adm-stat-details">
-                            <div className="adm-stat-value">{stats.cancelled}</div>
-                            <div className="adm-stat-label">Cancelled</div>
-                        </div>
-                    </div> */}
                 </div>
 
                 {/* Filter Tabs */}
@@ -548,7 +508,12 @@ const AdminDashboard = () => {
 
                 {/* Bookings List */}
                 <div className="adm-bookings-list">
-                    {filteredBookings.length === 0 ? (
+                    {loading ? (
+                        <div className="adm-loading-container">
+                            <div className="processing-spinner"></div>
+                            <p>Loading bookings...</p>
+                        </div>
+                    ) : filteredBookings.length === 0 ? (
                         <div className="adm-empty-state">
                             <div className="adm-empty-icon"><Icons.Inbox /></div>
                             <h3>No bookings found</h3>
@@ -560,17 +525,16 @@ const AdminDashboard = () => {
                                 {/* Booking Header */}
                                 <div className="adm-booking-header">
                                     <div className="adm-booking-id-section">
-                                        <span className="adm-booking-id"><Icons.Ticket /> {booking.id}</span>
+                                        <span className="adm-booking-id"><Icons.Ticket /> {booking.displayId}</span>
                                         <span className={`adm-status-badge ${booking.status}`}>
                                             {booking.status === 'pending' && <Icons.Hourglass className="adm-status-icon" />}
                                             {booking.status === 'completed' && <Icons.CheckCircle className="adm-status-icon" />}
-                                            {booking.status === 'cancelled' && <Icons.XCircle className="adm-status-icon" />}
                                             {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                                         </span>
                                     </div>
                                     <div className="adm-booking-date">
                                         <span className="adm-date-label">Booked On</span>
-                                        <span className="adm-date-value">{formatDate(booking.bookingDate)}</span>
+                                        <span className="adm-date-value">{formatDate(booking.createdAt)}</span>
                                     </div>
                                 </div>
 
@@ -583,8 +547,6 @@ const AdminDashboard = () => {
                                         <div className="adm-customer-name">{booking.userName}</div>
                                         <div className="adm-customer-contact">
                                             <span><Icons.Mail className="adm-contact-icon" /> {booking.userEmail}</span>
-                                            <span className="adm-divider">•</span>
-                                            <span><Icons.Phone className="adm-contact-icon" /> {booking.userPhone}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -593,7 +555,7 @@ const AdminDashboard = () => {
                                 <div className="adm-booking-body">
                                     <div className="adm-service-info">
                                         <div className="adm-service-icon-large">
-                                            <span>{booking.serviceIcon}</span>
+                                            {getIconComponent(booking.serviceIcon)}
                                         </div>
                                         <div className="adm-service-details">
                                             <div className="adm-service-name">{booking.serviceName}</div>
@@ -604,7 +566,7 @@ const AdminDashboard = () => {
                                                 </div>
                                                 <div className="adm-meta-item">
                                                     <span className="adm-meta-icon"><Icons.Clock /></span>
-                                                    <span className="adm-meta-text">{booking.time}</span>
+                                                    <span className="adm-meta-text">{formatTimeSlot(booking.startTime, booking.endTime)}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -612,11 +574,7 @@ const AdminDashboard = () => {
 
                                     <div className="adm-price-section">
                                         <span className="adm-price-label">Total Amount</span>
-                                        <span className="adm-price-value">${booking.price.toLocaleString()}</span>
-                                        <span className={`adm-payment-status ${booking.paymentStatus}`}>
-                                            <span className="adm-payment-icon"><Icons.Check /></span>
-                                            {booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}
-                                        </span>
+                                        <span className="adm-price-value">${booking.totalAmount.toLocaleString()}</span>
                                     </div>
                                 </div>
 
@@ -628,16 +586,18 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div className="adm-booking-actions">
-                                        <button
-                                            className="adm-action-btn secondary"
-                                            onClick={() => navigate(`/admin/booking/${booking.id}`)}
-                                        >
-                                            <span><Icons.Eye /></span>
-                                            View Details
-                                        </button>
+                                        {(booking.status === 'pending' || booking.status === 'confirmed') && (
+                                            <button
+                                                className="adm-action-btn complete"
+                                                onClick={() => handleCompleteBooking(booking)}
+                                            >
+                                                <span><Icons.Complete /></span>
+                                                Mark Completed
+                                            </button>
+                                        )}
                                         <button
                                             className="adm-action-btn danger"
-                                            onClick={() => handleDeleteBooking(booking.id)}
+                                            onClick={() => handleDeleteBooking(booking)}
                                         >
                                             <span><Icons.Trash /></span>
                                             Delete Booking

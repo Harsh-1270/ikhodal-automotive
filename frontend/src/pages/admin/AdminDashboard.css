@@ -370,6 +370,11 @@
     color: #065f46;
 }
 
+.adm-status-badge.confirmed {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+}
+
 .adm-status-badge.cancelled {
     background: linear-gradient(135deg, #fecaca, #fca5a5);
     color: #991b1b;
@@ -708,6 +713,51 @@
 .adm-action-btn.danger:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(220, 38, 38, 0.35);
+}
+
+.adm-action-btn.complete {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+}
+
+.adm-action-btn.complete:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+}
+
+/* Loading Spinner (Matching User Dashboard) */
+.adm-loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+.processing-spinner {
+    width: 56px;
+    height: 56px;
+    border: 3px solid rgba(30, 58, 138, 0.08);
+    /* Faint blue matching admin theme */
+    border-top-color: #3b82f6;
+    border-right-color: #2563eb;
+    border-radius: 50%;
+    animation: admSpin 0.75s linear infinite;
+    margin-bottom: 1.5rem;
+}
+
+.adm-loading-container p {
+    color: #64748b;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@keyframes admSpin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ============================================
