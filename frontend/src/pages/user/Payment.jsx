@@ -354,17 +354,19 @@ const Payments = () => {
                                             {transaction.time}
                                         </span>
                                     </div>
-                                    <div className="payment-method-badge">
-                                        <span className="method-icon"><Icons.CreditCard color="#1e3a8a" /></span>
-                                        {transaction.paymentMethod}
+                                    <div className="transaction-bottom-row">
+                                        <div className="payment-method-badge">
+                                            <span className="method-icon"><Icons.CreditCard color="#1e3a8a" /></span>
+                                            {transaction.paymentMethod}
+                                        </div>
+                                        <div className="transaction-amount">
+                                            ${transaction.amount.toLocaleString()}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="transaction-right">
-                                <div className="transaction-amount">
-                                    ${transaction.amount.toLocaleString()}
-                                </div>
                                 <div className="transaction-status success">
                                     <span className="status-icon"><Icons.Check /></span>
                                     Success
