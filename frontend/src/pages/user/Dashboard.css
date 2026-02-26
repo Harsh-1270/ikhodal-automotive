@@ -1883,8 +1883,8 @@ svg {
 .wave-emoji svg {
     width: 36px;
     height: 36px;
-    color: #fbbf24;
     display: block;
+    filter: drop-shadow(0 2px 8px rgba(58, 146, 200, 0.4));
 }
 
 .floating-card .card-icon {
