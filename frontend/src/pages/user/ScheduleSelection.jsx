@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getAvailableSlots, checkDateAvailability } from '../../services/api';
+import { getAvailableSlots, getPublicScheduleOverrides } from '../../services/api';
 import UserNavbar from '../../components/common/UserNavbar';
 import './ScheduleSelection.css';
 
@@ -58,7 +58,7 @@ const ScheduleSelection = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [timeSlots, setTimeSlots] = useState([]);
     const [slotsLoading, setSlotsLoading] = useState(false);
-    const [unavailableDates, setUnavailableDates] = useState([]);
+    const [overrides, setOverrides] = useState([]);
 
     // Get cart data from navigation state
     const serviceIds = location.state?.serviceIds || [];
@@ -70,6 +70,20 @@ const ScheduleSelection = () => {
             navigate('/cart', { replace: true });
         }
     }, [location.state, navigate]);
+
+    // Fetch schedule overrides for the current month
+    const fetchOverrides = useCallback(async () => {
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth() + 1;
+        const result = await getPublicScheduleOverrides(year, month);
+        if (result.success) {
+            setOverrides(result.data || []);
+        }
+    }, [currentMonth]);
+
+    useEffect(() => {
+        fetchOverrides();
+    }, [fetchOverrides]);
     // Generate calendar days
     const getDaysInMonth = (date) => {
         const year = date.getFullYear();
@@ -102,15 +116,21 @@ const ScheduleSelection = () => {
         return `${year}-${month}-${day}`;
     };
 
+    const getOverridesForDate = (date) => {
+        if (!date) return [];
+        const dateStr = formatDateToString(date);
+        return overrides.filter(o => o.date === dateStr);
+    };
+
     const isHoliday = (date) => {
         if (!date) return false;
-        // Sundays are treated as holidays
-        return date.getDay() === 0;
+        // Check API overrides for HOLIDAY
+        return getOverridesForDate(date).some(o => o.overrideType === 'HOLIDAY');
     };
 
     const isUnavailable = (date) => {
         if (!date) return false;
-        return unavailableDates.includes(formatDateToString(date));
+        return getOverridesForDate(date).some(o => o.overrideType === 'UNAVAILABLE');
     };
 
     const isPastDate = (date) => {
@@ -141,39 +161,47 @@ const ScheduleSelection = () => {
 
     const handleDateClick = async (date) => {
         const status = getDayStatus(date);
-        if (status === 'available') {
+        if (status === 'disabled') return;
+        // Allow clicking holiday/unavailable to see that it's blocked
+        if (status === 'holiday' || status === 'unavailable') {
             setSelectedDate(date);
             setSelectedTime(null);
+            setTimeSlots([]);
+            return;
+        }
 
-            // Fetch time slots from API
-            try {
-                setSlotsLoading(true);
-                const dateStr = formatDateToString(date);
-                const response = await getAvailableSlots(dateStr);
-                if (response.success && response.data && response.data.slots) {
-                    // Map API SlotDTO to rendering format
-                    const mappedSlots = response.data.slots.map((slot, index) => {
-                        const startTime = formatTimeForDisplay(slot.start);
-                        const endTime = formatTimeForDisplay(slot.end);
-                        return {
-                            id: index + 1,
-                            time: startTime,
-                            duration: `${startTime} - ${endTime}`,
-                            available: slot.available,
-                            start: slot.start,
-                            end: slot.end
-                        };
-                    });
-                    setTimeSlots(mappedSlots);
-                } else {
-                    setTimeSlots([]);
-                }
-            } catch (error) {
-                console.error('Error fetching time slots:', error);
+        setSelectedDate(date);
+        setSelectedTime(null);
+
+        // Fetch time slots from API
+        try {
+            setSlotsLoading(true);
+            const dateStr = formatDateToString(date);
+            const response = await getAvailableSlots(dateStr);
+            if (response.success && response.data && response.data.slots) {
+                // Map API SlotDTO to rendering format
+                const mappedSlots = response.data.slots.map((slot, index) => {
+                    const startTime = formatTimeForDisplay(slot.start);
+                    const endTime = formatTimeForDisplay(slot.end);
+                    return {
+                        id: index + 1,
+                        time: startTime,
+                        duration: `${startTime} - ${endTime}`,
+                        available: slot.available,
+                        status: slot.status || (slot.available ? 'AVAILABLE' : 'BLOCKED'),
+                        start: slot.start,
+                        end: slot.end
+                    };
+                });
+                setTimeSlots(mappedSlots);
+            } else {
                 setTimeSlots([]);
-            } finally {
-                setSlotsLoading(false);
             }
+        } catch (error) {
+            console.error('Error fetching time slots:', error);
+            setTimeSlots([]);
+        } finally {
+            setSlotsLoading(false);
         }
     };
 
@@ -346,7 +374,15 @@ const ScheduleSelection = () => {
                                         </p>
                                     </div>
 
-                                    {slotsLoading ? (
+                                    {(isHoliday(selectedDate) || isUnavailable(selectedDate)) ? (
+                                        <div className="no-date-selected">
+                                            <div className="no-date-icon"><Icons.Calendar /></div>
+                                            <h3>{isHoliday(selectedDate) ? 'Holiday' : 'Unavailable'}</h3>
+                                            <p>{isHoliday(selectedDate)
+                                                ? 'This date is marked as a holiday. No appointments are available.'
+                                                : 'This date is marked as unavailable. Please select another date.'}</p>
+                                        </div>
+                                    ) : slotsLoading ? (
                                         <div className="no-date-selected">
                                             <div className="no-date-icon"><Icons.Clock /></div>
                                             <h3>Loading Slots...</h3>
@@ -354,20 +390,27 @@ const ScheduleSelection = () => {
                                         </div>
                                     ) : (
                                         <div className="timeslots-grid">
-                                            {timeSlots.map(slot => (
-                                                <div
-                                                    key={slot.id}
-                                                    className={`time-slot ${!slot.available ? 'booked' : ''} ${selectedTime?.id === slot.id ? 'selected' : ''
-                                                        }`}
-                                                    onClick={() => handleTimeClick(slot)}
-                                                >
-                                                    <div className="time-main">{slot.time}</div>
-                                                    <div className="time-duration">{slot.duration}</div>
-                                                    {!slot.available && (
-                                                        <div className="booked-badge">Booked</div>
-                                                    )}
-                                                </div>
-                                            ))}
+                                            {timeSlots.map(slot => {
+                                                const slotBooked = slot.status === 'BOOKED';
+                                                const slotBlocked = slot.status === 'BLOCKED';
+                                                const slotUnavailable = !slot.available;
+                                                return (
+                                                    <div
+                                                        key={slot.id}
+                                                        className={`time-slot ${slotBooked ? 'booked' : slotBlocked ? 'blocked' : ''} ${selectedTime?.id === slot.id ? 'selected' : ''}`}
+                                                        onClick={() => handleTimeClick(slot)}
+                                                    >
+                                                        <div className="time-main">{slot.time}</div>
+                                                        <div className="time-duration">{slot.duration}</div>
+                                                        {slotBooked && (
+                                                            <div className="booked-badge">Booked</div>
+                                                        )}
+                                                        {slotBlocked && !slotBooked && (
+                                                            <div className="blocked-badge">Unavailable</div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     )}
 

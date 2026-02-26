@@ -17,6 +17,7 @@ public class UserResponseDTO {
     private String email;
     private String phone;
     private boolean isActive;
+    private boolean isOnline;
     private LocalDateTime createdAt;
     private int totalBookings;
 }

@@ -621,6 +621,116 @@
     line-height: 1.6;
 }
 
+.adm-sch-legend-color.booked {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: #3b82f6;
+}
+
+/* ============================================
+   BOOKED TIME SLOT
+   ============================================ */
+
+.adm-sch-time-slot.booked {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: #3b82f6;
+    cursor: default;
+    opacity: 0.9;
+}
+
+.adm-sch-time-slot.booked:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.adm-sch-time-slot.booked .adm-sch-slot-time {
+    color: #1e3a8a;
+}
+
+.adm-sch-time-slot.booked .adm-sch-slot-status-text {
+    color: #1e3a8a;
+}
+
+/* ============================================
+   TOAST NOTIFICATION
+   ============================================ */
+
+.adm-sch-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    z-index: 10000;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    animation: adm-sch-toast-slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 420px;
+}
+
+.adm-sch-toast.success {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.adm-sch-toast.error {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.adm-sch-toast-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.adm-sch-toast-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.adm-sch-toast-message {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.adm-sch-toast-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    font-size: 1.25rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.adm-sch-toast-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+@keyframes adm-sch-toast-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* Disable text selection */
 .adm-sch-container {
     -webkit-user-select: none;
@@ -860,6 +970,15 @@
     .adm-sch-no-date p {
         font-size: 0.9375rem;
     }
+
+    .adm-sch-toast {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+        max-width: none;
+        font-size: 0.875rem;
+        padding: 0.875rem 1.25rem;
+    }
 }
 
 /* ============================================
@@ -1054,6 +1173,27 @@
 
     .adm-sch-no-date p {
         font-size: 0.875rem;
+    }
+
+    .adm-sch-toast {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        font-size: 0.8125rem;
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+        border-radius: 12px;
+    }
+
+    .adm-sch-toast-icon {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .adm-sch-toast-close {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
     }
 }
 

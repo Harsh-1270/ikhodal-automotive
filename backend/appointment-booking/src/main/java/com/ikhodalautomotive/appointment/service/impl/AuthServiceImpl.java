@@ -134,11 +134,25 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException("Invalid email or password");
         }
 
+        // Set user as online
+        user.setOnline(true);
+        userRepository.save(user);
+
         String token = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
         return Map.of(
                 "token", token,
                 "name", user.getName(),
                 "roleId", String.valueOf(user.getRole().getId()));
+    }
+
+    // ================= LOGOUT =================
+    @Override
+    @Transactional
+    public void logout(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException("User not found"));
+        user.setOnline(false);
+        userRepository.save(user);
     }
 
     // ================= UTIL =================

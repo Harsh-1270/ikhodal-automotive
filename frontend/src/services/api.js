@@ -149,6 +149,25 @@ export const loginAdmin = async (credentials) => {
     }
 };
 
+/* User Logout
+   POST /auth/logout
+   Sets user isOnline = false in database
+*/
+export const logoutUser = async () => {
+    try {
+        const response = await api.post('/auth/logout');
+        return {
+            success: true,
+            message: response.data?.message || 'Logged out successfully'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Logout failed'
+        };
+    }
+};
+
 /* ============================================
    SERVICE APIs
    ============================================ */
@@ -362,6 +381,115 @@ export const checkDateAvailability = async (date) => {
         return {
             success: false,
             message: error.response?.data?.message || 'Failed to check availability'
+        };
+    }
+};
+
+/* Get Time Slots for a Specific Date (Admin Schedule)
+   GET /availability/slots
+   Query: ?date=YYYY-MM-DD
+*/
+export const getTimeSlots = async (date) => {
+    try {
+        const response = await api.get('/availability/slots', {
+            params: { date }
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to fetch time slots',
+            data: { slots: [] }
+        };
+    }
+};
+
+/* Get Schedule Overrides (Public - for user calendar)
+   GET /availability/overrides?year=2026&month=2
+*/
+export const getPublicScheduleOverrides = async (year, month) => {
+    try {
+        const response = await api.get('/availability/overrides', {
+            params: { year, month }
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to fetch schedule overrides',
+            data: []
+        };
+    }
+};
+
+/* ============================================
+   ADMIN - SCHEDULE OVERRIDE APIs
+   ============================================ */
+
+/* Get Schedule Overrides for a Month
+   GET /admin/schedule/overrides?year=2026&month=2
+*/
+export const getScheduleOverrides = async (year, month) => {
+    try {
+        const response = await api.get('/admin/schedule/overrides', {
+            params: { year, month }
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to fetch schedule overrides',
+            data: []
+        };
+    }
+};
+
+/* Create Schedule Override
+   POST /admin/schedule/override
+   Body: { date, overrideType, startTime?, endTime? }
+*/
+export const createScheduleOverride = async (overrideData) => {
+    try {
+        const response = await api.post('/admin/schedule/override', overrideData);
+        return {
+            success: true,
+            data: response.data,
+            message: 'Override created successfully'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to create schedule override'
+        };
+    }
+};
+
+/* Delete Schedule Override
+   DELETE /admin/schedule/override
+   Body: { date, overrideType, startTime?, endTime? }
+*/
+export const deleteScheduleOverride = async (overrideData) => {
+    try {
+        const response = await api.delete('/admin/schedule/override', {
+            data: overrideData
+        });
+        return {
+            success: true,
+            message: 'Override removed successfully'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to remove schedule override'
         };
     }
 };
@@ -732,6 +860,7 @@ export default {
     verifyOtp,
     loginUser,
     loginAdmin,
+    logoutUser,
 
     // Services
     getServices,
@@ -765,6 +894,10 @@ export default {
     createAvailabilityRule,
     updateAvailabilityRule,
     deleteAvailabilityRule,
+    getTimeSlots,
+    getScheduleOverrides,
+    createScheduleOverride,
+    deleteScheduleOverride,
 
     // Admin - Stats
     getDashboardStats,

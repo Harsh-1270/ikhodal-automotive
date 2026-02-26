@@ -6,8 +6,10 @@ import com.ikhodalautomotive.appointment.dto.response.TimeSlotResponseDTO;
 import com.ikhodalautomotive.appointment.exception.ApiException;
 import com.ikhodalautomotive.appointment.model.AvailabilityRule;
 import com.ikhodalautomotive.appointment.model.Appointment;
+import com.ikhodalautomotive.appointment.model.ScheduleOverride;
 import com.ikhodalautomotive.appointment.repository.AvailabilityRuleRepository;
 import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
+import com.ikhodalautomotive.appointment.repository.ScheduleOverrideRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 
 import com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants;
@@ -16,6 +18,7 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -31,10 +34,14 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
     private final AvailabilityRuleRepository repository;
     private final AppointmentRepository appointmentRepository;
+    private final ScheduleOverrideRepository scheduleOverrideRepository;
 
-    public AvailabilityServiceImpl(AvailabilityRuleRepository repository, AppointmentRepository appointmentRepository) {
+    public AvailabilityServiceImpl(AvailabilityRuleRepository repository,
+            AppointmentRepository appointmentRepository,
+            ScheduleOverrideRepository scheduleOverrideRepository) {
         this.repository = repository;
         this.appointmentRepository = appointmentRepository;
+        this.scheduleOverrideRepository = scheduleOverrideRepository;
     }
 
     @Override
@@ -110,20 +117,32 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     @Override
     public TimeSlotResponseDTO getTimeSlotsForDate(LocalDate date) {
 
-        // 1️⃣ Configuration (can move to DB later)
+        // 1️⃣ Configuration
         LocalTime workingStart = LocalTime.of(8, 0);
         LocalTime workingEnd = LocalTime.of(22, 0);
-        int slotMinutes = 120; // Changed from 60 to 120 (2 hours)
+        int slotMinutes = 120;
 
-        // 2️⃣ Get blocked slots for that day
+        // 2️⃣ Check date-specific overrides
+        List<ScheduleOverride> dateOverrides = scheduleOverrideRepository.findByDate(date);
+
+        boolean dateIsHoliday = dateOverrides.stream()
+                .anyMatch(o -> "HOLIDAY".equals(o.getOverrideType()));
+        boolean dateIsUnavailable = dateOverrides.stream()
+                .anyMatch(o -> "UNAVAILABLE".equals(o.getOverrideType()));
+
+        // Slot-level overrides
+        List<ScheduleOverride> slotOverrides = dateOverrides.stream()
+                .filter(o -> "SLOT_BLOCKED".equals(o.getOverrideType()))
+                .toList();
+
+        // 3️⃣ Get blocked rules for that day-of-week
         DayOfWeek day = date.getDayOfWeek();
         List<AvailabilityRule> blockedRules = repository.findByDayOfWeek(day)
                 .stream()
                 .filter(r -> !r.getIsAvailable())
                 .toList();
 
-        // 3️⃣ Get existing appointments (exclude CANCELLED if we had that status, for
-        // now just PENDING/CONFIRMED/COMPLETED)
+        // 4️⃣ Get existing appointments
         List<Appointment> existingAppointments = appointmentRepository.findByAppointmentDateAndStatusIn(
                 date,
                 Arrays.asList(
@@ -133,47 +152,124 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
         List<TimeSlotResponseDTO.SlotDTO> slots = new ArrayList<>();
 
-        // 4️⃣ Generate slots
+        // 5️⃣ Generate slots
         LocalTime current = workingStart;
 
         while (current.isBefore(workingEnd)) {
             LocalTime slotEnd = current.plusMinutes(slotMinutes);
 
-            // If it wraps around or goes past workingEnd, stop
             if (slotEnd.isBefore(current) || slotEnd.isAfter(workingEnd)) {
                 break;
             }
 
             LocalTime slotStart = current;
 
-            // Check against blocked rules
-            boolean isBlockedByRule = blockedRules.stream()
-                    .anyMatch(rule -> slotStart.isBefore(rule.getEndTime()) && slotEnd.isAfter(rule.getStartTime()));
-
-            // Check against existing appointments
-            boolean isBooked = existingAppointments.stream()
-                    .anyMatch(app -> slotStart.isBefore(app.getEndTime()) && slotEnd.isAfter(app.getStartTime()));
-
-            boolean available = !isBlockedByRule && !isBooked;
-
             TimeSlotResponseDTO.SlotDTO slot = new TimeSlotResponseDTO.SlotDTO();
             slot.setStart(current.toString());
             slot.setEnd(slotEnd.toString());
-            slot.setAvailable(available);
+
+            // Determine slot status
+            if (dateIsHoliday || dateIsUnavailable) {
+                // Full-day override — all slots blocked
+                slot.setAvailable(false);
+                slot.setStatus("BLOCKED");
+            } else {
+                // Check slot-level overrides
+                boolean isSlotOverridden = slotOverrides.stream()
+                        .anyMatch(o -> slotStart.isBefore(o.getEndTime()) && slotEnd.isAfter(o.getStartTime()));
+
+                // Check day-of-week rules
+                boolean isBlockedByRule = blockedRules.stream()
+                        .anyMatch(
+                                rule -> slotStart.isBefore(rule.getEndTime()) && slotEnd.isAfter(rule.getStartTime()));
+
+                // Check booked appointments
+                boolean isBooked = existingAppointments.stream()
+                        .anyMatch(app -> slotStart.isBefore(app.getEndTime()) && slotEnd.isAfter(app.getStartTime()));
+
+                if (isBooked) {
+                    slot.setAvailable(false);
+                    slot.setStatus("BOOKED");
+                } else if (isBlockedByRule || isSlotOverridden) {
+                    slot.setAvailable(false);
+                    slot.setStatus("BLOCKED");
+                } else {
+                    slot.setAvailable(true);
+                    slot.setStatus("AVAILABLE");
+                }
+            }
 
             slots.add(slot);
-
             current = slotEnd;
         }
 
-        // 5️⃣ Build response
+        // 6️⃣ Build response
         TimeSlotResponseDTO response = new TimeSlotResponseDTO();
         response.setDate(date.toString());
+        response.setHoliday(dateIsHoliday);
+        response.setUnavailable(dateIsUnavailable);
         response.setSlots(slots);
 
-        log.info("Total slots generated: {}", slots.size());
+        log.info("Total slots generated for {}: {}", date, slots.size());
 
         return response;
+    }
+
+    // ================= SCHEDULE OVERRIDE METHODS =================
+
+    @Override
+    public List<ScheduleOverride> getScheduleOverrides(int year, int month) {
+        LocalDate startDate = LocalDate.of(year, month, 1);
+        LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+        return scheduleOverrideRepository.findByDateBetween(startDate, endDate);
+    }
+
+    @Override
+    @Transactional
+    public ScheduleOverride addScheduleOverride(LocalDate date, String overrideType,
+            LocalTime startTime, LocalTime endTime) {
+
+        // For full-day overrides, remove any conflicting override first
+        if ("HOLIDAY".equals(overrideType) || "UNAVAILABLE".equals(overrideType)) {
+            // Remove opposite full-day override if exists
+            scheduleOverrideRepository.findByDateAndOverrideType(date, "HOLIDAY")
+                    .ifPresent(scheduleOverrideRepository::delete);
+            scheduleOverrideRepository.findByDateAndOverrideType(date, "UNAVAILABLE")
+                    .ifPresent(scheduleOverrideRepository::delete);
+        }
+
+        // Check if exact override already exists
+        if ("SLOT_BLOCKED".equals(overrideType) && startTime != null && endTime != null) {
+            var existing = scheduleOverrideRepository
+                    .findByDateAndOverrideTypeAndStartTimeAndEndTime(date, overrideType, startTime, endTime);
+            if (existing.isPresent()) {
+                throw new ApiException("This slot is already blocked");
+            }
+        }
+
+        ScheduleOverride override = ScheduleOverride.builder()
+                .date(date)
+                .overrideType(overrideType)
+                .startTime(startTime)
+                .endTime(endTime)
+                .build();
+
+        return scheduleOverrideRepository.save(override);
+    }
+
+    @Override
+    @Transactional
+    public void removeScheduleOverride(LocalDate date, String overrideType,
+            LocalTime startTime, LocalTime endTime) {
+
+        if ("SLOT_BLOCKED".equals(overrideType) && startTime != null && endTime != null) {
+            scheduleOverrideRepository
+                    .findByDateAndOverrideTypeAndStartTimeAndEndTime(date, overrideType, startTime, endTime)
+                    .ifPresent(scheduleOverrideRepository::delete);
+        } else {
+            scheduleOverrideRepository.findByDateAndOverrideType(date, overrideType)
+                    .ifPresent(scheduleOverrideRepository::delete);
+        }
     }
 
 }

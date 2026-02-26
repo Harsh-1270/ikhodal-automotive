@@ -2,9 +2,10 @@
    ADMIN SCHEDULE MANAGEMENT
    ============================================ */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/common/AdminNavbar';
+import { getTimeSlots, getScheduleOverrides, createScheduleOverride, deleteScheduleOverride } from '../../services/api';
 import './AdminSchedule.css';
 
 const AdminSchedule = () => {
@@ -70,51 +71,82 @@ const AdminSchedule = () => {
             <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
+        ),
+        User: ({ className = "", color = "#3b82f6" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
         )
     };
 
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [unavailableDates, setUnavailableDates] = useState([]);
-    const [holidays, setHolidays] = useState([]);
-    const [unavailableTimeSlots, setUnavailableTimeSlots] = useState({});
+    const [overrides, setOverrides] = useState([]);
+    const [timeSlots, setTimeSlots] = useState([]);
+    const [dateIsHoliday, setDateIsHoliday] = useState(false);
+    const [dateIsUnavailable, setDateIsUnavailable] = useState(false);
+    const [loadingSlots, setLoadingSlots] = useState(false);
+
+    // Toast state
+    const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
     /* ==========================================
-       MOCK DATA - INITIAL CONFIGURATION
+       TOAST NOTIFICATION
        ========================================== */
+    const showToast = (message, type = 'success') => {
+        setToast({ show: true, message, type });
+        setTimeout(() => {
+            setToast({ show: false, message: '', type: 'success' });
+        }, 3000);
+    };
+
+    /* ==========================================
+       FETCH OVERRIDES FOR CURRENT MONTH
+       ========================================== */
+    const fetchOverrides = useCallback(async () => {
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth() + 1;
+        const result = await getScheduleOverrides(year, month);
+        if (result.success) {
+            setOverrides(result.data || []);
+        }
+    }, [currentMonth]);
+
     useEffect(() => {
-        setUnavailableDates([
-            '2026-02-05',
-            '2026-02-12',
-            '2026-02-20',
-        ]);
+        fetchOverrides();
+    }, [fetchOverrides]);
 
-        setHolidays([
-            '2026-02-01',
-            '2026-02-15',
-            '2026-02-26',
-        ]);
-
-        setUnavailableTimeSlots({
-            '2026-02-08': [3, 6],
-            '2026-02-10': [1, 4, 7],
-        });
+    /* ==========================================
+       FETCH TIME SLOTS FOR SELECTED DATE
+       ========================================== */
+    const fetchTimeSlots = useCallback(async (date) => {
+        if (!date) return;
+        setLoadingSlots(true);
+        const dateStr = formatDateToString(date);
+        const result = await getTimeSlots(dateStr);
+        if (result.success && result.data) {
+            setTimeSlots(result.data.slots || []);
+            setDateIsHoliday(result.data.holiday || false);
+            setDateIsUnavailable(result.data.unavailable || false);
+        } else {
+            setTimeSlots([]);
+            setDateIsHoliday(false);
+            setDateIsUnavailable(false);
+        }
+        setLoadingSlots(false);
     }, []);
 
-    /* ==========================================
-       TIME SLOTS CONFIGURATION
-       ========================================== */
-    const timeSlots = [
-        { id: 1, time: '09:00 AM', duration: '9:00 AM - 11:00 AM' },
-        { id: 2, time: '10:00 AM', duration: '10:00 AM - 12:00 PM' },
-        { id: 3, time: '11:00 AM', duration: '11:00 AM - 01:00 PM' },
-        { id: 4, time: '12:00 PM', duration: '12:00 PM - 02:00 PM' },
-        { id: 5, time: '02:00 PM', duration: '02:00 PM - 04:00 PM' },
-        { id: 6, time: '03:00 PM', duration: '03:00 PM - 05:00 PM' },
-        { id: 7, time: '04:00 PM', duration: '04:00 PM - 06:00 PM' },
-        { id: 8, time: '05:00 PM', duration: '05:00 PM - 07:00 PM' },
-    ];
+    useEffect(() => {
+        if (selectedDate) {
+            fetchTimeSlots(selectedDate);
+        } else {
+            setTimeSlots([]);
+            setDateIsHoliday(false);
+            setDateIsUnavailable(false);
+        }
+    }, [selectedDate, fetchTimeSlots]);
 
     /* ==========================================
        CALENDAR FUNCTIONS
@@ -145,14 +177,18 @@ const AdminSchedule = () => {
         return `${year}-${month}-${day}`;
     };
 
+    const getOverridesForDate = (date) => {
+        if (!date) return [];
+        const dateStr = formatDateToString(date);
+        return overrides.filter(o => o.date === dateStr);
+    };
+
     const isHoliday = (date) => {
-        if (!date) return false;
-        return holidays.includes(formatDateToString(date));
+        return getOverridesForDate(date).some(o => o.overrideType === 'HOLIDAY');
     };
 
     const isUnavailable = (date) => {
-        if (!date) return false;
-        return unavailableDates.includes(formatDateToString(date));
+        return getOverridesForDate(date).some(o => o.overrideType === 'UNAVAILABLE');
     };
 
     const isPastDate = (date) => {
@@ -177,76 +213,138 @@ const AdminSchedule = () => {
         setSelectedDate(date);
     };
 
-    const handleMarkAsHoliday = () => {
+    const handleMarkAsHoliday = async () => {
         if (!selectedDate) return;
         const dateStr = formatDateToString(selectedDate);
 
-        if (holidays.includes(dateStr)) {
-            setHolidays(holidays.filter(d => d !== dateStr));
-            alert(`✅ ${dateStr} removed from holidays!`);
+        if (isHoliday(selectedDate)) {
+            // Remove holiday
+            const result = await deleteScheduleOverride({ date: dateStr, overrideType: 'HOLIDAY' });
+            if (result.success) {
+                showToast(`${dateStr} removed from holidays!`, 'success');
+                await fetchOverrides();
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
         } else {
-            setHolidays([...holidays, dateStr]);
-            setUnavailableDates(unavailableDates.filter(d => d !== dateStr));
-            alert(`✅ ${dateStr} marked as holiday!`);
+            // Mark as holiday
+            const result = await createScheduleOverride({ date: dateStr, overrideType: 'HOLIDAY' });
+            if (result.success) {
+                showToast(`${dateStr} marked as holiday!`, 'success');
+                await fetchOverrides();
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
         }
     };
 
-    const handleMarkAsUnavailable = () => {
+    const handleMarkAsUnavailable = async () => {
         if (!selectedDate) return;
         const dateStr = formatDateToString(selectedDate);
 
-        if (unavailableDates.includes(dateStr)) {
-            setUnavailableDates(unavailableDates.filter(d => d !== dateStr));
-            alert(`✅ ${dateStr} is now available!`);
+        if (isUnavailable(selectedDate)) {
+            // Remove unavailable
+            const result = await deleteScheduleOverride({ date: dateStr, overrideType: 'UNAVAILABLE' });
+            if (result.success) {
+                showToast(`${dateStr} is now available!`, 'success');
+                await fetchOverrides();
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
         } else {
-            setUnavailableDates([...unavailableDates, dateStr]);
-            setHolidays(holidays.filter(d => d !== dateStr));
-            alert(`✅ ${dateStr} marked as unavailable!`);
+            // Mark as unavailable
+            const result = await createScheduleOverride({ date: dateStr, overrideType: 'UNAVAILABLE' });
+            if (result.success) {
+                showToast(`${dateStr} marked as unavailable!`, 'success');
+                await fetchOverrides();
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
         }
     };
 
-    const handleMarkAsAvailable = () => {
+    const handleMarkAsAvailable = async () => {
         if (!selectedDate) return;
         const dateStr = formatDateToString(selectedDate);
 
-        setUnavailableDates(unavailableDates.filter(d => d !== dateStr));
-        setHolidays(holidays.filter(d => d !== dateStr));
-        const newTimeSlots = { ...unavailableTimeSlots };
-        delete newTimeSlots[dateStr];
-        setUnavailableTimeSlots(newTimeSlots);
+        // Remove all overrides for this date
+        if (isHoliday(selectedDate)) {
+            await deleteScheduleOverride({ date: dateStr, overrideType: 'HOLIDAY' });
+        }
+        if (isUnavailable(selectedDate)) {
+            await deleteScheduleOverride({ date: dateStr, overrideType: 'UNAVAILABLE' });
+        }
+        // Remove slot-level overrides
+        const slotOverrides = getOverridesForDate(selectedDate)
+            .filter(o => o.overrideType === 'SLOT_BLOCKED');
+        for (const so of slotOverrides) {
+            await deleteScheduleOverride({
+                date: dateStr,
+                overrideType: 'SLOT_BLOCKED',
+                startTime: so.startTime,
+                endTime: so.endTime
+            });
+        }
 
-        alert(`✅ ${dateStr} is now fully available!`);
+        showToast(`${dateStr} is now fully available!`, 'success');
+        await fetchOverrides();
+        await fetchTimeSlots(selectedDate);
     };
 
     /* ==========================================
        TIME SLOT MANAGEMENT
        ========================================== */
-    const isTimeSlotUnavailable = (slotId) => {
-        if (!selectedDate) return false;
+    const handleTimeSlotToggle = async (slot) => {
+        if (!selectedDate) return;
+        if (slot.status === 'BOOKED') return; // Can't toggle booked slots
+
         const dateStr = formatDateToString(selectedDate);
-        return unavailableTimeSlots[dateStr]?.includes(slotId) || false;
+
+        if (slot.status === 'BLOCKED') {
+            // Try to unblock — remove the slot override
+            const result = await deleteScheduleOverride({
+                date: dateStr,
+                overrideType: 'SLOT_BLOCKED',
+                startTime: slot.start,
+                endTime: slot.end
+            });
+            if (result.success) {
+                showToast(`Time slot ${formatTime(slot.start)} is now available!`, 'success');
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
+        } else {
+            // Block the slot
+            const result = await createScheduleOverride({
+                date: dateStr,
+                overrideType: 'SLOT_BLOCKED',
+                startTime: slot.start,
+                endTime: slot.end
+            });
+            if (result.success) {
+                showToast(`Time slot ${formatTime(slot.start)} marked as unavailable!`, 'success');
+                await fetchTimeSlots(selectedDate);
+            } else {
+                showToast(result.message, 'error');
+            }
+        }
     };
 
-    const handleTimeSlotToggle = (slotId) => {
-        if (!selectedDate) return;
-        const dateStr = formatDateToString(selectedDate);
-
-        const currentSlots = unavailableTimeSlots[dateStr] || [];
-
-        if (currentSlots.includes(slotId)) {
-            const newSlots = currentSlots.filter(id => id !== slotId);
-            setUnavailableTimeSlots({
-                ...unavailableTimeSlots,
-                [dateStr]: newSlots.length > 0 ? newSlots : undefined
-            });
-            alert(`✅ Time slot ${timeSlots.find(s => s.id === slotId).time} is now available!`);
-        } else {
-            setUnavailableTimeSlots({
-                ...unavailableTimeSlots,
-                [dateStr]: [...currentSlots, slotId]
-            });
-            alert(`✅ Time slot ${timeSlots.find(s => s.id === slotId).time} marked as unavailable!`);
-        }
+    /* ==========================================
+       FORMAT TIME (HH:mm to 12hr format)
+       ========================================== */
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '';
+        const [hours, minutes] = timeStr.split(':');
+        const h = parseInt(hours, 10);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const displayHour = h % 12 || 12;
+        return `${String(displayHour).padStart(2, '0')}:${minutes} ${ampm}`;
     };
 
     /* ==========================================
@@ -281,6 +379,19 @@ const AdminSchedule = () => {
             {/* Admin Navbar */}
             <AdminNavbar />
 
+            {/* Toast Notification */}
+            {toast.show && (
+                <div className={`adm-sch-toast ${toast.type}`}>
+                    <div className="adm-sch-toast-icon">
+                        {toast.type === 'success' ? <Icons.CheckCircle color="#ffffff" /> : <Icons.XCircle color="#ffffff" />}
+                    </div>
+                    <span className="adm-sch-toast-message">{toast.message}</span>
+                    <button className="adm-sch-toast-close" onClick={() => setToast({ show: false, message: '', type: 'success' })}>
+                        ×
+                    </button>
+                </div>
+            )}
+
             {/* Main Content */}
             <div className="adm-sch-main">
                 {/* Page Header */}
@@ -306,6 +417,10 @@ const AdminSchedule = () => {
                     <div className="adm-sch-legend-item">
                         <div className="adm-sch-legend-color unavailable"></div>
                         <span>Not Available</span>
+                    </div>
+                    <div className="adm-sch-legend-item">
+                        <div className="adm-sch-legend-color booked"></div>
+                        <span>Booked</span>
                     </div>
                     <div className="adm-sch-legend-item">
                         <div className="adm-sch-legend-color selected"></div>
@@ -418,49 +533,61 @@ const AdminSchedule = () => {
                                     </div>
 
                                     {/* Time Slots Management */}
-                                    {getDayStatus(selectedDate) === 'available' && (
+                                    {!dateIsHoliday && !dateIsUnavailable && (
                                         <div className="adm-sch-timeslots-mgmt">
                                             <h4 className="adm-sch-section-title">
                                                 <span><Icons.Clock /></span>
                                                 Time Slot Availability
                                             </h4>
                                             <p className="adm-sch-section-subtitle">
-                                                Click on time slots to toggle availability
+                                                Click on time slots to toggle availability. Booked slots cannot be modified.
                                             </p>
-                                            <div className="adm-sch-timeslots-grid">
-                                                {timeSlots.map(slot => {
-                                                    const isUnavail = isTimeSlotUnavailable(slot.id);
-                                                    return (
-                                                        <div
-                                                            key={slot.id}
-                                                            className={`adm-sch-time-slot ${isUnavail ? 'unavailable' : 'available'}`}
-                                                            onClick={() => handleTimeSlotToggle(slot.id)}
-                                                        >
-                                                            <div className="adm-sch-slot-status-icon">
-                                                                {isUnavail ? <Icons.XCircle /> : <Icons.CheckCircle />}
+                                            {loadingSlots ? (
+                                                <p className="adm-sch-section-subtitle">Loading time slots...</p>
+                                            ) : (
+                                                <div className="adm-sch-timeslots-grid">
+                                                    {timeSlots.map((slot, idx) => {
+                                                        const slotStatus = slot.status || (slot.available ? 'AVAILABLE' : 'BLOCKED');
+                                                        const statusClass = slotStatus === 'BOOKED' ? 'booked' :
+                                                            slotStatus === 'BLOCKED' ? 'unavailable' : 'available';
+                                                        const isClickable = slotStatus !== 'BOOKED';
+
+                                                        return (
+                                                            <div
+                                                                key={idx}
+                                                                className={`adm-sch-time-slot ${statusClass}`}
+                                                                onClick={() => isClickable && handleTimeSlotToggle(slot)}
+                                                                style={{ cursor: isClickable ? 'pointer' : 'default' }}
+                                                            >
+                                                                <div className="adm-sch-slot-status-icon">
+                                                                    {slotStatus === 'BOOKED' ? <Icons.User color="#1e3a8a" /> :
+                                                                        slotStatus === 'BLOCKED' ? <Icons.XCircle /> :
+                                                                            <Icons.CheckCircle />}
+                                                                </div>
+                                                                <div className="adm-sch-slot-details">
+                                                                    <div className="adm-sch-slot-time">{formatTime(slot.start)}</div>
+                                                                    <div className="adm-sch-slot-duration">{formatTime(slot.start)} - {formatTime(slot.end)}</div>
+                                                                </div>
+                                                                <div className="adm-sch-slot-status-text">
+                                                                    {slotStatus === 'BOOKED' ? 'Booked' :
+                                                                        slotStatus === 'BLOCKED' ? 'Unavailable' : 'Available'}
+                                                                </div>
                                                             </div>
-                                                            <div className="adm-sch-slot-details">
-                                                                <div className="adm-sch-slot-time">{slot.time}</div>
-                                                                <div className="adm-sch-slot-duration">{slot.duration}</div>
-                                                            </div>
-                                                            <div className="adm-sch-slot-status-text">
-                                                                {isUnavail ? 'Unavailable' : 'Available'}
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 
                                     {/* Info Message */}
-                                    {(isHoliday(selectedDate) || isUnavailable(selectedDate)) && (
+                                    {(dateIsHoliday || dateIsUnavailable) && (
                                         <div className="adm-sch-info-message">
                                             <div className="adm-sch-info-icon"><Icons.Info /></div>
                                             <div className="adm-sch-info-text">
-                                                {isHoliday(selectedDate) &&
+                                                {dateIsHoliday &&
                                                     'This date is marked as a holiday. All time slots are unavailable.'}
-                                                {isUnavailable(selectedDate) &&
+                                                {dateIsUnavailable &&
                                                     'This date is marked as unavailable. All time slots are blocked.'}
                                             </div>
                                         </div>

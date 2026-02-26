@@ -2,8 +2,10 @@ package com.ikhodalautomotive.appointment.controller;
 
 import com.ikhodalautomotive.appointment.dto.request.AvailabilityRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.CreateServiceRequestDTO;
+import com.ikhodalautomotive.appointment.dto.request.ScheduleOverrideRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.UserResponseDTO;
+import com.ikhodalautomotive.appointment.model.ScheduleOverride;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 import com.ikhodalautomotive.appointment.service.BookingService;
 import com.ikhodalautomotive.appointment.service.ServiceService;
@@ -36,11 +38,18 @@ public class AdminController {
     @Autowired
     private final BookingService bookingService;
 
-    // GET : localhost:8082/api/admin/getAllUsers
-    @GetMapping("/getAllUsers")
+    // GET : localhost:8082/api/admin/getAllUsers or /api/admin/users
+    @GetMapping({ "/getAllUsers", "/users" })
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok().body(
                 userService.getAllUsers());
+    }
+
+    // DELETE : localhost:8082/api/admin/users/{id}
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     // POST : localhost:8082/api/admin/addServices
@@ -58,6 +67,35 @@ public class AdminController {
         availabilityService.addAvailabilityRule(dto);
         return ResponseEntity.ok("Availability rule added");
     }
+
+    // ================= SCHEDULE OVERRIDES =================
+
+    // GET : localhost:8082/api/admin/schedule/overrides?year=2026&month=2
+    @GetMapping("/schedule/overrides")
+    public ResponseEntity<List<ScheduleOverride>> getScheduleOverrides(
+            @RequestParam int year, @RequestParam int month) {
+        return ResponseEntity.ok(availabilityService.getScheduleOverrides(year, month));
+    }
+
+    // POST : localhost:8082/api/admin/schedule/override
+    @PostMapping("/schedule/override")
+    public ResponseEntity<ScheduleOverride> addScheduleOverride(
+            @RequestBody ScheduleOverrideRequestDTO dto) {
+        ScheduleOverride override = availabilityService.addScheduleOverride(
+                dto.getDate(), dto.getOverrideType(), dto.getStartTime(), dto.getEndTime());
+        return ResponseEntity.ok(override);
+    }
+
+    // DELETE : localhost:8082/api/admin/schedule/override
+    @DeleteMapping("/schedule/override")
+    public ResponseEntity<String> removeScheduleOverride(
+            @RequestBody ScheduleOverrideRequestDTO dto) {
+        availabilityService.removeScheduleOverride(
+                dto.getDate(), dto.getOverrideType(), dto.getStartTime(), dto.getEndTime());
+        return ResponseEntity.ok("Override removed successfully");
+    }
+
+    // ================= APPOINTMENTS =================
 
     // GET : localhost:8082/api/admin/appointments?status=CONFIRMED
     @GetMapping("/appointments")

@@ -11,6 +11,8 @@ import java.util.List;
 public class TimeSlotResponseDTO {
 
     private String date;
+    private boolean isHoliday;
+    private boolean isUnavailable;
     private List<SlotDTO> slots;
 
     @Data
@@ -20,5 +22,6 @@ public class TimeSlotResponseDTO {
         private String start;
         private String end;
         private boolean available;
+        private String status; // AVAILABLE, BLOCKED, BOOKED
     }
 }

@@ -99,8 +99,8 @@ const AdminNavbar = () => {
         setShowLogoutDropdown(!showLogoutDropdown);
     };
 
-    const handleLogout = () => {
-        logout();
+    const handleLogout = async () => {
+        await logout();
         navigate('/login', { replace: true });
         setShowLogoutDropdown(false);
         setMobileMenuOpen(false);

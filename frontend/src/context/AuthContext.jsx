@@ -4,6 +4,7 @@
    ============================================ */
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { logoutUser } from '../services/api';
 
 // Create Auth Context
 export const AuthContext = createContext();
@@ -71,8 +72,11 @@ export const AuthProvider = ({ children }) => {
     /* ==========================================
        USER LOGOUT FUNCTION
        ========================================== */
-    const logout = () => {
+    const logout = async () => {
         try {
+            // Call backend to set isOnline = false (fire-and-forget)
+            await logoutUser().catch(() => { });
+
             // Clear state
             setUser(null);
             setIsAdmin(false);

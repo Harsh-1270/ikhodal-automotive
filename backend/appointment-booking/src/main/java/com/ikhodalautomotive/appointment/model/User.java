@@ -25,6 +25,8 @@ public class User {
 
     private boolean isActive;
 
+    private boolean isOnline;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

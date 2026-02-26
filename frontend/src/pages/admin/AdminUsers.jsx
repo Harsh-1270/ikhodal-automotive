@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/common/AdminNavbar';
+import { getAllUsers, deleteUser } from '../../services/api';
 import './AdminUsers.css';
 
 const AdminUsers = () => {
@@ -102,6 +103,8 @@ const AdminUsers = () => {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [stats, setStats] = useState({
         total: 0,
         active: 0,
@@ -109,136 +112,49 @@ const AdminUsers = () => {
     });
 
     /* ==========================================
-       MOCK USERS DATA
+       FETCH USERS FROM API
        ========================================== */
-    const mockUsers = [
-        {
-            id: 'USR-001',
-            name: 'Alis Desai',
-            email: 'alis.desai@example.com',
-            phone: '+91 98765 43210',
-            registeredDate: '2025-12-15',
-            totalBookings: 8,
-            status: 'active'
-        },
-        {
-            id: 'USR-002',
-            name: 'Raj Patel',
-            email: 'raj.patel@example.com',
-            phone: '+91 98765 43211',
-            registeredDate: '2025-11-20',
-            totalBookings: 5,
-            status: 'active'
-        },
-        {
-            id: 'USR-003',
-            name: 'Priya Shah',
-            email: 'priya.shah@example.com',
-            phone: '+91 98765 43212',
-            registeredDate: '2025-10-10',
-            totalBookings: 12,
-            status: 'active'
-        },
-        {
-            id: 'USR-004',
-            name: 'Amit Kumar',
-            email: 'amit.kumar@example.com',
-            phone: '+91 98765 43213',
-            registeredDate: '2025-09-05',
-            totalBookings: 3,
-            status: 'active'
-        },
-        {
-            id: 'USR-005',
-            name: 'Neha Mehta',
-            email: 'neha.mehta@example.com',
-            phone: '+91 98765 43214',
-            registeredDate: '2026-01-08',
-            totalBookings: 6,
-            status: 'active'
-        },
-        {
-            id: 'USR-006',
-            name: 'Vikram Singh',
-            email: 'vikram.singh@example.com',
-            phone: '+91 98765 43215',
-            registeredDate: '2025-08-22',
-            totalBookings: 15,
-            status: 'active'
-        },
-        {
-            id: 'USR-007',
-            name: 'Kavita Joshi',
-            email: 'kavita.joshi@example.com',
-            phone: '+91 98765 43216',
-            registeredDate: '2025-12-30',
-            totalBookings: 2,
-            status: 'inactive'
-        },
-        {
-            id: 'USR-008',
-            name: 'Rohit Sharma',
-            email: 'rohit.sharma@example.com',
-            phone: '+91 98765 43217',
-            registeredDate: '2025-07-18',
-            totalBookings: 9,
-            status: 'active'
-        },
-        {
-            id: 'USR-009',
-            name: 'Anjali Patel',
-            email: 'anjali.patel@example.com',
-            phone: '+91 98765 43218',
-            registeredDate: '2025-11-12',
-            totalBookings: 4,
-            status: 'active'
-        },
-        {
-            id: 'USR-010',
-            name: 'Karan Desai',
-            email: 'karan.desai@example.com',
-            phone: '+91 98765 43219',
-            registeredDate: '2025-10-25',
-            totalBookings: 7,
-            status: 'inactive'
-        },
-        {
-            id: 'USR-011',
-            name: 'Sonia Kapoor',
-            email: 'sonia.kapoor@example.com',
-            phone: '+91 98765 43220',
-            registeredDate: '2026-01-15',
-            totalBookings: 1,
-            status: 'active'
-        },
-        {
-            id: 'USR-012',
-            name: 'Arjun Reddy',
-            email: 'arjun.reddy@example.com',
-            phone: '+91 98765 43221',
-            registeredDate: '2025-09-30',
-            totalBookings: 11,
-            status: 'active'
+    const fetchUsers = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const result = await getAllUsers();
+            if (result.success) {
+                const usersData = result.data || [];
+                setUsers(usersData);
+                setFilteredUsers(usersData);
+                calculateStats(usersData);
+            } else {
+                setError(result.message || 'Failed to fetch users');
+            }
+        } catch (err) {
+            setError('Failed to fetch users');
+        } finally {
+            setLoading(false);
         }
-    ];
+    };
 
     /* ==========================================
        LOAD USERS ON MOUNT
        ========================================== */
     useEffect(() => {
-        setUsers(mockUsers);
-        setFilteredUsers(mockUsers);
-        calculateStats(mockUsers);
-
-        // Animate cards on load
-        setTimeout(() => {
-            document.querySelectorAll('.adm-user-card').forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('visible');
-                }, index * 80);
-            });
-        }, 100);
+        fetchUsers();
     }, []);
+
+    /* ==========================================
+       ANIMATE CARDS AFTER LOADING
+       ========================================== */
+    useEffect(() => {
+        if (!loading) {
+            setTimeout(() => {
+                document.querySelectorAll('.adm-user-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 80);
+                });
+            }, 100);
+        }
+    }, [loading, filteredUsers]);
 
     /* ==========================================
        CALCULATE STATISTICS
@@ -246,8 +162,8 @@ const AdminUsers = () => {
     const calculateStats = (data) => {
         setStats({
             total: data.length,
-            active: data.filter(u => u.status === 'active').length,
-            inactive: data.filter(u => u.status === 'inactive').length
+            active: data.filter(u => u.online === true).length,
+            inactive: data.filter(u => u.online !== true).length
         });
     };
 
@@ -260,10 +176,10 @@ const AdminUsers = () => {
         } else {
             const query = searchQuery.toLowerCase();
             const filtered = users.filter(user =>
-                user.name.toLowerCase().includes(query) ||
-                user.email.toLowerCase().includes(query) ||
-                user.phone.includes(query) ||
-                user.id.toLowerCase().includes(query)
+                (user.name || '').toLowerCase().includes(query) ||
+                (user.email || '').toLowerCase().includes(query) ||
+                (user.phone || '').includes(query) ||
+                String(user.id).toLowerCase().includes(query)
             );
             setFilteredUsers(filtered);
         }
@@ -286,18 +202,21 @@ const AdminUsers = () => {
     /* ==========================================
        HANDLE DELETE USER
        ========================================== */
-    const handleDeleteUser = (userId, userName) => {
+    const handleDeleteUser = async (userId, userName) => {
         const confirmDelete = window.confirm(
             `Are you sure you want to delete user "${userName}"?\n\nUser ID: ${userId}\n\nThis action cannot be undone.`
         );
 
         if (confirmDelete) {
-            const updatedUsers = users.filter(u => u.id !== userId);
-            setUsers(updatedUsers);
-            calculateStats(updatedUsers);
-
-            // Show success message
-            alert(`✅ User "${userName}" has been deleted successfully!`);
+            const result = await deleteUser(userId);
+            if (result.success) {
+                const updatedUsers = users.filter(u => u.id !== userId);
+                setUsers(updatedUsers);
+                calculateStats(updatedUsers);
+                alert(`✅ User "${userName}" has been deleted successfully!`);
+            } else {
+                alert(`❌ Failed to delete user: ${result.message}`);
+            }
         }
     };
 
@@ -305,8 +224,16 @@ const AdminUsers = () => {
        FORMAT DATE
        ========================================== */
     const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
+    /* ==========================================
+       GET USER STATUS (based on isOnline)
+       ========================================== */
+    const getUserStatus = (user) => {
+        return user.online === true ? 'active' : 'inactive';
     };
 
     /* ==========================================
@@ -389,7 +316,25 @@ const AdminUsers = () => {
 
                 {/* Users Grid */}
                 <div className="adm-users-grid">
-                    {filteredUsers.length === 0 ? (
+                    {loading ? (
+                        <div className="adm-empty-state">
+                            <div className="adm-empty-icon"><Icons.Users color="#94a3b8" /></div>
+                            <h3>Loading users...</h3>
+                            <p>Please wait while we fetch user data</p>
+                        </div>
+                    ) : error ? (
+                        <div className="adm-empty-state">
+                            <div className="adm-empty-icon"><Icons.PauseCircle color="#ef4444" /></div>
+                            <h3>Error loading users</h3>
+                            <p>{error}</p>
+                            <button
+                                className="adm-clear-filters-btn"
+                                onClick={fetchUsers}
+                            >
+                                Retry
+                            </button>
+                        </div>
+                    ) : filteredUsers.length === 0 ? (
                         <div className="adm-empty-state">
                             <div className="adm-empty-icon"><Icons.Search color="#94a3b8" /></div>
                             <h3>No users found</h3>
@@ -402,63 +347,66 @@ const AdminUsers = () => {
                             </button>
                         </div>
                     ) : (
-                        filteredUsers.map((user) => (
-                            <div key={user.id} className="adm-user-card">
-                                {/* User Header */}
-                                <div className="adm-user-card-header">
-                                    <div className="adm-user-avatar-large">
-                                        <Icons.User color="#ffffff" />
-                                    </div>
-                                    <div className={`adm-user-status-badge ${user.status}`}>
-                                        {user.status === 'active' ? <Icons.CircleDot color="#10b981" /> : <Icons.CircleDot color="#ef4444" />}
-                                        {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-                                    </div>
-                                </div>
-
-                                {/* User Info */}
-                                <div className="adm-user-card-body">
-                                    <h3 className="adm-user-card-name">{user.name}</h3>
-                                    <p className="adm-user-card-id">ID: {user.id}</p>
-
-                                    <div className="adm-user-card-details">
-                                        <div className="adm-detail-item">
-                                            <span className="adm-detail-icon"><Icons.Mail /></span>
-                                            <span className="adm-detail-text">{user.email}</span>
+                        filteredUsers.map((user) => {
+                            const status = getUserStatus(user);
+                            return (
+                                <div key={user.id} className="adm-user-card">
+                                    {/* User Header */}
+                                    <div className="adm-user-card-header">
+                                        <div className="adm-user-avatar-large">
+                                            <Icons.User color="#ffffff" />
                                         </div>
-                                        <div className="adm-detail-item">
-                                            <span className="adm-detail-icon"><Icons.Phone /></span>
-                                            <span className="adm-detail-text">{user.phone}</span>
-                                        </div>
-                                        <div className="adm-detail-item">
-                                            <span className="adm-detail-icon"><Icons.Calendar /></span>
-                                            <span className="adm-detail-text">{formatDate(user.registeredDate)}</span>
-                                        </div>
-                                        <div className="adm-detail-item">
-                                            <span className="adm-detail-icon"><Icons.Ticket /></span>
-                                            <span className="adm-detail-text">{user.totalBookings} bookings</span>
+                                        <div className={`adm-user-status-badge ${status}`}>
+                                            {status === 'active' ? <Icons.CircleDot color="#10b981" /> : <Icons.CircleDot color="#ef4444" />}
+                                            {status === 'active' ? 'Active' : 'Inactive'}
                                         </div>
                                     </div>
-                                </div>
 
-                                {/* User Actions */}
-                                <div className="adm-user-card-footer">
-                                    <button
-                                        className="adm-user-action-btn view"
-                                        onClick={() => navigate(`/admin/user/${user.id}`)}
-                                    >
-                                        <span><Icons.Eye /></span>
-                                        View Details
-                                    </button>
-                                    <button
-                                        className="adm-user-action-btn delete"
-                                        onClick={() => handleDeleteUser(user.id, user.name)}
-                                    >
-                                        <span><Icons.Trash /></span>
-                                        Delete
-                                    </button>
+                                    {/* User Info */}
+                                    <div className="adm-user-card-body">
+                                        <h3 className="adm-user-card-name">{user.name}</h3>
+                                        <p className="adm-user-card-id">ID: {user.id}</p>
+
+                                        <div className="adm-user-card-details">
+                                            <div className="adm-detail-item">
+                                                <span className="adm-detail-icon"><Icons.Mail /></span>
+                                                <span className="adm-detail-text">{user.email}</span>
+                                            </div>
+                                            <div className="adm-detail-item">
+                                                <span className="adm-detail-icon"><Icons.Phone /></span>
+                                                <span className="adm-detail-text">{user.phone || 'N/A'}</span>
+                                            </div>
+                                            <div className="adm-detail-item">
+                                                <span className="adm-detail-icon"><Icons.Calendar /></span>
+                                                <span className="adm-detail-text">{formatDate(user.createdAt)}</span>
+                                            </div>
+                                            <div className="adm-detail-item">
+                                                <span className="adm-detail-icon"><Icons.Ticket /></span>
+                                                <span className="adm-detail-text">{user.totalBookings} bookings</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* User Actions */}
+                                    <div className="adm-user-card-footer">
+                                        <button
+                                            className="adm-user-action-btn view"
+                                            onClick={() => navigate(`/admin/user/${user.id}`)}
+                                        >
+                                            <span><Icons.Eye /></span>
+                                            View Details
+                                        </button>
+                                        <button
+                                            className="adm-user-action-btn delete"
+                                            onClick={() => handleDeleteUser(user.id, user.name)}
+                                        >
+                                            <span><Icons.Trash /></span>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
+                            );
+                        })
                     )}
                 </div>
             </div>

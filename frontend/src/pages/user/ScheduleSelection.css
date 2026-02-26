@@ -406,6 +406,34 @@
     letter-spacing: 0.025em;
 }
 
+/* Blocked Slots (admin-set unavailable) */
+.time-slot.blocked {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+    color: #6b7280;
+    cursor: not-allowed;
+    opacity: 0.85;
+}
+
+.time-slot.blocked:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.blocked-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #6b7280;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.375rem 0.75rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
 /* ============================================
    SELECTION SUMMARY
    ============================================ */
