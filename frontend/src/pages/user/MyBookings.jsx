@@ -350,10 +350,37 @@ const MyBookings = () => {
                         </div>
                     ) : filteredBookings.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-icon"><Icons.Inbox /></div>
-                            <h3>No Bookings Found</h3>
-                            <p>You don't have any {activeTab !== 'all' ? activeTab : ''} bookings yet.</p>
-                            <button className="empty-action-btn">Browse Services</button>
+                            <div className="empty-state-visual">
+                                <div className="empty-state-glow"></div>
+                                <div className="empty-state-icon">
+                                    <Icons.Clipboard />
+                                </div>
+                            </div>
+                            <h3 className="empty-state-title">No Bookings Found</h3>
+                            <p className="empty-state-sub">
+                                You don't have any {activeTab !== 'all' ? activeTab + ' ' : ''}bookings yet.<br />
+                                Book your first service and get premium care!
+                            </p>
+                            <div className="empty-state-perks">
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-blue"><Icons.Calendar /></span>
+                                    <span className="eperk-label">Easy Booking</span>
+                                </div>
+                                <div className="eperk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-green"><Icons.ShieldCheck /></span>
+                                    <span className="eperk-label">Expert Technicians</span>
+                                </div>
+                                <div className="eperk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-orange"><Icons.Zap /></span>
+                                    <span className="eperk-label">Fast Service</span>
+                                </div>
+                            </div>
+                            <button className="empty-action-btn" onClick={() => navigate('/dashboard')}>
+                                <span className="empty-action-arrow">→</span>
+                                Browse Services
+                            </button>
                         </div>
                     ) : (
                         filteredBookings.map((booking, index) => (

@@ -144,13 +144,40 @@ const BookingDetails = () => {
 
     if (error || !booking) {
         return (
-            <div className="loading-container">
+            <div className="bd-error-container">
                 <Gradients />
-                <div className="error-icon" style={{ fontSize: '3rem', color: '#ef4444' }}>⚠️</div>
-                <p>{error || 'Booking not found'}</p>
-                <button className="back-btn" onClick={() => navigate('/my-bookings')}>
-                    Back to My Bookings
-                </button>
+                <div className="bd-error-card">
+                    <div className="bd-error-visual">
+                        <div className="bd-error-glow"></div>
+                        <div className="bd-error-icon">
+                            <Icons.Brakes />
+                        </div>
+                    </div>
+                    <h2 className="bd-error-title">Something Went Wrong</h2>
+                    <p className="bd-error-sub">
+                        {error || 'Booking not found'}<br />
+                        Please try again or go back to your bookings.
+                    </p>
+                    <div className="bd-error-hints">
+                        <div className="bd-hint">
+                            <span className="bdhint-icon bdhint-blue"><Icons.Calendar /></span>
+                            <span className="bdhint-label">Check booking ID</span>
+                        </div>
+                        <div className="bdhint-divider"></div>
+                        <div className="bd-hint">
+                            <span className="bdhint-icon bdhint-orange"><Icons.Clock /></span>
+                            <span className="bdhint-label">Try again later</span>
+                        </div>
+                        <div className="bdhint-divider"></div>
+                        <div className="bd-hint">
+                            <span className="bdhint-icon bdhint-green"><Icons.Phone /></span>
+                            <span className="bdhint-label">Contact support</span>
+                        </div>
+                    </div>
+                    <button className="bd-error-btn" onClick={() => navigate('/my-bookings')}>
+                        ← Back to My Bookings
+                    </button>
+                </div>
             </div>
         );
     }

@@ -313,11 +313,36 @@ const Payments = () => {
                         </div>
                     ) : sortedTransactions.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-icon">💳</div>
-                            <h3>No transactions yet</h3>
-                            <p>Your payment history will appear here once you complete a booking.</p>
+                            <div className="empty-state-visual">
+                                <div className="empty-state-glow"></div>
+                                <div className="empty-state-icon">
+                                    <Icons.CreditCard />
+                                </div>
+                            </div>
+                            <h3 className="empty-state-title">No Transactions Yet</h3>
+                            <p className="empty-state-sub">
+                                Your payment history will appear here once<br />
+                                you complete your first booking.
+                            </p>
+                            <div className="empty-state-perks">
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-blue"><Icons.BarChart /></span>
+                                    <span className="eperk-label">Track Spending</span>
+                                </div>
+                                <div className="eperk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-green"><Icons.Check /></span>
+                                    <span className="eperk-label">Instant Receipts</span>
+                                </div>
+                                <div className="eperk-divider"></div>
+                                <div className="empty-perk">
+                                    <span className="eperk-icon eperk-purple"><Icons.Sparkles /></span>
+                                    <span className="eperk-label">Secure Payments</span>
+                                </div>
+                            </div>
                             <button className="back-btn" onClick={() => navigate('/dashboard')}>
                                 Back to Dashboard
+                                <span className="back-btn-arrow"><Icons.ArrowRight /></span>
                             </button>
                         </div>
                     ) : sortedTransactions.map((transaction, index) => (

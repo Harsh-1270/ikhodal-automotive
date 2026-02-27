@@ -626,6 +626,241 @@
 }
 
 /* ============================================
+   EMPTY STATE — PREMIUM DESIGN
+   ============================================ */
+
+.empty-state {
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f1f5f9;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative blobs */
+.empty-state::before {
+    content: '';
+    position: absolute;
+    top: -70px;
+    right: -70px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.empty-state::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.empty-state-visual {
+    position: relative;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: stateGlowPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes stateGlowPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+.empty-state-icon {
+    width: 108px;
+    height: 108px;
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.2);
+    border: 2px solid rgba(99, 102, 241, 0.15);
+    animation: floatState 4s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes floatState {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.empty-state-icon svg {
+    width: 52px;
+    height: 52px;
+}
+
+.empty-state-title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: -0.025em;
+}
+
+.empty-state-sub {
+    font-size: 1.0625rem;
+    color: #64748b;
+    line-height: 1.7;
+    margin: 0 0 2.5rem 0;
+    max-width: 400px;
+}
+
+/* Perks strip */
+.empty-state-perks {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.125rem 2rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+    justify-content: space-around;
+    position: relative;
+    z-index: 1;
+}
+
+.empty-perk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.eperk-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.eperk-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.eperk-blue {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+}
+
+.eperk-green {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.eperk-purple {
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+}
+
+.eperk-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.eperk-divider {
+    width: 1px;
+    height: 40px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* Back / CTA button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.9375rem 2.25rem;
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.28);
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+.back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(30, 58, 138, 0.38);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+.back-btn-arrow {
+    display: inline-flex;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.back-btn-arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+.back-btn:hover .back-btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 
@@ -828,6 +1063,47 @@
         justify-content: center;
         padding: 0.625rem 0.75rem;
         font-size: 0.8125rem;
+    }
+
+    /* Empty state mobile */
+    .empty-state {
+        min-height: 50vh;
+        padding: 3rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    .empty-state-icon {
+        width: 88px;
+        height: 88px;
+        border-radius: 22px;
+    }
+
+    .empty-state-icon svg {
+        width: 42px;
+        height: 42px;
+    }
+
+    .empty-state-title {
+        font-size: 1.5rem;
+    }
+
+    .empty-state-sub {
+        font-size: 0.9375rem;
+        margin-bottom: 2rem;
+    }
+
+    .empty-state-perks {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .eperk-label {
+        font-size: 0.6875rem;
+    }
+
+    .back-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 
