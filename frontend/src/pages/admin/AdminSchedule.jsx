@@ -124,15 +124,16 @@ const AdminSchedule = () => {
     const fetchTimeSlots = useCallback(async (date) => {
         if (!date) return;
         setLoadingSlots(true);
+        const sunday = date.getDay() === 0;
         const dateStr = formatDateToString(date);
         const result = await getTimeSlots(dateStr);
         if (result.success && result.data) {
-            setTimeSlots(result.data.slots || []);
-            setDateIsHoliday(result.data.holiday || false);
+            setTimeSlots(sunday ? [] : (result.data.slots || []));
+            setDateIsHoliday(sunday || result.data.holiday || false);
             setDateIsUnavailable(result.data.unavailable || false);
         } else {
             setTimeSlots([]);
-            setDateIsHoliday(false);
+            setDateIsHoliday(sunday);
             setDateIsUnavailable(false);
         }
         setLoadingSlots(false);
@@ -183,7 +184,13 @@ const AdminSchedule = () => {
         return overrides.filter(o => o.date === dateStr);
     };
 
+    const isSunday = (date) => {
+        if (!date) return false;
+        return date.getDay() === 0;
+    };
+
     const isHoliday = (date) => {
+        if (isSunday(date)) return true;
         return getOverridesForDate(date).some(o => o.overrideType === 'HOLIDAY');
     };
 
@@ -475,7 +482,7 @@ const AdminSchedule = () => {
                                             onClick={() => handleDateClick(date)}
                                         >
                                             <span className="adm-sch-day-number">{date.getDate()}</span>
-                                            {status === 'holiday' && <span className="adm-sch-day-label">Holiday</span>}
+                                            {status === 'holiday' && <span className="adm-sch-day-label">{isSunday(date) ? 'Sunday' : 'Holiday'}</span>}
                                             {status === 'unavailable' && <span className="adm-sch-day-label">Closed</span>}
                                         </div>
                                     );

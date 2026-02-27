@@ -615,31 +615,37 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="banner-right">
-                            <div className="floating-card card-1">
-                                <div className="card-icon">
-                                    <Icons.Star />
+                            {/* Highlight Cards — overlapping stack */}
+                            <div className="highlight-cards">
+                                <div className="highlight-card hc-1">
+                                    <div className="hc-glow"></div>
+                                    <div className="hc-icon">
+                                        <Icons.Star />
+                                    </div>
+                                    <div className="hc-info">
+                                        <span className="hc-value">4.9<small>/5</small></span>
+                                        <span className="hc-label">Customer Rating</span>
+                                    </div>
                                 </div>
-                                <div className="card-text">
-                                    <div className="card-value">4.9/5</div>
-                                    <div className="card-label">Rating</div>
+                                <div className="highlight-card hc-2">
+                                    <div className="hc-glow"></div>
+                                    <div className="hc-icon">
+                                        <Icons.Rocket />
+                                    </div>
+                                    <div className="hc-info">
+                                        <span className="hc-value">5K+</span>
+                                        <span className="hc-label">Happy Customers</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="floating-card card-2">
-                                <div className="card-icon">
-                                    <Icons.Rocket />
-                                </div>
-                                <div className="card-text">
-                                    <div className="card-value">5K+</div>
-                                    <div className="card-label">Customers</div>
-                                </div>
-                            </div>
-                            <div className="floating-card card-3">
-                                <div className="card-icon">
-                                    <Icons.Lightning />
-                                </div>
-                                <div className="card-text">
-                                    <div className="card-value">Mobile</div>
-                                    <div className="card-label">Service</div>
+                                <div className="highlight-card hc-3">
+                                    <div className="hc-glow"></div>
+                                    <div className="hc-icon">
+                                        <Icons.Car />
+                                    </div>
+                                    <div className="hc-info">
+                                        <span className="hc-value">24/7</span>
+                                        <span className="hc-label">Mobile Service</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -320,10 +320,10 @@ const BookingDetails = () => {
                                 </h2>
                             </div>
                             <div className="card-body">
-                                <div className="center-info" style={{ textAlign: 'left' }}>
-                                    <h3 className="center-name" style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '0.5rem' }}>{booking.serviceCenter}</h3>
-                                    <p className="center-address" style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>{booking.serviceCenterAddress}</p>
-                                    <div className="center-contact" style={{ background: 'rgba(255,255,255,0.05)', padding: '0.75rem', borderRadius: '12px' }}>
+                                <div className="center-info">
+                                    <h3 className="center-name">{booking.serviceCenter}</h3>
+                                    <p className="center-address">{booking.serviceCenterAddress}</p>
+                                    <div className="center-contact">
                                         <span className="contact-icon"><Icons.Phone className="inline-icon" /></span>
                                         <span className="contact-text">{booking.serviceCenterPhone}</span>
                                     </div>

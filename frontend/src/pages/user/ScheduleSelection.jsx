@@ -122,8 +122,14 @@ const ScheduleSelection = () => {
         return overrides.filter(o => o.date === dateStr);
     };
 
+    const isSunday = (date) => {
+        if (!date) return false;
+        return date.getDay() === 0;
+    };
+
     const isHoliday = (date) => {
         if (!date) return false;
+        if (isSunday(date)) return true;
         // Check API overrides for HOLIDAY
         return getOverridesForDate(date).some(o => o.overrideType === 'HOLIDAY');
     };
@@ -345,7 +351,7 @@ const ScheduleSelection = () => {
                                             onClick={() => handleDateClick(date)}
                                         >
                                             <span className="day-number">{date.getDate()}</span>
-                                            {status === 'holiday' && <span className="day-label">Holiday</span>}
+                                            {status === 'holiday' && <span className="day-label">{isSunday(date) ? 'Sunday' : 'Holiday'}</span>}
                                             {status === 'unavailable' && <span className="day-label">Full</span>}
                                         </div>
                                     );

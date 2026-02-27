@@ -355,93 +355,205 @@
     height: 100%;
 }
 
-/* ── Banner right — clean column, no overlap ── */
+/* ── Banner right — stacked overlapping cards ── */
 .banner-right {
     display: flex;
-    flex-direction: column;
-    gap: 0.875rem;
-    width: 230px;
+    justify-content: flex-end;
+    align-items: center;
+    width: 320px;
     flex-shrink: 0;
+    position: relative;
 }
 
-.floating-card {
-    /* Removed absolute positioning — use flex column instead */
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    background: rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 18px;
-    padding: 1rem 1.25rem;
+/* ============================================
+   HIGHLIGHT CARDS — Glassmorphism Overlapping
+   ============================================ */
+
+.highlight-cards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
+}
+
+.highlight-card {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.875rem;
-    animation: float 3s ease-in-out infinite;
-    width: 100%;
+    gap: 14px;
+    padding: 18px 24px;
+    border-radius: 16px;
+    cursor: default;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(50px);
+    animation: hcSlideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    min-width: 200px;
 }
 
-.floating-card.card-1 {
-    animation-delay: 0s;
+/* Overlapping stack with stagger offsets */
+.highlight-card + .highlight-card {
+    margin-top: -10px;
 }
 
-.floating-card.card-2 {
-    animation-delay: 1s;
+/* Stacking order + staggered offsets + delays */
+.hc-1 {
+    z-index: 3;
+    animation-delay: 0.15s;
+    margin-left: 0;
+}
+.hc-2 {
+    z-index: 2;
+    animation-delay: 0.35s;
+    margin-left: 40px;
+}
+.hc-3 {
+    z-index: 1;
+    animation-delay: 0.55s;
+    margin-left: 80px;
 }
 
-.floating-card.card-3 {
-    animation-delay: 2s;
+/* Gentle float per card */
+.hc-1 { animation: hcSlideIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards, hcFloat 4s ease-in-out 1s infinite; }
+.hc-2 { animation: hcSlideIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards, hcFloat 4s ease-in-out 1.5s infinite; }
+.hc-3 { animation: hcSlideIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards, hcFloat 4s ease-in-out 2s infinite; }
+
+@keyframes hcFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
 }
 
-@keyframes float {
+/* Corner glow orb */
+.hc-glow {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    pointer-events: none;
+}
 
-    0%,
-    100% {
-        transform: translateY(0);
+/* Hover */
+.highlight-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes hcSlideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
-
-    50% {
-        transform: translateY(-8px);
-    }
 }
 
-.card-icon {
-    width: 42px;
-    height: 42px;
+/* Icon */
+.hc-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.2);
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
-.card-icon svg {
+.highlight-card:hover .hc-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.hc-icon svg {
     width: 22px;
     height: 22px;
+    stroke: #ffffff;
+    fill: none;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 
-.card-text {
+/* Text */
+.hc-info {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 2px;
+    white-space: nowrap;
 }
 
-.card-value {
+.hc-value {
     font-size: 1.375rem;
     font-weight: 800;
     color: #ffffff;
-    line-height: 1;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.card-label {
-    font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.78);
-    font-weight: 500;
+.hc-value small {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.75;
 }
+
+.hc-label {
+    font-size: 0.6875rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+    .banner-right {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+
+    .hc-1 { margin-left: 0; }
+    .hc-2 { margin-left: 20px; }
+    .hc-3 { margin-left: 40px; }
+}
+
+@media (max-width: 640px) {
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .quick-actions {
+        justify-content: center;
+    }
+
+    .welcome-text {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .banner-right {
+        width: 80%;
+        max-width: 220px;
+        margin-top: 1rem;
+    }
+}
+
 
 
 .popular-services-section,
