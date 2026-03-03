@@ -34,6 +34,9 @@ class AvailabilityServiceImplTest {
         @Mock
         private com.ikhodalautomotive.appointment.repository.AppointmentRepository appointmentRepository;
 
+        @Mock
+        private com.ikhodalautomotive.appointment.repository.ScheduleOverrideRepository scheduleOverrideRepository;
+
         @InjectMocks
         private AvailabilityServiceImpl availabilityService;
 
@@ -53,6 +56,9 @@ class AvailabilityServiceImplTest {
                                 .thenReturn(List.of(blockedRule));
 
                 when(appointmentRepository.findByAppointmentDateAndStatusIn(any(), any()))
+                                .thenReturn(List.of());
+
+                when(scheduleOverrideRepository.findByDate(any()))
                                 .thenReturn(List.of());
 
                 // ▶️ When

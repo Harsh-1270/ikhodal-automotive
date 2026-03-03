@@ -222,7 +222,6 @@ const BookingDetails = () => {
                         <div className="detail-card">
                             <div className="card-header">
                                 <h2 className="card-title">
-                                    <span className="card-icon"><Icons.Wrench /></span>
                                     Service Information
                                 </h2>
                             </div>
@@ -275,7 +274,6 @@ const BookingDetails = () => {
                         <div className="detail-card">
                             <div className="card-header">
                                 <h2 className="card-title">
-                                    <span className="card-icon"><Icons.Car /></span>
                                     Vehicle Details
                                 </h2>
                             </div>
@@ -300,7 +298,6 @@ const BookingDetails = () => {
                         <div className="detail-card">
                             <div className="card-header">
                                 <h2 className="card-title">
-                                    <span className="card-icon"><Icons.User /></span>
                                     Customer Details
                                 </h2>
                             </div>
@@ -323,7 +320,6 @@ const BookingDetails = () => {
                         <div className="detail-card sticky-service-card">
                             <div className="card-header">
                                 <h2 className="card-title">
-                                    <span className="card-icon"><Icons.Briefcase /></span>
                                     Service Center
                                 </h2>
                             </div>
@@ -342,7 +338,6 @@ const BookingDetails = () => {
                         <div className="detail-card sticky-payment-card">
                             <div className="card-header">
                                 <h2 className="card-title">
-                                    <span className="card-icon"><Icons.DollarSign /></span>
                                     Payment Summary
                                 </h2>
                             </div>
