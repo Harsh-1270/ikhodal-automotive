@@ -450,7 +450,7 @@ const TermsConditions = () => {
                 <div className="page-header">
                     <div className="header-content">
                         <h1 className="page-title">
-                            <span className="title-icon"><Icons.Scroll color="#ffffff" /></span>
+                            <span className="title-icon"><Icons.Shield color="#ffffff" /></span>
                             Terms & Conditions
                         </h1>
                         <div className="last-updated">

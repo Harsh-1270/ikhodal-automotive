@@ -213,7 +213,6 @@ const BookingForm = () => {
                 <div className="page-header">
                     <div className="header-left">
                         <h1 className="page-title">
-                            <span className="title-icon"><Icons.Clipboard /></span>
                             Booking Details
                         </h1>
                         <p className="page-subtitle">Please provide your vehicle and contact information</p>

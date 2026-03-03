@@ -31,6 +31,15 @@ const MyBookings = () => {
         ),
         OilCan: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashBlueGradient)"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5L12 2 8 9.5c-2 1.6-3 3.5-3 5.5a7 7 0 0 0 7 7z" /></svg>,
         Clipboard: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashCyanGradient)" strokeWidth="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="M9 12h6M9 16h6" /></svg>,
+        CalendarCheck: ({ className = "", stroke = "currentColor" }) => (
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="3" ry="3" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="m9 16 2 2 4-4" />
+            </svg>
+        ),
         Cog: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashOrangeGradient)" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>,
         Plug: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashYellowGradient)" strokeWidth="2"><path d="M12 2v2M5 8v2a7 7 0 0 0 14 0V8M6 2v4M18 2v4M12 17v5" /></svg>,
         Zap: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashYellowGradient)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
@@ -259,7 +268,7 @@ const MyBookings = () => {
                 <div className="page-header">
                     <div className="header-left">
                         <h1 className="page-title">
-                            <span className="title-icon"><Icons.Clipboard /></span>
+                            <span className="title-icon"><Icons.CalendarCheck stroke="#ffffff" /></span>
                             My Bookings
                         </h1>
                         {/* <p className="page-subtitle">Track and manage all your service appointments</p> */}
@@ -353,7 +362,7 @@ const MyBookings = () => {
                             <div className="empty-state-visual">
                                 <div className="empty-state-glow"></div>
                                 <div className="empty-state-icon">
-                                    <Icons.Clipboard />
+                                    <Icons.CalendarCheck stroke="url(#dashCyanGradient)" />
                                 </div>
                             </div>
                             <h3 className="empty-state-title">No Bookings Found</h3>

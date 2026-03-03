@@ -14,7 +14,30 @@ const Cart = () => {
        SVG ICONS COMPONENT
        ========================================== */
     const Icons = {
-        ShoppingCart: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashBlueGradient)" strokeWidth="2"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>,
+        ShoppingCart: ({ className = "", variant = "stroke" }) => (
+            <svg className={className} viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round">
+                {variant === "gradient" && (
+                    <defs>
+                        <linearGradient id="cartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#3b82f6" />
+                            <stop offset="100%" stopColor="#1d4ed8" />
+                        </linearGradient>
+                    </defs>
+                )}
+                {/* Cart handle */}
+                <path
+                    d="M2 3h2.5l2.8 11.2a2.5 2.5 0 0 0 2.4 1.8h8.6a2.5 2.5 0 0 0 2.4-1.8L22.5 7H6.5"
+                    stroke={variant === "gradient" ? "url(#cartGrad)" : "currentColor"}
+                    strokeWidth="1.8"
+                    fill="none"
+                />
+                {/* Wheels */}
+                <circle cx="10" cy="21" r="1.5" stroke={variant === "gradient" ? "url(#cartGrad)" : "currentColor"} strokeWidth="1.6" fill="none" />
+                <circle cx="19" cy="21" r="1.5" stroke={variant === "gradient" ? "url(#cartGrad)" : "currentColor"} strokeWidth="1.6" fill="none" />
+                {/* Cart internal lines for detail */}
+                <line x1="9" y1="10" x2="21" y2="10" stroke={variant === "gradient" ? "url(#cartGrad)" : "currentColor"} strokeWidth="1.2" opacity="0.5" />
+            </svg>
+        ),
         Trash: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg>,
         Car: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="url(#dashRedGradient)"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" /></svg>,
         Package: ({ className = "" }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="url(#dashBlueGradient)" strokeWidth="2"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></svg>,
@@ -199,7 +222,7 @@ const Cart = () => {
                             <div className="empty-cart-visual">
                                 <div className="empty-cart-glow"></div>
                                 <div className="empty-icon-wrap">
-                                    <Icons.ShoppingCart />
+                                    <Icons.ShoppingCart variant="gradient" />
                                 </div>
                             </div>
                             <h2 className="empty-cart-title">Your Cart is Empty</h2>

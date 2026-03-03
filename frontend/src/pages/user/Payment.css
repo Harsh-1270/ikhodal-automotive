@@ -199,19 +199,31 @@
 }
 
 .title-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0.45rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .title-icon svg {
     width: 100%;
     height: 100%;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+}
+
+.title-icon svg,
+.title-icon svg * {
+    fill: none !important;
     stroke: #ffffff !important;
-    fill: #ffffff !important;
 }
 
 .page-subtitle {
@@ -926,8 +938,10 @@
     }
 
     .title-icon {
-        width: 1.75rem;
-        height: 1.75rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        padding: 0.35rem;
+        border-radius: 10px;
     }
 
     .page-subtitle {
