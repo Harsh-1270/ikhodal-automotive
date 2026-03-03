@@ -15,6 +15,7 @@ import com.ikhodalautomotive.appointment.model.Services;
 import com.ikhodalautomotive.appointment.model.User;
 import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
 import com.ikhodalautomotive.appointment.repository.AppointmentServiceRepository;
+import com.ikhodalautomotive.appointment.repository.PaymentRepository;
 import com.ikhodalautomotive.appointment.repository.ServiceRepository;
 import com.ikhodalautomotive.appointment.repository.UserRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
@@ -33,18 +34,21 @@ public class BookingServiceImpl implements BookingService {
         private final ServiceRepository serviceRepository;
         private final UserRepository userRepository;
         private final AvailabilityService availabilityService;
+        private final PaymentRepository paymentRepository;
 
         public BookingServiceImpl(
                         AppointmentRepository appointmentRepository,
                         AppointmentServiceRepository appointmentServiceRepository,
                         ServiceRepository serviceRepository,
                         UserRepository userRepository,
-                        AvailabilityService availabilityService) {
+                        AvailabilityService availabilityService,
+                        PaymentRepository paymentRepository) {
                 this.appointmentRepository = appointmentRepository;
                 this.appointmentServiceRepository = appointmentServiceRepository;
                 this.serviceRepository = serviceRepository;
                 this.userRepository = userRepository;
                 this.availabilityService = availabilityService;
+                this.paymentRepository = paymentRepository;
         }
 
         @Override
@@ -183,23 +187,31 @@ public class BookingServiceImpl implements BookingService {
                 String serviceIcon = appointmentServices.isEmpty() ? "Wrench"
                                 : appointmentServices.get(0).getService().getIcon();
 
-                return new BookingDetailsResponseDTO(
-                                appointment.getId(),
-                                appointment.getAppointmentDate(),
-                                appointment.getStartTime(),
-                                appointment.getEndTime(),
-                                appointment.getStatus(),
-                                total,
-                                serviceIcon,
-                                services,
-                                appointment.getRegistrationNumber(),
-                                appointment.getVehicleMake(),
-                                appointment.getVehicleModel(),
-                                appointment.getVehicleYear(),
-                                appointment.getFullName(),
-                                appointment.getAddress(),
-                                appointment.getPostcode(),
-                                appointment.getAdditionalComments());
+                // Fetch payment data
+                var paymentOpt = paymentRepository.findByAppointmentId(bookingId);
+
+                return BookingDetailsResponseDTO.builder()
+                                .bookingId(appointment.getId())
+                                .date(appointment.getAppointmentDate())
+                                .startTime(appointment.getStartTime())
+                                .endTime(appointment.getEndTime())
+                                .status(appointment.getStatus())
+                                .totalAmount(total)
+                                .serviceIcon(serviceIcon)
+                                .services(services)
+                                .registrationNumber(appointment.getRegistrationNumber())
+                                .vehicleMake(appointment.getVehicleMake())
+                                .vehicleModel(appointment.getVehicleModel())
+                                .vehicleYear(appointment.getVehicleYear())
+                                .fullName(appointment.getFullName())
+                                .address(appointment.getAddress())
+                                .postcode(appointment.getPostcode())
+                                .additionalComments(appointment.getAdditionalComments())
+                                .customerEmail(appointment.getUser().getEmail())
+                                .paymentStatus(paymentOpt.map(p -> p.getStatus().name()).orElse(null))
+                                .stripePaymentId(paymentOpt.map(p -> p.getStripePaymentId()).orElse(null))
+                                .paymentTime(paymentOpt.map(p -> p.getPaymentTime()).orElse(null))
+                                .build();
         }
 
         /*

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/common/AdminNavbar';
 import { getAllUsers, deleteUser } from '../../services/api';
 import './AdminUsers.css';
+import '../admin/AdminDashboard.css';
 
 const AdminUsers = () => {
     /* ==========================================
@@ -110,6 +111,22 @@ const AdminUsers = () => {
         active: 0,
         inactive: 0
     });
+    const [toasts, setToasts] = useState([]);
+    const [confirmModal, setConfirmModal] = useState(null);
+
+    const showToast = (type, title, message) => {
+        const id = Date.now();
+        setToasts(prev => [...prev, { id, type, title, message }]);
+        setTimeout(() => {
+            setToasts(prev => prev.map(t => t.id === id ? { ...t, removing: true } : t));
+            setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 300);
+        }, 3500);
+    };
+
+    const removeToast = (id) => {
+        setToasts(prev => prev.map(t => t.id === id ? { ...t, removing: true } : t));
+        setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 300);
+    };
 
     /* ==========================================
        FETCH USERS FROM API
@@ -202,22 +219,29 @@ const AdminUsers = () => {
     /* ==========================================
        HANDLE DELETE USER
        ========================================== */
-    const handleDeleteUser = async (userId, userName) => {
-        const confirmDelete = window.confirm(
-            `Are you sure you want to delete user "${userName}"?\n\nUser ID: ${userId}\n\nThis action cannot be undone.`
-        );
-
-        if (confirmDelete) {
-            const result = await deleteUser(userId);
-            if (result.success) {
-                const updatedUsers = users.filter(u => u.id !== userId);
-                setUsers(updatedUsers);
-                calculateStats(updatedUsers);
-                alert(`✅ User "${userName}" has been deleted successfully!`);
-            } else {
-                alert(`❌ Failed to delete user: ${result.message}`);
-            }
-        }
+    const handleDeleteUser = (userId, userName) => {
+        setConfirmModal({
+            type: 'danger',
+            title: 'Delete User',
+            text: `Are you sure you want to delete this user? This action cannot be undone.`,
+            details: [
+                { label: 'User', value: userName },
+                { label: 'User ID', value: String(userId) },
+            ],
+            confirmLabel: 'Delete User',
+            onConfirm: async () => {
+                setConfirmModal(null);
+                const result = await deleteUser(userId);
+                if (result.success) {
+                    const updatedUsers = users.filter(u => u.id !== userId);
+                    setUsers(updatedUsers);
+                    calculateStats(updatedUsers);
+                    showToast('success', 'User Deleted', `User "${userName}" has been deleted successfully.`);
+                } else {
+                    showToast('error', 'Delete Failed', `Failed to delete user: ${result.message}`);
+                }
+            },
+        });
     };
 
     /* ==========================================
@@ -241,6 +265,54 @@ const AdminUsers = () => {
        ========================================== */
     return (
         <div className="admin-users-container">
+            {/* Toast Notifications */}
+            <div className="adm-toast-container">
+                {toasts.map(toast => (
+                    <div key={toast.id} className={`adm-toast ${toast.type} ${toast.removing ? 'removing' : ''}`}>
+                        <div className="adm-toast-icon">
+                            {toast.type === 'success' ? '✓' : '✕'}
+                        </div>
+                        <div className="adm-toast-body">
+                            <div className="adm-toast-title">{toast.title}</div>
+                            <div className="adm-toast-message">{toast.message}</div>
+                        </div>
+                        <button className="adm-toast-close" onClick={() => removeToast(toast.id)}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                        </button>
+                        <div className="adm-toast-progress"></div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Confirm Modal */}
+            {confirmModal && (
+                <div className="adm-confirm-overlay" onClick={() => setConfirmModal(null)}>
+                    <div className="adm-confirm-modal" onClick={e => e.stopPropagation()}>
+                        <div className={`adm-confirm-icon ${confirmModal.type}`}>
+                            {confirmModal.type === 'complete' ? '✓' : '⚠'}
+                        </div>
+                        <div className="adm-confirm-title">{confirmModal.title}</div>
+                        <div className="adm-confirm-text">{confirmModal.text}</div>
+                        {confirmModal.details && (
+                            <div className="adm-confirm-details">
+                                {confirmModal.details.map((d, i) => (
+                                    <div key={i} className="adm-confirm-detail-row">
+                                        <span className="label">{d.label}</span>
+                                        <span className="value">{d.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        <div className="adm-confirm-actions">
+                            <button className="adm-confirm-btn cancel" onClick={() => setConfirmModal(null)}>Cancel</button>
+                            <button className={`adm-confirm-btn confirm-${confirmModal.type}`} onClick={confirmModal.onConfirm}>
+                                {confirmModal.confirmLabel}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Admin Navbar */}
             <AdminNavbar />
 

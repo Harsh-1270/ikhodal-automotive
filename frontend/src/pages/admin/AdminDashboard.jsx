@@ -20,6 +20,29 @@ const AdminDashboard = () => {
         pending: 0,
         completed: 0,
     });
+    const [toasts, setToasts] = useState([]);
+    const [confirmModal, setConfirmModal] = useState(null);
+
+    /* ==========================================
+       TOAST NOTIFICATION HELPERS
+       ========================================== */
+    const showToast = (type, title, message) => {
+        const id = Date.now();
+        setToasts(prev => [...prev, { id, type, title, message }]);
+        setTimeout(() => {
+            setToasts(prev => prev.map(t => t.id === id ? { ...t, removing: true } : t));
+            setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 300);
+        }, 3500);
+    };
+
+    const removeToast = (id) => {
+        setToasts(prev => prev.map(t => t.id === id ? { ...t, removing: true } : t));
+        setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 300);
+    };
+
+    const showConfirm = (config) => {
+        setConfirmModal(config);
+    };
 
     /* ==========================================
        SVG ICONS COMPONENT - COLORFUL GRADIENTS
@@ -349,51 +372,65 @@ const AdminDashboard = () => {
     /* ==========================================
        HANDLE COMPLETE BOOKING
        ========================================== */
-    const handleCompleteBooking = async (booking) => {
-        const confirmComplete = window.confirm(
-            `Mark booking ${booking.displayId} as completed?\n\nCustomer: ${booking.userName}\nService: ${booking.serviceName}`
-        );
-
-        if (confirmComplete) {
-            try {
-                const response = await updateAppointmentStatus(booking.id, 'COMPLETED');
-                if (response.success) {
-                    // Re-fetch all bookings to get fresh data
-                    await fetchBookings();
-                    alert(`✅ Booking ${booking.displayId} has been marked as completed!`);
-                } else {
-                    alert(`❌ Failed to update booking: ${response.message}`);
+    const handleCompleteBooking = (booking) => {
+        showConfirm({
+            type: 'complete',
+            title: 'Mark as Completed',
+            text: `Are you sure you want to mark this booking as completed?`,
+            details: [
+                { label: 'Booking', value: booking.displayId },
+                { label: 'Customer', value: booking.userName },
+                { label: 'Service', value: booking.serviceName },
+            ],
+            confirmLabel: 'Mark Completed',
+            onConfirm: async () => {
+                setConfirmModal(null);
+                try {
+                    const response = await updateAppointmentStatus(booking.id, 'COMPLETED');
+                    if (response.success) {
+                        await fetchBookings();
+                        showToast('success', 'Booking Completed', `Booking ${booking.displayId} has been marked as completed.`);
+                    } else {
+                        showToast('error', 'Update Failed', `Failed to update booking: ${response.message}`);
+                    }
+                } catch (error) {
+                    console.error('Error completing booking:', error);
+                    showToast('error', 'Error', 'An error occurred while updating the booking.');
                 }
-            } catch (error) {
-                console.error('Error completing booking:', error);
-                alert('❌ An error occurred while updating the booking.');
-            }
-        }
+            },
+        });
     };
 
     /* ==========================================
        HANDLE DELETE BOOKING
        ========================================== */
-    const handleDeleteBooking = async (booking) => {
-        const confirmDelete = window.confirm(
-            `Are you sure you want to delete booking ${booking.displayId}?\n\nThis action cannot be undone.`
-        );
-
-        if (confirmDelete) {
-            try {
-                const response = await deleteAppointment(booking.id);
-                if (response.success) {
-                    // Re-fetch all bookings to get fresh data
-                    await fetchBookings();
-                    alert(`✅ Booking ${booking.displayId} has been deleted successfully!`);
-                } else {
-                    alert(`❌ Failed to delete booking: ${response.message}`);
+    const handleDeleteBooking = (booking) => {
+        showConfirm({
+            type: 'danger',
+            title: 'Delete Booking',
+            text: `Are you sure you want to delete this booking? This action cannot be undone.`,
+            details: [
+                { label: 'Booking', value: booking.displayId },
+                { label: 'Customer', value: booking.userName },
+                { label: 'Service', value: booking.serviceName },
+            ],
+            confirmLabel: 'Delete Booking',
+            onConfirm: async () => {
+                setConfirmModal(null);
+                try {
+                    const response = await deleteAppointment(booking.id);
+                    if (response.success) {
+                        await fetchBookings();
+                        showToast('success', 'Booking Deleted', `Booking ${booking.displayId} has been deleted successfully.`);
+                    } else {
+                        showToast('error', 'Delete Failed', `Failed to delete booking: ${response.message}`);
+                    }
+                } catch (error) {
+                    console.error('Error deleting booking:', error);
+                    showToast('error', 'Error', 'An error occurred while deleting the booking.');
                 }
-            } catch (error) {
-                console.error('Error deleting booking:', error);
-                alert('❌ An error occurred while deleting the booking.');
-            }
-        }
+            },
+        });
     };
 
     /* ==========================================
@@ -426,6 +463,55 @@ const AdminDashboard = () => {
     return (
         <div className="admin-dashboard-container">
             <Gradients />
+
+            {/* Toast Notifications */}
+            <div className="adm-toast-container">
+                {toasts.map(toast => (
+                    <div key={toast.id} className={`adm-toast ${toast.type} ${toast.removing ? 'removing' : ''}`}>
+                        <div className="adm-toast-icon">
+                            {toast.type === 'success' ? '✓' : '✕'}
+                        </div>
+                        <div className="adm-toast-body">
+                            <div className="adm-toast-title">{toast.title}</div>
+                            <div className="adm-toast-message">{toast.message}</div>
+                        </div>
+                        <button className="adm-toast-close" onClick={() => removeToast(toast.id)}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                        </button>
+                        <div className="adm-toast-progress"></div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Confirm Modal */}
+            {confirmModal && (
+                <div className="adm-confirm-overlay" onClick={() => setConfirmModal(null)}>
+                    <div className="adm-confirm-modal" onClick={e => e.stopPropagation()}>
+                        <div className={`adm-confirm-icon ${confirmModal.type}`}>
+                            {confirmModal.type === 'complete' ? '✓' : '⚠'}
+                        </div>
+                        <div className="adm-confirm-title">{confirmModal.title}</div>
+                        <div className="adm-confirm-text">{confirmModal.text}</div>
+                        {confirmModal.details && (
+                            <div className="adm-confirm-details">
+                                {confirmModal.details.map((d, i) => (
+                                    <div key={i} className="adm-confirm-detail-row">
+                                        <span className="label">{d.label}</span>
+                                        <span className="value">{d.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        <div className="adm-confirm-actions">
+                            <button className="adm-confirm-btn cancel" onClick={() => setConfirmModal(null)}>Cancel</button>
+                            <button className={`adm-confirm-btn confirm-${confirmModal.type}`} onClick={confirmModal.onConfirm}>
+                                {confirmModal.confirmLabel}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Common Navbar */}
             <AdminNavbar />
 

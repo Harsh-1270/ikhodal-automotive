@@ -99,9 +99,10 @@ const BookingDetails = () => {
                         serviceDate: b.date,
                         timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
                         status: (b.status || 'PENDING').toLowerCase(),
-                        paymentStatus: 'Confirmed',
-                        paymentMethod: 'Stripe Secure',
-                        transactionId: 'TRX-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                        paymentStatus: b.paymentStatus || 'N/A',
+                        paymentMethod: 'Stripe',
+                        transactionId: b.stripePaymentId || 'N/A',
+                        paymentTime: b.paymentTime,
                         vehicleNumber: b.registrationNumber || 'N/A',
                         vehicleBrand: b.vehicleMake || 'N/A',
                         vehicleModel: b.vehicleModel || 'N/A',
@@ -110,7 +111,7 @@ const BookingDetails = () => {
                         landmark: 'N/A',
                         pincode: b.postcode || 'N/A',
                         customerName: b.fullName || 'User',
-                        customerEmail: 'N/A',
+                        customerEmail: b.customerEmail || 'N/A',
                         customerPhone: 'N/A',
                         specialInstructions: b.additionalComments || '',
                         serviceCenter: 'I Khodal Automotive Service Center',
@@ -120,11 +121,6 @@ const BookingDetails = () => {
                         technicianPhone: '—',
                         estimatedDuration: '2 hours',
                         servicesIncluded: b.services ? b.services.map(s => s.serviceName) : [],
-                        invoiceNumber: `INV-${String(b.bookingId).padStart(5, '0')}`,
-                        gstNumber: 'N/A',
-                        basePrice: b.totalAmount ? Math.round(Number(b.totalAmount) / 1.18) : 0,
-                        gst: b.totalAmount ? Math.round(Number(b.totalAmount) - Number(b.totalAmount) / 1.18) : 0,
-                        discount: 0,
                         totalPrice: Number(b.totalAmount) || 0
                     });
                 } else {
@@ -342,26 +338,19 @@ const BookingDetails = () => {
                                 </h2>
                             </div>
                             <div className="card-body">
-                                <div className="payment-rows">
-                                    <div className="payment-row">
-                                        <span className="payment-label">Base Price</span>
-                                        <span className="payment-value">AUD {booking.basePrice.toLocaleString()}</span>
-                                    </div>
-                                    <div className="payment-row">
-                                        <span className="payment-label">Tax (GST)</span>
-                                        <span className="payment-value">AUD {booking.gst.toLocaleString()}</span>
-                                    </div>
-                                </div>
-
                                 <div className="payment-total">
-                                    <span className="total-label">Subtotal</span>
+                                    <span className="total-label">Total</span>
                                     <span className="total-value">AUD {booking.totalPrice.toLocaleString()}</span>
                                 </div>
+                                <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+                                    All taxes included
+                                </span>
 
                                 <div className="payment-status-section">
-                                    <div className={`payment-status-badge ${booking.status === 'confirmed' || booking.status === 'completed' ? 'paid' : 'paid'}`}>
+                                    <div className={`payment-status-badge ${booking.paymentStatus === 'SUCCESS' ? 'paid' : 'paid'}`}>
                                         <span className="status-icon"><Icons.Check /></span>
-                                        Payment {booking.status === 'pending' ? 'Verified' : 'Successful'}
+                                        Payment {booking.paymentStatus === 'SUCCESS' ? 'Successful' : booking.paymentStatus === 'INITIATED' ? 'Initiated' : booking.paymentStatus === 'FAILED' ? 'Failed' : 'Verified'}
                                     </div>
                                     <div className="payment-info-row">
                                         <span className="payment-info-label">Method</span>

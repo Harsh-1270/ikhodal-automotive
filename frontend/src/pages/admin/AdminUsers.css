@@ -524,14 +524,14 @@
     }
 
     .adm-title-icon {
-    font-size: 1.875rem;
-    width: 1.875rem;
-    height: 1.875rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        font-size: 1.875rem;
+        width: 1.875rem;
+        height: 1.875rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
     /* Stats Row */
     .adm-stats-row {
@@ -569,16 +569,16 @@
     }
 
     .adm-search-icon {
-    position: absolute;
-    left: 1.25rem;
-    font-size: 1.25rem;
-    width: 1.25rem;
-    height: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-}
+        position: absolute;
+        left: 1.25rem;
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.5;
+    }
 
     .adm-search-input {
         padding: 0.875rem 3rem 0.875rem 3rem;
@@ -684,14 +684,14 @@
     }
 
     .adm-empty-icon {
-    font-size: 6rem;
-    width: 6rem;
-    height: 6rem;
-    margin: 0 auto 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+        font-size: 6rem;
+        width: 6rem;
+        height: 6rem;
+        margin: 0 auto 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .adm-empty-state h3 {
         font-size: 1.5rem;
@@ -729,14 +729,14 @@
     }
 
     .adm-title-icon {
-    font-size: 1.875rem;
-    width: 1.875rem;
-    height: 1.875rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        font-size: 1.875rem;
+        width: 1.875rem;
+        height: 1.875rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
     /* Stats Row */
     .adm-stats-row {
@@ -773,16 +773,16 @@
     }
 
     .adm-search-icon {
-    position: absolute;
-    left: 1.25rem;
-    font-size: 1.25rem;
-    width: 1.25rem;
-    height: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-}
+        position: absolute;
+        left: 1.25rem;
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.5;
+    }
 
     .adm-search-input {
         padding: 0.75rem 2.75rem 0.75rem 2.75rem;
@@ -875,14 +875,14 @@
     }
 
     .adm-empty-icon {
-    font-size: 6rem;
-    width: 6rem;
-    height: 6rem;
-    margin: 0 auto 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+        font-size: 6rem;
+        width: 6rem;
+        height: 6rem;
+        margin: 0 auto 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .adm-empty-state h3 {
         font-size: 1.25rem;
@@ -918,14 +918,14 @@
     }
 
     .adm-title-icon {
-    font-size: 1.875rem;
-    width: 1.875rem;
-    height: 1.875rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        font-size: 1.875rem;
+        width: 1.875rem;
+        height: 1.875rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
     .adm-stat-box {
         padding: 1rem;

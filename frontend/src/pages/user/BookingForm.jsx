@@ -93,13 +93,9 @@ const BookingForm = () => {
     const [submitError, setSubmitError] = useState('');
 
     // Compute cart summary from real cart data
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
-    const tax = Math.round(subtotal * 0.18);
-    const total = subtotal + tax;
+    const total = cartItems.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
     const cartSummary = {
         items: cartItems.length,
-        subtotal,
-        tax,
         total
     };
 
@@ -468,14 +464,6 @@ const BookingForm = () => {
                                     <span className="label">Services</span>
                                     <span className="value">{cartSummary.items} items</span>
                                 </div>
-                                <div className="summary-row">
-                                    <span className="label">Subtotal</span>
-                                    <span className="value">AUD {cartSummary.subtotal.toLocaleString()}</span>
-                                </div>
-                                <div className="summary-row">
-                                    <span className="label">GST (18%)</span>
-                                    <span className="value">AUD {cartSummary.tax.toLocaleString()}</span>
-                                </div>
                             </div>
 
                             <div className="summary-divider"></div>
@@ -484,6 +472,10 @@ const BookingForm = () => {
                                 <span className="total-label">Total Amount</span>
                                 <span className="total-value">AUD {cartSummary.total.toLocaleString()}</span>
                             </div>
+                            <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+                                All taxes included
+                            </span>
                         </div>
                     </div>
                 </div>

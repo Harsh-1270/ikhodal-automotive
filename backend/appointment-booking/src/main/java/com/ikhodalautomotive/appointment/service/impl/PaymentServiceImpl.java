@@ -100,6 +100,11 @@ public class PaymentServiceImpl implements PaymentService {
         // 3. Convert to cents (Stripe uses smallest currency unit)
         long amountInCents = amount.multiply(BigDecimal.valueOf(100)).longValueExact();
 
+        // 4. Get user email for receipt
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
+        String userEmail = appointment.getUser().getEmail();
+
         try {
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                     .setAmount(amountInCents)
@@ -109,12 +114,14 @@ public class PaymentServiceImpl implements PaymentService {
                                     .builder()
                                     .setEnabled(true) // Apple Pay + Google Pay
                                     .build())
+                    .setReceiptEmail(userEmail)
+                    .setDescription("I Khodal Automotive - Booking #" + appointmentId)
                     .putMetadata("appointmentId", appointmentId.toString())
                     .build();
 
             PaymentIntent intent = PaymentIntent.create(params);
 
-            // 4. Save payment record
+            // 5. Save payment record
             Payment payment = Payment.builder()
                     .appointment(
                             appointmentRepository.getReferenceById(appointmentId))
@@ -125,8 +132,8 @@ public class PaymentServiceImpl implements PaymentService {
 
             paymentRepository.save(payment);
 
-            log.info("PaymentIntent created successfully. appointmentId={}, stripePaymentId={}",
-                    appointmentId, intent.getId());
+            log.info("PaymentIntent created successfully. appointmentId={}, stripePaymentId={}, receiptEmail={}",
+                    appointmentId, intent.getId(), userEmail);
 
             return intent.getClientSecret();
 

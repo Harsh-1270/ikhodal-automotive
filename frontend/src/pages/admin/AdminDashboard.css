@@ -439,6 +439,12 @@
     height: 100%;
 }
 
+.adm-customer-avatar span svg,
+.adm-customer-avatar span svg * {
+    stroke: #ffffff;
+    fill: none;
+}
+
 .adm-customer-details {
     flex: 1;
 }
@@ -498,16 +504,21 @@
 }
 
 .adm-service-icon-large {
-    font-size: 2rem;
-    width: 56px;
-    height: 56px;
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border-radius: 14px;
+    border-radius: 12px;
     flex-shrink: 0;
     line-height: 1;
+}
+
+.adm-service-icon-large svg {
+    width: 22px;
+    height: 22px;
 }
 
 .adm-service-details {
@@ -841,9 +852,14 @@ textarea,
     }
 
     .adm-service-icon-large {
-        font-size: 3.5rem;
-        width: 70px;
-        height: 70px;
+        font-size: 1.75rem;
+        width: 52px;
+        height: 52px;
+    }
+
+    .adm-service-icon-large svg {
+        width: 24px;
+        height: 24px;
     }
 }
 
@@ -1055,9 +1071,14 @@ textarea,
     }
 
     .adm-service-icon-large {
-        font-size: 3rem;
-        width: 60px;
-        height: 60px;
+        font-size: 1.5rem;
+        width: 48px;
+        height: 48px;
+    }
+
+    .adm-service-icon-large svg {
+        width: 22px;
+        height: 22px;
     }
 
     .adm-service-details {
@@ -1305,10 +1326,15 @@ textarea,
     }
 
     .adm-service-icon-large {
-        font-size: 2.75rem;
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
+        font-size: 1.375rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .adm-service-icon-large svg {
+        width: 20px;
+        height: 20px;
     }
 
     .adm-service-name {
@@ -1490,9 +1516,14 @@ textarea,
     }
 
     .adm-service-icon-large {
-        font-size: 2.5rem;
-        width: 50px;
-        height: 50px;
+        font-size: 1.25rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .adm-service-icon-large svg {
+        width: 18px;
+        height: 18px;
     }
 
     .adm-service-name {
@@ -1522,5 +1553,338 @@ textarea,
 
     .adm-empty-state p {
         font-size: 0.875rem;
+    }
+}
+
+/* ============================================
+   BUTTON ICON VISIBILITY FIX
+   ============================================ */
+
+.adm-action-btn.complete>span svg,
+.adm-action-btn.danger>span svg {
+    fill: none;
+    stroke: #ffffff;
+}
+
+.adm-action-btn.complete>span svg *,
+.adm-action-btn.danger>span svg * {
+    stroke: #ffffff;
+    fill: none;
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+.adm-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.adm-toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 320px;
+    max-width: 440px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #3b82f6;
+    pointer-events: all;
+    animation: adm-toast-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.adm-toast.removing {
+    animation: adm-toast-out 0.3s ease-in forwards;
+}
+
+.adm-toast.success {
+    border-left-color: #10b981;
+}
+
+.adm-toast.error {
+    border-left-color: #ef4444;
+}
+
+.adm-toast-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+.adm-toast.success .adm-toast-icon {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.adm-toast.error .adm-toast-icon {
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    color: #991b1b;
+}
+
+.adm-toast-body {
+    flex: 1;
+}
+
+.adm-toast-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 2px;
+}
+
+.adm-toast-message {
+    font-size: 0.8125rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.adm-toast-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.adm-toast-close:hover {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.adm-toast-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+.adm-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 0 0 0 14px;
+    animation: adm-toast-progress 3.5s linear forwards;
+}
+
+.adm-toast.success .adm-toast-progress {
+    background: #10b981;
+}
+
+.adm-toast.error .adm-toast-progress {
+    background: #ef4444;
+}
+
+@keyframes adm-toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(100px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes adm-toast-out {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100px) scale(0.9);
+    }
+}
+
+@keyframes adm-toast-progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+/* ============================================
+   CONFIRMATION MODAL
+   ============================================ */
+
+.adm-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: adm-overlay-in 0.25s ease forwards;
+    padding: 1rem;
+}
+
+.adm-confirm-modal {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    animation: adm-modal-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    text-align: center;
+}
+
+.adm-confirm-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 28px;
+}
+
+.adm-confirm-icon.complete {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.adm-confirm-icon.danger {
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    color: #991b1b;
+}
+
+.adm-confirm-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.adm-confirm-text {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.adm-confirm-details {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border: 1.5px solid #bae6fd;
+    border-radius: 12px;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.adm-confirm-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+}
+
+.adm-confirm-detail-row .label {
+    color: #64748b;
+    font-weight: 600;
+}
+
+.adm-confirm-detail-row .value {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.adm-confirm-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.adm-confirm-btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.adm-confirm-btn.cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.adm-confirm-btn.cancel:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+.adm-confirm-btn.confirm-complete {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+}
+
+.adm-confirm-btn.confirm-complete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.adm-confirm-btn.confirm-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+}
+
+.adm-confirm-btn.confirm-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.35);
+}
+
+@keyframes adm-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes adm-modal-in {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }

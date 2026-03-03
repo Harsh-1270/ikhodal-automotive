@@ -8,6 +8,7 @@ import axios from 'axios';
 // Base API URL from environment variables
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8082/api';
 
+
 /* ==========================================
    AXIOS INSTANCE with default config
    ========================================== */
