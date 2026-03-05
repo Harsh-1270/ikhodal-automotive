@@ -150,15 +150,15 @@ const Login = () => {
         const newErrors = {};
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = 'Please enter your email address.';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
+            newErrors.email = 'That doesn\'t look like a valid email address (e.g., name@example.com).';
         }
 
         if (!formData.password) {
-            newErrors.password = 'Password is required';
+            newErrors.password = 'Please enter your password.';
         } else if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
+            newErrors.password = 'Password must be at least 6 characters long.';
         }
 
         setErrors(newErrors);
@@ -182,9 +182,8 @@ const Login = () => {
             const response = await loginUser(formData);
 
             if (response.success) {
-                // Backend returns { token, name, roleId, message }
-                // Store email, name and roleId
-                const { token, name, roleId } = response.data;
+                // Backend returns { token, refreshToken, name, roleId, message }
+                const { token, refreshToken, name, roleId } = response.data;
                 const role = Number(roleId);
                 const isAdmin = role === 2;
 
@@ -194,7 +193,7 @@ const Login = () => {
                     roleId: role
                 };
 
-                login(userData, token, isAdmin);
+                login(userData, token, isAdmin, refreshToken);
 
                 // Role based redirect
                 // If roleId is 2 (Admin) -> /admin/dashboard
@@ -208,7 +207,7 @@ const Login = () => {
                 setApiError(response.message);
             }
         } catch (error) {
-            setApiError('Something went wrong. Please try again.');
+            setApiError('Unable to connect. Please check your internet connection and try again.');
             console.error('Login error:', error);
         } finally {
             setLoading(false);

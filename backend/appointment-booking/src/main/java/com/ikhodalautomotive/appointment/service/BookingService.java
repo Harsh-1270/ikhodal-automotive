@@ -22,4 +22,10 @@ public interface BookingService {
     void completeBooking(Long bookingId);
 
     void deleteBooking(Long bookingId);
+
+    /**
+     * User-facing cancel: deletes a PENDING booking owned by the user
+     * and cancels the associated Stripe PaymentIntent if one exists.
+     */
+    void cancelBooking(Long bookingId, String userEmail);
 }

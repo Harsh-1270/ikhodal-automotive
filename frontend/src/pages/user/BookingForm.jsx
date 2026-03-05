@@ -117,7 +117,7 @@ const BookingForm = () => {
         total
     };
 
-    // Handle input change
+    // Handle input change — clears the error for that field while typing
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -134,37 +134,69 @@ const BookingForm = () => {
         }
     };
 
+    // Validate a single field when the user leaves it (on blur)
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        let msg = '';
+
+        if (name === 'make' && !value.trim()) {
+            msg = 'Please enter your vehicle make (e.g., Toyota, Ford, BMW).';
+        } else if (name === 'model' && !value.trim()) {
+            msg = 'Please enter your vehicle model (e.g., Camry, Focus, X5).';
+        } else if (name === 'year') {
+            if (!value) {
+                msg = 'Please enter the manufacturing year of your vehicle.';
+            } else if (value < 1900 || value > new Date().getFullYear() + 1) {
+                msg = `Please enter a valid year between 1900 and ${new Date().getFullYear() + 1}.`;
+            }
+        } else if (name === 'fullName' && !value.trim()) {
+            msg = 'Please enter your full name as it appears on your ID.';
+        } else if (name === 'address' && !value.trim()) {
+            msg = 'Please enter your full address including street and city.';
+        } else if (name === 'postcode') {
+            if (!value.trim()) {
+                msg = 'Please enter your postcode.';
+            } else if (!/^\d{3,}$/.test(value)) {
+                msg = 'Postcode must be numeric and at least 3 digits (e.g., 3000).';
+            }
+        }
+
+        if (msg) {
+            setErrors(prev => ({ ...prev, [name]: msg }));
+        }
+    };
+
     // Validate form
     const validateForm = () => {
         const newErrors = {};
 
         // Required fields
         if (!formData.make.trim()) {
-            newErrors.make = 'Make is required';
+            newErrors.make = 'Please enter your vehicle make (e.g., Toyota, Ford, BMW).';
         }
 
         if (!formData.model.trim()) {
-            newErrors.model = 'Model is required';
+            newErrors.model = 'Please enter your vehicle model (e.g., Camry, Focus, X5).';
         }
 
         if (!formData.year) {
-            newErrors.year = 'Year is required';
+            newErrors.year = 'Please enter the manufacturing year of your vehicle.';
         } else if (formData.year < 1900 || formData.year > new Date().getFullYear() + 1) {
-            newErrors.year = 'Please enter a valid year';
+            newErrors.year = `Please enter a valid year between 1900 and ${new Date().getFullYear() + 1}.`;
         }
 
         if (!formData.fullName.trim()) {
-            newErrors.fullName = 'Full name is required';
+            newErrors.fullName = 'Please enter your full name as it appears on your ID.';
         }
 
         if (!formData.address.trim()) {
-            newErrors.address = 'Address is required';
+            newErrors.address = 'Please enter your full address including street and city.';
         }
 
         if (!formData.postcode.trim()) {
-            newErrors.postcode = 'Postcode is required';
+            newErrors.postcode = 'Please enter your postcode.';
         } else if (!/^\d{3,}$/.test(formData.postcode)) {
-            newErrors.postcode = 'Postcode must contain at least 3 numbers';
+            newErrors.postcode = 'Postcode must be numeric and at least 3 digits (e.g., 3000).';
         }
 
         setErrors(newErrors);
@@ -303,6 +335,7 @@ const BookingForm = () => {
                                             placeholder="e.g., Toyota"
                                             value={formData.make}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             className={`form-input ${errors.make ? 'error' : ''}`}
                                         />
                                         {errors.make && (
@@ -321,6 +354,7 @@ const BookingForm = () => {
                                             placeholder="e.g., Camry"
                                             value={formData.model}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             className={`form-input ${errors.model ? 'error' : ''}`}
                                         />
                                         {errors.model && (
@@ -343,6 +377,7 @@ const BookingForm = () => {
                                         max={new Date().getFullYear() + 1}
                                         value={formData.year}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         className={`form-input ${errors.year ? 'error' : ''}`}
                                     />
                                     {errors.year && (
@@ -370,6 +405,7 @@ const BookingForm = () => {
                                         placeholder="Enter your full name"
                                         value={formData.fullName}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         className={`form-input ${errors.fullName ? 'error' : ''}`}
                                     />
                                     {errors.fullName && (
@@ -389,6 +425,7 @@ const BookingForm = () => {
                                         placeholder="Enter your full address including street, city"
                                         value={formData.address}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         className={`form-textarea ${errors.address ? 'error' : ''}`}
                                     />
                                     {errors.address && (
@@ -408,6 +445,7 @@ const BookingForm = () => {
                                         placeholder="e.g., SW1A 1AA"
                                         value={formData.postcode}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         className={`form-input ${errors.postcode ? 'error' : ''}`}
                                     />
                                     {errors.postcode && (

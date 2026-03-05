@@ -35,6 +35,8 @@ import AdminSchedule from './pages/admin/AdminSchedule';
 /* ==========================================
    PROTECTED ROUTE - For authenticated users only
    ========================================== */
+const isDev = process.env.NODE_ENV === "development";
+
 const ProtectedRoute = ({ children }) => {
   const { user, isAdmin } = React.useContext(AuthContext);
 
@@ -51,7 +53,6 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-const isDev = process.env.NODE_ENV === "development";
 
 /* ==========================================
    ADMIN ROUTE - For admin only
@@ -105,7 +106,12 @@ function App() {
           <main className="main-content">
             <Routes>
               {/* ========== PUBLIC LANDING PAGE ========== */}
-              <Route path="/" element={<Home />} />
+              {/* Redirect logged-in users directly to their dashboard */}
+              <Route path="/" element={
+                <PublicRoute>
+                  <Home />
+                </PublicRoute>
+              } />
 
               {/* ========== AUTH ROUTES ========== */}
 

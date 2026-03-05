@@ -145,12 +145,12 @@ const ForgotPassword = () => {
         setError('');
 
         if (!email.trim()) {
-            setError('Email is required');
+            setError('Please enter your email address.');
             return;
         }
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setError('Please enter a valid email');
+            setError('That doesn\'t look like a valid email address (e.g., name@example.com).');
             return;
         }
 
@@ -181,7 +181,7 @@ const ForgotPassword = () => {
         const otpValue = otp.join('');
 
         if (otpValue.length !== 6) {
-            setError('Please enter complete 6-digit OTP');
+            setError('Please enter the complete 6-digit code sent to your email.');
             return;
         }
 
@@ -191,7 +191,7 @@ const ForgotPassword = () => {
             if (otpValue === '123456') {
                 setStep(3);
             } else {
-                setError('Invalid OTP. Please try again.');
+                setError('Incorrect code. Please check the OTP and try again, or request a new one.');
             }
         }, 1200);
     };
@@ -201,17 +201,17 @@ const ForgotPassword = () => {
         setError('');
 
         if (!newPassword.trim()) {
-            setError('New password is required');
+            setError('Please enter your new password.');
             return;
         }
 
         if (newPassword.length < 8) {
-            setError('Password must be at least 8 characters');
+            setError('Your password must be at least 8 characters long.');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            setError('Passwords do not match');
+            setError('The passwords you entered don\'t match. Please try again.');
             return;
         }
 

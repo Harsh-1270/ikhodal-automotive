@@ -60,4 +60,16 @@ public class BookingController {
                 bookingService.getBookingById(bookingId, userEmail, isAdmin));
     }
 
+    // DELETE : localhost:8082/api/bookings/{bookingId}/cancel
+    // User-facing: cancels a PENDING booking and its Stripe PaymentIntent
+    @DeleteMapping("/bookings/{bookingId}/cancel")
+    public ResponseEntity<Void> cancelBooking(
+            @PathVariable Long bookingId,
+            Authentication authentication) {
+
+        String userEmail = authentication.getName();
+        bookingService.cancelBooking(bookingId, userEmail);
+        return ResponseEntity.noContent().build();
+    }
+
 }

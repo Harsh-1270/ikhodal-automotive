@@ -20,6 +20,7 @@ import com.ikhodalautomotive.appointment.repository.ServiceRepository;
 import com.ikhodalautomotive.appointment.repository.UserRepository;
 import com.ikhodalautomotive.appointment.service.AvailabilityService;
 import com.ikhodalautomotive.appointment.service.BookingService;
+import com.stripe.model.PaymentIntent;
 import com.ikhodalautomotive.appointment.dto.request.CreateBookingRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
@@ -290,6 +291,54 @@ public class BookingServiceImpl implements BookingService {
                 appointmentServiceRepository.deleteAll(appServices);
 
                 // Delete the appointment
+                appointmentRepository.delete(appointment);
+        }
+
+        @Override
+        @Transactional
+        public void cancelBooking(Long bookingId, String userEmail) {
+
+                // 1. Find appointment
+                Appointment appointment = appointmentRepository.findById(bookingId)
+                                .orElseThrow(() -> new ApiException("Booking not found"));
+
+                // 2. Ownership check — user can only cancel their own booking
+                if (!appointment.getUser().getEmail().equals(userEmail)) {
+                        throw new ApiException("You are not allowed to cancel this booking");
+                }
+
+                // 3. Only PENDING bookings can be cancelled
+                if (!"PENDING".equals(appointment.getStatus())) {
+                        throw new ApiException("Only pending bookings can be cancelled");
+                }
+
+                // 4. Cancel Stripe PaymentIntent if one exists
+                var paymentOpt = paymentRepository.findByAppointmentId(bookingId);
+                if (paymentOpt.isPresent()) {
+                        String stripePaymentId = paymentOpt.get().getStripePaymentId();
+                        try {
+                                PaymentIntent intent = PaymentIntent.retrieve(stripePaymentId);
+                                // Only cancel if it's in a cancellable state
+                                String intentStatus = intent.getStatus();
+                                if ("requires_payment_method".equals(intentStatus)
+                                                || "requires_confirmation".equals(intentStatus)
+                                                || "requires_action".equals(intentStatus)
+                                                || "processing".equals(intentStatus)) {
+                                        intent.cancel();
+                                }
+                        } catch (Exception e) {
+                                // Log but don't block cancellation — intent may already be expired
+                        }
+                        // Delete the payment record from DB
+                        paymentRepository.delete(paymentOpt.get());
+                }
+
+                // 5. Delete associated appointment services
+                List<AppointmentService> appServices = appointmentServiceRepository
+                                .findByAppointment_Id(bookingId);
+                appointmentServiceRepository.deleteAll(appServices);
+
+                // 6. Delete the appointment
                 appointmentRepository.delete(appointment);
         }
 

@@ -142,11 +142,11 @@ const BookingDetails = () => {
                         totalPrice: Number(b.totalAmount) || 0
                     });
                 } else {
-                    setError(response.message || 'Failed to fetch booking details');
+                    setError(response.message || 'We couldn\'t load this booking. It may no longer exist or you may not have access to it.');
                 }
             } catch (error) {
                 console.error('Error fetching booking:', error);
-                setError('An unexpected error occurred while loading booking details.');
+                setError('Something went wrong while loading your booking. Please refresh the page or try again later.');
             } finally {
                 setLoading(false);
             }

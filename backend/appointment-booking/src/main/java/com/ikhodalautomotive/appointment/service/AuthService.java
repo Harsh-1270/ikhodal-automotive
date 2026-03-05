@@ -16,4 +16,6 @@ public interface AuthService {
 
     void logout(String email);
 
+    Map<String, String> refreshAccessToken(String refreshToken);
+
 }

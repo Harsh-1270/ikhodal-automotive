@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -39,11 +41,24 @@ public class AuthController {
     // POST : localhost:8082/api/auth/login
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO dto) {
-        java.util.Map<String, String> loginResult = authService.login(dto);
+        Map<String, String> loginResult = authService.login(dto);
         String token = loginResult.get("token");
+        String refreshToken = loginResult.get("refreshToken");
         String name = loginResult.get("name");
         Long roleId = Long.parseLong(loginResult.get("roleId"));
-        return ResponseEntity.ok(new AuthResponseDTO(token, name, roleId, "Login successful"));
+        return ResponseEntity.ok(new AuthResponseDTO(token, refreshToken, name, roleId, "Login successful"));
+    }
+
+    // POST : localhost:8082/api/auth/refresh
+    // Exchange a valid refresh token for a new access token (no auth header needed)
+    @PostMapping("/refresh")
+    public ResponseEntity<Map<String, String>> refresh(@RequestBody Map<String, String> body) {
+        String refreshToken = body.get("refreshToken");
+        if (refreshToken == null || refreshToken.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Refresh token is required"));
+        }
+        Map<String, String> result = authService.refreshAccessToken(refreshToken);
+        return ResponseEntity.ok(result);
     }
 
     // POST : localhost:8082/api/auth/logout

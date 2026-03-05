@@ -43,20 +43,83 @@ api.interceptors.request.use(
 
 /* ==========================================
    RESPONSE INTERCEPTOR
-   Handles common error responses
+   On 401: try to silently refresh the access token using the refresh token.
+   If refresh succeeds → retry the original request.
+   If refresh fails (token expired/invalid) → clear storage and redirect to login.
    ========================================== */
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+    failedQueue = [];
+};
+
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
-        // Handle 401 Unauthorized (token expired)
-        if (error.response?.status === 401) {
-            // Clear auth data
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            localStorage.removeItem('isAdmin');
+    async (error) => {
+        const originalRequest = error.config;
 
-            // Redirect to login
-            window.location.href = '/login';
+        // Only attempt refresh on 401, and only once per request
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            // Skip refresh attempt for the refresh endpoint itself
+            if (originalRequest.url?.includes('/auth/refresh') ||
+                originalRequest.url?.includes('/auth/login')) {
+                return Promise.reject(error);
+            }
+
+            if (isRefreshing) {
+                // Queue requests that arrive while a refresh is in progress
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                }).then(token => {
+                    originalRequest.headers.Authorization = `Bearer ${token}`;
+                    return api(originalRequest);
+                }).catch(err => Promise.reject(err));
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            const refreshToken = localStorage.getItem('refreshToken');
+
+            if (!refreshToken) {
+                // No refresh token — force re-login
+                isRefreshing = false;
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                localStorage.removeItem('isAdmin');
+                localStorage.removeItem('refreshToken');
+                window.location.href = '/login';
+                return Promise.reject(error);
+            }
+
+            try {
+                const { data } = await axios.post(`${API_URL}/auth/refresh`, { refreshToken });
+                const newToken = data.token;
+                localStorage.setItem('token', newToken);
+                api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+                originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                processQueue(null, newToken);
+                return api(originalRequest);
+            } catch (refreshError) {
+                processQueue(refreshError, null);
+                // Refresh token is invalid or expired — force re-login
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                localStorage.removeItem('isAdmin');
+                localStorage.removeItem('refreshToken');
+                window.location.href = '/login';
+                return Promise.reject(refreshError);
+            } finally {
+                isRefreshing = false;
+            }
         }
 
         return Promise.reject(error);
@@ -267,6 +330,23 @@ export const getBookingById = async (bookingId) => {
         return {
             success: false,
             message: error.response?.data?.message || 'Failed to fetch booking'
+        };
+    }
+};
+
+/* Cancel Booking (user-facing)
+   DELETE /bookings/:id/cancel
+   Cancels a PENDING booking and its Stripe PaymentIntent.
+   Only the owner of the booking can call this.
+*/
+export const cancelBooking = async (bookingId) => {
+    try {
+        await api.delete(`/bookings/${bookingId}/cancel`);
+        return { success: true };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response?.data?.message || 'Failed to cancel booking'
         };
     }
 };

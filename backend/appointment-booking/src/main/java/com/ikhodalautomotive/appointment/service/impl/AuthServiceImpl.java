@@ -2,8 +2,10 @@ package com.ikhodalautomotive.appointment.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import com.ikhodalautomotive.appointment.dto.request.SignupRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.VerifyOtpRequestDTO;
 import com.ikhodalautomotive.appointment.exception.ApiException;
 import com.ikhodalautomotive.appointment.model.EmailOtpVerification;
+import com.ikhodalautomotive.appointment.model.RefreshToken;
 import com.ikhodalautomotive.appointment.model.Role;
 import com.ikhodalautomotive.appointment.model.User;
 import com.ikhodalautomotive.appointment.model.UserAuthProvider;
 import com.ikhodalautomotive.appointment.repository.EmailOtpRepository;
+import com.ikhodalautomotive.appointment.repository.RefreshTokenRepository;
 import com.ikhodalautomotive.appointment.repository.RoleRepository;
 import com.ikhodalautomotive.appointment.repository.UserAuthProviderRepository;
 import com.ikhodalautomotive.appointment.repository.UserRepository;
@@ -48,6 +52,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
+    @Value("${jwt.refresh.expiration}")
+    private long refreshExpirationMs;
 
     // ================= SIGNUP =================
     @Override
@@ -117,6 +127,7 @@ public class AuthServiceImpl implements AuthService {
 
     // ================= LOGIN =================
     @Override
+    @Transactional
     public Map<String, String> login(LoginRequestDTO request) {
 
         User user = userRepository.findByEmail(request.getEmail())
@@ -138,11 +149,42 @@ public class AuthServiceImpl implements AuthService {
         user.setOnline(true);
         userRepository.save(user);
 
-        String token = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
+        // Generate JWT access token (1 hour)
+        String accessToken = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
+
+        // Generate refresh token (7 days) — replace existing
+        refreshTokenRepository.deleteByUser(user);
+        RefreshToken refreshToken = RefreshToken.builder()
+                .user(user)
+                .token(UUID.randomUUID().toString())
+                .expiresAt(LocalDateTime.now().plusSeconds(refreshExpirationMs / 1000))
+                .createdAt(LocalDateTime.now())
+                .build();
+        refreshTokenRepository.save(refreshToken);
+
         return Map.of(
-                "token", token,
+                "token", accessToken,
+                "refreshToken", refreshToken.getToken(),
                 "name", user.getName(),
                 "roleId", String.valueOf(user.getRole().getId()));
+    }
+
+    // ================= REFRESH TOKEN =================
+    @Override
+    @Transactional
+    public Map<String, String> refreshAccessToken(String refreshTokenValue) {
+        RefreshToken refreshToken = refreshTokenRepository.findByToken(refreshTokenValue)
+                .orElseThrow(() -> new ApiException("Invalid refresh token"));
+
+        if (refreshToken.isExpired()) {
+            refreshTokenRepository.delete(refreshToken);
+            throw new ApiException("Refresh token expired. Please log in again.");
+        }
+
+        User user = refreshToken.getUser();
+        String newAccessToken = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
+
+        return Map.of("token", newAccessToken);
     }
 
     // ================= LOGOUT =================
@@ -153,6 +195,9 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new ApiException("User not found"));
         user.setOnline(false);
         userRepository.save(user);
+
+        // Invalidate refresh token on logout
+        refreshTokenRepository.deleteByUser(user);
     }
 
     // ================= UTIL =================
@@ -160,3 +205,4 @@ public class AuthServiceImpl implements AuthService {
         return String.valueOf((int) (Math.random() * 900000) + 100000);
     }
 }
+

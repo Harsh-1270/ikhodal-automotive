@@ -5,7 +5,7 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import UserNavbar from '../../components/common/UserNavbar';
-import { createPaymentIntent, getBookingById, verifyPayment, clearCart } from '../../services/api';
+import { createPaymentIntent, getBookingById, verifyPayment, clearCart, cancelBooking } from '../../services/api';
 import './StripeCheckout.css';
 
 // Initialize Stripe outside component to avoid re-creation
@@ -335,13 +335,18 @@ const StripeCheckout = () => {
     const appointmentId = location.state?.appointmentId || searchParams.get('appointmentId');
     const isReturning = searchParams.get('success') === 'true';
 
-    // Handle browser back button - redirect to Booking Form (only during active checkout)
+    // Handle browser back button - cancel booking + PaymentIntent, restart from Schedule
     useEffect(() => {
         if (paymentSuccess) return; // Don't intercept back on the success screen
 
-        const handlePopState = (e) => {
+        const handlePopState = async (e) => {
             e.preventDefault();
-            navigate('/booking-form', { replace: true });
+            // Cancel the pending booking and Stripe PaymentIntent on the backend
+            if (appointmentId) {
+                await cancelBooking(appointmentId);
+            }
+            // Send user back to Schedule to restart the entire booking flow
+            navigate('/schedule', { replace: true });
         };
 
         // Add a history entry to intercept the back button
@@ -353,7 +358,7 @@ const StripeCheckout = () => {
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, [navigate, paymentSuccess]);
+    }, [navigate, paymentSuccess, appointmentId]);
 
     /* ------------------------------------------
        FETCH BOOKING INFO
@@ -439,7 +444,7 @@ const StripeCheckout = () => {
         if (paymentInitialized.current) return; // Prevent double call (React StrictMode)
 
         if (!appointmentId) {
-            setError('No booking found. Please go back and try again.');
+            setError('No booking found. Please go back to the schedule and start your booking again.');
             setLoading(false);
             return;
         }
@@ -464,7 +469,7 @@ const StripeCheckout = () => {
                     }));
                 }
             } else {
-                setError(response.message || 'Failed to initialize payment. Please try again.');
+                setError(response.message || 'We couldn\'t initialise the payment. Please go back and try booking again.');
                 paymentInitialized.current = false; // Allow retry on error
             }
             setLoading(false);

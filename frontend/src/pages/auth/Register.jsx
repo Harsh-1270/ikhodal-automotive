@@ -146,23 +146,23 @@ const Register = () => {
         const newErrors = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = 'Name is required';
+            newErrors.name = 'Please enter your full name.';
         } else if (formData.name.trim().length < 2) {
-            newErrors.name = 'Name must be at least 2 characters';
+            newErrors.name = 'Your name must be at least 2 characters long.';
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = 'Please enter your email address.';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
+            newErrors.email = 'That doesn\'t look like a valid email address (e.g., name@example.com).';
         }
 
         if (!formData.password || !formData.password.trim()) {
-            newErrors.password = 'Password is required';
+            newErrors.password = 'Please create a password.';
         } else if (formData.password.trim().length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
+            newErrors.password = 'Password must be at least 6 characters long.';
         } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-            newErrors.password = 'Password must describe a special character';
+            newErrors.password = 'Password must include at least one special character (e.g., @, #, !).';
         }
 
         setErrors(newErrors);
@@ -194,7 +194,7 @@ const Register = () => {
                 setApiError(response.message);
             }
         } catch (error) {
-            setApiError('Something went wrong. Please try again.');
+            setApiError('Unable to connect. Please check your internet connection and try again.');
             console.error('Registration error:', error);
         } finally {
             setLoading(false);
@@ -210,7 +210,7 @@ const Register = () => {
         setSuccessMessage('');
 
         if (!otp.trim()) {
-            setApiError('Please enter the OTP');
+            setApiError('Please enter the 6-digit OTP sent to your email.');
             return;
         }
 
@@ -228,7 +228,7 @@ const Register = () => {
                 setApiError(response.message);
             }
         } catch (error) {
-            setApiError('OTP verification failed. Please try again.');
+            setApiError('OTP verification failed. The code may be incorrect or expired — please try again.');
             console.error('OTP verification error:', error);
         } finally {
             setLoading(false);

@@ -9,6 +9,40 @@ import { logoutUser } from '../services/api';
 // Create Auth Context
 export const AuthContext = createContext();
 
+/* ==========================================
+   JWT DECODE UTILITY
+   Decodes JWT payload without a library.
+   Returns null if the token is invalid.
+   ========================================== */
+const decodeJwt = (token) => {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+            atob(base64)
+                .split('')
+                .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                .join('')
+        );
+        return JSON.parse(jsonPayload);
+    } catch {
+        return null;
+    }
+};
+
+/* ==========================================
+   TOKEN VALIDITY CHECK
+   Returns true only if the token exists AND
+   has not expired (with a 10-second buffer).
+   ========================================== */
+const isTokenValid = (token) => {
+    if (!token) return false;
+    const payload = decodeJwt(token);
+    if (!payload || !payload.exp) return false;
+    // exp is in seconds, Date.now() is in milliseconds
+    return payload.exp * 1000 > Date.now() + 10_000;
+};
+
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
     // State: stores current user data (null if not logged in)
@@ -28,30 +62,49 @@ export const AuthProvider = ({ children }) => {
         checkAuthStatus();
     }, []);
 
-    // Check if user data exists in localStorage
+    // Check if user data exists in localStorage and the token is still valid
     const checkAuthStatus = () => {
         try {
-            // Get user data from localStorage
             const storedUser = localStorage.getItem('user');
             const storedToken = localStorage.getItem('token');
             const storedIsAdmin = localStorage.getItem('isAdmin');
+            const storedRefreshToken = localStorage.getItem('refreshToken');
 
-            // If user data exists, restore login state
             if (storedUser && storedToken) {
-                setUser(JSON.parse(storedUser));
-                setIsAdmin(storedIsAdmin === 'true');
+                if (isTokenValid(storedToken)) {
+                    // Access token is still fresh — restore session immediately
+                    setUser(JSON.parse(storedUser));
+                    setIsAdmin(storedIsAdmin === 'true');
+                } else if (storedRefreshToken) {
+                    // Access token expired but refresh token exists —
+                    // keep stored user so the redirect to dashboard still happens;
+                    // the axios interceptor will silently renew on the first API call.
+                    setUser(JSON.parse(storedUser));
+                    setIsAdmin(storedIsAdmin === 'true');
+                } else {
+                    // Both tokens are gone or expired → clear everything
+                    clearStorage();
+                }
             }
         } catch (error) {
             console.error('Error checking auth status:', error);
+            clearStorage();
         } finally {
             setLoading(false);
         }
     };
 
+    const clearStorage = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('refreshToken');
+    };
+
     /* ==========================================
        USER LOGIN FUNCTION
        ========================================== */
-    const login = (userData, token, adminStatus = false) => {
+    const login = (userData, token, adminStatus = false, refreshToken = null) => {
         try {
             // Save to state
             setUser(userData);
@@ -61,6 +114,10 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('token', token);
             localStorage.setItem('isAdmin', adminStatus.toString());
+
+            if (refreshToken) {
+                localStorage.setItem('refreshToken', refreshToken);
+            }
 
             return true;
         } catch (error) {
@@ -81,10 +138,8 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             setIsAdmin(false);
 
-            // Clear localStorage
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            localStorage.removeItem('isAdmin');
+            // Clear all stored auth data including refresh token
+            clearStorage();
 
             return true;
         } catch (error) {
