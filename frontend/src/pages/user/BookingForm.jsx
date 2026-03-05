@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UserNavbar from '../../components/common/UserNavbar';
 import { createBooking } from '../../services/api';
@@ -12,11 +12,29 @@ const BookingForm = () => {
     const { selectedDate, selectedTime, serviceIds = [], cartItems = [] } = location.state || {};
 
     // Redirect to cart if accessed without state (e.g. direct URL or refresh)
-    React.useEffect(() => {
+    useEffect(() => {
         if (!location.state || !serviceIds || serviceIds.length === 0) {
             navigate('/cart', { replace: true });
         }
     }, [location.state, serviceIds, navigate]);
+
+    // Handle browser back button - redirect to Schedule Selection
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/schedule', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
 
     /* ==========================================
        SVG ICONS COMPONENT

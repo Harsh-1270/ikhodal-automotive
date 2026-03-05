@@ -3,7 +3,7 @@
    Same design as Register page
    ============================================ */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
@@ -12,6 +12,24 @@ import './Login.css';
 const Login = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
+
+    // Handle browser back button - redirect to Homepage
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
 
     /* ==========================================
        SVG ICONS COMPONENT - COLORFUL GRADIENTS

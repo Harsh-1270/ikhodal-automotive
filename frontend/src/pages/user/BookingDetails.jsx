@@ -11,6 +11,24 @@ const BookingDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Handle browser back button - redirect to My Bookings
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/my-bookings', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
     /* ==========================================
        SVG ICONS WITH GRADIENTS
        ========================================== */

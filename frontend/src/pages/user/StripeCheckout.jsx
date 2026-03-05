@@ -335,6 +335,26 @@ const StripeCheckout = () => {
     const appointmentId = location.state?.appointmentId || searchParams.get('appointmentId');
     const isReturning = searchParams.get('success') === 'true';
 
+    // Handle browser back button - redirect to Booking Form (only during active checkout)
+    useEffect(() => {
+        if (paymentSuccess) return; // Don't intercept back on the success screen
+
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/booking-form', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate, paymentSuccess]);
+
     /* ------------------------------------------
        FETCH BOOKING INFO
        ------------------------------------------ */

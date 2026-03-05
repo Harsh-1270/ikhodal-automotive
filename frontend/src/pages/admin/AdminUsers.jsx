@@ -101,6 +101,25 @@ const AdminUsers = () => {
     };
 
     const navigate = useNavigate();
+
+    // Handle browser back button - redirect to Admin Dashboard
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/admin/dashboard', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');

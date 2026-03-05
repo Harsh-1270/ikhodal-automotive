@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ForgotPassword.css';
 
 const ForgotPassword = () => {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -119,6 +121,24 @@ const ForgotPassword = () => {
             return () => clearTimeout(timer);
         }
     }, [countdown]);
+
+    // Handle browser back button - redirect to Login page
+    useEffect(() => {
+        const handlePopState = (e) => {
+            e.preventDefault();
+            navigate('/login', { replace: true });
+        };
+
+        // Add a history entry to intercept the back button
+        window.history.pushState(null, '', window.location.href);
+
+        // Listen for back button
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
 
     const handleEmailSubmit = (e) => {
         e.preventDefault();
