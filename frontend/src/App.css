@@ -261,7 +261,11 @@ body {
 }
 
 .stat-card {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
   color: var(--white);
   padding: var(--spacing-lg);
   border-radius: var(--radius-lg);
@@ -487,7 +491,6 @@ table tbody tr:last-child td {
    ============================================ */
 
 @media (max-width: 768px) {
-
   .grid-2,
   .grid-3,
   .grid-4 {

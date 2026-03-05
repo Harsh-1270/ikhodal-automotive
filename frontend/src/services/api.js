@@ -3,21 +3,20 @@
    Centralized API communication layer
    ============================================ */
 
-import axios from 'axios';
+import axios from "axios";
 
 // Base API URL from environment variables
-const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8082/api';
-
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8082/api";
 
 /* ==========================================
    AXIOS INSTANCE with default config
    ========================================== */
 const api = axios.create({
-    baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    timeout: 10000, // 10 seconds timeout
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  timeout: 10000, // 10 seconds timeout
 });
 
 /* ==========================================
@@ -25,20 +24,20 @@ const api = axios.create({
    Automatically adds auth token to requests
    ========================================== */
 api.interceptors.request.use(
-    (config) => {
-        // Get token from localStorage
-        const token = localStorage.getItem('token');
+  (config) => {
+    // Get token from localStorage
+    const token = localStorage.getItem("token");
 
-        // Add token to headers if exists
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+    // Add token to headers if exists
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
 );
 
 /* ==========================================
@@ -51,79 +50,85 @@ let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.resolve(token);
-        }
-    });
-    failedQueue = [];
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
 };
 
 api.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
-        // Only attempt refresh on 401, and only once per request
-        if (error.response?.status === 401 && !originalRequest._retry) {
-            // Skip refresh attempt for the refresh endpoint itself
-            if (originalRequest.url?.includes('/auth/refresh') ||
-                originalRequest.url?.includes('/auth/login')) {
-                return Promise.reject(error);
-            }
-
-            if (isRefreshing) {
-                // Queue requests that arrive while a refresh is in progress
-                return new Promise((resolve, reject) => {
-                    failedQueue.push({ resolve, reject });
-                }).then(token => {
-                    originalRequest.headers.Authorization = `Bearer ${token}`;
-                    return api(originalRequest);
-                }).catch(err => Promise.reject(err));
-            }
-
-            originalRequest._retry = true;
-            isRefreshing = true;
-
-            const refreshToken = localStorage.getItem('refreshToken');
-
-            if (!refreshToken) {
-                // No refresh token — force re-login
-                isRefreshing = false;
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-                localStorage.removeItem('isAdmin');
-                localStorage.removeItem('refreshToken');
-                window.location.href = '/login';
-                return Promise.reject(error);
-            }
-
-            try {
-                const { data } = await axios.post(`${API_URL}/auth/refresh`, { refreshToken });
-                const newToken = data.token;
-                localStorage.setItem('token', newToken);
-                api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
-                originalRequest.headers.Authorization = `Bearer ${newToken}`;
-                processQueue(null, newToken);
-                return api(originalRequest);
-            } catch (refreshError) {
-                processQueue(refreshError, null);
-                // Refresh token is invalid or expired — force re-login
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-                localStorage.removeItem('isAdmin');
-                localStorage.removeItem('refreshToken');
-                window.location.href = '/login';
-                return Promise.reject(refreshError);
-            } finally {
-                isRefreshing = false;
-            }
-        }
-
+    // Only attempt refresh on 401, and only once per request
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      // Skip refresh attempt for the refresh endpoint itself
+      if (
+        originalRequest.url?.includes("/auth/refresh") ||
+        originalRequest.url?.includes("/auth/login")
+      ) {
         return Promise.reject(error);
+      }
+
+      if (isRefreshing) {
+        // Queue requests that arrive while a refresh is in progress
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      if (!refreshToken) {
+        // No refresh token — force re-login
+        isRefreshing = false;
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
+
+      try {
+        const { data } = await axios.post(`${API_URL}/auth/refresh`, {
+          refreshToken,
+        });
+        const newToken = data.token;
+        localStorage.setItem("token", newToken);
+        api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        processQueue(null, newToken);
+        return api(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError, null);
+        // Refresh token is invalid or expired — force re-login
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
     }
+
+    return Promise.reject(error);
+  },
 );
 
 /* ============================================
@@ -136,19 +141,19 @@ api.interceptors.response.use(
    Response: { message: "OTP sent to email" }
 */
 export const registerUser = async (userData) => {
-    try {
-        const response = await api.post('/auth/signup', userData);
-        return {
-            success: true,
-            data: response.data,
-            message: response.data?.message || 'OTP sent to email'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Registration failed'
-        };
-    }
+  try {
+    const response = await api.post("/auth/signup", userData);
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "OTP sent to email",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Registration failed",
+    };
+  }
 };
 
 /* Verify OTP (Step 2: verify email with OTP)
@@ -157,19 +162,19 @@ export const registerUser = async (userData) => {
    Response: { message: "Account verified" }
 */
 export const verifyOtp = async (otpData) => {
-    try {
-        const response = await api.post('/auth/verify-otp', otpData);
-        return {
-            success: true,
-            data: response.data,
-            message: response.data?.message || 'Account verified'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'OTP verification failed'
-        };
-    }
+  try {
+    const response = await api.post("/auth/verify-otp", otpData);
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "Account verified",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "OTP verification failed",
+    };
+  }
 };
 
 /* User Login
@@ -178,19 +183,19 @@ export const verifyOtp = async (otpData) => {
    Response: { token, message }
 */
 export const loginUser = async (credentials) => {
-    try {
-        const response = await api.post('/auth/login', credentials);
-        return {
-            success: true,
-            data: response.data,
-            message: response.data?.message || 'Login successful'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Login failed'
-        };
-    }
+  try {
+    const response = await api.post("/auth/login", credentials);
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "Login successful",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Login failed",
+    };
+  }
 };
 
 /* Admin Login
@@ -198,19 +203,19 @@ export const loginUser = async (credentials) => {
    Body: { email, password }
 */
 export const loginAdmin = async (credentials) => {
-    try {
-        const response = await api.post('/auth/admin/login', credentials);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Admin login successful'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Admin login failed'
-        };
-    }
+  try {
+    const response = await api.post("/auth/admin/login", credentials);
+    return {
+      success: true,
+      data: response.data,
+      message: "Admin login successful",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Admin login failed",
+    };
+  }
 };
 
 /* User Logout
@@ -218,18 +223,18 @@ export const loginAdmin = async (credentials) => {
    Sets user isOnline = false in database
 */
 export const logoutUser = async () => {
-    try {
-        const response = await api.post('/auth/logout');
-        return {
-            success: true,
-            message: response.data?.message || 'Logged out successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Logout failed'
-        };
-    }
+  try {
+    const response = await api.post("/auth/logout");
+    return {
+      success: true,
+      message: response.data?.message || "Logged out successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Logout failed",
+    };
+  }
 };
 
 /* ============================================
@@ -240,37 +245,37 @@ export const logoutUser = async () => {
    GET /services
 */
 export const getServices = async () => {
-    try {
-        const response = await api.get('/services');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch services',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/services");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch services",
+      data: [],
+    };
+  }
 };
 
 /* Get Service by ID
    GET /services/:id
 */
 export const getServiceById = async (serviceId) => {
-    try {
-        const response = await api.get(`/services/${serviceId}`);
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch service'
-        };
-    }
+  try {
+    const response = await api.get(`/services/${serviceId}`);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch service",
+    };
+  }
 };
 
 /* ============================================
@@ -282,56 +287,56 @@ export const getServiceById = async (serviceId) => {
    Body: { date, startTime, endTime, serviceIds }
 */
 export const createBooking = async (bookingData) => {
-    try {
-        const response = await api.post('/createBooking', bookingData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Booking created successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to create booking'
-        };
-    }
+  try {
+    const response = await api.post("/createBooking", bookingData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Booking created successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to create booking",
+    };
+  }
 };
 
 /* Get User Bookings
    GET /bookings/my
 */
 export const getUserBookings = async () => {
-    try {
-        const response = await api.get('/bookings/my');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch bookings',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/bookings/my");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch bookings",
+      data: [],
+    };
+  }
 };
 
 /* Get Booking by ID
    GET /bookings/:id
 */
 export const getBookingById = async (bookingId) => {
-    try {
-        const response = await api.get(`/bookings/${bookingId}`);
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch booking'
-        };
-    }
+  try {
+    const response = await api.get(`/bookings/${bookingId}`);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch booking",
+    };
+  }
 };
 
 /* Cancel Booking (user-facing)
@@ -340,15 +345,15 @@ export const getBookingById = async (bookingId) => {
    Only the owner of the booking can call this.
 */
 export const cancelBooking = async (bookingId) => {
-    try {
-        await api.delete(`/bookings/${bookingId}/cancel`);
-        return { success: true };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to cancel booking'
-        };
-    }
+  try {
+    await api.delete(`/bookings/${bookingId}/cancel`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to cancel booking",
+    };
+  }
 };
 
 /* ============================================
@@ -361,37 +366,41 @@ export const cancelBooking = async (bookingId) => {
    Returns: { clientSecret }
 */
 export const createPaymentIntent = async (appointmentId) => {
-    try {
-        const response = await api.post('/payments/create-intent', { appointmentId });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to create payment intent'
-        };
-    }
+  try {
+    const response = await api.post("/payments/create-intent", {
+      appointmentId,
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to create payment intent",
+    };
+  }
 };
 
 /* Get Payment History
    GET /payments/history
 */
 export const getPaymentHistory = async () => {
-    try {
-        const response = await api.get('/payments/history');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch payment history',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/payments/history");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch payment history",
+      data: [],
+    };
+  }
 };
 
 /* ============================================
@@ -403,21 +412,19 @@ export const getPaymentHistory = async () => {
    Returns: { status }
 */
 export const verifyPayment = async (appointmentId) => {
-    try {
-        const response = await api.post(`/payments/verify/${appointmentId}`);
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to verify payment'
-        };
-    }
+  try {
+    const response = await api.post(`/payments/verify/${appointmentId}`);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to verify payment",
+    };
+  }
 };
-
-
 
 /* ============================================
    AVAILABILITY APIs
@@ -428,21 +435,22 @@ export const verifyPayment = async (appointmentId) => {
    Query: ?date=YYYY-MM-DD&serviceId=123
 */
 export const getAvailableSlots = async (date, serviceId) => {
-    try {
-        const response = await api.get('/availability/slots', {
-            params: { date, serviceId }
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch available slots',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/availability/slots", {
+      params: { date, serviceId },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch available slots",
+      data: [],
+    };
+  }
 };
 
 /* Check if Date is Available
@@ -450,20 +458,20 @@ export const getAvailableSlots = async (date, serviceId) => {
    Query: ?date=YYYY-MM-DD
 */
 export const checkDateAvailability = async (date) => {
-    try {
-        const response = await api.get('/availability/check', {
-            params: { date }
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to check availability'
-        };
-    }
+  try {
+    const response = await api.get("/availability/check", {
+      params: { date },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to check availability",
+    };
+  }
 };
 
 /* Get Time Slots for a Specific Date (Admin Schedule)
@@ -471,42 +479,43 @@ export const checkDateAvailability = async (date) => {
    Query: ?date=YYYY-MM-DD
 */
 export const getTimeSlots = async (date) => {
-    try {
-        const response = await api.get('/availability/slots', {
-            params: { date }
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch time slots',
-            data: { slots: [] }
-        };
-    }
+  try {
+    const response = await api.get("/availability/slots", {
+      params: { date },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch time slots",
+      data: { slots: [] },
+    };
+  }
 };
 
 /* Get Schedule Overrides (Public - for user calendar)
    GET /availability/overrides?year=2026&month=2
 */
 export const getPublicScheduleOverrides = async (year, month) => {
-    try {
-        const response = await api.get('/availability/overrides', {
-            params: { year, month }
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch schedule overrides',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/availability/overrides", {
+      params: { year, month },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch schedule overrides",
+      data: [],
+    };
+  }
 };
 
 /* ============================================
@@ -517,21 +526,22 @@ export const getPublicScheduleOverrides = async (year, month) => {
    GET /admin/schedule/overrides?year=2026&month=2
 */
 export const getScheduleOverrides = async (year, month) => {
-    try {
-        const response = await api.get('/admin/schedule/overrides', {
-            params: { year, month }
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch schedule overrides',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/admin/schedule/overrides", {
+      params: { year, month },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch schedule overrides",
+      data: [],
+    };
+  }
 };
 
 /* Create Schedule Override
@@ -539,19 +549,20 @@ export const getScheduleOverrides = async (year, month) => {
    Body: { date, overrideType, startTime?, endTime? }
 */
 export const createScheduleOverride = async (overrideData) => {
-    try {
-        const response = await api.post('/admin/schedule/override', overrideData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Override created successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to create schedule override'
-        };
-    }
+  try {
+    const response = await api.post("/admin/schedule/override", overrideData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Override created successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to create schedule override",
+    };
+  }
 };
 
 /* Delete Schedule Override
@@ -559,20 +570,21 @@ export const createScheduleOverride = async (overrideData) => {
    Body: { date, overrideType, startTime?, endTime? }
 */
 export const deleteScheduleOverride = async (overrideData) => {
-    try {
-        const response = await api.delete('/admin/schedule/override', {
-            data: overrideData
-        });
-        return {
-            success: true,
-            message: 'Override removed successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to remove schedule override'
-        };
-    }
+  try {
+    await api.delete("/admin/schedule/override", {
+      data: overrideData,
+    });
+    return {
+      success: true,
+      message: "Override removed successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to remove schedule override",
+    };
+  }
 };
 
 /* ============================================
@@ -583,22 +595,22 @@ export const deleteScheduleOverride = async (overrideData) => {
    GET /admin/appointments
    Query: ?status=pending or ?status=completed
 */
-export const getAdminAppointments = async (status = '') => {
-    try {
-        const response = await api.get('/admin/appointments', {
-            params: status ? { status } : {}
-        });
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch appointments',
-            data: []
-        };
-    }
+export const getAdminAppointments = async (status = "") => {
+  try {
+    const response = await api.get("/admin/appointments", {
+      params: status ? { status } : {},
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch appointments",
+      data: [],
+    };
+  }
 };
 
 /* Update Appointment Status
@@ -606,39 +618,43 @@ export const getAdminAppointments = async (status = '') => {
    Body: { status: 'completed' }
 */
 export const updateAppointmentStatus = async (appointmentId, status) => {
-    try {
-        const response = await api.put(`/admin/appointments/${appointmentId}/status`, {
-            status
-        });
-        return {
-            success: true,
-            data: response.data,
-            message: 'Appointment status updated successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to update appointment status'
-        };
-    }
+  try {
+    const response = await api.put(
+      `/admin/appointments/${appointmentId}/status`,
+      {
+        status,
+      },
+    );
+    return {
+      success: true,
+      data: response.data,
+      message: "Appointment status updated successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to update appointment status",
+    };
+  }
 };
 
 /* Delete Appointment
    DELETE /admin/appointments/:id
 */
 export const deleteAppointment = async (appointmentId) => {
-    try {
-        const response = await api.delete(`/admin/appointments/${appointmentId}`);
-        return {
-            success: true,
-            message: 'Appointment deleted successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to delete appointment'
-        };
-    }
+  try {
+    await api.delete(`/admin/appointments/${appointmentId}`);
+    return {
+      success: true,
+      message: "Appointment deleted successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to delete appointment",
+    };
+  }
 };
 
 /* ============================================
@@ -649,56 +665,56 @@ export const deleteAppointment = async (appointmentId) => {
    GET /admin/users
 */
 export const getAllUsers = async () => {
-    try {
-        const response = await api.get('/admin/users');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch users',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/admin/users");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch users",
+      data: [],
+    };
+  }
 };
 
 /* Delete User
    DELETE /admin/users/:id
 */
 export const deleteUser = async (userId) => {
-    try {
-        const response = await api.delete(`/admin/users/${userId}`);
-        return {
-            success: true,
-            message: 'User deleted successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to delete user'
-        };
-    }
+  try {
+    await api.delete(`/admin/users/${userId}`);
+    return {
+      success: true,
+      message: "User deleted successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to delete user",
+    };
+  }
 };
 
 /* Get User Stats (for dashboard)
    GET /admin/stats/users
 */
 export const getUserStats = async () => {
-    try {
-        const response = await api.get('/admin/stats/users');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch user stats',
-            data: { totalUsers: 0, activeUsers: 0 }
-        };
-    }
+  try {
+    const response = await api.get("/admin/stats/users");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch user stats",
+      data: { totalUsers: 0, activeUsers: 0 },
+    };
+  }
 };
 
 /* ============================================
@@ -709,19 +725,20 @@ export const getUserStats = async () => {
    GET /admin/availability
 */
 export const getAvailabilityRules = async () => {
-    try {
-        const response = await api.get('/admin/availability');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch availability rules',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/admin/availability");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch availability rules",
+      data: [],
+    };
+  }
 };
 
 /* Create Availability Rule
@@ -729,19 +746,20 @@ export const getAvailabilityRules = async () => {
    Body: { day: 'Monday', startTime: '10:00', endTime: '14:00', type: 'unavailable' }
 */
 export const createAvailabilityRule = async (ruleData) => {
-    try {
-        const response = await api.post('/admin/availability', ruleData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Availability rule created successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to create availability rule'
-        };
-    }
+  try {
+    const response = await api.post("/admin/availability", ruleData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Availability rule created successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to create availability rule",
+    };
+  }
 };
 
 /* Update Availability Rule
@@ -749,37 +767,39 @@ export const createAvailabilityRule = async (ruleData) => {
    Body: { startTime, endTime, type }
 */
 export const updateAvailabilityRule = async (ruleId, ruleData) => {
-    try {
-        const response = await api.put(`/admin/availability/${ruleId}`, ruleData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Availability rule updated successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to update availability rule'
-        };
-    }
+  try {
+    const response = await api.put(`/admin/availability/${ruleId}`, ruleData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Availability rule updated successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to update availability rule",
+    };
+  }
 };
 
 /* Delete Availability Rule
    DELETE /admin/availability/:id
 */
 export const deleteAvailabilityRule = async (ruleId) => {
-    try {
-        const response = await api.delete(`/admin/availability/${ruleId}`);
-        return {
-            success: true,
-            message: 'Availability rule deleted successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to delete availability rule'
-        };
-    }
+  try {
+    await api.delete(`/admin/availability/${ruleId}`);
+    return {
+      success: true,
+      message: "Availability rule deleted successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to delete availability rule",
+    };
+  }
 };
 
 /* ============================================
@@ -790,24 +810,25 @@ export const deleteAvailabilityRule = async (ruleId) => {
    GET /admin/stats/dashboard
 */
 export const getDashboardStats = async () => {
-    try {
-        const response = await api.get('/admin/stats/dashboard');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch dashboard stats',
-            data: {
-                totalAppointments: 0,
-                pendingAppointments: 0,
-                completedAppointments: 0,
-                totalRevenue: 0
-            }
-        };
-    }
+  try {
+    const response = await api.get("/admin/stats/dashboard");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch dashboard stats",
+      data: {
+        totalAppointments: 0,
+        pendingAppointments: 0,
+        completedAppointments: 0,
+        totalRevenue: 0,
+      },
+    };
+  }
 };
 
 /* ============================================
@@ -818,19 +839,19 @@ export const getDashboardStats = async () => {
    GET /cart
 */
 export const getCartItems = async () => {
-    try {
-        const response = await api.get('/cart');
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to fetch cart items',
-            data: []
-        };
-    }
+  try {
+    const response = await api.get("/cart");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to fetch cart items",
+      data: [],
+    };
+  }
 };
 
 /* Add to Cart
@@ -838,19 +859,19 @@ export const getCartItems = async () => {
    Body: { serviceId, quantity }
 */
 export const addToCart = async (cartData) => {
-    try {
-        const response = await api.post('/cart', cartData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Item added to cart'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to add item to cart'
-        };
-    }
+  try {
+    const response = await api.post("/cart", cartData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Item added to cart",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to add item to cart",
+    };
+  }
 };
 
 /* Update Cart Item Quantity
@@ -858,55 +879,56 @@ export const addToCart = async (cartData) => {
    Body: { quantity }
 */
 export const updateCartItem = async (serviceId, cartData) => {
-    try {
-        const response = await api.put(`/cart/${serviceId}`, cartData);
-        return {
-            success: true,
-            data: response.data,
-            message: 'Cart item updated'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to update cart item'
-        };
-    }
+  try {
+    const response = await api.put(`/cart/${serviceId}`, cartData);
+    return {
+      success: true,
+      data: response.data,
+      message: "Cart item updated",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to update cart item",
+    };
+  }
 };
 
 /* Remove Item from Cart
    DELETE /cart/:serviceId
 */
 export const removeCartItem = async (serviceId) => {
-    try {
-        await api.delete(`/cart/${serviceId}`);
-        return {
-            success: true,
-            message: 'Item removed from cart'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to remove item from cart'
-        };
-    }
+  try {
+    await api.delete(`/cart/${serviceId}`);
+    return {
+      success: true,
+      message: "Item removed from cart",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to remove item from cart",
+    };
+  }
 };
 
 /* Clear Entire Cart
    DELETE /cart
 */
 export const clearCart = async () => {
-    try {
-        await api.delete('/cart');
-        return {
-            success: true,
-            message: 'Cart cleared'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to clear cart'
-        };
-    }
+  try {
+    await api.delete("/cart");
+    return {
+      success: true,
+      message: "Cart cleared",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to clear cart",
+    };
+  }
 };
 
 /* ============================================
@@ -918,78 +940,81 @@ export const clearCart = async () => {
    Body: { bookingId, email, type: 'user' | 'admin' }
 */
 export const sendBookingConfirmation = async (emailData) => {
-    try {
-        const response = await api.post('/email/booking-confirmation', emailData);
-        return {
-            success: true,
-            message: 'Confirmation email sent successfully'
-        };
-    } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || 'Failed to send confirmation email'
-        };
-    }
+  try {
+    await api.post("/email/booking-confirmation", emailData);
+    return {
+      success: true,
+      message: "Confirmation email sent successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to send confirmation email",
+    };
+  }
 };
 
 /* ============================================
    EXPORT ALL FUNCTIONS
    ============================================ */
-export default {
-    // Auth
-    registerUser,
-    verifyOtp,
-    loginUser,
-    loginAdmin,
-    logoutUser,
+const apiExports = {
+  // Auth
+  registerUser,
+  verifyOtp,
+  loginUser,
+  loginAdmin,
+  logoutUser,
 
-    // Services
-    getServices,
-    getServiceById,
+  // Services
+  getServices,
+  getServiceById,
 
-    // Bookings
-    createBooking,
-    getUserBookings,
-    getBookingById,
+  // Bookings
+  createBooking,
+  getUserBookings,
+  getBookingById,
 
-    // Availability
-    getAvailableSlots,
-    checkDateAvailability,
+  // Availability
+  getAvailableSlots,
+  checkDateAvailability,
 
-    // Payment
-    createPaymentIntent,
-    getPaymentHistory,
+  // Payment
+  createPaymentIntent,
+  getPaymentHistory,
 
-    // Admin - Appointments
-    getAdminAppointments,
-    updateAppointmentStatus,
-    deleteAppointment,
+  // Admin - Appointments
+  getAdminAppointments,
+  updateAppointmentStatus,
+  deleteAppointment,
 
-    // Admin - Users
-    getAllUsers,
-    deleteUser,
-    getUserStats,
+  // Admin - Users
+  getAllUsers,
+  deleteUser,
+  getUserStats,
 
-    // Admin - Availability
-    getAvailabilityRules,
-    createAvailabilityRule,
-    updateAvailabilityRule,
-    deleteAvailabilityRule,
-    getTimeSlots,
-    getScheduleOverrides,
-    createScheduleOverride,
-    deleteScheduleOverride,
+  // Admin - Availability
+  getAvailabilityRules,
+  createAvailabilityRule,
+  updateAvailabilityRule,
+  deleteAvailabilityRule,
+  getTimeSlots,
+  getScheduleOverrides,
+  createScheduleOverride,
+  deleteScheduleOverride,
 
-    // Admin - Stats
-    getDashboardStats,
+  // Admin - Stats
+  getDashboardStats,
 
-    // Cart
-    getCartItems,
-    addToCart,
-    updateCartItem,
-    removeCartItem,
-    clearCart,
+  // Cart
+  getCartItems,
+  addToCart,
+  updateCartItem,
+  removeCartItem,
+  clearCart,
 
-    // Email
-    sendBookingConfirmation
+  // Email
+  sendBookingConfirmation,
 };
+
+export default apiExports;

@@ -4,16 +4,17 @@
    ============================================ */
 
 .adm-sch-container {
-    width: 100%;
-    background: #f9fafb;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    min-height: 100vh;
+  width: 100%;
+  background: #f9fafb;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
 }
 
 .adm-sch-main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 /* ============================================
@@ -21,41 +22,41 @@
    ============================================ */
 
 .adm-sch-page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding: 2rem 1.5rem;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border-radius: 16px;
 }
 
 .adm-sch-header-left {
-    flex: 1;
+  flex: 1;
 }
 
 .adm-sch-page-title {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.875rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0;
 }
 
 .adm-sch-title-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.875rem;
-    height: 1.875rem;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  flex-shrink: 0;
 }
 
 .adm-sch-title-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /* ============================================
@@ -63,50 +64,50 @@
    ============================================ */
 
 .adm-sch-legend-section {
-    display: flex;
-    gap: 2rem;
-    background: #ffffff;
-    padding: 1.25rem 2rem;
-    border-radius: 16px;
-    border: 2px solid #f3f4f6;
-    margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  background: #ffffff;
+  padding: 1.25rem 2rem;
+  border-radius: 16px;
+  border: 2px solid #f3f4f6;
+  margin-bottom: 2rem;
 }
 
 .adm-sch-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #4b5563;
 }
 
 .adm-sch-legend-color {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  flex-shrink: 0;
 }
 
 .adm-sch-legend-color.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-color: #10b981;
 }
 
 .adm-sch-legend-color.holiday {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-color: #f59e0b;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
 }
 
 .adm-sch-legend-color.unavailable {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    border-color: #ef4444;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-color: #ef4444;
 }
 
 .adm-sch-legend-color.selected {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    border-color: #1e3a8a;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-color: #1e3a8a;
 }
 
 /* ============================================
@@ -114,9 +115,9 @@
    ============================================ */
 
 .adm-sch-grid {
-    display: grid;
-    grid-template-columns: 1fr 450px;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 450px;
+  gap: 2rem;
 }
 
 /* ============================================
@@ -124,173 +125,173 @@
    ============================================ */
 
 .adm-sch-calendar-section {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .adm-sch-calendar-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 2rem;
-    border: 2px solid #f3f4f6;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 2rem;
+  border: 2px solid #f3f4f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .adm-sch-calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f3f4f6;
 }
 
 .adm-sch-calendar-month {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #0f172a;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .adm-sch-month-nav-btn {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border: 2px solid #3b82f6;
-    border-radius: 12px;
-    color: #1e3a8a;
-    font-size: 1.25rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  color: #1e3a8a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .adm-sch-month-nav-btn:hover {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
 }
 
 .adm-sch-month-nav-btn span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .adm-sch-month-nav-btn span svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-days-header {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .adm-sch-day-name {
-    text-align: center;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #64748b;
-    padding: 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #64748b;
+  padding: 0.75rem;
 }
 
 .adm-sch-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
 }
 
 .adm-sch-day {
-    aspect-ratio: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    border: 2px solid transparent;
-    padding: 0.5rem;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 2px solid transparent;
+  padding: 0.5rem;
 }
 
 .adm-sch-day.empty {
-    cursor: default;
-    background: transparent;
+  cursor: default;
+  background: transparent;
 }
 
 .adm-sch-day-number {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .adm-sch-day-label {
-    font-size: 0.625rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 /* Day States */
 .adm-sch-day.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
-    color: #065f46;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-color: #10b981;
+  color: #065f46;
 }
 
 .adm-sch-day.available:hover {
-    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
 }
 
 .adm-sch-day.holiday {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-color: #f59e0b;
-    color: #92400e;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+  color: #92400e;
 }
 
 .adm-sch-day.holiday:hover {
-    background: linear-gradient(135deg, #fde68a, #fcd34d);
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, #fde68a, #fcd34d);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
 }
 
 .adm-sch-day.unavailable {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    border-color: #ef4444;
-    color: #991b1b;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-color: #ef4444;
+  color: #991b1b;
 }
 
 .adm-sch-day.unavailable:hover {
-    background: linear-gradient(135deg, #fecaca, #fca5a5);
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
 }
 
 .adm-sch-day.past {
-    background: #f9fafb;
-    color: #cbd5e1;
-    cursor: not-allowed;
-    opacity: 0.5;
+  background: #f9fafb;
+  color: #cbd5e1;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .adm-sch-day.selected {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    border-color: #1e3a8a;
-    color: #ffffff;
-    transform: scale(1.08);
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-color: #1e3a8a;
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
 }
 
 /* ============================================
@@ -298,44 +299,44 @@
    ============================================ */
 
 .adm-sch-controls-section {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .adm-sch-controls-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 2rem;
-    border: 2px solid #f3f4f6;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 90px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 2rem;
+  border: 2px solid #f3f4f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 90px;
 }
 
 .adm-sch-controls-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid #f3f4f6;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f3f4f6;
 }
 
 .adm-sch-controls-title {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
 }
 
 .adm-sch-selected-date {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #3b82f6;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    padding: 0.75rem 1.25rem;
-    border-radius: 12px;
-    display: inline-block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  display: inline-block;
 }
 
 /* ============================================
@@ -343,106 +344,106 @@
    ============================================ */
 
 .adm-sch-date-actions {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .adm-sch-section-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .adm-sch-section-title span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .adm-sch-section-title span svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-section-subtitle {
-    font-size: 0.875rem;
-    color: #64748b;
-    margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 1rem;
 }
 
 .adm-sch-action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .adm-sch-action-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  width: 100%;
 }
 
 .adm-sch-btn-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
 }
 
 .adm-sch-btn-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-action-btn.holiday {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-color: #f59e0b;
-    color: #92400e;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+  color: #92400e;
 }
 
 .adm-sch-action-btn.holiday:hover {
-    background: linear-gradient(135deg, #fde68a, #fcd34d);
-    transform: translateX(8px);
-    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, #fde68a, #fcd34d);
+  transform: translateX(8px);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
 }
 
 .adm-sch-action-btn.unavailable {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    border-color: #ef4444;
-    color: #991b1b;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-color: #ef4444;
+  color: #991b1b;
 }
 
 .adm-sch-action-btn.unavailable:hover {
-    background: linear-gradient(135deg, #fecaca, #fca5a5);
-    transform: translateX(8px);
-    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+  transform: translateX(8px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
 }
 
 .adm-sch-action-btn.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
-    color: #065f46;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-color: #10b981;
+  color: #065f46;
 }
 
 .adm-sch-action-btn.available:hover {
-    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
-    transform: translateX(8px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+  transform: translateX(8px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
 }
 
 /* ============================================
@@ -450,102 +451,102 @@
    ============================================ */
 
 .adm-sch-timeslots-mgmt {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 2px solid #f3f4f6;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #f3f4f6;
 }
 
 .adm-sch-timeslots-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .adm-sch-time-slot {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
 }
 
 .adm-sch-time-slot.available {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    border-color: #10b981;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-color: #10b981;
 }
 
 .adm-sch-time-slot.available:hover {
-    background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
-    transform: translateX(8px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+  background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+  transform: translateX(8px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
 }
 
 .adm-sch-time-slot.unavailable {
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    border-color: #ef4444;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-color: #ef4444;
 }
 
 .adm-sch-time-slot.unavailable:hover {
-    background: linear-gradient(135deg, #fecaca, #fca5a5);
-    transform: translateX(8px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+  transform: translateX(8px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
 }
 
 .adm-sch-slot-status-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
 }
 
 .adm-sch-slot-status-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-slot-details {
-    flex: 1;
+  flex: 1;
 }
 
 .adm-sch-slot-time {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
 }
 
 .adm-sch-slot-duration {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    opacity: 0.8;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .adm-sch-time-slot.available .adm-sch-slot-time {
-    color: #065f46;
+  color: #065f46;
 }
 
 .adm-sch-time-slot.unavailable .adm-sch-slot-time {
-    color: #991b1b;
+  color: #991b1b;
 }
 
 .adm-sch-slot-status-text {
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 .adm-sch-time-slot.available .adm-sch-slot-status-text {
-    color: #065f46;
+  color: #065f46;
 }
 
 .adm-sch-time-slot.unavailable .adm-sch-slot-status-text {
-    color: #991b1b;
+  color: #991b1b;
 }
 
 /* ============================================
@@ -553,35 +554,35 @@
    ============================================ */
 
 .adm-sch-info-message {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border-radius: 12px;
-    border: 2px solid #3b82f6;
-    margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-radius: 12px;
+  border: 2px solid #3b82f6;
+  margin-top: 2rem;
 }
 
 .adm-sch-info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
 }
 
 .adm-sch-info-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-info-text {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: #1e3a8a;
-    line-height: 1.6;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1e3a8a;
+  line-height: 1.6;
 }
 
 /* ============================================
@@ -589,41 +590,41 @@
    ============================================ */
 
 .adm-sch-no-date {
-    text-align: center;
-    padding: 4rem 2rem;
+  text-align: center;
+  padding: 4rem 2rem;
 }
 
 .adm-sch-no-date-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 5rem;
-    height: 5rem;
-    margin: 0 auto 1.5rem;
-    opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 1.5rem;
+  opacity: 0.5;
 }
 
 .adm-sch-no-date-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-no-date h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
 }
 
 .adm-sch-no-date p {
-    font-size: 1rem;
-    color: #64748b;
-    line-height: 1.6;
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
 }
 
 .adm-sch-legend-color.booked {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    border-color: #3b82f6;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border-color: #3b82f6;
 }
 
 /* ============================================
@@ -631,23 +632,23 @@
    ============================================ */
 
 .adm-sch-time-slot.booked {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    border-color: #3b82f6;
-    cursor: default;
-    opacity: 0.9;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border-color: #3b82f6;
+  cursor: default;
+  opacity: 0.9;
 }
 
 .adm-sch-time-slot.booked:hover {
-    transform: none;
-    box-shadow: none;
+  transform: none;
+  box-shadow: none;
 }
 
 .adm-sch-time-slot.booked .adm-sch-slot-time {
-    color: #1e3a8a;
+  color: #1e3a8a;
 }
 
 .adm-sch-time-slot.booked .adm-sch-slot-status-text {
-    color: #1e3a8a;
+  color: #1e3a8a;
 }
 
 /* ============================================
@@ -655,88 +656,88 @@
    ============================================ */
 
 .adm-sch-toast {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.5rem;
-    border-radius: 14px;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    z-index: 10000;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    animation: adm-sch-toast-slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    max-width: 420px;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  z-index: 10000;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  animation: adm-sch-toast-slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 420px;
 }
 
 .adm-sch-toast.success {
-    background: linear-gradient(135deg, #059669, #10b981);
+  background: linear-gradient(135deg, #059669, #10b981);
 }
 
 .adm-sch-toast.error {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
+  background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
 .adm-sch-toast-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
 }
 
 .adm-sch-toast-icon svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .adm-sch-toast-message {
-    flex: 1;
-    line-height: 1.4;
+  flex: 1;
+  line-height: 1.4;
 }
 
 .adm-sch-toast-close {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: #ffffff;
-    font-size: 1.25rem;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  font-size: 1.25rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
 }
 
 .adm-sch-toast-close:hover {
-    background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 @keyframes adm-sch-toast-slide-in {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Disable text selection */
 .adm-sch-container {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* ============================================
@@ -744,13 +745,13 @@
    ============================================ */
 
 @media (max-width: 1024px) {
-    .adm-sch-grid {
-        grid-template-columns: 1fr;
-    }
+  .adm-sch-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .adm-sch-controls-card {
-        position: static;
-    }
+  .adm-sch-controls-card {
+    position: static;
+  }
 }
 
 /* ============================================
@@ -760,28 +761,28 @@
    .selected always shows blue immediately.
    ============================================ */
 @media (hover: none) {
-    .adm-sch-day.available:hover {
-        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-        border-color: #10b981;
-        color: #065f46;
-        transform: none;
-        box-shadow: none;
-    }
+  .adm-sch-day.available:hover {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
+    transform: none;
+    box-shadow: none;
+  }
 
-    .adm-sch-day.holiday:hover,
-    .adm-sch-day.unavailable:hover {
-        transform: none;
-        box-shadow: none;
-    }
+  .adm-sch-day.holiday:hover,
+  .adm-sch-day.unavailable:hover {
+    transform: none;
+    box-shadow: none;
+  }
 
-    .adm-sch-day.selected,
-    .adm-sch-day.available.selected {
-        background: linear-gradient(135deg, #1e3a8a, #3b82f6) !important;
-        border-color: #1e3a8a !important;
-        color: #ffffff !important;
-        transform: scale(1.08) !important;
-        box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4) !important;
-    }
+  .adm-sch-day.selected,
+  .adm-sch-day.available.selected {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6) !important;
+    border-color: #1e3a8a !important;
+    color: #ffffff !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4) !important;
+  }
 }
 
 /* ============================================
@@ -789,196 +790,196 @@
    ============================================ */
 
 @media (max-width: 768px) {
-    .adm-sch-main {
-        padding: 1rem;
-    }
+  .adm-sch-main {
+    padding: 1rem;
+  }
 
-    .adm-sch-page-header {
-        padding: 1.5rem 1rem;
-        margin-bottom: 1.25rem;
-    }
+  .adm-sch-page-header {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.25rem;
+  }
 
-    .adm-sch-page-title {
-        font-size: 1.5rem;
-        gap: 0.625rem;
-    }
+  .adm-sch-page-title {
+    font-size: 1.5rem;
+    gap: 0.625rem;
+  }
 
-    .adm-sch-title-icon {
-        width: 1.5rem;
-        height: 1.5rem;
-    }
+  .adm-sch-title-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 
-    .adm-sch-legend-section {
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-    }
+  .adm-sch-legend-section {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
-    .adm-sch-legend-item {
-        font-size: 0.875rem;
-        flex: 0 0 calc(50% - 0.5rem);
-    }
+  .adm-sch-legend-item {
+    font-size: 0.875rem;
+    flex: 0 0 calc(50% - 0.5rem);
+  }
 
-    .adm-sch-legend-color {
-        width: 24px;
-        height: 24px;
-    }
+  .adm-sch-legend-color {
+    width: 24px;
+    height: 24px;
+  }
 
-    .adm-sch-calendar-card,
-    .adm-sch-controls-card {
-        padding: 1.5rem;
-        border-radius: 20px;
-    }
+  .adm-sch-calendar-card,
+  .adm-sch-controls-card {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
 
-    .adm-sch-calendar-header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.25rem;
-    }
+  .adm-sch-calendar-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
 
-    .adm-sch-calendar-month {
-        font-size: 1.375rem;
-    }
+  .adm-sch-calendar-month {
+    font-size: 1.375rem;
+  }
 
-    .adm-sch-month-nav-btn {
-        width: 40px;
-        height: 40px;
-    }
+  .adm-sch-month-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
 
-    .adm-sch-days-header {
-        gap: 0.375rem;
-        margin-bottom: 0.75rem;
-    }
+  .adm-sch-days-header {
+    gap: 0.375rem;
+    margin-bottom: 0.75rem;
+  }
 
-    .adm-sch-day-name {
-        font-size: 0.8125rem;
-        padding: 0.5rem 0.25rem;
-    }
+  .adm-sch-day-name {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.25rem;
+  }
 
-    .adm-sch-calendar-grid {
-        gap: 0.5rem;
-    }
+  .adm-sch-calendar-grid {
+    gap: 0.5rem;
+  }
 
-    .adm-sch-day {
-        padding: 0.375rem;
-        border-radius: 10px;
-    }
+  .adm-sch-day {
+    padding: 0.375rem;
+    border-radius: 10px;
+  }
 
-    .adm-sch-day-number {
-        font-size: 0.9375rem;
-        margin-bottom: 0.125rem;
-    }
+  .adm-sch-day-number {
+    font-size: 0.9375rem;
+    margin-bottom: 0.125rem;
+  }
 
-    .adm-sch-day-label {
-        font-size: 0.5625rem;
-    }
+  .adm-sch-day-label {
+    font-size: 0.5625rem;
+  }
 
-    .adm-sch-controls-header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.25rem;
-    }
+  .adm-sch-controls-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
 
-    .adm-sch-controls-title {
-        font-size: 1.25rem;
-    }
+  .adm-sch-controls-title {
+    font-size: 1.25rem;
+  }
 
-    .adm-sch-selected-date {
-        font-size: 0.875rem;
-        padding: 0.625rem 1rem;
-    }
+  .adm-sch-selected-date {
+    font-size: 0.875rem;
+    padding: 0.625rem 1rem;
+  }
 
-    .adm-sch-date-actions {
-        margin-bottom: 1.5rem;
-    }
+  .adm-sch-date-actions {
+    margin-bottom: 1.5rem;
+  }
 
-    .adm-sch-section-title {
-        font-size: 1rem;
-        margin-bottom: 0.875rem;
-    }
+  .adm-sch-section-title {
+    font-size: 1rem;
+    margin-bottom: 0.875rem;
+  }
 
-    .adm-sch-section-subtitle {
-        font-size: 0.8125rem;
-        margin-bottom: 0.875rem;
-    }
+  .adm-sch-section-subtitle {
+    font-size: 0.8125rem;
+    margin-bottom: 0.875rem;
+  }
 
-    .adm-sch-action-buttons {
-        gap: 0.625rem;
-    }
+  .adm-sch-action-buttons {
+    gap: 0.625rem;
+  }
 
-    .adm-sch-action-btn {
-        padding: 0.875rem 1rem;
-        font-size: 0.875rem;
-    }
+  .adm-sch-action-btn {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+  }
 
-    .adm-sch-action-btn:hover {
-        transform: translateX(4px);
-    }
+  .adm-sch-action-btn:hover {
+    transform: translateX(4px);
+  }
 
-    .adm-sch-timeslots-mgmt {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
-    }
+  .adm-sch-timeslots-mgmt {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
 
-    .adm-sch-timeslots-grid {
-        gap: 0.625rem;
-    }
+  .adm-sch-timeslots-grid {
+    gap: 0.625rem;
+  }
 
-    .adm-sch-time-slot {
-        padding: 0.875rem 1rem;
-        gap: 0.75rem;
-    }
+  .adm-sch-time-slot {
+    padding: 0.875rem 1rem;
+    gap: 0.75rem;
+  }
 
-    .adm-sch-time-slot:hover {
-        transform: translateX(4px);
-    }
+  .adm-sch-time-slot:hover {
+    transform: translateX(4px);
+  }
 
-    .adm-sch-slot-time {
-        font-size: 0.9375rem;
-    }
+  .adm-sch-slot-time {
+    font-size: 0.9375rem;
+  }
 
-    .adm-sch-slot-duration {
-        font-size: 0.75rem;
-    }
+  .adm-sch-slot-duration {
+    font-size: 0.75rem;
+  }
 
-    .adm-sch-slot-status-text {
-        font-size: 0.8125rem;
-    }
+  .adm-sch-slot-status-text {
+    font-size: 0.8125rem;
+  }
 
-    .adm-sch-info-message {
-        padding: 1rem;
-        gap: 0.875rem;
-        margin-top: 1.5rem;
-    }
+  .adm-sch-info-message {
+    padding: 1rem;
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+  }
 
-    .adm-sch-info-text {
-        font-size: 0.875rem;
-    }
+  .adm-sch-info-text {
+    font-size: 0.875rem;
+  }
 
-    .adm-sch-no-date {
-        padding: 3rem 1.5rem;
-    }
+  .adm-sch-no-date {
+    padding: 3rem 1.5rem;
+  }
 
-    .adm-sch-no-date-icon {
-        width: 4rem;
-        height: 4rem;
-    }
+  .adm-sch-no-date-icon {
+    width: 4rem;
+    height: 4rem;
+  }
 
-    .adm-sch-no-date h3 {
-        font-size: 1.25rem;
-    }
+  .adm-sch-no-date h3 {
+    font-size: 1.25rem;
+  }
 
-    .adm-sch-no-date p {
-        font-size: 0.9375rem;
-    }
+  .adm-sch-no-date p {
+    font-size: 0.9375rem;
+  }
 
-    .adm-sch-toast {
-        top: 16px;
-        right: 16px;
-        left: 16px;
-        max-width: none;
-        font-size: 0.875rem;
-        padding: 0.875rem 1.25rem;
-    }
+  .adm-sch-toast {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+    font-size: 0.875rem;
+    padding: 0.875rem 1.25rem;
+  }
 }
 
 /* ============================================
@@ -986,215 +987,215 @@
    ============================================ */
 
 @media (max-width: 480px) {
-    .adm-sch-main {
-        padding: 0.75rem;
-    }
+  .adm-sch-main {
+    padding: 0.75rem;
+  }
 
-    .adm-sch-page-header {
-        padding: 1.25rem 0.875rem;
-        margin-bottom: 1rem;
-    }
+  .adm-sch-page-header {
+    padding: 1.25rem 0.875rem;
+    margin-bottom: 1rem;
+  }
 
-    .adm-sch-page-title {
-        font-size: 1.25rem;
-        gap: 0.5rem;
-    }
+  .adm-sch-page-title {
+    font-size: 1.25rem;
+    gap: 0.5rem;
+  }
 
-    .adm-sch-title-icon {
-        width: 1.25rem;
-        height: 1.25rem;
-    }
+  .adm-sch-title-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 
-    .adm-sch-legend-section {
-        padding: 0.875rem;
-        gap: 0.75rem;
-        margin-bottom: 1.25rem;
-    }
+  .adm-sch-legend-section {
+    padding: 0.875rem;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
 
-    .adm-sch-legend-item {
-        font-size: 0.8125rem;
-        gap: 0.5rem;
-    }
+  .adm-sch-legend-item {
+    font-size: 0.8125rem;
+    gap: 0.5rem;
+  }
 
-    .adm-sch-legend-color {
-        width: 22px;
-        height: 22px;
-    }
+  .adm-sch-legend-color {
+    width: 22px;
+    height: 22px;
+  }
 
-    .adm-sch-calendar-card,
-    .adm-sch-controls-card {
-        padding: 1.25rem;
-        border-radius: 18px;
-    }
+  .adm-sch-calendar-card,
+  .adm-sch-controls-card {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
 
-    .adm-sch-calendar-header {
-        margin-bottom: 1.25rem;
-        padding-bottom: 1rem;
-    }
+  .adm-sch-calendar-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+  }
 
-    .adm-sch-calendar-month {
-        font-size: 1.25rem;
-    }
+  .adm-sch-calendar-month {
+    font-size: 1.25rem;
+  }
 
-    .adm-sch-month-nav-btn {
-        width: 36px;
-        height: 36px;
-    }
+  .adm-sch-month-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
 
-    .adm-sch-days-header {
-        gap: 0.25rem;
-        margin-bottom: 0.625rem;
-    }
+  .adm-sch-days-header {
+    gap: 0.25rem;
+    margin-bottom: 0.625rem;
+  }
 
-    .adm-sch-day-name {
-        font-size: 0.75rem;
-        padding: 0.375rem 0.125rem;
-    }
+  .adm-sch-day-name {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.125rem;
+  }
 
-    .adm-sch-calendar-grid {
-        gap: 0.375rem;
-    }
+  .adm-sch-calendar-grid {
+    gap: 0.375rem;
+  }
 
-    .adm-sch-day {
-        padding: 0.25rem;
-        border-radius: 8px;
-        border-width: 1.5px;
-    }
+  .adm-sch-day {
+    padding: 0.25rem;
+    border-radius: 8px;
+    border-width: 1.5px;
+  }
 
-    .adm-sch-day-number {
-        font-size: 0.875rem;
-        margin-bottom: 0;
-    }
+  .adm-sch-day-number {
+    font-size: 0.875rem;
+    margin-bottom: 0;
+  }
 
-    .adm-sch-day-label {
-        display: none;
-    }
+  .adm-sch-day-label {
+    display: none;
+  }
 
-    .adm-sch-day.selected {
-        transform: scale(1.05);
-    }
+  .adm-sch-day.selected {
+    transform: scale(1.05);
+  }
 
-    .adm-sch-controls-header {
-        margin-bottom: 1.25rem;
-        padding-bottom: 1rem;
-    }
+  .adm-sch-controls-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+  }
 
-    .adm-sch-controls-title {
-        font-size: 1.125rem;
-        gap: 0.5rem;
-    }
+  .adm-sch-controls-title {
+    font-size: 1.125rem;
+    gap: 0.5rem;
+  }
 
-    .adm-sch-selected-date {
-        font-size: 0.8125rem;
-        padding: 0.5rem 0.875rem;
-    }
+  .adm-sch-selected-date {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.875rem;
+  }
 
-    .adm-sch-date-actions {
-        margin-bottom: 1.25rem;
-    }
+  .adm-sch-date-actions {
+    margin-bottom: 1.25rem;
+  }
 
-    .adm-sch-section-title {
-        font-size: 0.9375rem;
-        margin-bottom: 0.75rem;
-    }
+  .adm-sch-section-title {
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+  }
 
-    .adm-sch-section-subtitle {
-        font-size: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
+  .adm-sch-section-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
 
-    .adm-sch-action-buttons {
-        gap: 0.5rem;
-    }
+  .adm-sch-action-buttons {
+    gap: 0.5rem;
+  }
 
-    .adm-sch-action-btn {
-        padding: 0.75rem 0.875rem;
-        font-size: 0.8125rem;
-        gap: 0.625rem;
-    }
+  .adm-sch-action-btn {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.8125rem;
+    gap: 0.625rem;
+  }
 
-    .adm-sch-action-btn:hover {
-        transform: translateX(3px);
-    }
+  .adm-sch-action-btn:hover {
+    transform: translateX(3px);
+  }
 
-    .adm-sch-timeslots-mgmt {
-        margin-top: 1.25rem;
-        padding-top: 1.25rem;
-    }
+  .adm-sch-timeslots-mgmt {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+  }
 
-    .adm-sch-timeslots-grid {
-        gap: 0.5rem;
-    }
+  .adm-sch-timeslots-grid {
+    gap: 0.5rem;
+  }
 
-    .adm-sch-time-slot {
-        padding: 0.75rem 0.875rem;
-        gap: 0.625rem;
-        border-radius: 10px;
-    }
+  .adm-sch-time-slot {
+    padding: 0.75rem 0.875rem;
+    gap: 0.625rem;
+    border-radius: 10px;
+  }
 
-    .adm-sch-time-slot:hover {
-        transform: translateX(3px);
-    }
+  .adm-sch-time-slot:hover {
+    transform: translateX(3px);
+  }
 
-    .adm-sch-slot-time {
-        font-size: 0.875rem;
-    }
+  .adm-sch-slot-time {
+    font-size: 0.875rem;
+  }
 
-    .adm-sch-slot-duration {
-        font-size: 0.6875rem;
-    }
+  .adm-sch-slot-duration {
+    font-size: 0.6875rem;
+  }
 
-    .adm-sch-slot-status-text {
-        font-size: 0.75rem;
-    }
+  .adm-sch-slot-status-text {
+    font-size: 0.75rem;
+  }
 
-    .adm-sch-info-message {
-        padding: 0.875rem;
-        gap: 0.75rem;
-        margin-top: 1.25rem;
-    }
+  .adm-sch-info-message {
+    padding: 0.875rem;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
 
-    .adm-sch-info-text {
-        font-size: 0.8125rem;
-    }
+  .adm-sch-info-text {
+    font-size: 0.8125rem;
+  }
 
-    .adm-sch-no-date {
-        padding: 2.5rem 1rem;
-    }
+  .adm-sch-no-date {
+    padding: 2.5rem 1rem;
+  }
 
-    .adm-sch-no-date-icon {
-        width: 3.5rem;
-        height: 3.5rem;
-    }
+  .adm-sch-no-date-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 
-    .adm-sch-no-date h3 {
-        font-size: 1.125rem;
-    }
+  .adm-sch-no-date h3 {
+    font-size: 1.125rem;
+  }
 
-    .adm-sch-no-date p {
-        font-size: 0.875rem;
-    }
+  .adm-sch-no-date p {
+    font-size: 0.875rem;
+  }
 
-    .adm-sch-toast {
-        top: 12px;
-        right: 12px;
-        left: 12px;
-        font-size: 0.8125rem;
-        padding: 0.75rem 1rem;
-        gap: 0.5rem;
-        border-radius: 12px;
-    }
+  .adm-sch-toast {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    font-size: 0.8125rem;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    border-radius: 12px;
+  }
 
-    .adm-sch-toast-icon {
-        width: 1rem;
-        height: 1rem;
-    }
+  .adm-sch-toast-icon {
+    width: 1rem;
+    height: 1rem;
+  }
 
-    .adm-sch-toast-close {
-        width: 24px;
-        height: 24px;
-        font-size: 1rem;
-    }
+  .adm-sch-toast-close {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
 }
 
 /* ============================================
@@ -1202,59 +1203,59 @@
    ============================================ */
 
 @media (max-width: 360px) {
-    .adm-sch-main {
-        padding: 0.625rem;
-    }
+  .adm-sch-main {
+    padding: 0.625rem;
+  }
 
-    .adm-sch-page-header {
-        padding: 1rem 0.75rem;
-    }
+  .adm-sch-page-header {
+    padding: 1rem 0.75rem;
+  }
 
-    .adm-sch-page-title {
-        font-size: 1.125rem;
-    }
+  .adm-sch-page-title {
+    font-size: 1.125rem;
+  }
 
-    .adm-sch-title-icon {
-        width: 1.125rem;
-        height: 1.125rem;
-    }
+  .adm-sch-title-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
 
-    .adm-sch-legend-section {
-        padding: 0.75rem;
-    }
+  .adm-sch-legend-section {
+    padding: 0.75rem;
+  }
 
-    .adm-sch-calendar-card,
-    .adm-sch-controls-card {
-        padding: 1rem;
-    }
+  .adm-sch-calendar-card,
+  .adm-sch-controls-card {
+    padding: 1rem;
+  }
 
-    .adm-sch-calendar-month {
-        font-size: 1.125rem;
-    }
+  .adm-sch-calendar-month {
+    font-size: 1.125rem;
+  }
 
-    .adm-sch-month-nav-btn {
-        width: 32px;
-        height: 32px;
-    }
+  .adm-sch-month-nav-btn {
+    width: 32px;
+    height: 32px;
+  }
 
-    .adm-sch-day-name {
-        font-size: 0.6875rem;
-    }
+  .adm-sch-day-name {
+    font-size: 0.6875rem;
+  }
 
-    .adm-sch-day-number {
-        font-size: 0.8125rem;
-    }
+  .adm-sch-day-number {
+    font-size: 0.8125rem;
+  }
 
-    .adm-sch-controls-title {
-        font-size: 1rem;
-    }
+  .adm-sch-controls-title {
+    font-size: 1rem;
+  }
 
-    .adm-sch-action-btn {
-        padding: 0.625rem 0.75rem;
-        font-size: 0.75rem;
-    }
+  .adm-sch-action-btn {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.75rem;
+  }
 
-    .adm-sch-time-slot {
-        padding: 0.625rem 0.75rem;
-    }
+  .adm-sch-time-slot {
+    padding: 0.625rem 0.75rem;
+  }
 }

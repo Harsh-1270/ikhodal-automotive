@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 /**
  * ScrollToTop
@@ -8,17 +8,17 @@ import { useLocation } from 'react-router-dom';
  * window.scrollTo() won't work here because html/body have overflow: hidden.
  */
 const ScrollToTop = () => {
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-    useEffect(() => {
-        // Target the real scroll container (.main-content, not window)
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-            mainContent.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        }
-    }, [pathname]);
+  useEffect(() => {
+    // Target the real scroll container (.main-content, not window)
+    const mainContent = document.querySelector(".main-content");
+    if (mainContent) {
+      mainContent.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, [pathname]);
 
-    return null;
+  return null;
 };
 
 export default ScrollToTop;

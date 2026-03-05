@@ -3,34 +3,39 @@
    Landing page is public, services after login
    ============================================ */
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './context/AuthContext';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import BookingDetails from './pages/user/BookingDetails';
-import ScrollToTop from './components/ScrollToTop';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import BookingDetails from "./pages/user/BookingDetails";
+import ScrollToTop from "./components/ScrollToTop";
+import "./App.css";
 
 // Import Pages - Auth
-import Register from './pages/auth/Register';
-import Login from './pages/auth/Login';
-import AdminLogin from './pages/auth/AdminLogin';
+import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
+import AdminLogin from "./pages/auth/AdminLogin";
 
 // Import Pages - User
-import Home from './pages/user/Home';
-import MyBookings from './pages/user/MyBookings';
-import Payment from './pages/user/Payment';
-import Dashboard from './pages/user/Dashboard';
-import Cart from './pages/user/Cart';
-import ScheduleSelection from './pages/user/ScheduleSelection';
-import TermsConditions from './pages/user/TermsConditions';
-import BookingForm from './pages/user/BookingForm';
-import StripeCheckout from './pages/user/StripeCheckout';
+import Home from "./pages/user/Home";
+import MyBookings from "./pages/user/MyBookings";
+import Payment from "./pages/user/Payment";
+import Dashboard from "./pages/user/Dashboard";
+import Cart from "./pages/user/Cart";
+import ScheduleSelection from "./pages/user/ScheduleSelection";
+import TermsConditions from "./pages/user/TermsConditions";
+import BookingForm from "./pages/user/BookingForm";
+import StripeCheckout from "./pages/user/StripeCheckout";
 
 // Import Pages - Admin
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminUsers from './pages/admin/AdminUsers';
-import AdminSchedule from './pages/admin/AdminSchedule';
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminSchedule from "./pages/admin/AdminSchedule";
 
 /* ==========================================
    PROTECTED ROUTE - For authenticated users only
@@ -52,7 +57,6 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
-
 
 /* ==========================================
    ADMIN ROUTE - For admin only
@@ -107,11 +111,14 @@ function App() {
             <Routes>
               {/* ========== PUBLIC LANDING PAGE ========== */}
               {/* Redirect logged-in users directly to their dashboard */}
-              <Route path="/" element={
-                <PublicRoute>
-                  <Home />
-                </PublicRoute>
-              } />
+              <Route
+                path="/"
+                element={
+                  <PublicRoute>
+                    <Home />
+                  </PublicRoute>
+                }
+              />
 
               {/* ========== AUTH ROUTES ========== */}
 
@@ -227,12 +234,7 @@ function App() {
                 }
               />
 
-              <Route
-                path="/terms"
-                element={
-                  <TermsConditions />
-                }
-              />
+              <Route path="/terms" element={<TermsConditions />} />
 
               {/* ========== ADMIN ROUTES ========== */}
 

@@ -1,1443 +1,1485 @@
 /* ============================================
    STRIPE CHECKOUT - PREMIUM UI
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 /* ---- Page Shell ---- */
 .checkout-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-    color: #e2e8f0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    position: relative;
-    overflow-x: hidden;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #e2e8f0;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Animated mesh grid overlay */
 .checkout-container::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-    z-index: 0;
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Ambient glow blobs */
 .checkout-glow-1,
 .checkout-glow-2,
 .checkout-glow-3 {
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(90px);
-    z-index: 0;
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+  z-index: 0;
 }
 
 .checkout-glow-1 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
-    top: -150px;
-    right: -150px;
-    animation: glowFloat1 14s ease-in-out infinite alternate;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.12),
+    transparent 70%
+  );
+  top: -150px;
+  right: -150px;
+  animation: glowFloat1 14s ease-in-out infinite alternate;
 }
 
 .checkout-glow-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%);
-    bottom: -100px;
-    left: -120px;
-    animation: glowFloat2 18s ease-in-out infinite alternate;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%);
+  bottom: -100px;
+  left: -120px;
+  animation: glowFloat2 18s ease-in-out infinite alternate;
 }
 
 .checkout-glow-3 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: glowFloat3 10s ease-in-out infinite alternate;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.08),
+    transparent 70%
+  );
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glowFloat3 10s ease-in-out infinite alternate;
 }
 
 @keyframes glowFloat1 {
-    from {
-        transform: translate(0, 0) scale(1);
-    }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
 
-    to {
-        transform: translate(-40px, 30px) scale(1.1);
-    }
+  to {
+    transform: translate(-40px, 30px) scale(1.1);
+  }
 }
 
 @keyframes glowFloat2 {
-    from {
-        transform: translate(0, 0) scale(1);
-    }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
 
-    to {
-        transform: translate(30px, -40px) scale(1.08);
-    }
+  to {
+    transform: translate(30px, -40px) scale(1.08);
+  }
 }
 
 @keyframes glowFloat3 {
-    from {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.5;
-    }
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
 
-    to {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.8;
-    }
+  to {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
 }
 
 /* ---- Main Content ---- */
 .checkout-main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-    position: relative;
-    z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Desktop: wider max-width */
 @media (min-width: 1024px) {
-    .checkout-main {
-        max-width: 1080px;
-        padding: 48px 40px 80px;
-    }
+  .checkout-main {
+    max-width: 1080px;
+    padding: 48px 40px 80px;
+  }
 
-    /* Centered card override: single-column glass card (success/loading states) */
-    .checkout-card.checkout-card--centered {
-        display: block;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 36px 40px;
-        background: rgba(22, 32, 52, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 28px;
-        backdrop-filter: blur(32px);
-        -webkit-backdrop-filter: blur(32px);
-        box-shadow:
-            0 32px 64px -16px rgba(0, 0, 0, 0.6),
-            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-            0 1px 0 rgba(255, 255, 255, 0.06) inset;
-        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-    }
+  /* Centered card override: single-column glass card (success/loading states) */
+  .checkout-card.checkout-card--centered {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 36px 40px;
+    background: rgba(22, 32, 52, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    box-shadow:
+      0 32px 64px -16px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
 
-    /* Step indicator capped so it stays centered under the 600px card */
-    .checkout-steps {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  /* Step indicator capped so it stays centered under the 600px card */
+  .checkout-steps {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ---- Page Header ---- */
 .checkout-header {
-    text-align: center;
-    margin-bottom: 0;
-    padding-bottom: 36px;
-    animation: fadeSlideDown 0.5s ease-out both;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 36px;
+  animation: fadeSlideDown 0.5s ease-out both;
 }
 
 @keyframes fadeSlideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Brand pill at top */
 .checkout-brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.25);
-    border-radius: 100px;
-    padding: 6px 16px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #c7d2fe;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c7d2fe;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
 }
 
 .checkout-brand-pill svg {
-    width: 13px;
-    height: 13px;
-    flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
 .checkout-header h1 {
-    font-size: 32px;
-    font-weight: 900;
-    color: #f1f5f9;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    letter-spacing: -0.8px;
-    line-height: 1.1;
+  font-size: 32px;
+  font-weight: 900;
+  color: #f1f5f9;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  letter-spacing: -0.8px;
+  line-height: 1.1;
 }
 
 .checkout-header h1 svg {
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
 }
 
 .checkout-header p {
-    font-size: 15px;
-    color: #94a3b8;
-    margin: 0 0 20px;
-    line-height: 1.5;
+  font-size: 15px;
+  color: #94a3b8;
+  margin: 0 0 20px;
+  line-height: 1.5;
 }
 
 /* Security trust badges row */
 .checkout-trust-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 4px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
 }
 
 .trust-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    color: #94a3b8;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-    padding: 5px 13px;
-    letter-spacing: 0.2px;
-    transition: all 0.25s ease;
-    backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 5px 13px;
+  letter-spacing: 0.2px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
 }
 
 .trust-badge:hover {
-    background: rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.3);
-    color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #c7d2fe;
 }
 
 .trust-badge svg {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
 /* ---- Step Indicator — always centred ---- */
 .checkout-steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin-top: 0;
-    margin-bottom: 48px;
-    animation: fadeSlideDown 0.5s ease-out 0.1s both;
-    /* center on desktop when checkout-main is wide */
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 0;
+  margin-bottom: 48px;
+  animation: fadeSlideDown 0.5s ease-out 0.1s both;
+  /* center on desktop when checkout-main is wide */
+  width: 100%;
 }
 
 .step-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
 }
 
 .step-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
 .step-circle.done {
-    background: linear-gradient(135deg, #10b981, #059669);
-    border-color: #10b981;
-    color: white;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: #10b981;
+  color: white;
 }
 
 .step-circle.active {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    border-color: #6366f1;
-    color: white;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-color: #6366f1;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
 }
 
 .step-circle.pending {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(100, 116, 139, 0.3);
-    color: #475569;
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(100, 116, 139, 0.3);
+  color: #475569;
 }
 
 .step-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: #64748b;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .step-label.active {
-    color: #a5b4fc;
+  color: #a5b4fc;
 }
 
 .step-label.done {
-    color: #34d399;
+  color: #34d399;
 }
 
 .step-connector {
-    width: 60px;
-    height: 2px;
-    background: rgba(100, 116, 139, 0.2);
-    margin: 0 4px;
-    margin-bottom: 22px;
-    position: relative;
-    overflow: hidden;
+  width: 60px;
+  height: 2px;
+  background: rgba(100, 116, 139, 0.2);
+  margin: 0 4px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
 }
 
 .step-connector.done::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, #10b981, #6366f1);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #10b981, #6366f1);
 }
 
 /* ---- Main Card ---- */
 .checkout-card {
-    background: rgba(22, 32, 52, 0.75);
+  background: rgba(22, 32, 52, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 36px 40px;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  box-shadow:
+    0 32px 64px -16px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  position: relative;
+  /* overflow:hidden clips Stripe iframe touch targets on mobile — use visible */
+  overflow: visible;
+}
+
+/* Desktop: two-column layout inside card */
+@media (min-width: 1024px) {
+  .checkout-card {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    animation: none;
+  }
+
+  /* Left panel — order summary */
+  .checkout-card .order-summary-panel {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(99, 102, 241, 0.18);
+    border-radius: 28px;
+    padding: 36px 32px;
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    box-shadow:
+      0 32px 64px -16px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 1px 0 rgba(255, 255, 255, 0.07) inset;
+    position: relative;
+    overflow: hidden;
+    animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    align-self: start;
+    position: sticky;
+    top: 100px;
+  }
+
+  .checkout-card .order-summary-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(99, 102, 241, 0.5),
+      rgba(139, 92, 246, 0.5),
+      transparent
+    );
+  }
+
+  /* Right panel — payment form */
+  .checkout-card .payment-panel {
+    background: rgba(22, 32, 52, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 28px;
     padding: 36px 40px;
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
     box-shadow:
-        0 32px 64px -16px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-        0 1px 0 rgba(255, 255, 255, 0.06) inset;
-    animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-    position: relative;
-    /* overflow:hidden clips Stripe iframe touch targets on mobile — use visible */
-    overflow: visible;
-}
+      0 32px 64px -16px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+    margin-left: 24px;
+  }
 
-/* Desktop: two-column layout inside card */
-@media (min-width: 1024px) {
-    .checkout-card {
-        display: grid;
-        grid-template-columns: 380px 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 0;
-        padding: 0;
-        overflow: visible;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        animation: none;
-    }
+  .checkout-card .payment-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(139, 92, 246, 0.4),
+      rgba(99, 102, 241, 0.4),
+      transparent
+    );
+    pointer-events: none;
+  }
 
-    /* Left panel — order summary */
-    .checkout-card .order-summary-panel {
-        background: rgba(15, 23, 42, 0.85);
-        border: 1px solid rgba(99, 102, 241, 0.18);
-        border-radius: 28px;
-        padding: 36px 32px;
-        backdrop-filter: blur(32px);
-        -webkit-backdrop-filter: blur(32px);
-        box-shadow:
-            0 32px 64px -16px rgba(0, 0, 0, 0.7),
-            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-            0 1px 0 rgba(255, 255, 255, 0.07) inset;
-        position: relative;
-        overflow: hidden;
-        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-        align-self: start;
-        position: sticky;
-        top: 100px;
-    }
+  /* On desktop, order-summary nested inside card doesn't need extra styling */
+  .checkout-card .order-summary {
+    margin-bottom: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+  }
 
-    .checkout-card .order-summary-panel::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 10%;
-        right: 10%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), rgba(139, 92, 246, 0.5), transparent);
-    }
-
-    /* Right panel — payment form */
-    .checkout-card .payment-panel {
-        background: rgba(22, 32, 52, 0.8);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 28px;
-        padding: 36px 40px;
-        backdrop-filter: blur(32px);
-        -webkit-backdrop-filter: blur(32px);
-        box-shadow:
-            0 32px 64px -16px rgba(0, 0, 0, 0.6),
-            0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-            0 1px 0 rgba(255, 255, 255, 0.06) inset;
-        animation: cardSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
-        margin-left: 24px;
-    }
-
-    .checkout-card .payment-panel::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 10%;
-        right: 10%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.4), transparent);
-        pointer-events: none;
-    }
-
-    /* On desktop, order-summary nested inside card doesn't need extra styling */
-    .checkout-card .order-summary {
-        margin-bottom: 0;
-        background: transparent;
-        border: none;
-        padding: 0;
-        border-radius: 0;
-    }
-
-    .checkout-card .order-summary::before {
-        display: none;
-    }
+  .checkout-card .order-summary::before {
+    display: none;
+  }
 }
 
 /* top shimmer line removed */
 
 @keyframes cardSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(32px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Section heading inside card (Payment Details) */
 .checkout-card h2 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    letter-spacing: -0.2px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  letter-spacing: -0.2px;
 }
 
 .checkout-card h2 svg {
-    width: 18px;
-    height: 18px;
-    color: #a5b4fc;
-    flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #a5b4fc;
+  flex-shrink: 0;
 }
 
 /* ---- Section Divider ---- */
 .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
 }
 
 /* Panel wrappers (mobile: transparent stacked containers) */
 .order-summary-panel {
-    background: transparent;
-    padding: 0;
+  background: transparent;
+  padding: 0;
 }
 
 .payment-panel {
-    background: transparent;
-    padding: 0;
-    position: relative;
+  background: transparent;
+  padding: 0;
+  position: relative;
 }
 
 /* Desktop panel title hidden on mobile */
 .order-summary-panel-title {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 1024px) {
-    .order-summary-panel-title {
-        display: flex;
-    }
+  .order-summary-panel-title {
+    display: flex;
+  }
 }
 
 .section-divider-line {
-    flex: 1;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.06);
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .section-divider-text {
-    font-size: 11px;
-    font-weight: 600;
-    color: #475569;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* ---- Order Summary ---- */
 .order-summary {
-    background: rgba(15, 23, 42, 0.55);
-    border: 1px solid rgba(99, 102, 241, 0.14);
-    border-radius: 18px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(99, 102, 241, 0.14);
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
 }
 
 /* top accent line */
 .order-summary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #6366f1, #8b5cf6, transparent);
-    border-radius: 18px 18px 0 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, transparent);
+  border-radius: 18px 18px 0 0;
 }
 
 .order-summary-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .order-summary-title {
-    font-size: 10px;
-    font-weight: 800;
-    color: #c7d2fe;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #c7d2fe;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .order-summary-icon {
-    width: 28px;
-    height: 28px;
-    background: rgba(99, 102, 241, 0.12);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .order-summary-icon svg {
-    width: 14px;
-    height: 14px;
+  width: 14px;
+  height: 14px;
 }
 
 .checkout-card .summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 10px 0;
-    font-size: 14px;
-    color: #94a3b8;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    gap: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 12px;
 }
 
 .checkout-card .summary-row:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .checkout-card .summary-row .label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .checkout-card .summary-row .label svg {
-    width: 14px;
-    height: 14px;
-    color: #475569;
-    flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: #475569;
+  flex-shrink: 0;
 }
 
 .checkout-card .summary-row .value,
 .order-summary .summary-row .value,
 .summary-row .value {
-    font-weight: 600;
-    color: #c7c5c5 !important;
-    text-align: right;
-    min-width: 0;
-    word-break: break-word;
+  font-weight: 600;
+  color: #c7c5c5 !important;
+  text-align: right;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .summary-row.total {
-    border-top: 1px solid rgba(99, 102, 241, 0.25);
-    border-bottom: none;
-    margin-top: 8px;
-    padding-top: 16px;
-    padding-bottom: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #ffffff;
-    background: transparent;
+  border-top: 1px solid rgba(99, 102, 241, 0.25);
+  border-bottom: none;
+  margin-top: 8px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  background: transparent;
 }
 
 .summary-row.total .value {
-    color: #ffffff !important;
-    font-size: 20px;
-    font-weight: 800;
-    text-shadow: 0 0 24px rgba(129, 140, 248, 0.4);
+  color: #ffffff !important;
+  font-size: 20px;
+  font-weight: 800;
+  text-shadow: 0 0 24px rgba(129, 140, 248, 0.4);
 }
 
 /* ---- Service Tags inside Order Summary ---- */
 
 /* Services row: stack label on top, tags below on new line */
 .summary-row--services {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .summary-row--services .label {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 /* Scrollable tag container — shows ~3 rows then scrolls */
 .service-tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    max-height: 110px;
-    overflow-y: auto;
-    width: 100%;
-    padding-bottom: 2px;
-    /* custom slim scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(99, 102, 241, 0.35) transparent;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  max-height: 110px;
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 2px;
+  /* custom slim scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.35) transparent;
 }
 
 .service-tag-list::-webkit-scrollbar {
-    width: 4px;
+  width: 4px;
 }
 
 .service-tag-list::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .service-tag-list::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.35);
-    border-radius: 4px;
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 4px;
 }
 
 /* Individual service pill/chip */
 .service-tag {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.22);
-    border-radius: 8px;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #c7d2fe;
-    letter-spacing: 0.1px;
-    white-space: nowrap;
-    transition: background 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c7d2fe;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .service-tag:hover {
-    background: rgba(99, 102, 241, 0.18);
-    border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.18);
+  border-color: rgba(99, 102, 241, 0.4);
 }
 
 /* Subtle hover tint on summary rows for polish */
 .checkout-card .summary-row:not(.total):hover {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    padding-left: 6px;
-    padding-right: 6px;
-    margin-left: -6px;
-    margin-right: -6px;
-    transition: background 0.2s ease;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
+  transition: background 0.2s ease;
 }
 
 /* ---- Stripe Element Wrapper ---- */
 .stripe-element-wrapper {
-    margin-bottom: 22px;
-    animation: fadeIn 0.4s ease 0.3s both;
-    border-radius: 14px;
-    overflow: visible;
-    position: relative;
-    z-index: 10;
-    -webkit-tap-highlight-color: transparent;
-    transform: none;
+  margin-bottom: 22px;
+  animation: fadeIn 0.4s ease 0.3s both;
+  border-radius: 14px;
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+  transform: none;
 }
 
 @media (max-width: 640px) {
-    .stripe-element-wrapper {
-        z-index: 10;
-        transform: none !important;
-        overflow: visible !important;
-    }
+  .stripe-element-wrapper {
+    z-index: 10;
+    transform: none !important;
+    overflow: visible !important;
+  }
 
-    .stripe-element-wrapper iframe,
-    .stripe-element-wrapper .__PrivateStripeElement,
-    .stripe-element-wrapper .__PrivateStripeElement iframe {
-        overflow: visible !important;
-        touch-action: auto;
-        pointer-events: auto !important;
-        position: relative;
-        z-index: 1;
-        width: 100% !important;
-        transform: none !important;
-        -webkit-transform: none !important;
-    }
+  .stripe-element-wrapper iframe,
+  .stripe-element-wrapper .__PrivateStripeElement,
+  .stripe-element-wrapper .__PrivateStripeElement iframe {
+    overflow: visible !important;
+    touch-action: auto;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 1;
+    width: 100% !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
 
-    .payment-panel {
-        overflow: visible !important;
-        position: relative;
-        z-index: 1;
-    }
+  .payment-panel {
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
+  }
 }
 
 @media (max-width: 400px) {
-    .stripe-element-wrapper {
-        min-height: 44px;
-    }
+  .stripe-element-wrapper {
+    min-height: 44px;
+  }
 
-    .stripe-element-wrapper .__PrivateStripeElement iframe {
-        min-height: 44px !important;
-    }
+  .stripe-element-wrapper .__PrivateStripeElement iframe {
+    min-height: 44px !important;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ---- Pay Button ---- */
 .pay-button {
-    width: 100%;
-    padding: 18px 28px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow:
-        0 4px 18px rgba(99, 102, 241, 0.4),
-        0 1px 3px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-    position: relative;
-    overflow: hidden;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 100%;
+  padding: 18px 28px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow:
+    0 4px 18px rgba(99, 102, 241, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  position: relative;
+  overflow: hidden;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 /* shimmer sweep */
 .pay-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.2) 50%, transparent 65%);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
 }
 
 .pay-button:hover:not(:disabled)::before {
-    transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 /* pulse ring on idle */
 .pay-button::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.3s ease;
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
 
 .pay-button svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .pay-button:hover:not(:disabled) {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    transform: translateY(-2px);
-    box-shadow:
-        0 14px 40px rgba(99, 102, 241, 0.55),
-        0 4px 12px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 40px rgba(99, 102, 241, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
 }
 
 .pay-button:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transform: translateY(0);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
 
 .pay-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .pay-button-amount {
-    opacity: 0.85;
-    font-weight: 600;
+  opacity: 0.85;
+  font-weight: 600;
 }
 
 /* ---- Security Footer under button ---- */
 .payment-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 18px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-wrap: wrap;
 }
 
 .payment-footer-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: #475569;
-    letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #475569;
+  letter-spacing: 0.2px;
 }
 
 .payment-footer-item svg {
-    flex-shrink: 0;
-    width: 12px;
-    height: 12px;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
 }
 
 .payment-footer-dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(100, 116, 139, 0.4);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(100, 116, 139, 0.4);
 }
 
 /* ---- Stripe Security Badge ---- */
 .stripe-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 18px;
-    font-size: 12px;
-    color: #475569;
-    letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #475569;
+  letter-spacing: 0.2px;
 }
 
 .stripe-badge svg {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 /* ---- Button Spinner ---- */
 .btn-spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  flex-shrink: 0;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---- Payment Error ---- */
 .payment-error {
-    background: rgba(239, 68, 68, 0.07);
-    border: 1px solid rgba(239, 68, 68, 0.22);
-    border-radius: 14px;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    color: #fca5a5;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    animation: shake 0.35s ease;
-    line-height: 1.5;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  color: #fca5a5;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  animation: shake 0.35s ease;
+  line-height: 1.5;
 }
 
 .payment-error svg {
-    flex-shrink: 0;
-    margin-top: 1px;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 @keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
 
-    0%,
-    100% {
-        transform: translateX(0);
-    }
+  25% {
+    transform: translateX(-5px);
+  }
 
-    25% {
-        transform: translateX(-5px);
-    }
-
-    75% {
-        transform: translateX(5px);
-    }
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 /* ---- Processing Overlay ---- */
 .processing-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(8, 12, 24, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.25s ease;
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 24, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
 }
 
 .processing-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(22, 32, 52, 0.8);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 24px;
-    padding: 48px 56px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(22, 32, 52, 0.8);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 24px;
+  padding: 48px 56px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .processing-spinner {
-    width: 56px;
-    height: 56px;
-    border: 3px solid rgba(148, 163, 184, 0.12);
-    border-top-color: #6366f1;
-    border-right-color: #8b5cf6;
-    border-radius: 50%;
-    animation: spin 0.75s linear infinite;
+  width: 56px;
+  height: 56px;
+  border: 3px solid rgba(148, 163, 184, 0.12);
+  border-top-color: #6366f1;
+  border-right-color: #8b5cf6;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
 }
 
 .processing-text {
-    color: #f1f5f9;
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 24px;
-    letter-spacing: -0.3px;
+  color: #f1f5f9;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 24px;
+  letter-spacing: -0.3px;
 }
 
 .processing-subtext {
-    color: #64748b;
-    font-size: 13px;
-    margin-top: 6px;
-    line-height: 1.5;
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 6px;
+  line-height: 1.5;
 }
 
 /* ---- Loading State ---- */
 .checkout-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 64px 20px;
-    min-height: 220px;
-    gap: 0;
-    /* span both grid columns on desktop so spinner is centred */
-    grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px 20px;
+  min-height: 220px;
+  gap: 0;
+  /* span both grid columns on desktop so spinner is centred */
+  grid-column: 1 / -1;
 }
 
 .checkout-loading p {
-    color: #94a3b8;
-    font-size: 15px;
-    margin-top: 22px;
-    margin-bottom: 0;
+  color: #94a3b8;
+  font-size: 15px;
+  margin-top: 22px;
+  margin-bottom: 0;
 }
 
 /* ---- Success State ---- */
 .success-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 48px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 28px 36px;
 }
 
 .success-icon-wrapper {
-    width: 96px;
-    height: 96px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 28px;
-    box-shadow:
-        0 0 0 14px rgba(16, 185, 129, 0.1),
-        0 0 0 28px rgba(16, 185, 129, 0.04),
-        0 16px 40px rgba(16, 185, 129, 0.4);
-    animation: successPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 96px;
+  height: 96px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+  box-shadow:
+    0 0 0 14px rgba(16, 185, 129, 0.1),
+    0 0 0 28px rgba(16, 185, 129, 0.04),
+    0 16px 40px rgba(16, 185, 129, 0.4);
+  animation: successPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes successPop {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
 
-    60% {
-        transform: scale(1.12);
-    }
+  60% {
+    transform: scale(1.12);
+  }
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .success-container h2 {
-    font-size: 28px;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
 }
 
 .success-container .success-amount {
-    font-size: 36px;
-    font-weight: 900;
-    color: #ffffff;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-    text-shadow: 0 0 32px rgba(165, 180, 252, 0.5);
+  font-size: 36px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+  text-shadow: 0 0 32px rgba(165, 180, 252, 0.5);
 }
 
 .success-container p {
-    color: #cbd5e1;
-    font-size: 15px;
-    margin-bottom: 32px;
-    max-width: 320px;
-    line-height: 1.65;
+  color: #cbd5e1;
+  font-size: 15px;
+  margin-bottom: 32px;
+  max-width: 320px;
+  line-height: 1.65;
 }
 
 /* Success details card */
 .success-details {
-    width: 100%;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(99, 102, 241, 0.12);
-    border-radius: 16px;
-    padding: 18px 20px;
-    margin-bottom: 28px;
-    text-align: left;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+  text-align: left;
 }
 
 .success-detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    font-size: 13px;
-    color: #94a3b8;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .success-detail-row:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .success-detail-row .value {
-    color: #ffffff;
-    font-weight: 600;
-    text-align: right;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: right;
 }
 
 .success-btn {
-    width: 100%;
-    padding: 17px 28px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  padding: 17px 28px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
 .success-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.18) 50%, transparent 65%);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
 }
 
 .success-btn:hover::before {
-    transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .success-btn:hover {
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 40px rgba(99, 102, 241, 0.55);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(99, 102, 241, 0.55);
 }
 
 .success-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* ============================================
    DESKTOP ENHANCEMENTS (>= 1024px)
    ============================================ */
 @media (min-width: 1024px) {
+  /* Larger glow blobs for desktop */
+  .checkout-glow-1 {
+    width: 800px;
+    height: 800px;
+  }
 
-    /* Larger glow blobs for desktop */
-    .checkout-glow-1 {
-        width: 800px;
-        height: 800px;
-    }
+  .checkout-glow-2 {
+    width: 700px;
+    height: 700px;
+  }
 
-    .checkout-glow-2 {
-        width: 700px;
-        height: 700px;
-    }
+  /* Header wider on desktop */
+  .checkout-header h1 {
+    font-size: 40px;
+  }
 
-    /* Header wider on desktop */
-    .checkout-header h1 {
-        font-size: 40px;
-    }
+  .checkout-header p {
+    font-size: 16px;
+  }
 
-    .checkout-header p {
-        font-size: 16px;
-    }
+  /* Step connector wider for desktop spacing */
+  .step-connector {
+    width: 80px;
+  }
 
-    /* Step connector wider for desktop spacing */
-    .step-connector {
-        width: 80px;
-    }
+  /* Order summary panel left side title */
+  .order-summary-panel-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 24px;
+    letter-spacing: -0.4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    /* Order summary panel left side title */
-    .order-summary-panel-title {
-        font-size: 20px;
-        font-weight: 800;
-        color: #ffffff;
-        margin: 0 0 24px;
-        letter-spacing: -0.4px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+  .order-summary-panel-title svg {
+    width: 22px;
+    height: 22px;
+    color: #a5b4fc;
+    flex-shrink: 0;
+  }
 
-    .order-summary-panel-title svg {
-        width: 22px;
-        height: 22px;
-        color: #a5b4fc;
-        flex-shrink: 0;
-    }
+  /* Service list on desktop left panel */
+  .order-service-list {
+    margin-bottom: 20px;
+  }
 
-    /* Service list on desktop left panel */
-    .order-service-list {
-        margin-bottom: 20px;
-    }
+  .order-service-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 14px;
+    color: #e2e8f0;
+    gap: 12px;
+  }
 
-    .order-service-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        font-size: 14px;
-        color: #e2e8f0;
-        gap: 12px;
-    }
+  .order-service-item:last-child {
+    border-bottom: none;
+  }
 
-    .order-service-item:last-child {
-        border-bottom: none;
-    }
+  .order-service-name {
+    font-weight: 500;
+    color: #e2e8f0;
+  }
 
-    .order-service-name {
-        font-weight: 500;
-        color: #e2e8f0;
-    }
+  .order-service-price {
+    font-weight: 700;
+    color: #c7d2fe;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 
-    .order-service-price {
-        font-weight: 700;
-        color: #c7d2fe;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
+  /* Desktop: bigger pay button */
+  .pay-button {
+    font-size: 17px;
+    padding: 20px 32px;
+  }
 
-    /* Desktop: bigger pay button */
-    .pay-button {
-        font-size: 17px;
-        padding: 20px 32px;
-    }
+  /* Desktop booking info card on left */
+  .order-booking-info {
+    background: rgba(99, 102, 241, 0.07);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 20px;
+  }
 
-    /* Desktop booking info card on left */
-    .order-booking-info {
-        background: rgba(99, 102, 241, 0.07);
-        border: 1px solid rgba(99, 102, 241, 0.15);
-        border-radius: 14px;
-        padding: 16px 18px;
-        margin-top: 20px;
-    }
+  .order-booking-info-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
 
-    .order-booking-info-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 0;
-        font-size: 13px;
-        color: #94a3b8;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+  .order-booking-info-row:last-child {
+    border-bottom: none;
+  }
 
-    .order-booking-info-row:last-child {
-        border-bottom: none;
-    }
+  .order-booking-info-row svg {
+    width: 14px;
+    height: 14px;
+    color: #818cf8;
+    flex-shrink: 0;
+  }
 
-    .order-booking-info-row svg {
-        width: 14px;
-        height: 14px;
-        color: #818cf8;
-        flex-shrink: 0;
-    }
+  .order-booking-info-label {
+    flex: 1;
+    color: #94a3b8;
+  }
 
-    .order-booking-info-label {
-        flex: 1;
-        color: #94a3b8;
-    }
-
-    .order-booking-info-value {
-        font-weight: 600;
-        color: #e2e8f0;
-        text-align: right;
-    }
+  .order-booking-info-value {
+    font-weight: 600;
+    color: #e2e8f0;
+    text-align: right;
+  }
 }
 
 /* ============================================
    RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 768px) {
-    .checkout-main {
-        padding: 32px 20px 64px;
-    }
+  .checkout-main {
+    padding: 32px 20px 64px;
+  }
 
-    .step-connector {
-        width: 40px;
-    }
+  .step-connector {
+    width: 40px;
+  }
 }
 
 /* ============================================
    RESPONSIVE — MOBILE
    ============================================ */
 @media (max-width: 640px) {
-    .checkout-main {
-        padding: 24px 16px 56px;
-        overflow: visible !important;
-    }
+  .checkout-main {
+    padding: 24px 16px 56px;
+    overflow: visible !important;
+  }
 
-    .checkout-card {
-        padding: 24px 20px;
-        border-radius: 22px;
-        overflow: visible !important;
-        -webkit-mask-image: none !important;
-        mask-image: none !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-    }
+  .checkout-card {
+    padding: 24px 20px;
+    border-radius: 22px;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
 
-    .checkout-header h1 {
-        font-size: 26px;
-        gap: 10px;
-    }
+  .checkout-header h1 {
+    font-size: 26px;
+    gap: 10px;
+  }
 
-    .checkout-header h1 svg {
-        width: 24px;
-        height: 24px;
-    }
+  .checkout-header h1 svg {
+    width: 24px;
+    height: 24px;
+  }
 
-    .checkout-header p {
-        font-size: 14px;
-    }
+  .checkout-header p {
+    font-size: 14px;
+  }
 
-    .order-summary {
-        padding: 16px 18px;
-        border-radius: 14px;
-    }
+  .order-summary {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
 
-    .checkout-card .summary-row {
-        font-size: 13px;
-        padding: 9px 0;
-    }
+  .checkout-card .summary-row {
+    font-size: 13px;
+    padding: 9px 0;
+  }
 
-    .summary-row.total {
-        font-size: 14px;
-        margin-left: -6px;
-        margin-right: -6px;
-        padding-left: 8px;
-        padding-right: 8px;
-    }
+  .summary-row.total {
+    font-size: 14px;
+    margin-left: -6px;
+    margin-right: -6px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 
-    .summary-row.total .value {
-        font-size: 18px;
-    }
+  .summary-row.total .value {
+    font-size: 18px;
+  }
 
-    .pay-button,
-    .success-btn {
-        font-size: 15px;
-        padding: 16px 22px;
-        border-radius: 14px;
-    }
+  .pay-button,
+  .success-btn {
+    font-size: 15px;
+    padding: 16px 22px;
+    border-radius: 14px;
+  }
 
-    .success-icon-wrapper {
-        width: 80px;
-        height: 80px;
-        box-shadow:
-            0 0 0 10px rgba(16, 185, 129, 0.1),
-            0 12px 32px rgba(16, 185, 129, 0.35);
-    }
+  .success-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    box-shadow:
+      0 0 0 10px rgba(16, 185, 129, 0.1),
+      0 12px 32px rgba(16, 185, 129, 0.35);
+  }
 
-    .success-container h2 {
-        font-size: 24px;
-    }
+  .success-container h2 {
+    font-size: 24px;
+  }
 
-    .success-container .success-amount {
-        font-size: 30px;
-    }
+  .success-container .success-amount {
+    font-size: 30px;
+  }
 
-    .success-container {
-        padding: 36px 16px 24px;
-    }
+  .success-container {
+    padding: 36px 16px 24px;
+  }
 
-    .checkout-steps {
-        display: none;
-    }
+  .checkout-steps {
+    display: none;
+  }
 
-    .payment-footer {
-        gap: 10px;
-    }
+  .payment-footer {
+    gap: 10px;
+  }
 
-    .payment-footer-dot {
-        display: none;
-    }
+  .payment-footer-dot {
+    display: none;
+  }
 
-    .processing-content {
-        padding: 40px 32px;
-        margin: 16px;
-        border-radius: 20px;
-    }
+  .processing-content {
+    padding: 40px 32px;
+    margin: 16px;
+    border-radius: 20px;
+  }
 
-    .checkout-trust-row {
-        gap: 8px;
-    }
+  .checkout-trust-row {
+    gap: 8px;
+  }
 
-    .trust-badge {
-        font-size: 10px;
-        padding: 4px 10px;
-    }
+  .trust-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
 }
 
 @media (max-width: 400px) {
-    .checkout-main {
-        padding: 20px 12px 48px;
-    }
+  .checkout-main {
+    padding: 20px 12px 48px;
+  }
 
-    .checkout-card {
-        padding: 20px 16px;
-    }
+  .checkout-card {
+    padding: 20px 16px;
+  }
 
-    .checkout-header h1 {
-        font-size: 22px;
-    }
+  .checkout-header h1 {
+    font-size: 22px;
+  }
 
-    .checkout-trust-row {
-        gap: 6px;
-    }
+  .checkout-trust-row {
+    gap: 6px;
+  }
 
-    .trust-badge {
-        font-size: 9px;
-        padding: 3px 9px;
-    }
+  .trust-badge {
+    font-size: 9px;
+    padding: 3px 9px;
+  }
 }
