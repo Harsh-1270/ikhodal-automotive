@@ -1018,6 +1018,25 @@ export const sendBookingConfirmation = async (emailData) => {
   }
 };
 
+/* Send Contact Form Message
+   POST /contact
+   Body: { name, email, subject, message }
+*/
+export const sendContactMessage = async (contactData) => {
+  try {
+    const response = await api.post("/contact", contactData);
+    return {
+      success: true,
+      message: response.data?.message || "Message sent successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to send message",
+    };
+  }
+};
+
 /* ============================================
    EXPORT ALL FUNCTIONS
    ============================================ */
@@ -1078,6 +1097,9 @@ const apiExports = {
 
   // Email
   sendBookingConfirmation,
+
+  // Contact
+  sendContactMessage,
 };
 
 export default apiExports;

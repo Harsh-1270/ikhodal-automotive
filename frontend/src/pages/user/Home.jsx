@@ -9,6 +9,17 @@ const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+
+  // Contact Form State
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState({ type: "", message: "" });
+
   const hasScrolledDown = useRef(false);
 
   // Refs for sections
@@ -559,6 +570,44 @@ const Home = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const handleContactChange = (e) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus({ type: "", message: "" });
+
+    try {
+      const { sendContactMessage } = require("../../services/api");
+      const response = await sendContactMessage(contactForm);
+
+      if (response.success) {
+        setFormStatus({
+          type: "success",
+          message:
+            response.message ||
+            "Thank you! Your message has been sent successfully.",
+        });
+        setContactForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setFormStatus({
+          type: "error",
+          message: response.message || "Something went wrong. Please try again.",
+        });
+      }
+    } catch (error) {
+      setFormStatus({
+        type: "error",
+        message: "Network error. Please check your connection.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   /* ==========================================
        RENDER COMPONENT
        ========================================== */
@@ -567,14 +616,8 @@ const Home = () => {
       {/* ========== NAVIGATION BAR ========== */}
       <nav className={`landing-nav ${scrolled ? "scrolled" : ""}`}>
         <div className="nav-container">
-          <div className="nav-logo">
-            <div className="logo-icon">
-              <Icons.Car />
-            </div>
-            <div className="logo-text-stacked">
-              <span className="logo-line-top">I Khodal</span>
-              <span className="logo-line-bottom">Automotive</span>
-            </div>
+          <div className="nav-logo" onClick={() => scrollToSection("hero")}>
+            <span className="logo-text">I Khodal Automotive</span>
           </div>
 
           <div className="nav-links">
@@ -993,24 +1036,53 @@ const Home = () => {
 
             <div className="contact-form-box">
               <h3>Send us a message</h3>
-              <form className="contact-form">
+              {formStatus.message && (
+                <div className={`form-status-msg ${formStatus.type}`}>
+                  {formStatus.message}
+                </div>
+              )}
+              <form className="contact-form" onSubmit={handleContactSubmit}>
                 <input
                   type="text"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleContactChange}
                   placeholder="Your Name"
                   className="form-input"
+                  required
                 />
                 <input
                   type="email"
+                  name="email"
+                  value={contactForm.email}
+                  onChange={handleContactChange}
                   placeholder="Your Email"
+                  className="form-input"
+                  required
+                />
+                <input
+                  type="text"
+                  name="subject"
+                  value={contactForm.subject}
+                  onChange={handleContactChange}
+                  placeholder="Subject (Optional)"
                   className="form-input"
                 />
                 <textarea
+                  name="message"
+                  value={contactForm.message}
+                  onChange={handleContactChange}
                   placeholder="Your Message"
                   rows="4"
                   className="form-textarea"
+                  required
                 ></textarea>
-                <button type="submit" className="btn-submit">
-                  Send Message
+                <button
+                  type="submit"
+                  className="btn-submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>
@@ -1023,13 +1095,7 @@ const Home = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <div className="footer-logo">
-              <span className="logo-icon">
-                <Icons.Car />
-              </span>
-              <div className="logo-text-stacked">
-                <span className="logo-line-top">I Khodal</span>
-                <span className="logo-line-bottom">Automotive</span>
-              </div>
+              <span className="logo-text">I Khodal Automotive</span>
             </div>
             <p>Your trusted partner for premium car service and maintenance</p>
           </div>
@@ -1051,7 +1117,7 @@ const Home = () => {
               <button onClick={() => scrollToSection("contact")}>
                 Contact
               </button>
-              <button className="footer-link-btn" onClick={() => {}}>
+              <button className="footer-link-btn" onClick={() => { }}>
                 FAQs
               </button>
               <button onClick={() => navigate("/terms")}>

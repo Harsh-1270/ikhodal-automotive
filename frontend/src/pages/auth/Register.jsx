@@ -259,7 +259,7 @@ const Register = () => {
       }
     } catch (error) {
       setApiError(
-        "Unable to connect. Please check your internet connection and try again.",
+        "Unable to connect. If this error persists, please try clicking the button again. Also, ensure your internet connection is stable.",
       );
       console.error("Registration error:", error);
     } finally {
@@ -297,7 +297,7 @@ const Register = () => {
       }
     } catch (error) {
       setApiError(
-        "OTP verification failed. The code may be incorrect or expired — please try again.",
+        "OTP verification failed. The code may be incorrect or expired. Please check your spam folder or try clicking 'Verify' again.",
       );
       console.error("OTP verification error:", error);
     } finally {
@@ -414,6 +414,9 @@ const Register = () => {
                         autoFocus
                       />
                     </div>
+                    <p className="input-hint" style={{ marginTop: '8px', fontSize: '12px', color: '#6b7280' }}>
+                      Didn't see the email? Please check your <strong>Spam or Junk</strong> folder.
+                    </p>
                   </div>
 
                   <button
