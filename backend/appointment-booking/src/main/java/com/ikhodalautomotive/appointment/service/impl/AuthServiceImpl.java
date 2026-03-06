@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.ikhodalautomotive.appointment.dto.request.LoginRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.SignupRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.VerifyOtpRequestDTO;
+import com.ikhodalautomotive.appointment.dto.request.ResetPasswordRequestDTO;
 import com.ikhodalautomotive.appointment.exception.ApiException;
 import com.ikhodalautomotive.appointment.model.EmailOtpVerification;
 import com.ikhodalautomotive.appointment.model.RefreshToken;
@@ -152,14 +153,15 @@ public class AuthServiceImpl implements AuthService {
         // Generate JWT access token (1 hour)
         String accessToken = jwtUtil.generateToken(user.getEmail(), "ROLE_" + user.getRole().getName());
 
-        // Generate refresh token (7 days) — replace existing
-        refreshTokenRepository.deleteByUser(user);
-        RefreshToken refreshToken = RefreshToken.builder()
-                .user(user)
-                .token(UUID.randomUUID().toString())
-                .expiresAt(LocalDateTime.now().plusSeconds(refreshExpirationMs / 1000))
-                .createdAt(LocalDateTime.now())
-                .build();
+        // Generate refresh token (7 days) — replace existing or update
+        RefreshToken refreshToken = refreshTokenRepository.findByUser(user)
+                .orElse(new RefreshToken());
+
+        refreshToken.setUser(user);
+        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setExpiresAt(LocalDateTime.now().plusSeconds(refreshExpirationMs / 1000));
+        refreshToken.setCreatedAt(LocalDateTime.now());
+
         refreshTokenRepository.save(refreshToken);
 
         return Map.of(
@@ -200,9 +202,61 @@ public class AuthServiceImpl implements AuthService {
         refreshTokenRepository.deleteByUser(user);
     }
 
+    // ================= FORGOT PASSWORD =================
+
+    @Override
+    @Transactional
+    public void requestForgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException("User not found with this email"));
+
+        String otp = generateOtp();
+
+        // Save OTP for forgot password
+        EmailOtpVerification otpEntity = new EmailOtpVerification();
+        otpEntity.setUser(user);
+        otpEntity.setOtpCode(otp);
+        otpEntity.setExpiresAt(LocalDateTime.now().plusMinutes(10));
+        otpEntity.setUsed(false);
+        otpEntity.setCreatedAt(LocalDateTime.now());
+        otpRepository.save(otpEntity);
+
+        emailService.sendForgotPasswordOtp(email, otp);
+    }
+
+    @Override
+    public void verifyForgotPasswordOtp(String email, String otpCode) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException("User not found"));
+
+        otpRepository.findByUserAndOtpCodeAndIsUsedFalse(user, otpCode)
+                .filter(otp -> otp.getExpiresAt().isAfter(LocalDateTime.now()))
+                .orElseThrow(() -> new ApiException("Invalid or expired OTP"));
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(ResetPasswordRequestDTO request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ApiException("User not found"));
+
+        EmailOtpVerification otp = otpRepository
+                .findByUserAndOtpCodeAndIsUsedFalse(user, request.getOtp())
+                .orElseThrow(() -> new ApiException("Invalid or expired OTP"));
+
+        if (otp.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new ApiException("OTP expired");
+        }
+
+        otp.setUsed(true);
+        otpRepository.save(otp);
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+    }
+
     // ================= UTIL =================
     private String generateOtp() {
         return String.valueOf((int) (Math.random() * 900000) + 100000);
     }
 }
-

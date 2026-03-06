@@ -237,6 +237,69 @@ export const logoutUser = async () => {
   }
 };
 
+/* Forgot Password - Step 1: Request OTP
+   POST /auth/forgot-password/request
+   Body: { email }
+*/
+export const forgotPasswordRequest = async (email) => {
+  try {
+    const response = await api.post("/auth/forgot-password/request", { email });
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "OTP sent to email",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Failed to send OTP",
+    };
+  }
+};
+
+/* Forgot Password - Step 2: Verify OTP
+   POST /auth/forgot-password/verify
+   Body: { email, otp }
+*/
+export const verifyForgotPasswordOtp = async (email, otp) => {
+  try {
+    const response = await api.post("/auth/forgot-password/verify", {
+      email,
+      otp,
+    });
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "OTP verified",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "OTP verification failed",
+    };
+  }
+};
+
+/* Forgot Password - Step 3: Reset Password
+   POST /auth/forgot-password/reset
+   Body: { email, otp, newPassword }
+*/
+export const resetPassword = async (resetData) => {
+  try {
+    const response = await api.post("/auth/forgot-password/reset", resetData);
+    return {
+      success: true,
+      data: response.data,
+      message: response.data?.message || "Password reset successful",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || "Password reset failed",
+    };
+  }
+};
+
 /* ============================================
    SERVICE APIs
    ============================================ */

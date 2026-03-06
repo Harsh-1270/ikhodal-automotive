@@ -6,6 +6,8 @@ import com.ikhodalautomotive.appointment.dto.request.LoginRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.SignupRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.VerifyOtpRequestDTO;
 
+import com.ikhodalautomotive.appointment.dto.request.ResetPasswordRequestDTO;
+
 public interface AuthService {
 
     void signup(SignupRequestDTO request);
@@ -17,5 +19,11 @@ public interface AuthService {
     void logout(String email);
 
     Map<String, String> refreshAccessToken(String refreshToken);
+
+    void requestForgotPassword(String email);
+
+    void verifyForgotPasswordOtp(String email, String otp);
+
+    void resetPassword(ResetPasswordRequestDTO request);
 
 }

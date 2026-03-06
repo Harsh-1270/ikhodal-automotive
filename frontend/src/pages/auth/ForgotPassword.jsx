@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ForgotPassword.css";
+import {
+  forgotPasswordRequest,
+  verifyForgotPasswordOtp,
+  resetPassword,
+} from "../../services/api";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -249,11 +254,20 @@ const ForgotPassword = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setStep(2);
-      setCountdown(60);
-    }, 1200);
+    forgotPasswordRequest(email)
+      .then((res) => {
+        setLoading(false);
+        if (res.success) {
+          setStep(2);
+          setCountdown(60);
+        } else {
+          setError(res.message || "Failed to send OTP. Please try again.");
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setError("An unexpected error occurred. Please try again later.");
+      });
   };
 
   const handleOtpChange = (index, value) => {
@@ -280,16 +294,22 @@ const ForgotPassword = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      if (otpValue === "123456") {
-        setStep(3);
-      } else {
-        setError(
-          "Incorrect code. Please check the OTP and try again, or request a new one.",
-        );
-      }
-    }, 1200);
+    verifyForgotPasswordOtp(email, otpValue)
+      .then((res) => {
+        setLoading(false);
+        if (res.success) {
+          setStep(3);
+        } else {
+          setError(
+            res.message ||
+            "Incorrect code. Please check the OTP and try again.",
+          );
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setError("An unexpected error occurred. Please try again later.");
+      });
   };
 
   const handlePasswordReset = (e) => {
@@ -312,17 +332,40 @@ const ForgotPassword = () => {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setStep(4);
-    }, 1200);
+    resetPassword({ email, otp: otp.join(""), newPassword })
+      .then((res) => {
+        setLoading(false);
+        if (res.success) {
+          setStep(4);
+        } else {
+          setError(res.message || "Failed to reset password. Please try again.");
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setError("An unexpected error occurred. Please try again later.");
+      });
   };
 
   const handleResendOtp = () => {
     if (countdown > 0) return;
     setError("");
     setOtp(["", "", "", "", "", ""]);
-    setCountdown(60);
+
+    setLoading(true);
+    forgotPasswordRequest(email)
+      .then((res) => {
+        setLoading(false);
+        if (res.success) {
+          setCountdown(60);
+        } else {
+          setError(res.message || "Failed to resend OTP.");
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setError("An unexpected error occurred.");
+      });
   };
 
   const passwordRequirements = [

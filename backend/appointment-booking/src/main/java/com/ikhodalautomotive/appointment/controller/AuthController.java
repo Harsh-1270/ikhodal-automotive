@@ -3,6 +3,7 @@ package com.ikhodalautomotive.appointment.controller;
 import com.ikhodalautomotive.appointment.dto.request.LoginRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.SignupRequestDTO;
 import com.ikhodalautomotive.appointment.dto.request.VerifyOtpRequestDTO;
+import com.ikhodalautomotive.appointment.dto.request.ResetPasswordRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.AuthResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.ApiResponseDTO;
 import com.ikhodalautomotive.appointment.service.AuthService;
@@ -22,6 +23,30 @@ public class AuthController {
 
     public AuthController(AuthService authService) {
         this.authService = authService;
+    }
+
+    // POST : localhost:8082/api/auth/forgot-password/request
+    @PostMapping("/forgot-password/request")
+    public ResponseEntity<ApiResponseDTO> requestForgotPassword(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        authService.requestForgotPassword(email);
+        return ResponseEntity.ok(new ApiResponseDTO("OTP sent to email"));
+    }
+
+    // POST : localhost:8082/api/auth/forgot-password/verify
+    @PostMapping("/forgot-password/verify")
+    public ResponseEntity<ApiResponseDTO> verifyForgotPasswordOtp(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        String otp = body.get("otp");
+        authService.verifyForgotPasswordOtp(email, otp);
+        return ResponseEntity.ok(new ApiResponseDTO("OTP verified"));
+    }
+
+    // POST : localhost:8082/api/auth/forgot-password/reset
+    @PostMapping("/forgot-password/reset")
+    public ResponseEntity<ApiResponseDTO> resetPassword(@RequestBody ResetPasswordRequestDTO dto) {
+        authService.resetPassword(dto);
+        return ResponseEntity.ok(new ApiResponseDTO("Password reset successful"));
     }
 
     // POST : localhost:8082/api/auth/signup
