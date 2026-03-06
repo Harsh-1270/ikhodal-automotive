@@ -32,6 +32,9 @@ public class SecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers(
+                                                                "/api/auth/logout")
+                                                .authenticated()
+                                                .requestMatchers(
                                                                 "/api/auth/**")
                                                 .permitAll()
                                                 .requestMatchers("/api/payments/webhook").permitAll()

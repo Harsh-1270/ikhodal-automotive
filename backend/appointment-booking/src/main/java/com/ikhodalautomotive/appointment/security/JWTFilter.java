@@ -26,7 +26,9 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.startsWith("/api/auth/");
+        // Skip filtering for auth endpoints EXCEPT logout,
+        // because we need the token to identify WHO is logging out.
+        return path.startsWith("/api/auth/") && !path.endsWith("/logout");
     }
 
     @Override
@@ -48,15 +50,12 @@ public class JWTFilter extends OncePerRequestFilter {
                 String role = jwtUtil.extractRole(token); // MUST be ROLE_ADMIN / ROLE_USER
 
                 // THIS IS THE MOST IMPORTANT LINE
-                SimpleGrantedAuthority authority =
-                        new SimpleGrantedAuthority(role);
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                email,
-                                null,
-                                List.of(authority)
-                        );
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        email,
+                        null,
+                        List.of(authority));
 
                 authentication.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request));
