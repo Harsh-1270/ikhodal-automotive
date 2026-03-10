@@ -19,15 +19,15 @@ const Dashboard = () => {
        ========================================== */
   const Icons = {
     // Core Service Icons
-    Car: ({ className = "" }) => (
+    Car: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#carRedGrad)"
+        fill={`url(#carRedGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="carRedGrad"
+            id={`carRedGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -40,17 +40,17 @@ const Dashboard = () => {
         <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
       </svg>
     ),
-    Package: ({ className = "" }) => (
+    Package: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashBlueGradient)"
+        stroke={`url(#dashBlueGradient${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="dashBlueGradient"
+            id={`dashBlueGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -65,15 +65,15 @@ const Dashboard = () => {
         <line x1="12" y1="22.08" x2="12" y2="12" />
       </svg>
     ),
-    Tool: ({ className = "" }) => (
+    Tool: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashOrangeGradient)"
+        fill={`url(#dashOrangeGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashOrangeGradient"
+            id={`dashOrangeGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -86,17 +86,17 @@ const Dashboard = () => {
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
-    Magnifier: ({ className = "" }) => (
+    Magnifier: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashCyanGradient)"
+        stroke={`url(#dashCyanGradient${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="dashCyanGradient"
+            id={`dashCyanGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -111,15 +111,15 @@ const Dashboard = () => {
       </svg>
     ),
     // New Icons for Specific Services
-    Camera: ({ className = "" }) => (
+    Camera: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#cameraGrad)"
+        fill={`url(#cameraGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="cameraGrad"
+            id={`cameraGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -133,15 +133,15 @@ const Dashboard = () => {
         <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
       </svg>
     ),
-    Speaker: ({ className = "" }) => (
+    Speaker: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#speakerGrad)"
+        fill={`url(#speakerGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="speakerGrad"
+            id={`speakerGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -156,15 +156,15 @@ const Dashboard = () => {
         <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
       </svg>
     ),
-    Battery: ({ className = "" }) => (
+    Battery: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#batteryGrad)"
+        fill={`url(#batteryGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="batteryGrad"
+            id={`batteryGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -177,15 +177,15 @@ const Dashboard = () => {
         <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.34C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z" />
       </svg>
     ),
-    Snowflake: ({ className = "" }) => (
+    Snowflake: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#acGrad)"
+        fill={`url(#acGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="acGrad"
+            id={`acGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -198,17 +198,17 @@ const Dashboard = () => {
         <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z" />
       </svg>
     ),
-    Brakes: ({ className = "" }) => (
+    Brakes: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#brakesGrad)"
+        stroke={`url(#brakesGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="brakesGrad"
+            id={`brakesGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -223,15 +223,15 @@ const Dashboard = () => {
         <path d="M15 15l2 2M9 9l-2-2M15 9l2-2M9 15l-2 2" />
       </svg>
     ),
-    Engine: ({ className = "" }) => (
+    Engine: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#engineGrad)"
+        fill={`url(#engineGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="engineGrad"
+            id={`engineGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -245,17 +245,17 @@ const Dashboard = () => {
         <path d="M12 5l-4 10h8l-4-10z" />
       </svg>
     ),
-    ShieldCheck: ({ className = "" }) => (
+    ShieldCheck: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#shieldGrad)"
+        stroke={`url(#shieldGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="shieldGrad"
+            id={`shieldGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -269,15 +269,15 @@ const Dashboard = () => {
         <path d="m9 12 2 2 4-4" />
       </svg>
     ),
-    OilCan: ({ className = "" }) => (
+    OilCan: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#oilCanGrad)"
+        fill={`url(#oilCanGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="oilCanGrad"
+            id={`oilCanGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -290,17 +290,17 @@ const Dashboard = () => {
         <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5L12 2 8 9.5c-2 1.6-3 3.5-3 5.5a7 7 0 0 0 7 7z" />
       </svg>
     ),
-    Clipboard: ({ className = "" }) => (
+    Clipboard: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#clipboardGrad)"
+        stroke={`url(#clipboardGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="clipboardGrad"
+            id={`clipboardGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -315,17 +315,17 @@ const Dashboard = () => {
         <path d="M9 12h6M9 16h6" />
       </svg>
     ),
-    Cog: ({ className = "" }) => (
+    Cog: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#cogGrad)"
+        stroke={`url(#cogGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="cogGrad"
+            id={`cogGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -339,17 +339,17 @@ const Dashboard = () => {
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
     ),
-    Plug: ({ className = "" }) => (
+    Plug: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#plugGrad)"
+        stroke={`url(#plugGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="plugGrad"
+            id={`plugGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -362,15 +362,15 @@ const Dashboard = () => {
         <path d="M12 2v2M5 8v2a7 7 0 0 0 14 0V8M6 2v4M18 2v4M12 17v5" />
       </svg>
     ),
-    Zap: ({ className = "" }) => (
+    Zap: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashYellowGradient)"
+        fill={`url(#dashYellowGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashYellowGradient"
+            id={`dashYellowGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -383,15 +383,15 @@ const Dashboard = () => {
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
       </svg>
     ),
-    Bulb: ({ className = "" }) => (
+    Bulb: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashPurpleGradient)"
+        fill={`url(#dashPurpleGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashPurpleGradient"
+            id={`dashPurpleGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -404,15 +404,15 @@ const Dashboard = () => {
         <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
       </svg>
     ),
-    Wrench: ({ className = "" }) => (
+    Wrench: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#wrenchGrad)"
+        fill={`url(#wrenchGrad${uid})`}
       >
         <defs>
           <linearGradient
-            id="wrenchGrad"
+            id={`wrenchGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -425,17 +425,17 @@ const Dashboard = () => {
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
-    Steering: ({ className = "" }) => (
+    Steering: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#steeringGrad)"
+        stroke={`url(#steeringGrad${uid})`}
         strokeWidth="2"
       >
         <defs>
           <linearGradient
-            id="steeringGrad"
+            id={`steeringGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -521,15 +521,15 @@ const Dashboard = () => {
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
       </svg>
     ),
-    Rocket: ({ className = "" }) => (
+    Rocket: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashPurpleRocketGradient)"
+        fill={`url(#dashPurpleRocketGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashPurpleRocketGradient"
+            id={`dashPurpleRocketGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -542,15 +542,15 @@ const Dashboard = () => {
         <path d="M12 2c-4 0-8 .5-8 4 0 1.5.5 3 1 4l-1 4c0 .5.5 1 1 1h2v3c0 .5.5 1 1 1s1-.5 1-1v-3h4v3c0 .5.5 1 1 1s1-.5 1-1v-3h2c.5 0 1-.5 1-1l-1-4c.5-1 1-2.5 1-4 0-3.5-4-4-8-4zm0 2c2.4 0 4.7.3 5.7 1.3.3.3.3.6.3 1.2 0 1-.4 2.2-.8 3.2L16 12H8l-1.2-2.3c-.4-1-.8-2.2-.8-3.2 0-.6 0-.9.3-1.2C7.3 4.3 9.6 4 12 4z" />
       </svg>
     ),
-    Lightning: ({ className = "" }) => (
+    Lightning: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashYellowLightGradient)"
+        fill={`url(#dashYellowLightGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashYellowLightGradient"
+            id={`dashYellowLightGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -563,15 +563,15 @@ const Dashboard = () => {
         <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
       </svg>
     ),
-    Fire: ({ className = "" }) => (
+    Fire: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashRedFireGradient)"
+        fill={`url(#dashRedFireGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashRedFireGradient"
+            id={`dashRedFireGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -584,15 +584,15 @@ const Dashboard = () => {
         <path d="M13.5 0c-.8 2.5-1.5 5-2.8 6.5-1.3-2-2.5-4-4.2-6 0 0-2.5 4.5-2.5 9.5 0 5 4 9 9 9s9-4 9-9c0-4-2-7-3-8.5-.5 1.5-1.5 3-3 4-1-2.5-1.5-4-2.5-5.5z" />
       </svg>
     ),
-    Sparkles: ({ className = "" }) => (
+    Sparkles: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashGoldGradient)"
+        fill={`url(#dashGoldGradient${uid})`}
       >
         <defs>
           <linearGradient
-            id="dashGoldGradient"
+            id={`dashGoldGradient${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -679,17 +679,17 @@ const Dashboard = () => {
         <circle cx="12" cy="12" r="2" />
       </svg>
     ),
-    Diamond: ({ className = "" }) => (
+    Diamond: ({ className = "", uid = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#steeringGrad)"
+        stroke={`url(#diamondGrad${uid})`}
         strokeWidth="1.8"
       >
         <defs>
           <linearGradient
-            id="steeringGrad"
+            id={`diamondGrad${uid}`}
             x1="0%"
             y1="0%"
             x2="100%"
@@ -928,9 +928,9 @@ const Dashboard = () => {
   };
 
   // Icon mapping helper
-  const getIconComponent = (iconName) => {
+  const getIconComponent = (iconName, uid = "") => {
     const IconComponent = Icons[iconName] || Icons.Wrench;
-    return <IconComponent />;
+    return <IconComponent uid={uid} />;
   };
 
   const categories = [
@@ -1161,7 +1161,7 @@ const Dashboard = () => {
               .map((service) => (
                 <div key={service.id} className="popular-card">
                   <div className="popular-icon">
-                    {getIconComponent(service.icon)}
+                    {getIconComponent(service.icon, `pop-${service.id}`)}
                   </div>
                   <div className="popular-name">{service.name}</div>
                   <div className="popular-price">
@@ -1229,7 +1229,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="service-icon-large">
-                  {getIconComponent(service.icon)}
+                  {getIconComponent(service.icon, `svc-${service.id}`)}
                 </div>
 
                 <div className="service-content">
@@ -1385,8 +1385,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-
-
-
