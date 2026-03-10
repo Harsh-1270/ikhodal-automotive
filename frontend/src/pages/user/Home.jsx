@@ -692,7 +692,7 @@ const Home = () => {
                 handleSignIn();
                 setMobileMenuOpen(false);
               }}
-              className="mobile-menu-link-primary"
+              className="mobile-menu-link-secondary"
             >
               Sign In
             </button>

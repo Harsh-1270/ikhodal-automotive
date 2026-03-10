@@ -223,7 +223,7 @@
   display: inline-block;
   width: auto;
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  background: linear-gradient(135deg, #1e3a8a, #0f172a);
   border: none;
   text-align: center;
   font-size: 0.9375rem;
@@ -256,14 +256,30 @@
   left: 100%;
 }
 
-.mobile-menu-link-primary:first-of-type {
-  margin-top: 1rem;
-  background: linear-gradient(135deg, #0f172a, #1e3a8a);
-}
-
 .mobile-menu-link-primary:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+}
+
+.mobile-menu-link-secondary {
+  display: inline-block;
+  width: auto;
+  padding: 0.75rem 2rem;
+  background: none;
+  border: 2px solid #1e3a8a;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1rem 0.375rem 0.5rem 0.375rem;
+  border-radius: 12px;
+}
+
+.mobile-menu-link-secondary:hover {
+  background: rgba(30, 58, 138, 0.06);
+  transform: translateY(-2px);
 }
 
 .btn-signin {
