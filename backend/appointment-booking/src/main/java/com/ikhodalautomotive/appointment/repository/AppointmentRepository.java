@@ -20,4 +20,6 @@ public interface AppointmentRepository
         List<Appointment> findByStatusOrderByCreatedAtDesc(String status);
 
         long countByUserId(Long userId);
+
+        List<Appointment> findByUserId(Long userId);
 }

@@ -981,7 +981,7 @@ const AdminDashboard = () => {
           <div className="adm-stat-box blue">
             <div className="adm-stat-icon-circle blue">
               <span>
-                <Icons.Clipboard />
+                <Icons.Calendar />
               </span>
             </div>
             <div className="adm-stat-details">
@@ -993,7 +993,7 @@ const AdminDashboard = () => {
           <div className="adm-stat-box orange">
             <div className="adm-stat-icon-circle orange">
               <span>
-                <Icons.Hourglass />
+                <Icons.Clock />
               </span>
             </div>
             <div className="adm-stat-details">
@@ -1022,7 +1022,7 @@ const AdminDashboard = () => {
             onClick={() => setActiveFilter("all")}
           >
             <span className="adm-tab-icon">
-              <Icons.Clipboard />
+              <Icons.Calendar />
             </span>
             All Bookings
             <span className="adm-tab-count">{stats.total}</span>
@@ -1033,7 +1033,7 @@ const AdminDashboard = () => {
             onClick={() => setActiveFilter("pending")}
           >
             <span className="adm-tab-icon">
-              <Icons.Hourglass />
+              <Icons.Clock />
             </span>
             Pending
             <span className="adm-tab-count">{stats.pending}</span>
@@ -1166,16 +1166,16 @@ const AdminDashboard = () => {
                   <div className="adm-booking-actions">
                     {(booking.status === "pending" ||
                       booking.status === "confirmed") && (
-                      <button
-                        className="adm-action-btn complete"
-                        onClick={() => handleCompleteBooking(booking)}
-                      >
-                        <span>
-                          <Icons.Complete />
-                        </span>
-                        Mark Completed
-                      </button>
-                    )}
+                        <button
+                          className="adm-action-btn complete"
+                          onClick={() => handleCompleteBooking(booking)}
+                        >
+                          <span>
+                            <Icons.Complete />
+                          </span>
+                          Mark Completed
+                        </button>
+                      )}
                     <button
                       className="adm-action-btn danger"
                       onClick={() => handleDeleteBooking(booking)}

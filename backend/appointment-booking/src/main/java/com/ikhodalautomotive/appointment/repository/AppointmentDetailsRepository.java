@@ -11,4 +11,6 @@ public interface AppointmentDetailsRepository
         extends JpaRepository<AppointmentDetails, Long> {
 
     Optional<AppointmentDetails> findByAppointment(Appointment appointment);
+
+    void deleteByAppointmentIdIn(java.util.List<Long> appointmentIds);
 }

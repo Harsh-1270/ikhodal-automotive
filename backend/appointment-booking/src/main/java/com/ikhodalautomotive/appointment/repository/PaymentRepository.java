@@ -13,4 +13,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Optional<Payment> findByStripePaymentId(String stripePaymentId);
 
     java.util.List<Payment> findByAppointmentUserEmailOrderByPaymentTimeDesc(String email);
+
+    void deleteByAppointmentId(Long appointmentId);
+
+    void deleteByAppointmentIdIn(java.util.List<Long> appointmentIds);
 }

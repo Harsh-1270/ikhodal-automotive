@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
 @Repository
 public interface EmailOtpRepository extends JpaRepository<EmailOtpVerification, Long> {
     Optional<EmailOtpVerification> findByUserAndOtpCodeAndIsUsedFalse(User user, String otpCode);
+
+    void deleteByUserId(Long userId);
 }

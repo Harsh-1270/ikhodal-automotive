@@ -23,11 +23,11 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashRedGradient)"
+        fill="url(#carRedGrad)"
       >
         <defs>
           <linearGradient
-            id="dashRedGradient"
+            id="carRedGrad"
             x1="0%"
             y1="0%"
             x2="100%"
@@ -115,18 +115,42 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashPurpleRocketGradient)"
+        fill="url(#cameraGrad)"
       >
-        <rect x="2" y="6" width="20" height="14" rx="2" />
-        <circle cx="12" cy="13" r="4" />
+        <defs>
+          <linearGradient
+            id="cameraGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#6366f1" />
+          </linearGradient>
+        </defs>
+        <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z" />
+        <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
       </svg>
     ),
     Speaker: ({ className = "" }) => (
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashPurpleGradient)"
+        fill="url(#speakerGrad)"
       >
+        <defs>
+          <linearGradient
+            id="speakerGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#7e22ce" />
+          </linearGradient>
+        </defs>
         <path d="M12 2L6 8H2v8h4l6 6V2z" />
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
         <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
@@ -136,26 +160,11 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashYellowLightGradient)"
-      >
-        <rect x="1" y="6" width="18" height="12" rx="2" />
-        <path d="M23 13v-2" />
-        <path d="M5 10v4" />
-        <path d="M8 10v4" />
-        <path d="M14 9l-3 6" />
-      </svg>
-    ),
-    Snowflake: ({ className = "" }) => (
-      <svg
-        className={className}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="url(#dashGreenGradient)"
-        strokeWidth="2"
+        fill="url(#batteryGrad)"
       >
         <defs>
           <linearGradient
-            id="dashGreenGradient"
+            id="batteryGrad"
             x1="0%"
             y1="0%"
             x2="100%"
@@ -165,10 +174,28 @@ const Dashboard = () => {
             <stop offset="100%" stopColor="#15803d" />
           </linearGradient>
         </defs>
-        <line x1="12" y1="2" x2="12" y2="22" />
-        <line x1="20" y1="12" x2="4" y2="12" />
-        <line x1="17.66" y1="6.34" x2="6.34" y2="17.66" />
-        <line x1="17.66" y1="17.66" x2="6.34" y2="6.34" />
+        <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.34C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z" />
+      </svg>
+    ),
+    Snowflake: ({ className = "" }) => (
+      <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="url(#acGrad)"
+      >
+        <defs>
+          <linearGradient
+            id="acGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#0284c7" />
+          </linearGradient>
+        </defs>
+        <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z" />
       </svg>
     ),
     Brakes: ({ className = "" }) => (
@@ -176,9 +203,21 @@ const Dashboard = () => {
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashRedGradient)"
+        stroke="url(#brakesGrad)"
         strokeWidth="2"
       >
+        <defs>
+          <linearGradient
+            id="brakesGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#b91c1c" />
+          </linearGradient>
+        </defs>
         <circle cx="12" cy="12" r="9" />
         <path d="M12 7v10M7 12h10" />
         <path d="M15 15l2 2M9 9l-2-2M15 9l2-2M9 15l-2 2" />
@@ -188,8 +227,20 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashOrangeGradient)"
+        fill="url(#engineGrad)"
       >
+        <defs>
+          <linearGradient
+            id="engineGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#f97316" />
+            <stop offset="100%" stopColor="#c2410c" />
+          </linearGradient>
+        </defs>
         <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
         <path d="M12 5l-4 10h8l-4-10z" />
       </svg>
@@ -199,9 +250,21 @@ const Dashboard = () => {
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashGreenGradient)"
+        stroke="url(#shieldGrad)"
         strokeWidth="2"
       >
+        <defs>
+          <linearGradient
+            id="shieldGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#22c55e" />
+            <stop offset="100%" stopColor="#15803d" />
+          </linearGradient>
+        </defs>
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path d="m9 12 2 2 4-4" />
       </svg>
@@ -210,8 +273,20 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashBlueGradient)"
+        fill="url(#oilCanGrad)"
       >
+        <defs>
+          <linearGradient
+            id="oilCanGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#1d4ed8" />
+          </linearGradient>
+        </defs>
         <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5L12 2 8 9.5c-2 1.6-3 3.5-3 5.5a7 7 0 0 0 7 7z" />
       </svg>
     ),
@@ -220,9 +295,21 @@ const Dashboard = () => {
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashCyanGradient)"
+        stroke="url(#clipboardGrad)"
         strokeWidth="2"
       >
+        <defs>
+          <linearGradient
+            id="clipboardGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#0891b2" />
+          </linearGradient>
+        </defs>
         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
         <path d="M9 12h6M9 16h6" />
@@ -233,9 +320,21 @@ const Dashboard = () => {
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashOrangeGradient)"
+        stroke="url(#cogGrad)"
         strokeWidth="2"
       >
+        <defs>
+          <linearGradient
+            id="cogGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#f97316" />
+            <stop offset="100%" stopColor="#c2410c" />
+          </linearGradient>
+        </defs>
         <circle cx="12" cy="12" r="3" />
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
@@ -245,9 +344,21 @@ const Dashboard = () => {
         className={className}
         viewBox="0 0 24 24"
         fill="none"
-        stroke="url(#dashYellowGradient)"
+        stroke="url(#plugGrad)"
         strokeWidth="2"
       >
+        <defs>
+          <linearGradient
+            id="plugGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="100%" stopColor="#d97706" />
+          </linearGradient>
+        </defs>
         <path d="M12 2v2M5 8v2a7 7 0 0 0 14 0V8M6 2v4M18 2v4M12 17v5" />
       </svg>
     ),
@@ -297,8 +408,20 @@ const Dashboard = () => {
       <svg
         className={className}
         viewBox="0 0 24 24"
-        fill="url(#dashGreenGradient)"
+        fill="url(#wrenchGrad)"
       >
+        <defs>
+          <linearGradient
+            id="wrenchGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#22c55e" />
+            <stop offset="100%" stopColor="#15803d" />
+          </linearGradient>
+        </defs>
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
@@ -532,8 +655,30 @@ const Dashboard = () => {
       </svg>
     ),
     Diamond: ({ className = "" }) => (
-      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2L2 7l10 15L22 7 12 2zm0 3.84L18.93 9H5.07L12 5.84zM6.54 11h10.92L12 18.5 6.54 11z" />
+      <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="url(#steeringGrad)"
+        strokeWidth="1.8"
+      >
+        <defs>
+          <linearGradient
+            id="steeringGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#d97706" />
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="3" />
+        <line x1="12" y1="3" x2="12" y2="9" />
+        <line x1="3.7" y1="15.5" x2="9.3" y2="13" />
+        <line x1="20.3" y1="15.5" x2="14.7" y2="13" />
       </svg>
     ),
     Trophy: ({ className = "" }) => (

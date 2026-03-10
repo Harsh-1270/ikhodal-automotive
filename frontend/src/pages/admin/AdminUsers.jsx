@@ -653,15 +653,6 @@ const AdminUsers = () => {
                   {/* User Actions */}
                   <div className="adm-user-card-footer">
                     <button
-                      className="adm-user-action-btn view"
-                      onClick={() => navigate(`/admin/user/${user.id}`)}
-                    >
-                      <span>
-                        <Icons.Eye />
-                      </span>
-                      View Details
-                    </button>
-                    <button
                       className="adm-user-action-btn delete"
                       onClick={() => handleDeleteUser(user.id, user.name)}
                     >
