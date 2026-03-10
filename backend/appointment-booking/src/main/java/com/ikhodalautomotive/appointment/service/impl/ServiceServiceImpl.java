@@ -158,9 +158,9 @@ public class ServiceServiceImpl implements ServiceService {
 
                 // Prestige Steering Cover
                 createSeedService("Prestige HandStitch steering Cover",
-                                "Upgrade your driving experience with the Steering Mate Premium Leather Steering Cover. Crafted with high-quality leather and detailed hand stitching, it delivers a perfect balance of comfort, grip, and premium style.",
+                                "Premium leather steering cover with hand-stitched detailing for enhanced grip and style.",
                                 new java.math.BigDecimal("49.99"),
-                                "Diamond", "1 hour", "accessories", false, 4.9);
+                                "Steering", "1 hour", "accessories", false, 4.9);
         }
 
         private void createSeedService(String name, String description, java.math.BigDecimal price,

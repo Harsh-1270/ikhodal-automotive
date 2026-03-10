@@ -425,6 +425,31 @@ const Dashboard = () => {
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
+    Steering: ({ className = "" }) => (
+      <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="url(#steeringGrad)"
+        strokeWidth="2"
+      >
+        <defs>
+          <linearGradient
+            id="steeringGrad"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#1d4ed8" />
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3v9m0 0l-6.5 4M12 12l6.5 4" />
+        <circle cx="12" cy="12" r="2" fill="currentColor" />
+      </svg>
+    ),
 
     // UI Icons
     User: ({ className = "" }) => (
@@ -1360,3 +1385,8 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+
+
+
