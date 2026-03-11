@@ -227,92 +227,97 @@ const UserNavbar = ({ cartCount = 0 }) => {
     <nav className="dashboard-navbar">
       <div className="navbar-content">
         <div className="navbar-left">
-          <div className="logo" onClick={() => handleNavigation("/dashboard")}>
+          <div className="logo" onClick={() => user && handleNavigation("/dashboard")} style={!user ? { cursor: "default" } : {}}>
             <span className="logo-text">I Khodal Automotive</span>
           </div>
         </div>
 
         <div className="navbar-right">
-          {/* Desktop Nav Items */}
-          <button
-            className={`nav-icon-btn ${isActive("/dashboard") ? "active" : ""}`}
-            onClick={() => handleNavigation("/dashboard")}
-          >
-            <span className="icon">
-              <Icons.Home />
-            </span>
-            <span className="nav-label">Home</span>
-          </button>
+          {/* Only show nav links and profile when user is authenticated */}
+          {user && (
+            <>
+              {/* Desktop Nav Items */}
+              <button
+                className={`nav-icon-btn ${isActive("/dashboard") ? "active" : ""}`}
+                onClick={() => handleNavigation("/dashboard")}
+              >
+                <span className="icon">
+                  <Icons.Home />
+                </span>
+                <span className="nav-label">Home</span>
+              </button>
 
-          <button
-            className={`nav-icon-btn ${isActive("/cart") ? "active" : ""}`}
-            onClick={() => handleNavigation("/cart")}
-          >
-            <span className="icon">
-              <Icons.Cart />
-            </span>
-            <span className="nav-label">My Cart</span>
-          </button>
+              <button
+                className={`nav-icon-btn ${isActive("/cart") ? "active" : ""}`}
+                onClick={() => handleNavigation("/cart")}
+              >
+                <span className="icon">
+                  <Icons.Cart />
+                </span>
+                <span className="nav-label">My Cart</span>
+              </button>
 
-          <button
-            className={`nav-icon-btn ${isActive("/my-bookings") ? "active" : ""}`}
-            onClick={() => handleNavigation("/my-bookings")}
-          >
-            <span className="icon">
-              <Icons.Calendar />
-            </span>
-            <span className="nav-label">My Bookings</span>
-          </button>
+              <button
+                className={`nav-icon-btn ${isActive("/my-bookings") ? "active" : ""}`}
+                onClick={() => handleNavigation("/my-bookings")}
+              >
+                <span className="icon">
+                  <Icons.Calendar />
+                </span>
+                <span className="nav-label">My Bookings</span>
+              </button>
 
-          <button
-            className={`nav-icon-btn ${isActive("/payment") ? "active" : ""}`}
-            onClick={() => handleNavigation("/payment")}
-          >
-            <span className="icon">
-              <Icons.CreditCard />
-            </span>
-            <span className="nav-label">Payments</span>
-          </button>
+              <button
+                className={`nav-icon-btn ${isActive("/payment") ? "active" : ""}`}
+                onClick={() => handleNavigation("/payment")}
+              >
+                <span className="icon">
+                  <Icons.CreditCard />
+                </span>
+                <span className="nav-label">Payments</span>
+              </button>
 
-          {/* User Profile with Logout Dropdown */}
-          <div className="user-profile-wrapper" ref={dropdownRef}>
-            <div className="user-profile" onClick={toggleLogoutDropdown}>
-              <div className="user-avatar">{userInitial}</div>
-              <div className="user-info">
-                <div className="user-name">{displayName}</div>
-                <div className="user-email">{displayEmail}</div>
-              </div>
-              <span className="dropdown-arrow">
-                {showLogoutDropdown ? (
-                  <Icons.ChevronUp />
-                ) : (
-                  <Icons.ChevronDown />
-                )}
-              </span>
-            </div>
-
-            {/* Logout Dropdown */}
-            {showLogoutDropdown && (
-              <div className="logout-dropdown">
-                <button className="logout-dropdown-btn" onClick={handleLogout}>
-                  <span>
-                    <Icons.Logout />
+              {/* User Profile with Logout Dropdown */}
+              <div className="user-profile-wrapper" ref={dropdownRef}>
+                <div className="user-profile" onClick={toggleLogoutDropdown}>
+                  <div className="user-avatar">{userInitial}</div>
+                  <div className="user-info">
+                    <div className="user-name">{displayName}</div>
+                    <div className="user-email">{displayEmail}</div>
+                  </div>
+                  <span className="dropdown-arrow">
+                    {showLogoutDropdown ? (
+                      <Icons.ChevronUp />
+                    ) : (
+                      <Icons.ChevronDown />
+                    )}
                   </span>
-                  <span>Logout</span>
-                </button>
-              </div>
-            )}
-          </div>
+                </div>
 
-          {/* Mobile Menu Button */}
-          <button onClick={toggleMobileMenu} className="mobile-menu-btn">
-            {mobileMenuOpen ? <Icons.Close /> : <Icons.Menu />}
-          </button>
+                {/* Logout Dropdown */}
+                {showLogoutDropdown && (
+                  <div className="logout-dropdown">
+                    <button className="logout-dropdown-btn" onClick={handleLogout}>
+                      <span>
+                        <Icons.Logout />
+                      </span>
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button onClick={toggleMobileMenu} className="mobile-menu-btn">
+                {mobileMenuOpen ? <Icons.Close /> : <Icons.Menu />}
+              </button>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
+      {/* Mobile Menu Dropdown - only for authenticated users */}
+      {user && mobileMenuOpen && (
         <div className="mobile-menu active">
           {/* User Profile Section */}
           <div className="mobile-user-section">

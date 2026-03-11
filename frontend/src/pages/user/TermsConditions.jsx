@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import UserNavbar from "../../components/common/UserNavbar";
 import "./TermsConditions.css";
 
 const TermsConditions = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [expandedSections, setExpandedSections] = useState(new Set());
   const [visibleSections, setVisibleSections] = useState(new Set());
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
@@ -575,7 +577,12 @@ const TermsConditions = () => {
   useEffect(() => {
     const handlePopState = (e) => {
       e.preventDefault();
-      navigate("/dashboard", { replace: true });
+      // Redirect based on auth state
+      if (user) {
+        navigate("/dashboard", { replace: true });
+      } else {
+        navigate("/login", { replace: true });
+      }
     };
 
     window.history.pushState(null, "", window.location.href);
@@ -584,7 +591,7 @@ const TermsConditions = () => {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [navigate]);
+  }, [navigate, user]);
 
   return (
     <div className="terms-container">
