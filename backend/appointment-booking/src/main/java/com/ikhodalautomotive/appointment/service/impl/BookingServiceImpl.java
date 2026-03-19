@@ -26,6 +26,7 @@ import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
+import com.ikhodalautomotive.appointment.enums.PaymentStatus;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -284,6 +285,17 @@ public class BookingServiceImpl implements BookingService {
         public void deleteBooking(Long bookingId) {
                 Appointment appointment = appointmentRepository.findById(bookingId)
                                 .orElseThrow(() -> new ApiException("Booking not found"));
+
+                // Check for associated payment
+                var paymentOpt = paymentRepository.findByAppointmentId(bookingId);
+                if (paymentOpt.isPresent()) {
+                        var payment = paymentOpt.get();
+                        if (PaymentStatus.SUCCESS.equals(payment.getStatus())) {
+                                throw new ApiException("Booking cannot be deleted because the user has already done the payment.");
+                        }
+                        // If it exists but not SUCCESS (e.g. INITIATED/FAILED), delete it to avoid FK errors
+                        paymentRepository.delete(payment);
+                }
 
                 // Delete associated services first
                 List<AppointmentService> appServices = appointmentServiceRepository
