@@ -20,19 +20,20 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:check": "react-scripts build",
+    "build:check": "cross-env CI=true react-scripts build",
     "test": "echo \"Use npm run test:e2e\"",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
-    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --max-warnings=0",
-    "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "lint": "eslint src --ext .js,.jsx --max-warnings=0",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit",
+    "audit": "npm audit --audit-level=high",
     "deps:check": "npm outdated",
-    "quality:quick": "npm run lint && npm run type-check",
-    "quality:full": "npm run lint && npm run type-check && npm run build:check && npm run format:check"
+    "quality:quick": "npm run lint && npm run format:check",
+    "quality:fix": "npm run lint:fix && npm run format",
+    "quality:full": "npm run lint && npm run format:check && npm run build:check"
   },
   "eslintConfig": {
     "extends": [
@@ -54,9 +55,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
-    "@types/node": "^25.1.0",
+    "@types/node": "^18.19.130",
+    "cross-env": "^10.1.0",
     "eslint": "^8.57.1",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^4.9.5"
   }
 }

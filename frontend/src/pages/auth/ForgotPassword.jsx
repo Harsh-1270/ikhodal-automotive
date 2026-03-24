@@ -261,7 +261,10 @@ const ForgotPassword = () => {
           setStep(2);
           setCountdown(60);
         } else {
-          setError(res.message || "Failed to send OTP. Please try clicking 'Continue' again.");
+          setError(
+            res.message ||
+              "Failed to send OTP. Please try clicking 'Continue' again.",
+          );
         }
       })
       .catch(() => {
@@ -302,7 +305,7 @@ const ForgotPassword = () => {
         } else {
           setError(
             res.message ||
-            "Incorrect code. Please check the OTP and try again.",
+              "Incorrect code. Please check the OTP and try again.",
           );
         }
       })
@@ -338,7 +341,9 @@ const ForgotPassword = () => {
         if (res.success) {
           setStep(4);
         } else {
-          setError(res.message || "Failed to reset password. Please try again.");
+          setError(
+            res.message || "Failed to reset password. Please try again.",
+          );
         }
       })
       .catch(() => {
@@ -555,8 +560,17 @@ const ForgotPassword = () => {
                   ))}
                 </div>
 
-                <p className="input-hint" style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.875rem', color: '#6b7280' }}>
-                  If you don't see the email, please check your <strong>Spam/Junk folder</strong>.
+                <p
+                  className="input-hint"
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "1.5rem",
+                    fontSize: "0.875rem",
+                    color: "#6b7280",
+                  }}
+                >
+                  If you don't see the email, please check your{" "}
+                  <strong>Spam/Junk folder</strong>.
                   <br />
                   If a transmission error occurs, try clicking the button again.
                 </p>

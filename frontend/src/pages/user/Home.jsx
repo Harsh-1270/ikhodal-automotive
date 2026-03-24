@@ -595,7 +595,8 @@ const Home = () => {
       } else {
         setFormStatus({
           type: "error",
-          message: response.message || "Something went wrong. Please try again.",
+          message:
+            response.message || "Something went wrong. Please try again.",
         });
       }
     } catch (error) {
@@ -1117,7 +1118,7 @@ const Home = () => {
               <button onClick={() => scrollToSection("contact")}>
                 Contact
               </button>
-              <button className="footer-link-btn" onClick={() => { }}>
+              <button className="footer-link-btn" onClick={() => {}}>
                 FAQs
               </button>
               <button onClick={() => navigate("/terms")}>

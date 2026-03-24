@@ -1166,16 +1166,16 @@ const AdminDashboard = () => {
                   <div className="adm-booking-actions">
                     {(booking.status === "pending" ||
                       booking.status === "confirmed") && (
-                        <button
-                          className="adm-action-btn complete"
-                          onClick={() => handleCompleteBooking(booking)}
-                        >
-                          <span>
-                            <Icons.Complete />
-                          </span>
-                          Mark Completed
-                        </button>
-                      )}
+                      <button
+                        className="adm-action-btn complete"
+                        onClick={() => handleCompleteBooking(booking)}
+                      >
+                        <span>
+                          <Icons.Complete />
+                        </span>
+                        Mark Completed
+                      </button>
+                    )}
                     <button
                       className="adm-action-btn danger"
                       onClick={() => handleDeleteBooking(booking)}

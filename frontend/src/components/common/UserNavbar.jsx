@@ -227,7 +227,11 @@ const UserNavbar = ({ cartCount = 0 }) => {
     <nav className="dashboard-navbar">
       <div className="navbar-content">
         <div className="navbar-left">
-          <div className="logo" onClick={() => user && handleNavigation("/dashboard")} style={!user ? { cursor: "default" } : {}}>
+          <div
+            className="logo"
+            onClick={() => user && handleNavigation("/dashboard")}
+            style={!user ? { cursor: "default" } : {}}
+          >
             <span className="logo-text">I Khodal Automotive</span>
           </div>
         </div>
@@ -297,7 +301,10 @@ const UserNavbar = ({ cartCount = 0 }) => {
                 {/* Logout Dropdown */}
                 {showLogoutDropdown && (
                   <div className="logout-dropdown">
-                    <button className="logout-dropdown-btn" onClick={handleLogout}>
+                    <button
+                      className="logout-dropdown-btn"
+                      onClick={handleLogout}
+                    >
                       <span>
                         <Icons.Logout />
                       </span>

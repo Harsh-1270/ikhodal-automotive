@@ -44,17 +44,20 @@ body {
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(circle at 10% 20%,
+    radial-gradient(
+      circle at 10% 20%,
       rgba(30, 58, 138, 0.05) 0%,
-      transparent 50%),
-    radial-gradient(circle at 90% 80%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
       rgba(30, 58, 138, 0.03) 0%,
-      transparent 50%);
+      transparent 50%
+    );
   animation: registerBackgroundMove 20s ease-in-out infinite;
 }
 
 @keyframes registerBackgroundMove {
-
   0%,
   100% {
     transform: translate(0, 0);
@@ -113,9 +116,11 @@ body {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle,
-      rgba(59, 130, 246, 0.12) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.12) 0%,
+    transparent 70%
+  );
   animation: registerRotate 30s linear infinite;
 }
 
@@ -138,7 +143,6 @@ body {
 }
 
 @keyframes registerFloat {
-
   0%,
   100% {
     transform: translateY(0);
@@ -152,9 +156,11 @@ body {
 .icon-circle {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.15),
-      rgba(255, 255, 255, 0.08));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.08)
+  );
   border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
   display: flex;
@@ -328,7 +334,7 @@ body {
 }
 
 /* === FOCUS EFFECT === */
-.register-page .input-field:focus+.input-icon {
+.register-page .input-field:focus + .input-icon {
   color: #1e3a8a;
   transform: translateY(-50%) scale(1.1);
 }
@@ -628,7 +634,6 @@ body {
 }
 
 @media (max-width: 640px) {
-
   html,
   body {
     height: auto;

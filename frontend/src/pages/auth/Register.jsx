@@ -414,8 +414,16 @@ const Register = () => {
                         autoFocus
                       />
                     </div>
-                    <p className="input-hint" style={{ marginTop: '8px', fontSize: '12px', color: '#6b7280' }}>
-                      Didn't see the email? Please check your <strong>Spam or Junk</strong> folder.
+                    <p
+                      className="input-hint"
+                      style={{
+                        marginTop: "8px",
+                        fontSize: "12px",
+                        color: "#6b7280",
+                      }}
+                    >
+                      Didn't see the email? Please check your{" "}
+                      <strong>Spam or Junk</strong> folder.
                     </p>
                   </div>
 

@@ -205,9 +205,11 @@
   position: absolute;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
   top: -120px;
   right: -80px;
   border-radius: 50%;
@@ -220,9 +222,11 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.07) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 70%
+  );
   bottom: -90px;
   left: 25%;
   border-radius: 50%;
@@ -264,7 +268,6 @@
 }
 
 @keyframes wave {
-
   0%,
   100% {
     transform: rotate(0deg);
@@ -406,7 +409,7 @@
 }
 
 /* Overlapping stack with stagger offsets */
-.highlight-card+.highlight-card {
+.highlight-card + .highlight-card {
   margin-top: -10px;
 }
 
@@ -449,7 +452,6 @@
 }
 
 @keyframes hcFloat {
-
   0%,
   100% {
     transform: translateY(0);
@@ -612,7 +614,6 @@
 }
 
 @media (max-width: 768px) {
-
   .popular-services-section,
   .category-section,
   .services-section,
