@@ -998,7 +998,7 @@ const Home = () => {
                 </span>
                 <div>
                   <h4>Address</h4>
-                  <p>Surat, Gujarat, India</p>
+                  <p>Melbourne, Australia</p>
                 </div>
               </div>
 
@@ -1008,7 +1008,7 @@ const Home = () => {
                 </span>
                 <div>
                   <h4>Phone</h4>
-                  <p>+91 98765 43210</p>
+                  <p>+61 451 561 237</p>
                 </div>
               </div>
 
@@ -1018,7 +1018,7 @@ const Home = () => {
                 </span>
                 <div>
                   <h4>Email</h4>
-                  <p>service@ikhodalautomotive.com</p>
+                  <p>savaliyarelish@gmail.com</p>
                 </div>
               </div>
 
@@ -1028,7 +1028,7 @@ const Home = () => {
                 </span>
                 <div>
                   <h4>Working Hours</h4>
-                  <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
+                  <p>Mon - Fri: 9:00 AM - 8:00 PM</p>
                   <p>Sunday: Closed</p>
                 </div>
               </div>

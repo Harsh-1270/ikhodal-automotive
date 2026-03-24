@@ -1579,7 +1579,7 @@ textarea,
 
 .adm-toast-container {
   position: fixed;
-  top: 24px;
+  top: 110px;
   right: 24px;
   z-index: 10000;
   display: flex;
