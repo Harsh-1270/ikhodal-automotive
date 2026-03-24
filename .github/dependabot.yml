@@ -1,15 +1,14 @@
 version: 2
 updates:
-  # Frontend (React app)
+  # Frontend (working)
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
 
-  # Backend (Node/Express or similar)
-  - package-ecosystem: "npm"
-    directory: "/backend"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+  # Backend (ONLY if package.json exists)
+  # Uncomment ONLY if valid
+  # - package-ecosystem: "npm"
+  #   directory: "/backend"
+  #   schedule:
+  #     interval: "weekly"
