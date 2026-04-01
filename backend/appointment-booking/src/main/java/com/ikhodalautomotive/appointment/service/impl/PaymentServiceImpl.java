@@ -1,5 +1,7 @@
 package com.ikhodalautomotive.appointment.service.impl;
 
+import com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants;
+import com.ikhodalautomotive.appointment.dto.response.PaymentHistoryResponseDTO;
 import com.ikhodalautomotive.appointment.enums.PaymentStatus;
 import com.ikhodalautomotive.appointment.model.Appointment;
 import com.ikhodalautomotive.appointment.model.AppointmentService;
@@ -7,26 +9,34 @@ import com.ikhodalautomotive.appointment.model.Payment;
 import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
 import com.ikhodalautomotive.appointment.repository.AppointmentServiceRepository;
 import com.ikhodalautomotive.appointment.repository.PaymentRepository;
+import com.ikhodalautomotive.appointment.service.EmailService;
 import com.ikhodalautomotive.appointment.service.PaymentService;
+import com.stripe.model.Customer;
+import com.stripe.model.Invoice;
+import com.stripe.model.InvoiceItem;
 import com.stripe.model.PaymentIntent;
+import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.CustomerListParams;
+import com.stripe.param.InvoiceCreateParams;
+import com.stripe.param.InvoiceItemCreateParams;
+import com.stripe.param.InvoicePayParams;
 import com.stripe.param.PaymentIntentCreateParams;
-
-import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.PENDING;
-import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CONFIRMED;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.ikhodalautomotive.appointment.dto.response.PaymentHistoryResponseDTO;
-import com.ikhodalautomotive.appointment.model.Services;
+import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.PENDING;
+import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CONFIRMED;
 
 @Slf4j
 @Service
@@ -36,10 +46,10 @@ public class PaymentServiceImpl implements PaymentService {
     private final AppointmentRepository appointmentRepository;
     private final PaymentRepository paymentRepository;
     private final AppointmentServiceRepository appointmentServiceRepository;
+    private final EmailService emailService;
 
     @Override
     public void validatePaymentEligibility(Long appointmentId) {
-
         log.info("Validating payment eligibility for appointmentId={}", appointmentId);
 
         Appointment appointment = appointmentRepository.findById(appointmentId)
@@ -51,10 +61,8 @@ public class PaymentServiceImpl implements PaymentService {
         String status = appointment.getStatus();
 
         if (!PENDING.equals(status)) {
-            log.warn(
-                    "Payment attempted for non-PENDING appointment. appointmentId={}, status={}",
-                    appointmentId,
-                    status);
+            log.warn("Payment attempted for non-PENDING appointment. appointmentId={}, status={}",
+                    appointmentId, status);
             throw new IllegalStateException("Payment not allowed for this appointment status");
         }
 
@@ -68,7 +76,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public BigDecimal calculateAppointmentAmount(Long appointmentId) {
-
         log.info("Calculating total amount for appointmentId={}", appointmentId);
 
         BigDecimal total = appointmentServiceRepository
@@ -88,31 +95,26 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createPaymentIntent(Long appointmentId) {
-
         log.info("Starting PaymentIntent creation for appointmentId={}", appointmentId);
 
-        // 1. Validate eligibility
         validatePaymentEligibility(appointmentId);
-
-        // 2. Calculate amount
         BigDecimal amount = calculateAppointmentAmount(appointmentId);
-
-        // 3. Convert to cents (Stripe uses smallest currency unit)
         long amountInCents = amount.multiply(BigDecimal.valueOf(100)).longValueExact();
 
-        // 4. Get user email for receipt
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
         String userEmail = appointment.getUser().getEmail();
-
+        
         try {
+            Customer customer = getOrCreateStripeCustomer(userEmail, appointment.getUser().getName());
+
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                     .setAmount(amountInCents)
                     .setCurrency("aud")
+                    .setCustomer(customer.getId())
                     .setAutomaticPaymentMethods(
-                            PaymentIntentCreateParams.AutomaticPaymentMethods
-                                    .builder()
-                                    .setEnabled(true) // Apple Pay + Google Pay
+                            PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
+                                    .setEnabled(true)
                                     .build())
                     .setReceiptEmail(userEmail)
                     .setDescription("I Khodal Automotive - Booking #" + appointmentId)
@@ -121,10 +123,8 @@ public class PaymentServiceImpl implements PaymentService {
 
             PaymentIntent intent = PaymentIntent.create(params);
 
-            // 5. Save payment record
             Payment payment = Payment.builder()
-                    .appointment(
-                            appointmentRepository.getReferenceById(appointmentId))
+                    .appointment(appointmentRepository.getReferenceById(appointmentId))
                     .stripePaymentId(intent.getId())
                     .amount(amount)
                     .status(PaymentStatus.INITIATED)
@@ -155,14 +155,12 @@ public class PaymentServiceImpl implements PaymentService {
                     return new IllegalArgumentException("Payment not found for this appointment");
                 });
 
-        // Already confirmed — skip Stripe call
         if (payment.getStatus() == PaymentStatus.SUCCESS) {
             log.info("Payment already confirmed for appointmentId={}", appointmentId);
             return CONFIRMED;
         }
 
         try {
-            // Retrieve the PaymentIntent from Stripe API
             PaymentIntent intent = PaymentIntent.retrieve(payment.getStripePaymentId());
             String stripeStatus = intent.getStatus();
 
@@ -170,15 +168,7 @@ public class PaymentServiceImpl implements PaymentService {
                     stripeStatus, appointmentId, payment.getStripePaymentId());
 
             if ("succeeded".equals(stripeStatus)) {
-                // Update payment and appointment status
-                payment.setStatus(PaymentStatus.SUCCESS);
-                payment.setPaymentTime(LocalDateTime.now());
-                paymentRepository.save(payment);
-
-                Appointment appointment = payment.getAppointment();
-                appointment.setStatus(CONFIRMED);
-                appointmentRepository.save(appointment);
-
+                processSuccessfulPayment(payment, intent);
                 log.info("Payment verified and confirmed for appointmentId={}", appointmentId);
                 return CONFIRMED;
             } else {
@@ -194,10 +184,100 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
+    @Transactional
+    public void processSuccessfulPayment(Payment payment, PaymentIntent paymentIntent) {
+        if (payment.getStatus() == PaymentStatus.SUCCESS) {
+            log.info("Payment already marked as SUCCESS for appointmentId={}", payment.getAppointment().getId());
+            return;
+        }
+
+        log.info("Processing successful payment for appointmentId={}", payment.getAppointment().getId());
+
+        payment.setStatus(PaymentStatus.SUCCESS);
+        payment.setPaymentTime(LocalDateTime.now());
+        paymentRepository.save(payment);
+
+        Appointment appointment = payment.getAppointment();
+        appointment.setStatus(AppointmentStatusConstants.CONFIRMED);
+        appointmentRepository.save(appointment);
+
+        try {
+            byte[] invoicePdf = null;
+            String invoiceId = paymentIntent.getInvoice();
+
+            if (invoiceId == null) {
+                log.info("No automatic invoice found. Creating manual invoice for stripePaymentId={}", paymentIntent.getId());
+                invoiceId = createManualInvoice(paymentIntent);
+            }
+
+            if (invoiceId != null) {
+                payment.setStripeInvoiceId(invoiceId);
+                paymentRepository.save(payment);
+
+                log.info("Fetching Stripe invoice for invoiceId={}", invoiceId);
+                Invoice invoice = Invoice.retrieve(invoiceId);
+                String pdfUrl = invoice.getInvoicePdf();
+
+                if (pdfUrl != null) {
+                    invoicePdf = downloadFile(pdfUrl);
+                }
+            }
+
+            emailService.sendBookingConfirmationWithInvoice(appointment, invoicePdf);
+            log.info("Confirmation email sent for appointmentId={}", appointment.getId());
+
+        } catch (Exception e) {
+            log.error("Failed to send booking confirmation email or fetch invoice: {}", e.getMessage());
+        }
+    }
+
+    private String createManualInvoice(PaymentIntent paymentIntent) throws Exception {
+        String customerId = paymentIntent.getCustomer();
+        if (customerId == null) {
+            log.warn("Cannot create manual invoice: Customer ID is null on PaymentIntent");
+            return null;
+        }
+
+        InvoiceItemCreateParams itemParams = InvoiceItemCreateParams.builder()
+                .setCustomer(customerId)
+                .setAmount(paymentIntent.getAmount())
+                .setCurrency(paymentIntent.getCurrency())
+                .setDescription(paymentIntent.getDescription())
+                .build();
+        InvoiceItem.create(itemParams);
+
+        InvoiceCreateParams invoiceParams = InvoiceCreateParams.builder()
+                .setCustomer(customerId)
+                .setAutoAdvance(true)
+                .build();
+        Invoice invoice = Invoice.create(invoiceParams);
+
+        invoice = invoice.finalizeInvoice();
+
+        InvoicePayParams payParams = InvoicePayParams.builder()
+                .setPaidOutOfBand(true)
+                .build();
+        invoice = invoice.pay(payParams);
+
+        return invoice.getId();
+    }
+
+    private byte[] downloadFile(String urlString) throws Exception {
+        URL url = new URL(urlString);
+        try (InputStream in = url.openStream();
+             ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int n;
+            while ((n = in.read(buffer)) != -1) {
+                outStream.write(buffer, 0, n);
+            }
+            return outStream.toByteArray();
+        }
+    }
+
     @Override
     public List<PaymentHistoryResponseDTO> getPaymentHistory(String email) {
         log.info("Fetching payment history for email={}", email);
-
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
         return paymentRepository.findByAppointmentUserEmailOrderByPaymentTimeDesc(email).stream()
@@ -220,7 +300,7 @@ public class PaymentServiceImpl implements PaymentService {
                             .status(payment.getStatus().name())
                             .serviceName(serviceNames)
                             .serviceIcon(serviceIcon)
-                            .invoiceNumber("INV-" + payment.getId() + "-" + payment.getAppointment().getId())
+                            .invoiceNumber(payment.getStripeInvoiceId() != null ? payment.getStripeInvoiceId() : "INV-" + payment.getId() + "-" + payment.getAppointment().getId())
                             .paymentMethod("Card")
                             .time(payment.getPaymentTime() != null ? payment.getPaymentTime().format(timeFormatter)
                                     : "N/A")
@@ -229,4 +309,22 @@ public class PaymentServiceImpl implements PaymentService {
                 .collect(Collectors.toList());
     }
 
+    private Customer getOrCreateStripeCustomer(String email, String name) throws Exception {
+        CustomerListParams listParams = CustomerListParams.builder()
+                .setEmail(email)
+                .setLimit(1L)
+                .build();
+
+        List<Customer> customers = Customer.list(listParams).getData();
+        if (!customers.isEmpty()) {
+            return customers.get(0);
+        }
+
+        CustomerCreateParams createParams = CustomerCreateParams.builder()
+                .setEmail(email)
+                .setName(name)
+                .build();
+
+        return Customer.create(createParams);
+    }
 }

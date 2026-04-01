@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import UserNavbar from "../../components/common/UserNavbar";
-import { createBooking } from "../../services/api";
+import { createBooking, getLastVehicleDetails } from "../../services/api";
 import "./BookingForm.css";
 
 const BookingForm = () => {
@@ -40,6 +40,33 @@ const BookingForm = () => {
       window.removeEventListener("popstate", handlePopState);
     };
   }, [navigate]);
+
+  // AUTO-FILL: Fetch last vehicle/contact details on mount
+  useEffect(() => {
+    const fetchLastDetails = async () => {
+      try {
+        const response = await getLastVehicleDetails();
+        if (response.success && response.data) {
+          const d = response.data;
+          // Only auto-fill if the fields are currently empty
+          setFormData((prev) => ({
+            ...prev,
+            registrationNumber: prev.registrationNumber || d.registrationNumber || "",
+            make: prev.make || d.vehicleMake || "",
+            model: prev.model || d.vehicleModel || "",
+            year: prev.year || d.vehicleYear || "",
+            fullName: prev.fullName || d.fullName || "",
+            address: prev.address || d.address || "",
+            postcode: prev.postcode || d.postcode || "",
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to fetch auto-fill details:", err);
+      }
+    };
+
+    fetchLastDetails();
+  }, []);
 
   /* ==========================================
        SVG ICONS COMPONENT

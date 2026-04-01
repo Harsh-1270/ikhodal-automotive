@@ -7,6 +7,7 @@ import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
+import com.ikhodalautomotive.appointment.dto.response.VehicleDetailsResponseDTO;
 
 public interface BookingService {
 
@@ -28,4 +29,6 @@ public interface BookingService {
      * and cancels the associated Stripe PaymentIntent if one exists.
      */
     void cancelBooking(Long bookingId, String userEmail);
+
+    VehicleDetailsResponseDTO getLastVehicleDetails(String userEmail);
 }

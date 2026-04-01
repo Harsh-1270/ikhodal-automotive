@@ -11,6 +11,7 @@ import com.ikhodalautomotive.appointment.dto.request.CreateBookingRequestDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
+import com.ikhodalautomotive.appointment.dto.response.VehicleDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.service.BookingService;
 
 @RestController
@@ -72,4 +73,12 @@ public class BookingController {
         return ResponseEntity.noContent().build();
     }
 
+    // GET : localhost:8082/api/bookings/last-vehicle
+    @GetMapping("/bookings/last-vehicle")
+    public ResponseEntity<VehicleDetailsResponseDTO> getLastVehicleDetails(
+            Authentication authentication) {
+        String userEmail = authentication.getName();
+        return ResponseEntity.ok(
+                bookingService.getLastVehicleDetails(userEmail));
+    }
 }

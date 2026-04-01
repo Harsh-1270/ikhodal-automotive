@@ -35,6 +35,9 @@ public class Payment {
     @Column(nullable = false)
     private PaymentStatus status;
 
+    @Column(name = "stripe_invoice_id")
+    private String stripeInvoiceId;
+
     @Column(name = "payment_time")
     private LocalDateTime paymentTime;
 }

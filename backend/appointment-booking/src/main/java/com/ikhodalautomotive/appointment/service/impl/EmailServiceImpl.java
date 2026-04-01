@@ -2,13 +2,21 @@ package com.ikhodalautomotive.appointment.service.impl;
 
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.Attachment;
 import com.resend.services.emails.model.CreateEmailOptions;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import com.ikhodalautomotive.appointment.model.Appointment;
+import com.ikhodalautomotive.appointment.repository.AppointmentServiceRepository;
 import com.ikhodalautomotive.appointment.service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -20,8 +28,11 @@ public class EmailServiceImpl implements EmailService {
     @Value("${resend.from-email}")
     private String adminEmail;
 
-    public EmailServiceImpl(@Value("${resend.api-key}") String apiKey) {
+    private final AppointmentServiceRepository appointmentServiceRepository;
+
+    public EmailServiceImpl(@Value("${resend.api-key}") String apiKey, AppointmentServiceRepository appointmentServiceRepository) {
         this.resendClient = new Resend(apiKey);
+        this.appointmentServiceRepository = appointmentServiceRepository;
     }
 
     @Override
@@ -281,6 +292,126 @@ public class EmailServiceImpl implements EmailService {
                 """;
 
         sendEmail(adminEmail, "\uD83D\uDCE8 New Contact Message: " + subject, htmlContent, fromEmailAddr);
+    }
+
+    @Override
+    public void sendBookingConfirmationWithInvoice(Appointment appointment, byte[] invoicePdf) {
+        String serviceNames = appointmentServiceRepository.findByAppointment_Id(appointment.getId()).stream()
+                .map(as -> as.getService().getName())
+                .collect(Collectors.joining(", "));
+
+        String htmlContent = """
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }
+                        .container { max-width: 600px; background-color: #ffffff; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+                        .header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 40px 20px; text-align: center; color: #ffffff; }
+                        .header h1 { margin: 0; font-size: 28px; letter-spacing: -0.5px; }
+                        .content { padding: 40px; }
+                        .status-badge { display: inline-block; padding: 6px 12px; background-color: #dcfce7; color: #166534; border-radius: 9999px; font-size: 14px; font-weight: 600; margin-bottom: 24px; }
+                        .booking-details { background-color: #f8fafc; border-radius: 8px; padding: 24px; margin: 24px 0; border: 1px solid #e2e8f0; }
+                        .detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }
+                        .detail-label { color: #64748b; font-weight: 500; }
+                        .detail-value { color: #0f172a; font-weight: 600; }
+                        .vehicle-info { border-top: 1px solid #e2e8f0; margin-top: 20px; padding-top: 20px; }
+                        .footer { background-color: #f8fafc; padding: 30px; text-align: center; font-size: 13px; color: #94a3b8; border-top: 1px solid #e2e8f0; }
+                        .button { display: inline-block; padding: 12px 24px; background-color: #2563eb; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 20px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>Booking Confirmed!</h1>
+                            <p>Thank you for choosing I Khodal Automotive</p>
+                        </div>
+                        <div class="content">
+                            <div class="status-badge">Payment Successful</div>
+                            <p>Hi <strong>%s</strong>,</p>
+                            <p>Your appointment has been successfully scheduled and your payment has been processed. We've attached your official Stripe invoice to this email for your records.</p>
+                            
+                            <div class="booking-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Booking ID</span>
+                                    <span class="detail-value">#%d</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Date</span>
+                                    <span class="detail-value">%s</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Time</span>
+                                    <span class="detail-value">%s - %s</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Services</span>
+                                    <span class="detail-value">%s</span>
+                                </div>
+                                
+                                <div class="vehicle-info">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Vehicle</span>
+                                        <span class="detail-value">%s %s %s</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Registration</span>
+                                        <span class="detail-value">%s</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p>You can manage your booking details through your account dashboard.</p>
+                            <a href="https://ikhodalautomotive.com.au/login" class="button">Go to Dashboard</a>
+                        </div>
+                        <div class="footer">
+                            <p><strong>I Khodal Automotive</strong><br>Quality Service You Can Trust</p>
+                            <p>&copy; 2026 I Khodal Automotive. All rights reserved.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """.formatted(
+                appointment.getFullName(),
+                appointment.getId(),
+                appointment.getAppointmentDate().toString(),
+                appointment.getStartTime().toString(),
+                appointment.getEndTime().toString(),
+                serviceNames,
+                appointment.getVehicleYear(), appointment.getVehicleMake(), appointment.getVehicleModel(),
+                appointment.getRegistrationNumber()
+        );
+
+        // Send to User
+        sendEmailWithAttachment(appointment.getUser().getEmail(), "Booking Confirmation & Invoice - " + appointment.getId(), htmlContent, invoicePdf, "Invoice-" + appointment.getId() + ".pdf");
+        
+        // Send to Admin
+        sendEmailWithAttachment(adminEmail, "New Booking & Payment Received: #" + appointment.getId(), htmlContent, invoicePdf, "Invoice-" + appointment.getId() + ".pdf");
+    }
+
+    private void sendEmailWithAttachment(String toEmail, String subject, String htmlContent, byte[] attachmentBytes, String fileName) {
+        try {
+            CreateEmailOptions.Builder optionsBuilder = CreateEmailOptions.builder()
+                    .from(fromEmail)
+                    .to(toEmail)
+                    .subject(subject)
+                    .html(htmlContent);
+
+            if (attachmentBytes != null && attachmentBytes.length > 0) {
+                Attachment attachment = Attachment.builder()
+                        .fileName(fileName)
+                        .content(Base64.getEncoder().encodeToString(attachmentBytes))
+                        .build();
+                optionsBuilder.attachments(Collections.singletonList(attachment));
+            } else {
+                log.warn("No attachment content provided for email to {}. Sending without attachment.", toEmail);
+            }
+
+            resendClient.emails().send(optionsBuilder.build());
+
+        } catch (ResendException e) {
+            throw new RuntimeException("Failed to send email with attachment to " + toEmail, e);
+        }
     }
 
     /**

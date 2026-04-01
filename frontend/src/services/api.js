@@ -402,6 +402,25 @@ export const getBookingById = async (bookingId) => {
   }
 };
 
+/* Get Last Vehicle Details for Auto-fill
+   GET /bookings/last-vehicle
+*/
+export const getLastVehicleDetails = async () => {
+  try {
+    const response = await api.get("/bookings/last-vehicle");
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Failed to fetch last vehicle details",
+    };
+  }
+};
+
 /* Cancel Booking (user-facing)
    DELETE /bookings/:id/cancel
    Cancels a PENDING booking and its Stripe PaymentIntent.
@@ -1056,6 +1075,7 @@ const apiExports = {
   createBooking,
   getUserBookings,
   getBookingById,
+  getLastVehicleDetails,
 
   // Availability
   getAvailableSlots,

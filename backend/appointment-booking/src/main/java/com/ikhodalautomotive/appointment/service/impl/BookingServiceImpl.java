@@ -26,8 +26,11 @@ import com.ikhodalautomotive.appointment.dto.response.AdminBookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.BookingResponseDTO;
 import com.ikhodalautomotive.appointment.dto.response.MyBookingResponseDTO;
+import com.ikhodalautomotive.appointment.dto.response.VehicleDetailsResponseDTO;
 import com.ikhodalautomotive.appointment.enums.PaymentStatus;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class BookingServiceImpl implements BookingService {
 
@@ -354,4 +357,25 @@ public class BookingServiceImpl implements BookingService {
                 appointmentRepository.delete(appointment);
         }
 
+        @Override
+        public VehicleDetailsResponseDTO getLastVehicleDetails(String userEmail) {
+                log.info("Fetching last vehicle details for userEmail={}", userEmail);
+                List<Appointment> lastBookings = appointmentRepository.findByUserEmailOrderByCreatedAtDesc(userEmail);
+
+                if (lastBookings.isEmpty()) {
+                        log.info("No previous bookings found for userEmail={}", userEmail);
+                        return new VehicleDetailsResponseDTO();
+                }
+
+                Appointment last = lastBookings.get(0);
+                return VehicleDetailsResponseDTO.builder()
+                                .registrationNumber(last.getRegistrationNumber())
+                                .vehicleMake(last.getVehicleMake())
+                                .vehicleModel(last.getVehicleModel())
+                                .vehicleYear(last.getVehicleYear())
+                                .fullName(last.getFullName())
+                                .address(last.getAddress())
+                                .postcode(last.getPostcode())
+                                .build();
+        }
 }

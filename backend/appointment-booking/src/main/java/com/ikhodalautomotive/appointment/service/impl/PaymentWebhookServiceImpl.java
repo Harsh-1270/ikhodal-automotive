@@ -1,11 +1,8 @@
 package com.ikhodalautomotive.appointment.service.impl;
 
-import com.ikhodalautomotive.appointment.model.Appointment;
 import com.ikhodalautomotive.appointment.model.Payment;
-import com.ikhodalautomotive.appointment.repository.AppointmentRepository;
 import com.ikhodalautomotive.appointment.repository.PaymentRepository;
 import com.ikhodalautomotive.appointment.service.PaymentWebhookService;
-import com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants;
 import com.ikhodalautomotive.appointment.enums.PaymentStatus;
 import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
@@ -15,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -24,7 +20,7 @@ import java.util.Optional;
 public class PaymentWebhookServiceImpl implements PaymentWebhookService {
 
     private final PaymentRepository paymentRepository;
-    private final AppointmentRepository appointmentRepository;
+    private final PaymentServiceImpl paymentService;
 
     @Override
     @Transactional
@@ -56,27 +52,12 @@ public class PaymentWebhookServiceImpl implements PaymentWebhookService {
         switch (event.getType()) {
 
             case "payment_intent.succeeded" -> {
-                log.info("Payment succeeded for stripePaymentId={}", stripePaymentId);
-
-                if (payment.getStatus() == PaymentStatus.SUCCESS) {
-                    log.warn("Duplicate success webhook ignored for stripePaymentId={}", stripePaymentId);
-                    return;
-                }
-
-                payment.setStatus(PaymentStatus.SUCCESS);
-                payment.setPaymentTime(LocalDateTime.now());
-
-                Appointment appointment = payment.getAppointment();
-                appointment.setStatus(AppointmentStatusConstants.CONFIRMED);
-
-                paymentRepository.save(payment);
-                appointmentRepository.save(appointment);
-
-                log.info("Appointment confirmed. appointmentId={}", appointment.getId());
+                log.info("Payment succeeded via webhook for stripePaymentId={}", stripePaymentId);
+                paymentService.processSuccessfulPayment(payment, paymentIntent);
             }
 
             case "payment_intent.payment_failed" -> {
-                log.warn("Payment failed for stripePaymentId={}", stripePaymentId);
+                log.warn("Payment failed via webhook for stripePaymentId={}", stripePaymentId);
                 payment.setStatus(PaymentStatus.FAILED);
                 paymentRepository.save(payment);
             }

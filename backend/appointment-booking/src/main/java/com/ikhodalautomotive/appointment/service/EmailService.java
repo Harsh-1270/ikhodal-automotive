@@ -6,4 +6,6 @@ public interface EmailService {
     void sendForgotPasswordOtp(String toEmail, String otp);
 
     void sendContactMessageToAdmin(String name, String fromEmail, String subject, String message);
+    
+    void sendBookingConfirmationWithInvoice(com.ikhodalautomotive.appointment.model.Appointment appointment, byte[] invoicePdf);
 }
