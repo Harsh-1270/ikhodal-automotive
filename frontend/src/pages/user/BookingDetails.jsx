@@ -476,7 +476,7 @@ const BookingDetails = () => {
             specialInstructions: b.additionalComments || "",
             serviceCenter: "I Khodal Automotive Service Center",
             serviceCenterAddress: "Melbourne, VIC, Australia",
-            serviceCenterPhone: "+61 400 000 000",
+            serviceCenterPhone: "+61 451 561 237",
             technician: "To be assigned",
             technicianPhone: "—",
             estimatedDuration: "2 hours",
