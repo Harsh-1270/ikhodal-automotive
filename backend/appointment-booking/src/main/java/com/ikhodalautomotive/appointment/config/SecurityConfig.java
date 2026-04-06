@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/payments/webhook").permitAll()
                 .requestMatchers("/api/contact").permitAll()
                 .requestMatchers("/api/services/**").permitAll()
+                .requestMatchers("/api/availability/**").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
@@ -60,8 +61,10 @@ public class SecurityConfig {
                 "http://192.168.*.*:*",
                 "http://172.*.*.*:*",
                 "http://10.*.*.*:*",
-                "https://yourdomain.com",
-                "https://www.yourdomain.com"));
+                "https://ikhodalautomotive.com.au",
+                "https://www.ikhodalautomotive.com.au",
+                "https://ikhodalautomotive.com",
+                "https://www.ikhodalautomotive.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
         configuration.setAllowCredentials(true);

@@ -11,6 +11,7 @@ import com.ikhodalautomotive.appointment.repository.AppointmentServiceRepository
 import com.ikhodalautomotive.appointment.repository.PaymentRepository;
 import com.ikhodalautomotive.appointment.service.EmailService;
 import com.ikhodalautomotive.appointment.service.PaymentService;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.Invoice;
 import com.stripe.model.InvoiceItem;
@@ -205,29 +206,37 @@ public class PaymentServiceImpl implements PaymentService {
             byte[] invoicePdf = null;
             String invoiceId = paymentIntent.getInvoice();
 
-            if (invoiceId == null) {
-                log.info("No automatic invoice found. Creating manual invoice for stripePaymentId={}", paymentIntent.getId());
-                invoiceId = createManualInvoice(paymentIntent);
-            }
-
-            if (invoiceId != null) {
-                payment.setStripeInvoiceId(invoiceId);
-                paymentRepository.save(payment);
-
-                log.info("Fetching Stripe invoice for invoiceId={}", invoiceId);
-                Invoice invoice = Invoice.retrieve(invoiceId);
-                String pdfUrl = invoice.getInvoicePdf();
-
-                if (pdfUrl != null) {
-                    invoicePdf = downloadFile(pdfUrl);
+            // 1. Get or create invoice ID
+            try {
+                if (invoiceId == null) {
+                    log.info("No automatic invoice found. Creating manual invoice for stripePaymentId={}", paymentIntent.getId());
+                    invoiceId = createManualInvoice(paymentIntent);
                 }
+
+                if (invoiceId != null) {
+                    payment.setStripeInvoiceId(invoiceId);
+                    paymentRepository.save(payment);
+
+                    log.info("Fetching Stripe invoice for invoiceId={}", invoiceId);
+                    Invoice invoice = Invoice.retrieve(invoiceId);
+                    String pdfUrl = invoice.getInvoicePdf();
+
+                    if (pdfUrl != null) {
+                        invoicePdf = downloadFile(pdfUrl);
+                    }
+                }
+            } catch (Exception invEx) {
+                log.warn("Could not retrieve Stripe invoice PDF (email will still be sent): {}", invEx.getMessage());
+                // Non-blocking for email
             }
 
+            // 2. Send email (CRITICAL)
             emailService.sendBookingConfirmationWithInvoice(appointment, invoicePdf);
             log.info("Confirmation email sent for appointmentId={}", appointment.getId());
 
         } catch (Exception e) {
-            log.error("Failed to send booking confirmation email or fetch invoice: {}", e.getMessage());
+            log.error("CRITICAL ERROR in processSuccessfulPayment for appointmentId={}: {}", appointment.getId(), e.getMessage());
+            log.error("Stack trace: ", e);
         }
     }
 
@@ -252,12 +261,28 @@ public class PaymentServiceImpl implements PaymentService {
                 .build();
         Invoice invoice = Invoice.create(invoiceParams);
 
-        invoice = invoice.finalizeInvoice();
+        try {
+            invoice = invoice.finalizeInvoice();
+        } catch (StripeException e) {
+            if ("invoice_already_finalized".equals(e.getCode())) {
+                log.info("Invoice {} already finalized, skipping finalize step.", invoice.getId());
+            } else {
+                throw e;
+            }
+        }
 
-        InvoicePayParams payParams = InvoicePayParams.builder()
-                .setPaidOutOfBand(true)
-                .build();
-        invoice = invoice.pay(payParams);
+        try {
+            InvoicePayParams payParams = InvoicePayParams.builder()
+                    .setPaidOutOfBand(true)
+                    .build();
+            invoice = invoice.pay(payParams);
+        } catch (StripeException e) {
+            if ("invoice_already_paid".equals(e.getCode())) {
+                log.info("Invoice {} already paid, skipping pay step.", invoice.getId());
+            } else {
+                throw e;
+            }
+        }
 
         return invoice.getId();
     }

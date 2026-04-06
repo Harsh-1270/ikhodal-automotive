@@ -1019,7 +1019,7 @@ const Home = () => {
                 </span>
                 <div>
                   <h4>Email</h4>
-                  <p>savaliyarelish@gmail.com</p>
+                  <p>info@ikhodalautomotive.com</p>
                 </div>
               </div>
 

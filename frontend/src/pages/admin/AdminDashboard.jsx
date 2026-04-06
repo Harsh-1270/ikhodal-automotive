@@ -8,7 +8,6 @@ import AdminNavbar from "../../components/common/AdminNavbar";
 import {
   getAdminAppointments,
   updateAppointmentStatus,
-  deleteAppointment,
 } from "../../services/api";
 import "./AdminDashboard.css";
 
@@ -292,26 +291,6 @@ const AdminDashboard = () => {
         </defs>
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
         <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-    Trash: ({ className = "" }) => (
-      <svg
-        className={className}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="url(#adTrashGrad)"
-        strokeWidth="2"
-      >
-        <defs>
-          <linearGradient id="adTrashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ef4444" />
-            <stop offset="100%" stopColor="#dc2626" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"
-          strokeLinecap="round"
-        />
       </svg>
     ),
     Inbox: ({ className = "" }) => (
@@ -809,50 +788,6 @@ const AdminDashboard = () => {
   };
 
   /* ==========================================
-       HANDLE DELETE BOOKING
-       ========================================== */
-  const handleDeleteBooking = (booking) => {
-    showConfirm({
-      type: "danger",
-      title: "Delete Booking",
-      text: `Are you sure you want to delete this booking? This action cannot be undone.`,
-      details: [
-        { label: "Booking", value: booking.displayId },
-        { label: "Customer", value: booking.userName },
-        { label: "Service", value: booking.serviceName },
-      ],
-      confirmLabel: "Delete Booking",
-      onConfirm: async () => {
-        setConfirmModal(null);
-        try {
-          const response = await deleteAppointment(booking.id);
-          if (response.success) {
-            await fetchBookings();
-            showToast(
-              "success",
-              "Booking Deleted",
-              `Booking ${booking.displayId} has been deleted successfully.`,
-            );
-          } else {
-            showToast(
-              "error",
-              "Delete Failed",
-              `Failed to delete booking: ${response.message}`,
-            );
-          }
-        } catch (error) {
-          console.error("Error deleting booking:", error);
-          showToast(
-            "error",
-            "Error",
-            "An error occurred while deleting the booking.",
-          );
-        }
-      },
-    });
-  };
-
-  /* ==========================================
        FORMAT HELPERS
        ========================================== */
   const formatDate = (dateString) => {
@@ -1176,15 +1111,6 @@ const AdminDashboard = () => {
                         Mark Completed
                       </button>
                     )}
-                    <button
-                      className="adm-action-btn danger"
-                      onClick={() => handleDeleteBooking(booking)}
-                    >
-                      <span>
-                        <Icons.Trash />
-                      </span>
-                      Delete Booking
-                    </button>
                   </div>
                 </div>
               </div>
