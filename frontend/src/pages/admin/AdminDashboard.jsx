@@ -18,8 +18,10 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     total: 0,
-    pending: 0,
+    cancelled: 0,
+    confirmed: 0,
     completed: 0,
+    today: 0,
   });
   const [toasts, setToasts] = useState([]);
   const [confirmModal, setConfirmModal] = useState(null);
@@ -681,7 +683,7 @@ const AdminDashboard = () => {
           endTime: b.endTime,
           address: b.address || "—",
           totalAmount: Number(b.totalAmount) || 0,
-          status: (b.status || "PENDING").toLowerCase(),
+          status: (b.status || "CANCELLED").toLowerCase(),
           vehicleInfo:
             b.vehicleMake && b.vehicleModel
               ? `${b.vehicleMake} ${b.vehicleModel}`
@@ -706,10 +708,20 @@ const AdminDashboard = () => {
   /* ==========================================
        CALCULATE STATISTICS
        ========================================== */
+  // Helper to check if a date string (YYYY-MM-DD) is today
+  const isToday = (dateStr) => {
+    if (!dateStr) return false;
+    const today = new Date().toISOString().split("T")[0];
+    return dateStr === today;
+  };
+
   const calculateStats = (data) => {
     setStats({
       total: data.length,
-      pending: data.filter((b) => b.status === "pending").length,
+      today: data.filter((b) => isToday(b.date)).length,
+      cancelled: data.filter((b) => b.status === "cancelled" || b.status === "initiated")
+        .length,
+      confirmed: data.filter((b) => b.status === "confirmed").length,
       completed: data.filter((b) => b.status === "completed").length,
     });
   };
@@ -925,6 +937,18 @@ const AdminDashboard = () => {
             </div>
           </div>
 
+          <div className="adm-stat-box blue">
+            <div className="adm-stat-icon-circle blue">
+              <span>
+                <Icons.Ticket />
+              </span>
+            </div>
+            <div className="adm-stat-details">
+              <div className="adm-stat-value">{stats.confirmed}</div>
+              <div className="adm-stat-label">Confirmed</div>
+            </div>
+          </div>
+
           <div className="adm-stat-box orange">
             <div className="adm-stat-icon-circle orange">
               <span>
@@ -932,8 +956,8 @@ const AdminDashboard = () => {
               </span>
             </div>
             <div className="adm-stat-details">
-              <div className="adm-stat-value">{stats.pending}</div>
-              <div className="adm-stat-label">Pending</div>
+              <div className="adm-stat-value">{stats.cancelled}</div>
+              <div className="adm-stat-label">Cancelled</div>
             </div>
           </div>
 
@@ -964,14 +988,25 @@ const AdminDashboard = () => {
           </button>
 
           <button
-            className={`adm-filter-tab ${activeFilter === "pending" ? "active" : ""}`}
-            onClick={() => setActiveFilter("pending")}
+            className={`adm-filter-tab ${activeFilter === "confirmed" ? "active" : ""}`}
+            onClick={() => setActiveFilter("confirmed")}
+          >
+            <span className="adm-tab-icon">
+              <Icons.Ticket />
+            </span>
+            Confirmed
+            <span className="adm-tab-count">{stats.confirmed}</span>
+          </button>
+
+          <button
+            className={`adm-filter-tab ${activeFilter === "cancelled" ? "active" : ""}`}
+            onClick={() => setActiveFilter("cancelled")}
           >
             <span className="adm-tab-icon">
               <Icons.Clock />
             </span>
-            Pending
-            <span className="adm-tab-count">{stats.pending}</span>
+            Cancelled
+            <span className="adm-tab-count">{stats.cancelled}</span>
           </button>
 
           <button
@@ -1014,7 +1049,7 @@ const AdminDashboard = () => {
                       <Icons.Ticket /> {booking.displayId}
                     </span>
                     <span className={`adm-status-badge ${booking.status}`}>
-                      {booking.status === "pending" && (
+                      {booking.status === "cancelled" && (
                         <Icons.Hourglass className="adm-status-icon" />
                       )}
                       {booking.status === "completed" && (
@@ -1099,18 +1134,17 @@ const AdminDashboard = () => {
                   </div>
 
                   <div className="adm-booking-actions">
-                    {(booking.status === "pending" ||
-                      booking.status === "confirmed") && (
-                      <button
-                        className="adm-action-btn complete"
-                        onClick={() => handleCompleteBooking(booking)}
-                      >
-                        <span>
-                          <Icons.Complete />
-                        </span>
-                        Mark Completed
-                      </button>
-                    )}
+                    {booking.status === "confirmed" && (
+                        <button
+                          className="adm-action-btn complete"
+                          onClick={() => handleCompleteBooking(booking)}
+                        >
+                          <span>
+                            <Icons.Complete />
+                          </span>
+                          Mark Completed
+                        </button>
+                      )}
                   </div>
                 </div>
               </div>

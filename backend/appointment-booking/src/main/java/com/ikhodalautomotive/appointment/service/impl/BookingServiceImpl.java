@@ -80,7 +80,7 @@ public class BookingServiceImpl implements BookingService {
                 appointment.setAppointmentDate(request.getDate());
                 appointment.setStartTime(request.getStartTime());
                 appointment.setEndTime(request.getEndTime());
-                appointment.setStatus("PENDING");
+                appointment.setStatus("CANCELLED");
                 appointment.setCreatedAt(LocalDateTime.now());
 
                 // Vehicle information
@@ -143,6 +143,10 @@ public class BookingServiceImpl implements BookingService {
                                         String serviceIcon = appServices.isEmpty() ? "Wrench"
                                                         : appServices.get(0).getService().getIcon();
 
+                                        List<Long> serviceIds = appServices.stream()
+                                                        .map(as -> as.getService().getId())
+                                                        .collect(Collectors.toList());
+
                                         return new MyBookingResponseDTO(
                                                         a.getId(),
                                                         a.getAppointmentDate(),
@@ -155,7 +159,8 @@ public class BookingServiceImpl implements BookingService {
                                                         a.getVehicleMake(),
                                                         a.getVehicleModel(),
                                                         a.getFullName(),
-                                                        a.getAddress());
+                                                        a.getAddress(),
+                                                        serviceIds);
                                 })
                                 .collect(Collectors.toList());
         }
@@ -322,8 +327,8 @@ public class BookingServiceImpl implements BookingService {
                         throw new ApiException("You are not allowed to cancel this booking");
                 }
 
-                // 3. Only PENDING bookings can be cancelled
-                if (!"PENDING".equals(appointment.getStatus())) {
+                // 3. Only CANCELLED bookings can be cancelled
+                if (!"CANCELLED".equals(appointment.getStatus())) {
                         throw new ApiException("Only pending bookings can be cancelled");
                 }
 

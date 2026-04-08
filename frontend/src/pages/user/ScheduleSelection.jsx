@@ -217,11 +217,13 @@ const ScheduleSelection = () => {
 
   // Redirect to cart if accessed without state (e.g. direct URL or refresh)
   useEffect(() => {
+    console.log("ScheduleSelection received state:", location.state);
     if (
       !location.state ||
       !location.state.serviceIds ||
       location.state.serviceIds.length === 0
     ) {
+      console.warn("No serviceIds found in state, redirecting to cart");
       navigate("/cart", { replace: true });
     }
   }, [location.state, navigate]);

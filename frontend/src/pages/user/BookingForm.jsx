@@ -747,9 +747,18 @@ const BookingForm = () => {
               </h3>
 
               <div className="summary-details">
-                <div className="summary-row">
-                  <span className="label">Services</span>
-                  <span className="value">{cartSummary.items} items</span>
+                <div className="summary-row summary-row--services">
+                  <div className="summary-row-header">
+                    <span className="label">Services</span>
+                    <span className="value">{cartSummary.items} items</span>
+                  </div>
+                  <div className="service-tag-list">
+                    {cartItems.map((item, i) => (
+                      <span key={i} className="service-tag">
+                        {item.name || item.serviceName || "Service"}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 

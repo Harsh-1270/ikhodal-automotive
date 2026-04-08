@@ -518,6 +518,45 @@
   color: #10b981;
 }
 
+/* ---- Service Tags inside Order Summary ---- */
+.summary-row--services {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.summary-row-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.service-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  max-height: 110px;
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.35) transparent;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e3a8a;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */

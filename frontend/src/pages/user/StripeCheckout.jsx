@@ -843,7 +843,7 @@ const StripeCheckout = () => {
               <p>Setting up payment...</p>
             </div>
           ) : error ? (
-            <div>
+            <div className="checkout-error-state">
               <div className="payment-error">
                 <Icons.AlertCircle />
                 <span>{error}</span>

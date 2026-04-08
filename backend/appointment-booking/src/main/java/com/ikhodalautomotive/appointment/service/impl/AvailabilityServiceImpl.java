@@ -146,7 +146,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         List<Appointment> existingAppointments = appointmentRepository.findByAppointmentDateAndStatusIn(
                 date,
                 Arrays.asList(
-                        AppointmentStatusConstants.PENDING,
+                        AppointmentStatusConstants.CANCELLED,
                         AppointmentStatusConstants.CONFIRMED,
                         AppointmentStatusConstants.COMPLETED));
 

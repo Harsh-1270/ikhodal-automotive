@@ -458,7 +458,7 @@ const BookingDetails = () => {
             bookingDate: b.date,
             serviceDate: b.date,
             timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
-            status: (b.status || "PENDING").toLowerCase(),
+            status: (b.status || "CANCELLED").toLowerCase(),
             paymentStatus: b.paymentStatus || "N/A",
             paymentMethod: "Stripe",
             transactionId: b.stripePaymentId || "N/A",
@@ -589,13 +589,17 @@ const BookingDetails = () => {
           </div>
           <div className="header-right">
             <span className={`status-badge-large ${booking.status}`}>
-              {booking.status === "pending" ? (
+              {booking.status === "cancelled" ? (
                 <>
-                  <Icons.Clock /> Pending
+                  <Icons.Clock /> Cancelled
+                </>
+              ) : booking.status === "confirmed" ? (
+                <>
+                  <Icons.CheckCircle /> Confirmed
                 </>
               ) : (
                 <>
-                  <Icons.CheckCircle /> Completed
+                  <Icons.CheckCircle /> {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                 </>
               )}
             </span>
@@ -782,10 +786,10 @@ const BookingDetails = () => {
 
                 <div className="payment-status-section">
                   <div
-                    className={`payment-status-badge ${booking.paymentStatus === "SUCCESS" ? "paid" : "paid"}`}
+                    className={`payment-status-badge ${booking.paymentStatus === "SUCCESS" ? "paid" : booking.paymentStatus === "FAILED" ? "failed" : "initiated"}`}
                   >
                     <span className="status-icon">
-                      <Icons.Check />
+                      {booking.paymentStatus === "SUCCESS" ? <Icons.Check /> : <Icons.Clock />}
                     </span>
                     Payment{" "}
                     {booking.paymentStatus === "SUCCESS"
@@ -794,7 +798,7 @@ const BookingDetails = () => {
                         ? "Initiated"
                         : booking.paymentStatus === "FAILED"
                           ? "Failed"
-                          : "Verified"}
+                          : "Cancelled"}
                   </div>
                   <div className="payment-info-row">
                     <span className="payment-info-label">Method</span>

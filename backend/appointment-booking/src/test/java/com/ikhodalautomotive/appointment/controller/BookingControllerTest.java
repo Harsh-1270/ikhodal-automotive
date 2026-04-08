@@ -59,7 +59,7 @@ class BookingControllerTest {
 
         CreateBookingRequestDTO request = buildRequest();
 
-        BookingResponseDTO response = new BookingResponseDTO(1L, "PENDING", "Booking created successfully");
+        BookingResponseDTO response = new BookingResponseDTO(1L, "CANCELLED", "Booking created successfully");
 
         when(bookingService.createBooking(request, "user@test.com"))
                 .thenReturn(response);
@@ -69,7 +69,7 @@ class BookingControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("PENDING"))
+                .andExpect(jsonPath("$.status").value("CANCELLED"))
                 .andExpect(jsonPath("$.message").value("Booking created successfully"));
     }
 

@@ -451,6 +451,73 @@ const Dashboard = () => {
       </svg>
     ),
 
+    Car: ({ className = "", fill = "#f72222ff", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill={fill}>
+        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
+      </svg>
+    ),
+    Package: ({ className = "", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke={`url(#pkgGrad${uid})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <defs>
+          <linearGradient id={`pkgGrad${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#6d28d9" />
+          </linearGradient>
+        </defs>
+        <path d="M16.5 9.4 7.5 4.21" />
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" y1="22.08" x2="12" y2="12" />
+      </svg>
+    ),
+    Tool: ({ className = "", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke={`url(#toolGrad${uid})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <defs>
+          <linearGradient id={`toolGrad${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#b91c1c" />
+          </linearGradient>
+        </defs>
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </svg>
+    ),
+    Magnifier: ({ className = "", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke={`url(#magGrad${uid})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <defs>
+          <linearGradient id={`magGrad${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#0ea5e9" />
+          </linearGradient>
+        </defs>
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    ),
+    Bulb: ({ className = "", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke={`url(#bulbGrad${uid})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <defs>
+          <linearGradient id={`bulbGrad${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#a855f7" />
+          </linearGradient>
+        </defs>
+        <path d="M9 18h6" />
+        <path d="M10 22h4" />
+        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A6 6 0 1 0 7.5 11.5c.76.76 1.23 1.52 1.41 2.5z" />
+      </svg>
+    ),
+    Zap: ({ className = "", uid = "" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke={`url(#zapGrad${uid})`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <defs>
+          <linearGradient id={`zapGrad${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#ea580c" />
+          </linearGradient>
+        </defs>
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+
     // UI Icons
     User: ({ className = "" }) => (
       <svg

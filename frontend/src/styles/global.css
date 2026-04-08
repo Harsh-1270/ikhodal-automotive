@@ -402,7 +402,7 @@ button {
   border-radius: var(--radius-sm);
 }
 
-.badge-pending {
+.badge-cancelled {
   background-color: #fef3c7;
   color: #92400e;
 }

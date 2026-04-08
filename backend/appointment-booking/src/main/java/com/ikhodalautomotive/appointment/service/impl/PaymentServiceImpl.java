@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.PENDING;
+import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CANCELLED;
 import static com.ikhodalautomotive.appointment.constants.AppointmentStatusConstants.CONFIRMED;
 
 @Slf4j
@@ -61,8 +61,8 @@ public class PaymentServiceImpl implements PaymentService {
 
         String status = appointment.getStatus();
 
-        if (!PENDING.equals(status)) {
-            log.warn("Payment attempted for non-PENDING appointment. appointmentId={}, status={}",
+        if (!CANCELLED.equals(status)) {
+            log.warn("Payment attempted for non-CANCELLED appointment. appointmentId={}, status={}",
                     appointmentId, status);
             throw new IllegalStateException("Payment not allowed for this appointment status");
         }

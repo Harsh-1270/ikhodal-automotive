@@ -123,7 +123,7 @@
   text-transform: capitalize;
 }
 
-.status-badge-large.pending {
+.status-badge-large.cancelled {
   background: linear-gradient(135deg, #fef3c7, #fde68a);
   color: #92400e;
 }

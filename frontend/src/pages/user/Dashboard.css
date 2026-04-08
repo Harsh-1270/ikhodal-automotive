@@ -1685,20 +1685,21 @@ textarea,
   }
 
   .services-list .service-card-new {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.5rem;
+    grid-template-columns: 80px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
   }
 
   .services-list .service-icon-large {
     grid-column: 1;
-    width: 100%;
-    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    margin: 0;
   }
 
   .services-list .service-content {
-    grid-column: 1;
-    text-align: center;
+    grid-column: 2;
+    text-align: left;
   }
 
   .services-list .service-title {
@@ -1708,14 +1709,16 @@ textarea,
   .services-list .service-info-row {
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .services-list .service-actions {
-    grid-column: 1;
+    grid-column: 1 / -1;
     flex-direction: column;
     width: 100%;
+    margin-top: 0.5rem;
   }
+
 
   .services-list .add-cart-btn,
   .services-list .service-book-btn {

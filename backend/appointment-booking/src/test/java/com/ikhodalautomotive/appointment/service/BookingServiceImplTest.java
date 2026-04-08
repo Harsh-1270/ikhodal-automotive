@@ -126,7 +126,7 @@ class BookingServiceImplTest {
         BookingResponseDTO response = bookingService.createBooking(request, "user@test.com");
 
         assertNotNull(response);
-        assertEquals("PENDING", response.getStatus());
+        assertEquals("CANCELLED", response.getStatus());
 
         verify(appointmentRepository, times(1)).save(any(Appointment.class));
         verify(appointmentServiceRepository, times(2))

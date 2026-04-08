@@ -985,6 +985,25 @@
   }
 }
 
+/* ---- Checkout Error State ---- */
+.checkout-error-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 480px;
+  width: 100%;
+}
+
+.checkout-error-state .payment-error {
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
 /* ---- Processing Overlay ---- */
 .processing-overlay {
   position: fixed;

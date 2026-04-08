@@ -514,6 +514,7 @@ const MyBookings = () => {
   const bookingRefs = useRef([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Helper to format 24h time ("08:00:00") to 12h display ("08:00 AM")
   const formatTime = (timeStr) => {
@@ -540,8 +541,9 @@ const MyBookings = () => {
             bookingDate: b.date,
             serviceDate: b.date,
             timeSlot: `${formatTime(b.startTime)} - ${formatTime(b.endTime)}`,
-            status: (b.status || "PENDING").toLowerCase(),
-            paymentStatus: "paid",
+            status: (b.status || "CANCELLED").toLowerCase(),
+            paymentStatus: b.paymentStatus || "CANCELLED",
+            serviceIds: b.serviceIds || [],
             vehicleNumber:
               b.vehicleMake && b.vehicleModel
                 ? `${b.vehicleMake} ${b.vehicleModel}`
@@ -562,16 +564,16 @@ const MyBookings = () => {
   // Self-Healing Status Check: Verify pending bookings on load
   useEffect(() => {
     const verifyPending = async () => {
-      // Find bookings that are locally pending
-      const pendingBookings = bookings.filter((b) => b.status === "pending");
+      // Find bookings that are locally cancelled
+      const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
 
-      if (pendingBookings.length === 0) return;
+      if (cancelledBookings.length === 0) return;
 
       let updatesFound = false;
       const updatedBookings = [...bookings];
 
       await Promise.all(
-        pendingBookings.map(async (booking) => {
+        cancelledBookings.map(async (booking) => {
           try {
             // Call backend verification
             const response = await verifyPayment(booking.bookingId);
@@ -671,7 +673,7 @@ const MyBookings = () => {
   // Calculate statistics
   const stats = {
     total: bookings.length,
-    pending: bookings.filter((b) => b.status === "pending").length,
+    cancelled: bookings.filter((b) => b.status === "cancelled").length,
     confirmed: bookings.filter((b) => b.status === "confirmed").length,
     completed: bookings.filter((b) => b.status === "completed").length,
     totalSpent: bookings.reduce((sum, b) => sum + b.price, 0),
@@ -732,8 +734,8 @@ const MyBookings = () => {
               <Icons.Hourglass />
             </div>
             <div className="stat-details">
-              <div className="stat-value">{stats.pending}</div>
-              <div className="stat-label">Pending Services</div>
+              <div className="stat-value">{stats.cancelled}</div>
+              <div className="stat-label">Cancelled Services</div>
             </div>
           </div>
 
@@ -774,14 +776,14 @@ const MyBookings = () => {
           </button>
 
           <button
-            className={`filter-tab ${activeTab === "pending" ? "active" : ""}`}
-            onClick={() => setActiveTab("pending")}
+            className={`filter-tab ${activeTab === "cancelled" ? "active" : ""}`}
+            onClick={() => setActiveTab("cancelled")}
           >
             <span className="tab-icon">
               <Icons.Hourglass />
             </span>
-            Pending
-            <span className="tab-count">{stats.pending}</span>
+            Cancelled
+            <span className="tab-count">{stats.cancelled}</span>
           </button>
 
           <button
@@ -879,17 +881,17 @@ const MyBookings = () => {
                   <div className="booking-id-section">
                     <span className="booking-id">#{booking.id}</span>
                     <span className={`status-badge ${booking.status}`}>
-                      {booking.status === "pending" ? (
+                      {booking.status === "cancelled" ? (
                         <>
-                          <Icons.Hourglass color="#92400e" /> Pending
+                          <Icons.Hourglass color="#92400e" /> Cancelled
                         </>
                       ) : booking.status === "confirmed" ? (
                         <>
-                          <Icons.CheckCircle color="#065f46" /> Completed
+                          <Icons.CalendarCheck color="#1e3a8a" /> Confirmed
                         </>
                       ) : (
                         <>
-                          <Icons.CheckCircle color="#065f46" /> Completed
+                          <Icons.Clock color="#ca8a04" /> {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                         </>
                       )}
                     </span>
@@ -982,15 +984,32 @@ const MyBookings = () => {
                       View Details
                     </button>
                     {booking.status === "completed" && (
-                      <button className="action-btn primary">
+                      <button
+                        className="action-btn primary"
+                        onClick={() => {
+                          console.log("Booking data for Book Again:", booking);
+                          navigate("/schedule", {
+                            state: {
+                              serviceIds: booking.serviceIds,
+                              cartItems: [
+                                {
+                                  serviceId: booking.serviceIds?.[0],
+                                  name: booking.serviceName,
+                                  price: booking.price,
+                                },
+                              ],
+                            },
+                          });
+                        }}
+                      >
                         <span className="action-btn-icon">
                           <Icons.Refresh />
                         </span>
                         Book Again
                       </button>
                     )}
-                    {booking.status === "pending" && (
-                      <button className="action-btn primary">
+                    {booking.status === "cancelled" && (
+                      <button className="action-btn primary" onClick={() => setShowContactModal(true)}>
                         <span className="action-btn-icon">
                           <Icons.Phone />
                         </span>
@@ -1004,6 +1023,32 @@ const MyBookings = () => {
           )}
         </div>
       </div>
+      {showContactModal && (
+        <div className="contact-modal-overlay" onClick={() => setShowContactModal(false)}>
+          <div className="contact-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="contact-modal-close" onClick={() => setShowContactModal(false)}>
+              &times;
+            </button>
+            <h2 className="contact-modal-title">Contact Support</h2>
+            <p className="contact-modal-desc">
+              If you need assistance with your cancelled booking or payment issues, please reach out to us:
+            </p>
+            <div className="contact-modal-details">
+              <div className="contact-modal-item">
+                <span className="contact-modal-label">Email:</span>
+                <span className="contact-modal-value">info@ikhodalautomotive.com</span>
+              </div>
+              <div className="contact-modal-item">
+                <span className="contact-modal-label">Phone:</span>
+                <span className="contact-modal-value">+61 451 561 237</span>
+              </div>
+            </div>
+            <button className="contact-modal-btn" onClick={() => setShowContactModal(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

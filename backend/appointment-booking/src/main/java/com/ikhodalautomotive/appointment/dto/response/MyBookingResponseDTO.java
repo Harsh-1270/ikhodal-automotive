@@ -3,11 +3,14 @@ package com.ikhodalautomotive.appointment.dto.response;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class MyBookingResponseDTO {
 
@@ -25,4 +28,5 @@ public class MyBookingResponseDTO {
     private String vehicleModel;
     private String fullName;
     private String address;
+    private List<Long> serviceIds;
 }
