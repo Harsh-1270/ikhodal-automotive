@@ -35,17 +35,17 @@ public class EmailServiceImpl implements EmailService {
     private final AppointmentServiceRepository appointmentServiceRepository;
     private final UserRepository userRepository;
 
-    public EmailServiceImpl(@Value("${resend.api-key}") String apiKey, 
-                            AppointmentServiceRepository appointmentServiceRepository,
-                            UserRepository userRepository) {
+    public EmailServiceImpl(@Value("${resend.api-key}") String apiKey,
+            AppointmentServiceRepository appointmentServiceRepository,
+            UserRepository userRepository) {
         this.resendClient = new Resend(apiKey);
         this.appointmentServiceRepository = appointmentServiceRepository;
         this.userRepository = userRepository;
     }
 
     /**
-     * Returns the formatted "from" address with display name.
-     * Resend requires the format: "Display Name <email@domain.com>"
+     * Returns the formatted "from" address with display name. Resend requires
+     * the format: "Display Name <email@domain.com>"
      */
     private String getFromEmail() {
         return "I Khodal Automotive <" + fromEmailRaw + ">";
@@ -327,128 +327,60 @@ public class EmailServiceImpl implements EmailService {
 
         // Using string concatenation instead of String.formatted() because the CSS
         // hex color codes (e.g. #f1f5f9) contain '#' which conflicts with format flags.
-String htmlContent = "<!DOCTYPE html>"
-        + "<html lang='en'>"
-        + "<head>"
-        + "<meta charset='UTF-8'>"
-        + "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-        + "<title>Booking Confirmed</title>"
-        + "</head>"
-        + "<body style='margin:0;padding:0;background-color:#f1f5f9;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;'>"
-
-        // ── Outer wrapper
-        + "<table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color:#f1f5f9;padding:32px 16px;'>"
-        + "<tr><td align='center'>"
-
-        // ── Card
-        + "<table width='100%' cellpadding='0' cellspacing='0' border='0' style='max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);'>"
-
-        // ── HEADER BANNER
-        + "<tr>"
-        + "<td style='background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%);padding:40px 40px 32px;text-align:center;'>"
-        + "<div style='display:inline-block;background:rgba(255,255,255,0.15);border-radius:50%;width:64px;height:64px;line-height:64px;font-size:32px;margin-bottom:16px;'>&#10003;</div>"
-        + "<h1 style='margin:0 0 8px;color:#ffffff;font-size:28px;font-weight:700;letter-spacing:-0.5px;'>Booking Confirmed!</h1>"
-        + "<p style='margin:0;color:rgba(255,255,255,0.85);font-size:15px;'>Thank you for choosing I Khodal Automotive</p>"
-        + "</td>"
-        + "</tr>"
-
-        // ── STATUS PILL + GREETING
-        + "<tr>"
-        + "<td style='padding:32px 40px 0;'>"
-        + "<div style='display:inline-block;background-color:#dcfce7;color:#166534;font-size:13px;font-weight:700;padding:6px 16px;border-radius:9999px;letter-spacing:0.3px;margin-bottom:20px;'>&#10003;&nbsp; Payment Successful</div>"
-        + "<p style='margin:0 0 8px;color:#0f172a;font-size:17px;font-weight:600;'>Hi " + appointment.getFullName() + ",</p>"
-        + "<p style='margin:0 0 24px;color:#64748b;font-size:14px;line-height:1.7;'>Your appointment is confirmed and payment has been processed. Your invoice is attached to this email for your records.</p>"
-        + "</td>"
-        + "</tr>"
-
-        // ── BOOKING DETAILS CARD
-        + "<tr>"
-        + "<td style='padding:0 40px;'>"
-        + "<table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;'>"
-
-        // card heading
-        + "<tr><td colspan='2' style='background-color:#1e3a8a;padding:14px 20px;'>"
-        + "<span style='color:#ffffff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;'>&#128197;&nbsp; Appointment Details</span>"
-        + "</td></tr>"
-
-        // Booking ID
-        + "<tr style='border-bottom:1px solid #e2e8f0;'>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:40%;'>Booking ID</td>"
-        + "<td style='padding:14px 20px;color:#0f172a;font-size:14px;font-weight:700;'>#" + appointment.getId() + "</td>"
-        + "</tr>"
-
-        // Date
-        + "<tr style='border-bottom:1px solid #e2e8f0;background-color:#ffffff;'>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;'>Date</td>"
-        + "<td style='padding:14px 20px;color:#0f172a;font-size:14px;font-weight:600;'>" + appointment.getAppointmentDate().toString() + "</td>"
-        + "</tr>"
-
-        // Time
-        + "<tr style='border-bottom:1px solid #e2e8f0;'>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;'>Time</td>"
-        + "<td style='padding:14px 20px;color:#0f172a;font-size:14px;font-weight:600;'>" + appointment.getStartTime().toString() + " &ndash; " + appointment.getEndTime().toString() + "</td>"
-        + "</tr>"
-
-        // Services
-        + "<tr style='border-bottom:1px solid #e2e8f0;background-color:#ffffff;'>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;'>Services</td>"
-        + "<td style='padding:14px 20px;color:#1e3a8a;font-size:14px;font-weight:700;'>" + serviceNames + "</td>"
-        + "</tr>"
-
-        // divider row label
-        + "<tr><td colspan='2' style='padding:12px 20px 4px;background-color:#eff6ff;'>"
-        + "<span style='color:#3b82f6;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;'>&#128663;&nbsp; Vehicle Information</span>"
-        + "</td></tr>"
-
-        // Vehicle
-        + "<tr style='border-bottom:1px solid #e2e8f0;background-color:#ffffff;'>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;'>Vehicle</td>"
-        + "<td style='padding:14px 20px;color:#0f172a;font-size:14px;font-weight:600;'>" + appointment.getVehicleYear() + " " + appointment.getVehicleMake() + " " + appointment.getVehicleModel() + "</td>"
-        + "</tr>"
-
-        // Registration
-        + "<tr>"
-        + "<td style='padding:14px 20px;color:#64748b;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;'>Registration</td>"
-        + "<td style='padding:14px 20px;'><span style='background-color:#1e3a8a;color:#ffffff;font-size:13px;font-weight:700;padding:4px 12px;border-radius:6px;letter-spacing:1px;'>" + appointment.getRegistrationNumber() + "</span></td>"
-        + "</tr>"
-
-        + "</table>"
-        + "</td>"
-        + "</tr>"
-
-        // ── CTA BUTTON
-        + "<tr>"
-        + "<td style='padding:28px 40px 0;text-align:center;'>"
-        + "<a href='https://ikhodalautomotive.com/login' style='display:inline-block;background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 36px;border-radius:8px;letter-spacing:0.3px;'>View My Bookings &rarr;</a>"
-        + "</td>"
-        + "</tr>"
-
-        // ── HELP NOTE
-        + "<tr>"
-        + "<td style='padding:20px 40px 32px;text-align:center;'>"
-        + "<p style='margin:0;color:#94a3b8;font-size:13px;line-height:1.6;'>Questions? Reply to this email or visit our website.<br>We look forward to serving you!</p>"
-        + "</td>"
-        + "</tr>"
-
-        // ── FOOTER
-        + "<tr>"
-        + "<td style='background-color:#f8fafc;border-top:1px solid #e2e8f0;padding:24px 40px;text-align:center;'>"
-        + "<p style='margin:0 0 4px;color:#1e3a8a;font-size:14px;font-weight:700;'>I Khodal Automotive</p>"
-        + "<p style='margin:0 0 12px;color:#94a3b8;font-size:13px;'>Quality Service You Can Trust</p>"
-        + "<p style='margin:0;color:#cbd5e1;font-size:12px;'>&copy; 2026 I Khodal Automotive. All rights reserved.</p>"
-        + "</td>"
-        + "</tr>"
-
-        + "</table>"
-        + "</td></tr>"
-        + "</table>"
-        + "</body>"
-        + "</html>";
+        String htmlContent = "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<style>"
+                + "body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }"
+                + ".container { max-width: 600px; background-color: #ffffff; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }"
+                + ".header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 40px 20px; text-align: center; color: #ffffff; }"
+                + ".header h1 { margin: 0; font-size: 28px; letter-spacing: -0.5px; }"
+                + ".content { padding: 40px; }"
+                + ".status-badge { display: inline-block; padding: 6px 12px; background-color: #dcfce7; color: #166534; border-radius: 9999px; font-size: 14px; font-weight: 600; margin-bottom: 24px; }"
+                + ".booking-details { background-color: #f8fafc; border-radius: 8px; padding: 24px; margin: 24px 0; border: 1px solid #e2e8f0; }"
+                + ".detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }"
+                + ".detail-label { color: #64748b; font-weight: 500; }"
+                + ".detail-value { color: #0f172a; font-weight: 600; }"
+                + ".vehicle-info { border-top: 1px solid #e2e8f0; margin-top: 20px; padding-top: 20px; }"
+                + ".footer { background-color: #f8fafc; padding: 30px; text-align: center; font-size: 13px; color: #94a3b8; border-top: 1px solid #e2e8f0; }"
+                + ".button { display: inline-block; padding: 12px 24px; background-color: #2563eb; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; margin-top: 20px; }"
+                + "</style>"
+                + "</head>"
+                + "<body>"
+                + "<div class=\"container\">"
+                + "<div class=\"header\">"
+                + "<h1>Booking Confirmed!</h1>"
+                + "<p>Thank you for choosing I Khodal Automotive</p>"
+                + "</div>"
+                + "<div class=\"content\">"
+                + "<div class=\"status-badge\">Payment Successful</div>"
+                + "<p>Hi <strong>" + appointment.getFullName() + "</strong>,</p>"
+                + "<p>Your appointment has been successfully scheduled and your payment has been processed. We've attached your official Stripe invoice to this email for your records.</p>"
+                + "<div class=\"booking-details\">"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Booking ID</span><span class=\"detail-value\">#" + appointment.getId() + "</span></div>"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Date</span><span class=\"detail-value\">" + appointment.getAppointmentDate().toString() + "</span></div>"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Time</span><span class=\"detail-value\">" + appointment.getStartTime().toString() + " - " + appointment.getEndTime().toString() + "</span></div>"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Services</span><span class=\"detail-value\">" + serviceNames + "</span></div>"
+                + "<div class=\"vehicle-info\">"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Vehicle</span><span class=\"detail-value\">" + appointment.getVehicleYear() + " " + appointment.getVehicleMake() + " " + appointment.getVehicleModel() + "</span></div>"
+                + "<div class=\"detail-row\"><span class=\"detail-label\">Registration</span><span class=\"detail-value\">" + appointment.getRegistrationNumber() + "</span></div>"
+                + "</div>"
+                + "</div>"
+                + "<p>You can manage your booking details through your account dashboard.</p>"
+                + "<a href=\"https://ikhodalautomotive.com/login\" class=\"button\">Go to Dashboard</a>"
+                + "</div>"
+                + "<div class=\"footer\">"
+                + "<p><strong>I Khodal Automotive</strong><br>Quality Service You Can Trust</p>"
+                + "<p>&copy; 2026 I Khodal Automotive. All rights reserved.</p>"
+                + "</div>"
+                + "</div>"
+                + "</body>"
+                + "</html>";
 
         // Send to User
         log.info("Sending booking confirmation email to user: {}", appointment.getUser().getEmail());
         sendEmailWithAttachment(appointment.getUser().getEmail(), "Booking Confirmation & Invoice - " + appointment.getId(), htmlContent, invoicePdf, "Invoice-" + appointment.getId() + ".pdf");
-        
+
         // Send to Admin
         List<User> admins = userRepository.findByRole_Name("ADMIN");
         if (admins.isEmpty()) {
