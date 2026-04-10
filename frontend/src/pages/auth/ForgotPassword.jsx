@@ -192,6 +192,21 @@ const ForgotPassword = () => {
       return;
     }
 
+    if (!/[A-Z]/.test(newPassword)) {
+      setError("Password must contain at least one uppercase letter.");
+      return;
+    }
+
+    if (!/[a-z]/.test(newPassword)) {
+      setError("Password must contain at least one lowercase letter.");
+      return;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+      setError("Password must contain at least one special character.");
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       setError("The passwords you entered don't match. Please try again.");
       return;
@@ -240,7 +255,7 @@ const ForgotPassword = () => {
     { label: "At least 8 characters", valid: newPassword.length >= 8 },
     { label: "One uppercase letter", valid: /[A-Z]/.test(newPassword) },
     { label: "One lowercase letter", valid: /[a-z]/.test(newPassword) },
-    { label: "One number", valid: /[0-9]/.test(newPassword) },
+    { label: "One special character", valid: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword) },
     {
       label: "Passwords match",
       valid: confirmPassword && newPassword === confirmPassword,
@@ -385,6 +400,17 @@ const ForgotPassword = () => {
                       {showConfirmPassword ? <Icons.Eye /> : <Icons.EyeOff />}
                     </button>
                   </div>
+                </div>
+
+                <div className="password-requirements">
+                  {passwordRequirements.map((req, idx) => (
+                    <div key={idx} className={`requirement-item ${req.valid ? "valid" : ""}`}>
+                      <div className="requirement-icon">
+                        <Icons.Check />
+                      </div>
+                      <span>{req.label}</span>
+                    </div>
+                  ))}
                 </div>
 
                 <button onClick={handlePasswordReset} disabled={loading} className="primary-button" style={{ marginTop: '1.5rem' }}>
